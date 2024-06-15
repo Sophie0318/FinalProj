@@ -51,11 +51,14 @@ font-family:'Gensen', sans-serif;
 }
 
 .icons .member{
+    /* color:black; */
     margin-right: 10px;
     font-size: 21px;
 }
 
 .icons .cart{
+    /* color:black; */
+    margin-right: 10px;
     font-size: 21px;
 }
 
