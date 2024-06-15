@@ -1,0 +1,67 @@
+/* 字體設定 */
+@font-face {
+    font-family:'Gensen';
+    src: url('../fonts/GenSenRounded-B.ttc') format('truetype');
+}
+
+/* 總body設定 */
+body{
+    margin: 0;
+    padding: 0;
+}
+
+/* header設定開始*/
+
+.navbar{
+    margin: 10px 0px 0px 0px;
+    padding: 0px 10px 0px 10px;
+    /* background-color: aqua; */
+    display: flex;
+    /* align-items: center;  */
+    height: 65px; ;
+}
+/* logo與右邊間距 */
+.logo{
+    margin-right: 5px;
+}
+.logo_photo{
+    width: 150px;
+}
+.list {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.list li {
+margin-right: 20px; /* 可選 */
+font-family:'Gensen', sans-serif;
+}
+
+
+.icons {
+    display: flex;
+    list-style: none; /* 去掉 li 項的圓點 */
+    padding: 0; /* 去掉 ul 的內邊距 */
+    margin-left: auto; /* 將 icons 列表推到最右邊 */
+    align-items: end;
+    justify-content: center;
+    margin-top: 18px;
+}
+
+.icons .member{
+    margin-right: 10px;
+    font-size: 21px;
+}
+
+.icons .cart{
+    font-size: 21px;
+}
+
+/* header設定結束*/
+
+/* section開始 */
+.test{
+    background-color: pink;
+}
