@@ -23,11 +23,11 @@ body{
     /* background-color: aqua; */
     display: flex;
     /* align-items: center;  */
-    height: 65px; ;
+    height: 66px; ;
 }
 /* logo與右邊間距 */
 .logo{
-    margin-right: 5px;
+    margin-right: 21px;
 }
 .logo_photo{
     width: 150px;
@@ -42,6 +42,7 @@ body{
 .list li {
 margin-right: 20px; /* 可選 */
 font-family:'Gensen', sans-serif;
+font-size: 18px;
 }
 
 
