@@ -43,7 +43,9 @@ body{
 margin-right: 20px; /* 可選 */
 font-family:'Gensen', sans-serif;
 font-size: 18px;
+padding-top: 21px;
 }
+
 
 
 .icons {
@@ -53,7 +55,7 @@ font-size: 18px;
     margin-left: auto; /* 將 icons 列表推到最右邊 */
     align-items: end;
     justify-content: center;
-    margin-top: 18px;
+    padding-top: 39px;
 }
 
 .icons .member{
