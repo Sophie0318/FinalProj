@@ -5,11 +5,11 @@ import { IoPersonAdd, IoCart } from 'react-icons/io5'
 export default function Navbar() {
   return (
     <>
-      <header class="navbar">
-        <div class="logo">
+      <header className="navbar mb-4">
+        <div className="logo">
           <img src="/logo.png" alt="" className="logo_photo" />
         </div>
-        <ul class="list">
+        <ul className="list">
           <li>找場館</li>
           <li>找商城</li>
           <li>找課程</li>
@@ -18,17 +18,16 @@ export default function Navbar() {
           <li>找知識</li>
         </ul>
 
-        <ul class="icons">
+        <ul className="icons">
           <li>
-            <Link href="/">
+            <a href="#">
               <IoPersonAdd className="member" />
-              {/* <ion-icon name="person-add" class="member"></ion-icon> */}
-            </Link>
+            </a>
           </li>
           <li>
-            <Link href="/">
+            <a href="#">
               <IoCart className="cart" />
-            </Link>
+            </a>
           </li>
         </ul>
       </header>
