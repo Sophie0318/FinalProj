@@ -72,6 +72,38 @@ padding-top: 21px;
 
 /* header設定結束*/
 
+/* 副標題開始 */
+.intro{
+    background-color: #FFF7E9;
+    border-radius: 50px 50px 0 0 ;
+    height: 205px;
+    align-items: center; /* 垂直居中 /
+    justify-content: center; / 水平居中 */
+}
+.info{
+    gap: 15px;
+}
+.bread{
+    padding-top: 24px;
+    text-align: center;
+    font-size: 16px;
+    color: #1A394A;
+}
+.title{
+    padding-top: 15px;
+    text-align: center;
+    font-size: 32px;
+    color: #1A394A;
+    font-weight: bold;
+}
+.subTitle{
+    padding-top: 15px;
+    text-align: center;
+    font-size: 24px;
+    color: #1A394A;
+}
+/* 副標題結束 */
+
 /* section開始 */
 .test{
     background-color: pink;
