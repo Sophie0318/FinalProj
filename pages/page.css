@@ -18,7 +18,7 @@ body{
 /* header設定開始*/
 
 .navbar{
-    margin: 10px 0px 0px 0px;
+    margin: 10px 0px 25px 0px;
     padding: 0px 10px 0px 10px;
     /* background-color: aqua; */
     display: flex;
@@ -59,13 +59,13 @@ padding-top: 21px;
 }
 
 .icons .member{
-    /* color:black; */
+    color:black;
     margin-right: 10px;
     font-size: 21px;
 }
 
 .icons .cart{
-    /* color:black; */
+    color:black;
     margin-right: 10px;
     font-size: 21px;
 }
@@ -105,9 +105,37 @@ padding-top: 21px;
 /* 副標題結束 */
 
 /* section開始 */
-.test{
-    background-color: pink;
-    font-family: 'abc',sans-serif;
+.intro{
+    background-color: #FFF7E9;
+    border-radius: 50px 50px 0 0 ;
+    height: 205px;
+    align-items: center; /* 垂直居中 /
+    justify-content: center; / 水平居中 */
+}
+.info{
+    gap: 15px;
+}
+.bread{
+    padding-top: 24px;
+    text-align: center;
+    font-size: 16px;
+    color: #1A394A;
+    font-family: 'abc';
+}
+.title{
+    padding-top: 15px;
+    text-align: center;
+    font-size: 32px;
+    color: #1A394A;
+    font-weight: bold;
+    font-family: 'Gensen';
+}
+.subTitle{
+    padding-top: 15px;
+    text-align: center;
+    font-size: 24px;
+    color: #1A394A;
+    font-family: 'Gensen';
 }
     
 /* footer開始 */
