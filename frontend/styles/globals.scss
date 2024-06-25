@@ -18,24 +18,8 @@ $carousel-control-next-icon-bg: linear-gradient(black, black);
 @import '~bootstrap/scss/bootstrap';
 // ↓↓↓  其它客製樣式要寫在這行的"下面" ↓↓↓
 
-// 輪播覆蓋, 其他客製樣式
-.carousel-control-prev, .carousel-control-next{
-  width: fit-content;
-  height: fit-content;
-  top: 50%; // TODO: maybe use cal() to dynamically change top position
-  transform: translateY(-50%);
-}
-.carousel-control-prev-icon, .carousel-control-next-icon {
-  padding: 0 9px;
-  height: 48px;
-  width: 48px;
-  border-radius: 50%;
-}
-.carousel-item {
-  width: fit-content;
-}
 
-// ↓↓↓  這下面是全域的 CSS 樣式 ↓↓↓
+// ↓↓↓  這下面是全域的 CSS 樣式, 包含共用的樣式跟要洗掉的樣式 ↓↓↓
 :root {
   --color-midnight-green: #1a394a;
   --color-old-lace: #fff7e9;
@@ -148,6 +132,10 @@ ul, ol {
   padding: 0;
 }
 
+.btn {
+  border: 0;
+}
+
 // 頁面內容很少時讓footer 黏在下面的設定, 搭配 body height 100vh + footer margin-top auto
 #__next{
   display: flex;
@@ -237,31 +225,36 @@ p, .p-font{
   padding: 0 120px;
 }
 
-.btn-lg {
-  letter-spacing: 6.72px;
-  padding: 24px 101px;
-}
-
 // index css
 .hero {
   padding: 56px 0;
 }
+
+.hero .row {
+  position: relative;
+
+}
+
 .hero h1 {
   margin-bottom: 100px;
 }
 
 .hero-text {
   height: 562px;
+  max-width: 640px;
 }
 
 .hero-image {
-  position: relative;
-}
-
-.hero-image img {
   position: absolute;
   top: -30px;
   right: 0;
+  max-width: 676px;
+  width: 70%;
+}
+
+.hero-image img {
+  width: 100%;
+  height: auto;
 }
 
 .cta-1 {
@@ -343,6 +336,7 @@ p, .p-font{
 }
 
 .join-member-card {
+  max-width: 724px;
   padding: 55px 70px;
   border-radius: 50px;
 }
@@ -504,3 +498,85 @@ footer .icon-lg {
   font-size: 16px;
 }
 /* footer結束 */
+
+// 暫存, 之後需要整理的
+.btn-lg { // 已經放到 components/common/button
+  letter-spacing: 6.72px;
+  padding: 24px 101px;
+}
+
+// 輪播覆蓋, 其他客製樣式
+.carousel-control-prev, .carousel-control-next{
+  width: fit-content;
+  height: fit-content;
+  top: 50%; // TODO: maybe use cal() to dynamically change top position
+  transform: translateY(-50%);
+}
+.carousel-control-prev-icon, .carousel-control-next-icon {
+  padding: 0 9px;
+  height: 48px;
+  width: 48px;
+  border-radius: 50%;
+}
+.carousel-item {
+  width: fit-content;
+}
+
+
+// 手機板 576以下
+@media (max-width: 576px) {
+  h1, .h1-font {
+    font-family: 'Gensen', sans-serif;
+    font-size: 48px;
+    font-weight: 900;
+    line-height: 150%;
+  }
+  
+  h2, .h2-font {
+    font-family: 'Gensen', sans-serif;
+    font-size: 36px;
+    font-weight: 700;
+  }
+  
+  h3, .h3-font {
+    font-family: 'Gensen', sans-serif;
+    font-size: 30px;
+    font-weight: 700;
+    letter-spacing: 6px;
+  }
+  
+  h4, .h4-font {
+    font-family: 'Gensen', sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: 2.4px;
+  }
+  
+  h5, .h5-font{
+    font-family: 'Gensen', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: 2px;
+  }
+  
+  h6, .h6-font{
+    font-family: 'Gensen', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 3px;
+  }
+  
+// p 手機板沒有變
+  
+  .small-font{
+    font-size: 16px;
+    letter-spacing: 1.6px;
+    line-height: 130%;
+  }
+  
+  .number-font {
+    font-family: 'Otomanopee', sans-serif;
+    font-size: 20px;
+    letter-spacing: 1px;
+  }
+}

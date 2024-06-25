@@ -2,6 +2,9 @@ import Head from 'next/head'
 import Layout1 from '@/components/layout/layout1'
 import Carousel from '@/components/carousel'
 import Link from 'next/link'
+import { BtnLg } from '@/components/common/buttons/'
+
+// TODO: 問牙牙條RWD的時候滿版兩旁要留多少margin ex. 卡片輪播
 
 export default function Home() {
   return (
@@ -18,7 +21,7 @@ export default function Home() {
             <div className="hero">
               <div className="container fixed-960 p-0">
                 <div className="row g-0">
-                  <div className="col-lg-8 hero-text">
+                  <div className="col-md-8 hero-text">
                     <h1 className="text-primary pe-1">
                       愛默生曾經說過健康是人生第一財富。
                     </h1>
@@ -26,7 +29,7 @@ export default function Home() {
                       <h3>{`[ Start ]`}</h3>
                     </Link>
                   </div>
-                  <div className="col-lg-4 hero-image">
+                  <div className="hero-image">
                     <img src="/hero-img.png" />
                   </div>
                 </div>
@@ -36,19 +39,17 @@ export default function Home() {
             <div className="cta-1 bg-secondary">
               <div className="container fixed-960 p-0">
                 <div className="row g-0 justify-content-between">
-                  <div className="col-lg-4 cta-1-img">
+                  <div className="col-md-4 cta-1-img">
                     <img src="/marisa-howenstine-nFsOlSE9Mn8-unsplash.jpg" />
                   </div>
-                  <div className="col-lg-7">
+                  <div className="col-md-7">
                     <h3>活力無限，擁抱健康</h3>
                     <p>
                       運動是保持健康的關鍵，活力啟點幫您找到最佳運動場所。立即搜尋，讓健康和活力成為生活常態！
                       <br />
                       讓我們活到老，動到老！
                     </p>
-                    <button className="btn btn-lg btn-primary text-white h4-font rounded-pill">
-                      找場館
-                    </button>
+                    <BtnLg>找場館</BtnLg>
                   </div>
                 </div>
               </div>
@@ -60,7 +61,7 @@ export default function Home() {
               <div className="container-fluid">
                 <h3>你是不是有這些困擾呢？</h3>
                 <div className="row cta-2-cards justify-content-center align-items-center m-0">
-                  <div className="cta-knee col-lg-4 d-flex flex-column justify-content-center align-items-center bg-secondary">
+                  <div className="cta-knee col-md-4 d-flex flex-column justify-content-center align-items-center bg-secondary">
                     <h4 className="num-title">
                       {'['}01{']'}
                     </h4>
@@ -70,7 +71,7 @@ export default function Home() {
                       膝蓋痛是否讓你很困擾？為何不試著透過運動來緩解呢？快加入我們吧！
                     </p>
                   </div>
-                  <div className="cta-bored col-lg-4 d-flex flex-column justify-content-center align-items-center">
+                  <div className="cta-bored col-md-4 d-flex flex-column justify-content-center align-items-center">
                     <h4 className="num-title">
                       {'['}02{']'}
                     </h4>
@@ -80,7 +81,7 @@ export default function Home() {
                       運動是改善心情的最佳良方！從今天開始，每天花點時間運動，讓身心都煥然一新。
                     </p>
                   </div>
-                  <div className="cta-sleepy col-lg-4 d-flex flex-column justify-content-center align-items-center bg-secondary">
+                  <div className="cta-sleepy col-md-4 d-flex flex-column justify-content-center align-items-center bg-secondary">
                     <h4 className="num-title">
                       {'['}03{']'}
                     </h4>
@@ -93,62 +94,46 @@ export default function Home() {
                 </div>
                 <div className="row">
                   <div className="col d-flex justify-content-center">
-                    <button className="btn btn-lg btn-primary text-white h4-font rounded-pill">
-                      找解答
-                    </button>
+                    <BtnLg>找解答</BtnLg>
                   </div>
                 </div>
               </div>
             </section>
 
             <section className="popular lessons">
-              <div className="row">
-                <Carousel carouselTitle="熱門課程" />
-              </div>
+              <Carousel carouselTitle="熱門課程" />
               <div className="row">
                 <div className="col d-flex justify-content-center">
-                  <button className="btn btn-lg btn-primary text-white h4-font rounded-pill">
-                    找課程
-                  </button>
+                  <BtnLg>找課程</BtnLg>
                 </div>
               </div>
             </section>
 
             <section className="popular coaches">
-              <div className="row">
-                <Carousel carouselTitle="熱門教練" />
-              </div>
+              <Carousel carouselTitle="熱門教練" />
               <div className="row">
                 <div className="col d-flex justify-content-center">
-                  <button className="btn btn-lg btn-primary text-white h4-font rounded-pill">
-                    找教練
-                  </button>
+                  <BtnLg>找教練</BtnLg>
                 </div>
               </div>
             </section>
 
             <section className="popular articles">
-              <div className="row">
-                <Carousel carouselTitle="熱門文章" />
-              </div>
+              <Carousel carouselTitle="熱門文章" />
               <div className="row">
                 <div className="col d-flex justify-content-center">
-                  <button className="btn btn-lg btn-primary text-white h4-font rounded-pill">
-                    找文章
-                  </button>
+                  <BtnLg>找文章</BtnLg>
                 </div>
               </div>
             </section>
 
             <section className="join-member">
-              <div className="container p-0">
+              <div className="container-fluid p-0">
                 <div className="row flex-column align-items-center text-center">
-                  <div className="col-lg-7 join-member-card bg-secondary">
+                  <div className="col-md-7 join-member-card bg-secondary">
                     <h3>加入會員 ?</h3>
                     <p>看完我們的網站心動了嗎？立馬點擊下面按鈕加入會員！</p>
-                    <button className="btn btn-lg btn-primary text-white h4-font rounded-pill">
-                      去健身
-                    </button>
+                    <BtnLg>去健身</BtnLg>
                   </div>
                 </div>
               </div>
