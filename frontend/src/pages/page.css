@@ -79,6 +79,20 @@ padding-top: 21px;
 }
     
 /* footer開始 */
+li {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+.icon{
+    display: flex;
+    font-size: 30px;
+    gap: 20px;
+    align-items: center;
+}
     footer {
         display: flex;
         background-color: #FFF7E9;
@@ -88,6 +102,9 @@ padding-top: 21px;
         /* padding: 20px 100px 20px 30px; */
         justify-content: space-between;
     }
+    footer>li{
+        padding: 10px;
+    }
     
     #back-to-top {
         display: flex;
@@ -96,7 +113,7 @@ padding-top: 21px;
         align-items: center;
         justify-content: center;
         gap: 5px;
-        height: 120px;
+        height: 150px;
         border-radius: 43px 0 0 0;
         position: fixed;
         bottom: 0px;
