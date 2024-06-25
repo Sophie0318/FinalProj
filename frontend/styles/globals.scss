@@ -35,6 +35,7 @@ $carousel-control-next-icon-bg: linear-gradient(black, black);
   width: fit-content;
 }
 
+// ↓↓↓  這下面是全域的 CSS 樣式 ↓↓↓
 :root {
   --color-midnight-green: #1a394a;
   --color-old-lace: #fff7e9;
@@ -154,7 +155,6 @@ ul, ol {
   height: 100%;
 }
 
-// 共同css
 .icon-sm {
   height: 24px;
   width: 24px;
