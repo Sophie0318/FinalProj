@@ -6,6 +6,8 @@ import mysql_session from 'express-mysql-session';
 
 // import 各分支的 router
 import aRouter from './routes/articles/article-book.js';
+import lessonRouter from './routes/lessons/lesson.js';
+import coachRouter from './routes/coaches/coach.js'
 
 const app = express();
 
@@ -43,7 +45,9 @@ app.use((req,res,next)=>{
 });
 
 // set routes
-app.use('/articles', aRouter);
+// app.use('/articles', aRouter);
+app.use('/lessons', lessonRouter);
+app.use('/coaches', coachRouter);
 
 app.get('/', (req, res) => {
   res.locals.title = "首頁 | " + res.locals.title;
