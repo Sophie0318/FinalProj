@@ -18,15 +18,12 @@ export default function Home() {
             <div className="hero">
               <div className="container fixed-960 p-0">
                 <div className="row g-0">
-                  {/* TODO: how to type [ ] in Link? put static page img to frontend / backend? */}
                   <div className="col-lg-8 hero-text">
                     <h1 className="text-primary pe-1">
                       愛默生曾經說過健康是人生第一財富。
                     </h1>
                     <Link href="#">
-                      <h3>
-                        {'['} Start Now {']'}
-                      </h3>
+                      <h3>{`[ Start ]`}</h3>
                     </Link>
                   </div>
                   <div className="col-lg-4 hero-image">

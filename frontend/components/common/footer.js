@@ -4,7 +4,7 @@ import { IoLogoFacebook, IoLogoInstagram } from 'react-icons/io5'
 import { FaLine, FaArrowUpLong } from 'react-icons/fa6'
 
 export default function Footer() {
-  // TODO: to top button javascript 放到react有bug要再修
+  // TODO: to top button javascript 放到react要修改
   // Show the button when the user scrolls down 100px from the top of the document
   // window.onscroll = function () {
   //   var button = document.getElementById('back-to-top')
