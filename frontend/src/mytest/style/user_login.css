@@ -1,4 +1,4 @@
-/* 顏色設定 /
+/* 顏色設定 */
 :root {
   --color-midnight-green: #1A394A;
   --color-old-lace: #FFF7E9;
@@ -20,71 +20,157 @@
 /*字體設定 */
 @font-face {
     font-family: "Gensen";
-    src: url("../fonts/GenSenRounded-EL.ttc") format("truetype");
+    src: url("../../fonts/GenSenRounded-EL.ttc") format("truetype");
     font-weight: 100;
   }
   
   @font-face {
     font-family: "Gensen";
-    src: url("../fonts/GenSenRounded-L.ttc") format("truetype");
+    src: url("../../fonts/GenSenRounded-L.ttc") format("truetype");
     font-weight: 300;
   }
   
   @font-face {
     font-family: "Gensen";
-    src: url("../fonts/GenSenRounded-R.ttc") format("truetype");
+    src: url("../../fonts/GenSenRounded-R.ttc") format("truetype");
     font-weight: 400;
   }
   
   @font-face {
     font-family: "Gensen";
-    src: url("../fonts/GenSenRounded-M.ttc") format("truetype");
+    src: url("../../fonts/GenSenRounded-M.ttc") format("truetype");
     font-weight: 500;
   }
   
   @font-face {
     font-family: "Gensen";
-    src: url("../fonts/GenSenRounded-B.ttc") format("truetype");
+    src: url("../../fonts/GenSenRounded-B.ttc") format("truetype");
     font-weight: 700;
   }
   
   @font-face {
     font-family: "Gensen";
-    src: url("../fonts/GenSenRounded-H.ttc") format("truetype");
+    src: url("../../fonts/GenSenRounded-H.ttc") format("truetype");
     font-weight: 900;
   }
   
   @font-face {
     font-family: "Huninn";
-    src: url("../fonts/jf-openhuninn-2.0.ttf") format("truetype");
+    src: url("../../fonts/jf-openhuninn-2.0.ttf") format("truetype");
     font-weight: normal;
   }
 
 *{
     padding: 0;
     margin: 0;
+    box-sizing: border-box;
 }
 
-/* .warp{
-    margin: 0 240px;
-    padding-top: 40px;
-    padding-bottom: 200px;
-    background-color: gray;
-} */
-h5{
+.warp{
+  width: 100%;
+  max-width: 640px;
+  padding: 0 80px;
+  margin: 40px auto;
+}
+h6{
+  font-family:'Gensen', sans-serif;
+  font-size: 18px;
+  letter-spacing: 3px;
+  font-weight: 900;
+}
+h4{
     font-family:'Gensen', sans-serif;
-    font-weight: 700;
+    font-weight: 800;
     font-size: 24px;
     letter-spacing: 5px;
-    padding-bottom: 10px;
-    border-bottom: 1px solid black;
 }
 p{
     font-family:'huninn',sans-serif;
     font-size: 18x;
     line-height: 160%;
     letter-spacing: 1px;
+    margin-bottom: 0;
 }
 .user_title{
     max-width: 640px;
+    border-bottom: 1px solid black;
+    color: var(--color-midnight-green);
+}
+.title_describe{
+  padding: 20px 0;
+}
+.login-container{
+  padding: 0 80px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap:20px;
+}
+.form-group_flex{
+  display: flex;
+  flex-direction: column;
+  gap:10px;
+  margin-bottom: 10px;
+}
+.form-group{
+  display: flex;
+  flex-direction: column;
+}
+.form-group_center{
+  text-align: center;
+}
+.btn-md{
+  width: 265px;
+  height: 65px;
+  border: none;
+  background-color: var(--color-yellow);
+  border-radius: 50px;
+}
+.flex{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.forget_password{
+  width: 100%;
+  text-align: center;
+  border-bottom: 1px solid black;
+  padding-bottom: 10px;
+}
+.fa-chevron-right{
+ padding-right:10px ;
+}
+a{
+  text-decoration: none;
+  color: var(--color-midnight-green);
+}
+.warp2{
+  width:100% ;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.warp2>p{
+ color: var(--color-midnight-green);
+}
+
+.third_party_login a{
+  width: 100%;
+  height: 80px;
+  border: 1px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.third_party_login img{
+  margin-right: 20px;
+}
+@media screen and (max-width: 600px) {
+  .warp{
+    padding:0 16px;
+  }
+  .login-container{
+    padding:0;
+  }
 }
