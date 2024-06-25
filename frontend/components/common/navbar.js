@@ -11,22 +11,19 @@ export default function Navbar() {
         </div>
         <ul className="list">
           <li>
-            <Link href="#">找場館</Link>
+            <Link href="./gyms">找場館</Link>
           </li>
           <li>
-            <Link href="#">找商城</Link>
+            <Link href="./products">找商城</Link>
           </li>
           <li>
-            <Link href="#">找課程</Link>
+            <Link href="./lessons">找課程</Link>
           </li>
           <li>
-            <Link href="#">找教練</Link>
+            <Link href="./coaches">找教練</Link>
           </li>
           <li>
-            <Link href="#">找商城</Link>
-          </li>
-          <li>
-            <Link href="#">找知識</Link>
+            <Link href="./articles">找知識</Link>
           </li>
         </ul>
 
