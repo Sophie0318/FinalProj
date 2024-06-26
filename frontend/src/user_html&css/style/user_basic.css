@@ -1,0 +1,103 @@
+/* 顏色設定 */
+:root {
+    --color-midnight-green: #1A394A;
+    --color-old-lace: #FFF7E9;
+    --color-yellow: #FFC800;
+    --color-dark-yellow: #FFC800;
+    --color-sunset: #E8D6C4;
+    --color-hover-blue: #004B74;
+    --color-bright-blue: #7ABBDF;
+    --color-tomato: #FF6347;
+    --color-whitesmoke: #F5F5F5;
+    --color-light-gray: #E8E2D8;
+    --color-gray-25: #D3CBBF;
+    --color-gray-50: #8C8983;
+    --color-dark-gray: #464441;
+    --color-black: #000000;
+    --color-white: #FFFFFF;
+  }
+  
+  /*字體設定 */
+  @font-face {
+      font-family: "Gensen";
+      src: url("../../fonts/GenSenRounded-EL.ttc") format("truetype");
+      font-weight: 100;
+    }
+    
+    @font-face {
+      font-family: "Gensen";
+      src: url("../../fonts/GenSenRounded-L.ttc") format("truetype");
+      font-weight: 300;
+    }
+    
+    @font-face {
+      font-family: "Gensen";
+      src: url("../../fonts/GenSenRounded-R.ttc") format("truetype");
+      font-weight: 400;
+    }
+    
+    @font-face {
+      font-family: "Gensen";
+      src: url("../../fonts/GenSenRounded-M.ttc") format("truetype");
+      font-weight: 500;
+    }
+    
+    @font-face {
+      font-family: "Gensen";
+      src: url("../../fonts/GenSenRounded-B.ttc") format("truetype");
+      font-weight: 700;
+    }
+    
+    @font-face {
+      font-family: "Gensen";
+      src: url("../../fonts/GenSenRounded-H.ttc") format("truetype");
+      font-weight: 900;
+    }
+    
+    @font-face {
+      font-family: "Huninn";
+      src: url("../../fonts/jf-openhuninn-2.0.ttf") format("truetype");
+      font-weight: normal;
+    }
+    /*字型*/
+h6{
+    font-family:'Gensen', sans-serif;
+    font-size: 18px;
+    letter-spacing: 3px;
+    font-weight: 500;
+    margin-bottom: 0;
+  }
+  h4{
+      font-family:'Gensen', sans-serif;
+      font-weight: 800;
+      font-size: 24px;
+      letter-spacing: 5px;
+  }
+  p{
+      font-family:'huninn',sans-serif;
+      font-size: 18x;
+      line-height: 160%;
+      letter-spacing: 1px;
+      margin-bottom: 0;
+  }
+  
+  *{
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+  }
+  input{
+    border-radius: 20px;
+  }
+  .bread{
+    width: 100%;
+    padding: 0 120px;
+    margin-bottom: 50px;
+  }
+  .warp{
+    background: var(--color-old-lace);
+    border-radius: 50px 0 0 50px;
+  }
+  nav{
+    width: 28%;
+  }

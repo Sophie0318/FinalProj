@@ -21,6 +21,9 @@
 label{
     margin-bottom: 0;
   }
+  label>p{
+    color:var(--color-midnight-green)
+  }
 .flex_row{
     display: flex;
     align-items: center;
@@ -31,6 +34,7 @@ label{
     display: inline-block;
     margin-bottom: 10px;
     border-bottom: 1px solid  var(--color-gray-50);
+    color: var(--color-midnight-green);
 }
 .form-group>input{
     max-width: 420px;
@@ -57,5 +61,13 @@ form{
     }
     .flex_row{
         gap:10px;
+    }
+    .form-group_row{
+        justify-content: center;
+    }
+  }
+  @media screen and (max-width: 500px) {
+    .btn_md_back{
+        display: none;
     }
   }
