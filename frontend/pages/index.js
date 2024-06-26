@@ -6,6 +6,7 @@ import { BtnLg } from '@/components/common/buttons/'
 import styles from '@/styles/home.module.css'
 
 // TODO: 問牙牙條RWD的時候滿版兩旁要留多少margin ex. 卡片輪播
+// TODO: 思考hero text可以怎麼RWD
 
 export default function Home() {
   return (
@@ -26,8 +27,8 @@ export default function Home() {
                     <h1 className="text-primary pe-1">
                       愛默生曾經說過健康是人生第一財富。
                     </h1>
-                    <Link href="#">
-                      <h3>{`[ Start ]`}</h3>
+                    <Link href="/#">
+                      <h3 className={`${styles.startAction}`}>{`[ Start ]`}</h3>
                     </Link>
                   </div>
                   <div className={`${styles.heroImage} col-md-4`}>
@@ -39,7 +40,7 @@ export default function Home() {
 
             <div className={`${styles.cta1} bg-secondary`}>
               <div className="container fixed-960 p-0">
-                <div className="row g-0 justify-content-between">
+                <div className="row g-0 justify-content-between mx-3">
                   <div className={`${styles.cta1Img} col-md-4`}>
                     <img src="/marisa-howenstine-nFsOlSE9Mn8-unsplash.jpg" />
                   </div>
@@ -77,7 +78,7 @@ export default function Home() {
                     </p>
                   </div>
                   <div
-                    className={`${styles.ctaBored} col-md-4 d-flex flex-column justify-content-center align-items-center`}
+                    className={`${styles.ctaBored} col-md-4 d-flex flex-column justify-content-center align-items-center bg-white`}
                   >
                     <h4 className={`${styles.numTitle}`}>
                       {'['}02{']'}

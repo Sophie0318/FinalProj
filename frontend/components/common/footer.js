@@ -2,6 +2,7 @@ import React from 'react'
 import Link from 'next/link'
 import { IoLogoFacebook, IoLogoInstagram } from 'react-icons/io5'
 import { FaLine, FaArrowUpLong } from 'react-icons/fa6'
+import styles from './layout.module.css'
 
 export default function Footer() {
   // TODO: to top button javascript 放到react要修改
@@ -27,32 +28,32 @@ export default function Footer() {
   // }
   return (
     <>
-      <footer>
+      <footer className={`${styles.footer}`}>
         <ul className="d-flex">
           <li className="me-3">
-            <Link href="#">
+            <Link href="/#">
               <IoLogoFacebook className="icon-lg" />
             </Link>
           </li>
           <li className="me-3">
-            <Link href="#">
+            <Link href="/#">
               <FaLine className="icon-lg" />
             </Link>
           </li>
           <li className="me-3">
-            <Link href="#">
+            <Link href="/#">
               <IoLogoInstagram className="icon-lg" />
             </Link>
           </li>
         </ul>
         <div>
-          <img src="/logo.png" alt="" className="logo_photo" />
-          <p className="copyRight">
+          <img src="/logo.png" alt="" className={`${styles.logoPhoto}`} />
+          <p className={`${styles.copyRight}`}>
             Copyright &copy; 2024 All Rights Reserved.{' '}
           </p>
         </div>
       </footer>
-      <button id="back-to-top" onClick={() => {}}>
+      <button className={`${styles.backToTop}`} onClick={() => {}}>
         <FaArrowUpLong />
         <p>Top</p>
       </button>

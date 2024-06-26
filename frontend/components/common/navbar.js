@@ -1,15 +1,16 @@
 import React from 'react'
 import Link from 'next/link'
 import { IoPersonAdd, IoCart } from 'react-icons/io5'
+import styles from './layout.module.css'
 
 export default function Navbar() {
   return (
     <>
-      <header className="navbar">
+      <header className={`${styles.navbar}`}>
         <div className="logo">
-          <img src="/logo.png" alt="" className="logo_photo" />
+          <img src="/logo.png" alt="" className={`${styles.logoPhoto}`} />
         </div>
-        <ul className="list">
+        <ul className={`${styles.list}`}>
           <li>
             <Link href="./gyms">找場館</Link>
           </li>
@@ -27,15 +28,15 @@ export default function Navbar() {
           </li>
         </ul>
 
-        <ul className="icons">
+        <ul className={`${styles.icons}`}>
           <li>
             <a href="#">
-              <IoPersonAdd className="member" />
+              <IoPersonAdd className={`${styles.member}`} />
             </a>
           </li>
           <li>
             <a href="#">
-              <IoCart className="cart" />
+              <IoCart className={`${styles.cart}`} />
             </a>
           </li>
         </ul>

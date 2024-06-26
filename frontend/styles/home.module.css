@@ -1,8 +1,13 @@
 .hero {
-  padding: 56px 0;
+  padding: 56px 150px;
 }
+
 .hero h1 {
   margin-bottom: 100px;
+}
+
+.startAction {
+  letter-spacing: 15px;
 }
 
 .heroText {
@@ -15,6 +20,7 @@
 
 .heroImage img {
   position: absolute;
+  width: 210%;
   top: -30px;
   right: 0;
 }
