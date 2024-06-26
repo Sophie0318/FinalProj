@@ -22,7 +22,7 @@ export default function Home() {
             <div className={`${styles.hero}`}>
               <div className="container fixed-960 p-0">
                 <div className="row g-0">
-                  <div className={`${styles.heroText} col-md-8`}>
+                  <div className={`${styles.hero}`}>
                     <h1 className="text-primary pe-1">
                       愛默生曾經說過健康是人生第一財富。
                     </h1>
@@ -30,14 +30,14 @@ export default function Home() {
                       <h3>{`[ Start ]`}</h3>
                     </Link>
                   </div>
-                  <div className={`${styles.heroImage} col-md-4`}>
+                  <div className={`${styles.heroImage}`}>
                     <img src="/hero-img.png" />
                   </div>
                 </div>
               </div>
             </div>
 
-            <div className={`${styles.cta1} bg-secondary`}>
+            <div className="cta-1 bg-secondary">
               <div className="container fixed-960 p-0">
                 <div className="row g-0 justify-content-between">
                   <div className={`${styles.cta1Img} col-md-4`}>
@@ -58,7 +58,7 @@ export default function Home() {
           </section>
 
           <div className={`${styles.pageWrap}`}>
-            <section className={`${styles.cta2}`}>
+            <section className="cta-2">
               <div className="container-fluid">
                 <h3>你是不是有這些困擾呢？</h3>
                 <div

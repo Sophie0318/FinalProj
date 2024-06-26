@@ -5,42 +5,42 @@
   margin-bottom: 100px;
 }
 
-.hero-text {
+.heroText {
   height: 562px;
 }
 
-.hero-image {
+.heroImage {
   position: relative;
 }
 
-.hero-image img {
+.heroImage img {
   position: absolute;
   top: -30px;
   right: 0;
 }
 
-.cta-1 {
+.cta1 {
   margin-top: 146px;
   padding-top: 57px;
   padding-bottom: 110px;
 }
 
-.cta-1 h3 {
+.cta1 h3 {
   margin-bottom: 30px;
 }
 
-.cta-1 p, .cta-2 p, .join-member p {
+.cta1 p, .cta2 p, .joinMember p {
   margin-bottom: 42px;
   font-family: 'Gensen', sans-serif;
   font-size: 22px;
   line-height: 42px;
 }
 
-.cta-1-img {
+.cta1Img {
   position: relative;
 }
 
-.cta-1-img img {
+.cta1Img img {
   position: absolute;
   bottom: 0;
   width: 322px;
@@ -50,39 +50,39 @@
   box-shadow: 0px 5px 30px 0px rgba(0, 0, 0, 0.15);
 }
 
-.page-wrap{
+.pageWrap{
   box-shadow: 0px -4px 50px 0px rgba(0, 0, 0, 0.10);
   border-radius: 50px 50px 0 0;
   background-color: var(--color-white);
 
 }
 
-.cta-2 {
+.cta2 {
   margin-top: -55px;
   margin-bottom: 56px;
   padding-top: 67px;
 }
 
-.cta-2-cards{
+.cta2Cards{
   margin-bottom: 56px;
 }
 
-.cta-2 h3 {
+.cta2 h3 {
   margin: 0 100px 56px 100px;
 }
 
-.num-title {
+.numTitle {
   font-family: 'Otomanopee', sans-serif;
   font-size: 32px;
   letter-spacing: 4.8px;
   margin-bottom: 25px;
 }
 
-.cta-knee, .cta-bored, .cta-sleepy {
+.ctaKnee, .ctaBored, .ctaSleepy {
   padding: 55px 55px;
 }
 
-.cta-2 img {
+.cta2 img {
   height: 123px;
   width: 123px;
   margin: 45px 0;
@@ -93,15 +93,15 @@
   padding-bottom: 56px;
 }
 
-.join-member {
+.joinMember {
   padding: 110px 0;
 }
 
-.join-member-card {
+.joinMemberCard {
   padding: 55px 70px;
   border-radius: 50px;
 }
 
-.join-member-card h3, .join-member-card p {
+.joinMemberCard h3, .joinMemberCard p {
   margin-bottom: 27px;
 }
