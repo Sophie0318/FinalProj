@@ -35,7 +35,7 @@
   margin-bottom: 30px;
 }
 
-.cta1 p, .cta2 p, .joinMember p {
+.cta1 p, .joinMember p {
   margin-bottom: 42px;
   font-family: 'Gensen', sans-serif;
   font-size: 22px;
@@ -69,12 +69,13 @@
   padding-top: 67px;
 }
 
-.cta2Cards{
+.cta2 h3 {
+  margin-left: 100px;
   margin-bottom: 56px;
 }
 
-.cta2 h3 {
-  margin: 0 100px 56px 100px;
+.cta2List{
+  margin-bottom: 56px;
 }
 
 .numTitle {
@@ -84,14 +85,51 @@
   margin-bottom: 25px;
 }
 
-.ctaKnee, .ctaBored, .ctaSleepy {
-  padding: 55px 55px;
+.cta2 p {
+  font-family: 'Gensen', sans-serif;
+  font-size: 22px;
+  line-height: 42px;
+  text-align: justify;
+  margin: 0;
+}
+
+.knee {
+  position: relative;
+  max-width: 450px;
+  width: calc(100% / 3 + 50px);
+  border-radius: 50px 0 0 50px;
+  padding: 55px calc(55px + 50px) 55px 55px;
+  z-index: 1;
+}
+
+.bored {
+  position: relative;
+  max-width: 450px;
+  width: calc(100% / 3 + 50px);
+  border-radius: 50px 0 0 50px;
+  padding: 55px calc(55px + 50px) 55px 55px;
+  margin-left: -50px;
+  z-index: 2;
+}
+
+.sleepy {
+  position: relative;
+  max-width: 450px;
+  width: calc(100%/3);
+  border-radius: 50px;
+  padding: 55px;
+  margin-left: -50px;
+  z-index: 3;
 }
 
 .cta2 img {
   height: 123px;
   width: 123px;
   margin: 45px 0;
+}
+
+.cta2Btn {
+  margin-top: 56px;
 }
 
 .popular {
@@ -110,4 +148,33 @@
 
 .joinMemberCard h3, .joinMemberCard p {
   margin-bottom: 27px;
+}
+
+/* 為了解決困擾卡片在 1178px 會出現跑版的斷點 */
+@media (max-width: 1300px) { 
+  .knee {
+    padding: 55px calc(3% + 50px) 55px 3%;
+  }
+  
+  .bored {
+    padding: 55px calc(3% + 50px) 55px 3%;
+  }
+  
+  .sleepy {
+    padding: 55px 3% 55px 3%;
+  }
+}
+
+@media (max-width: 992px) { 
+  .knee {
+    padding: 55px calc(3% + 50px) 55px 3%;
+  }
+  
+  .bored {
+    padding: 55px calc(3% + 50px) 55px 3%;
+  }
+  
+  .sleepy {
+    padding: 55px 3% 55px 3%;
+  }
 }

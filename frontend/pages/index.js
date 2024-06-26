@@ -6,6 +6,7 @@ import { BtnLg } from '@/components/common/buttons/'
 import styles from '@/styles/home.module.css'
 
 // TODO: 問牙牙條RWD的時候滿版兩旁要留多少margin ex. 卡片輪播
+// TODO: 考慮要不要把"是否有這些煩惱"卡片 text-align justify
 // TODO: 思考hero text可以怎麼RWD
 
 export default function Home() {
@@ -63,10 +64,10 @@ export default function Home() {
               <div className="container-fluid">
                 <h3>你是不是有這些困擾呢？</h3>
                 <div
-                  className={`${styles.cta2Cards} row justify-content-center align-items-center m-0`}
+                  className={`${styles.cta2List} row justify-content-center m-0`}
                 >
                   <div
-                    className={`${styles.ctaKnee} col-md-4 d-flex flex-column justify-content-center align-items-center bg-secondary`}
+                    className={`${styles.knee} d-flex flex-column justify-content-start align-items-center bg-secondary`}
                   >
                     <h4 className={`${styles.numTitle}`}>
                       {'['}01{']'}
@@ -74,11 +75,11 @@ export default function Home() {
                     <h5>你會膝蓋痛嗎？</h5>
                     <img src="/knee.svg" className="d-block" />
                     <p>
-                      膝蓋痛是否讓你很困擾？為何不試著透過運動來緩解呢？快加入我們吧！
+                      膝蓋痛是否讓你很困擾？為何不試著透過運動來緩解呢？快快來加入我們吧！
                     </p>
                   </div>
                   <div
-                    className={`${styles.ctaBored} col-md-4 d-flex flex-column justify-content-center align-items-center bg-white`}
+                    className={`${styles.bored} d-flex flex-column justify-content-start align-items-center bg-white`}
                   >
                     <h4 className={`${styles.numTitle}`}>
                       {'['}02{']'}
@@ -86,11 +87,11 @@ export default function Home() {
                     <h5>生活很無聊嗎？</h5>
                     <img src="/bored.svg" className="d-block" />
                     <p>
-                      運動是改善心情的最佳良方！從今天開始，每天花點時間運動，讓身心都煥然一新。
+                      運動是改善心情的最佳良方！從今天開始，每天花點時間運動，身心煥然一新。
                     </p>
                   </div>
                   <div
-                    className={`${styles.ctaSleepy} col-md-4 d-flex flex-column justify-content-center align-items-center bg-secondary`}
+                    className={`${styles.sleepy} d-flex flex-column justify-content-start align-items-center bg-secondary`}
                   >
                     <h4 className={`${styles.numTitle}`}>
                       {'['}03{']'}
@@ -98,11 +99,11 @@ export default function Home() {
                     <h5>常常想睡嗎？</h5>
                     <img src="/sleepy.svg" className="d-block" />
                     <p>
-                      想開始運動卻不知道能去哪裡嗎？點選下方按鈕，輸入您附近的地址來尋找場館吧！
+                      想開始運動卻不知道能去哪裡嗎？點選下方按鈕，輸入您的地址來尋找場館吧！
                     </p>
                   </div>
                 </div>
-                <div className="row">
+                <div className={`${styles.cta2Btn} row`}>
                   <div className="col d-flex justify-content-center">
                     <BtnLg>找解答</BtnLg>
                   </div>
