@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import { FaArrowLeftLong, FaArrowRightLong } from 'react-icons/fa6'
+import styles from './carousel.module.css'
 
 export default function Carousel({
   carouselTitle = '熱門選項',
@@ -10,11 +11,13 @@ export default function Carousel({
   // TODO: bootstrap 輪播覆蓋也很難做出一模一樣的效果, 考慮直接用kacco網站用的https://swiperjs.com/
   return (
     <>
-      <div className="row" style={{ marginBottom: '86px' }}>
-        <div className="col-lg-3 d-flex justify-content-center align-items-center">
+      <div className={`${styles.carouselRow} row px-0 mx-0`}>
+        <div
+          className={`${styles.carouselTitle} col-md-3 d-flex justify-content-center align-items-center`}
+        >
           <h3>{carouselTitle}</h3>
         </div>
-        <div className="col-lg-9">
+        <div className="col-md-9 ps-md-4 ps-sm-3">
           <div id="carousel" className="carousel slide" data-bs-wrap="false">
             <div className="carousel-inner">
               {data.map((v, i) => {
@@ -41,7 +44,7 @@ export default function Carousel({
               })}
             </div>
             <button
-              className="carousel-control-prev"
+              className={`${styles.hideBtn} carousel-control-prev`}
               type="button"
               data-bs-target="#carousel"
               data-bs-slide="prev"
@@ -53,7 +56,7 @@ export default function Carousel({
               <span className="visually-hidden">Previous</span>
             </button>
             <button
-              className="carousel-control-next"
+              className={`${styles.hideBtn} carousel-control-next`}
               type="button"
               data-bs-target="#carousel"
               data-bs-slide="next"

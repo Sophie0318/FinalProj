@@ -1,8 +1,9 @@
 import React from 'react'
 import Breadcrumb from './breadcrumb'
+import styles from './layout.module.css'
 
 export default function PageTitle({ pageName = 'index' }) {
-  // 列出所有可能的副標題
+  // 列出所有可能的副標題, 由 prop 決定副標題要用哪一個
   const pageList = {
     index: {
       main: '尋找最適合你的運動方式',
@@ -16,7 +17,7 @@ export default function PageTitle({ pageName = 'index' }) {
     users: { main: '會員中心', second: 'User Profile' },
   }
 
-  // 由 prop 決定副標題要用哪一個
+  // 決定 prop 的機制
   let activePage = []
   switch (pageName) {
     case 'gyms':
@@ -57,11 +58,11 @@ export default function PageTitle({ pageName = 'index' }) {
 
   return (
     <>
-      <section className="intro">
-        <div className="info">
+      <section className={`${styles.intro}`}>
+        <div className={`${styles.info}`}>
           <Breadcrumb />
-          <div className="title">{activePage[0]}</div>
-          <div className="subTitle">{activePage[1]}</div>
+          <div className={`${styles.title}`}>{activePage[0]}</div>
+          <div className={`${styles.subTitle}`}>{activePage[1]}</div>
         </div>
       </section>
     </>

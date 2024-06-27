@@ -1,44 +1,42 @@
 import React from 'react'
 import Link from 'next/link'
 import { IoPersonAdd, IoCart } from 'react-icons/io5'
+import styles from './layout.module.css'
 
 export default function Navbar() {
   return (
     <>
-      <header className="navbar">
+      <header className={`${styles.navbar}`}>
         <div className="logo">
-          <img src="/logo.png" alt="" className="logo_photo" />
+          <img src="/logo.png" alt="" className={`${styles.logoPhoto}`} />
         </div>
-        <ul className="list">
+        <ul className={`${styles.list}`}>
           <li>
-            <Link href="#">找場館</Link>
+            <Link href="./gyms">找場館</Link>
           </li>
           <li>
-            <Link href="#">找商城</Link>
+            <Link href="./products">找商城</Link>
           </li>
           <li>
-            <Link href="#">找課程</Link>
+            <Link href="./lessons">找課程</Link>
           </li>
           <li>
-            <Link href="#">找教練</Link>
+            <Link href="./coaches">找教練</Link>
           </li>
           <li>
-            <Link href="#">找商城</Link>
-          </li>
-          <li>
-            <Link href="#">找知識</Link>
+            <Link href="./articles">找知識</Link>
           </li>
         </ul>
 
-        <ul className="icons">
+        <ul className={`${styles.icons}`}>
           <li>
             <a href="#">
-              <IoPersonAdd className="member" />
+              <IoPersonAdd className={`${styles.member}`} />
             </a>
           </li>
           <li>
             <a href="#">
-              <IoCart className="cart" />
+              <IoCart className={`${styles.cart}`} />
             </a>
           </li>
         </ul>
