@@ -11,7 +11,7 @@
 }
 
 .heroText {
-  height: 562px;
+  height: 39vw;
 }
 
 .heroImage {
@@ -21,6 +21,7 @@
 .heroImage img {
   position: absolute;
   width: 210%;
+  min-width: 429px;
   top: -30px;
   right: 0;
 }
@@ -150,6 +151,7 @@
   margin-bottom: 27px;
 }
 
+
 /* 為了解決困擾卡片在 1178px 會出現跑版的斷點 */
 @media (max-width: 1300px) { 
   .knee {
@@ -165,7 +167,24 @@
   }
 }
 
+/* 調整 hero image & text 在 1240px 以下的排版 */
+@media (max-width: 1240px) {
+  .heroImage {
+    z-index: -1;
+  }
+
+  .heroText {
+    text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff;
+  }
+}
+
+/* 解決困擾卡片在比較窄的版面的跑版 */
 @media (max-width: 992px) { 
+  .heroText h1{
+    font-size: 48px;
+    line-height: 150%;
+  }
+
   .knee {
     padding: 55px calc(3% + 50px) 55px 3%;
   }

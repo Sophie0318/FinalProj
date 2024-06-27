@@ -1,4 +1,9 @@
+// 功能類
+import { useState, useEffect } from 'react'
 import Head from 'next/head'
+import useWindowSize from '@/hooks/index/useWindowSize'
+
+// 樣式 or 元件類
 import Layout1 from '@/components/layout/layout1'
 import Carousel from '@/components/carousel'
 import Link from 'next/link'
@@ -10,6 +15,8 @@ import styles from '@/styles/home.module.css'
 // TODO: 思考hero text可以怎麼RWD
 
 export default function Home() {
+  const size = useWindowSize()
+
   return (
     <>
       <Layout1>
@@ -20,48 +27,95 @@ export default function Home() {
         </Head>
 
         <main>
-          <section className="key-visual-pc">
-            <div className={`${styles.hero}`}>
-              <div className="container fixed-960 p-0">
-                <div className="row g-0">
-                  <div className={`${styles.heroText} col-md-8`}>
-                    <h1 className="text-primary pe-1">
-                      愛默生曾經說過健康是人生第一財富。
-                    </h1>
-                    <Link href="/#">
-                      <h3 className={`${styles.startAction}`}>{`[ Start ]`}</h3>
-                    </Link>
-                  </div>
-                  <div className={`${styles.heroImage} col-md-4`}>
-                    <img src="/hero-img.png" />
+          {size.width >= 768 && (
+            <section className="key-visual-pc">
+              <div className={`${styles.hero}`}>
+                <div className={`container fixed-960 p-0`}>
+                  <div className="row g-0">
+                    <div className={`${styles.heroText} col-md-8`}>
+                      <h1 className="text-primary pe-1">
+                        愛默生曾經說過健康是人生第一財富。
+                      </h1>
+                      <Link href="/#">
+                        <h3
+                          className={`${styles.startAction}`}
+                        >{`[ Start ]`}</h3>
+                      </Link>
+                    </div>
+                    <div className={`${styles.heroImage} col-md-4`}>
+                      <img src="/hero-img.png" />
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
 
-            <div className={`${styles.cta1} bg-secondary`}>
-              <div className="container fixed-960 p-0">
-                <div className="row g-0 justify-content-between mx-3">
-                  <div className={`${styles.cta1Img} col-md-4`}>
-                    <img src="/marisa-howenstine-nFsOlSE9Mn8-unsplash.jpg" />
-                  </div>
-                  <div className="col-md-7">
-                    <h3>活力無限，擁抱健康</h3>
-                    <p>
-                      運動是保持健康的關鍵，活力啟點幫您找到最佳運動場所。立即搜尋，讓健康和活力成為生活常態！
-                      <br />
-                      讓我們活到老，動到老！
-                    </p>
-                    <BtnLg>找場館</BtnLg>
+              <div className={`${styles.cta1} bg-secondary`}>
+                <div className="container fixed-960 p-0">
+                  <div className="row g-0 justify-content-between mx-3">
+                    <div className={`${styles.cta1Img} col-md-4`}>
+                      <img src="/marisa-howenstine-nFsOlSE9Mn8-unsplash.jpg" />
+                    </div>
+                    <div className="col-md-7">
+                      <h3>活力無限，擁抱健康</h3>
+                      <p>
+                        運動是保持健康的關鍵，活力啟點幫您找到最佳運動場所。立即搜尋，讓健康和活力成為生活常態！
+                        <br />
+                        讓我們活到老，動到老！
+                      </p>
+                      <BtnLg>找場館</BtnLg>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </section>
+            </section>
+          )}
+
+          {size.width <= 767 && (
+            <section className="key-visual-sp">
+              <div className={`${styles.hero}`}>
+                <div className={`container-fluid p-0`}>
+                  <div className="row flex-column g-0 m-0 p-0">
+                    <div className={`${styles.heroText} col-md-8`}>
+                      <h1 className="text-primary pe-1">
+                        愛默生曾經說過健康是人生第一財富。
+                      </h1>
+                      <Link href="/#">
+                        <h3
+                          className={`${styles.startAction}`}
+                        >{`[ Start ]`}</h3>
+                      </Link>
+                    </div>
+                    <div className={`${styles.heroImage} col-md-4`}>
+                      <img src="/hero-img.png" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className={`${styles.cta1} bg-secondary`}>
+                <div className="container fixed-960 p-0">
+                  <div className="row g-0 justify-content-between mx-3">
+                    <div className={`${styles.cta1Img} col-md-4`}>
+                      <img src="/marisa-howenstine-nFsOlSE9Mn8-unsplash.jpg" />
+                    </div>
+                    <div className="col-md-7">
+                      <h3>活力無限，擁抱健康</h3>
+                      <p>
+                        運動是保持健康的關鍵，活力啟點幫您找到最佳運動場所。立即搜尋，讓健康和活力成為生活常態！
+                        <br />
+                        讓我們活到老，動到老！
+                      </p>
+                      <BtnLg>找場館</BtnLg>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+          )}
 
           <div className={`${styles.pageWrap}`}>
             <section className={`${styles.cta2}`}>
-              <div className="container-fluid">
+              <div className="container-fluid p-0">
                 <h3>你是不是有這些困擾呢？</h3>
                 <div
                   className={`${styles.cta2List} row justify-content-center m-0`}
