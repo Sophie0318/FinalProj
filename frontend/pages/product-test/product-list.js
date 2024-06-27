@@ -1,129 +1,13 @@
 import React from 'react'
 import Image from 'next/image'
-import styles from '@/styles/product.module.css'
+import styles from '@/styles/product-list.module.css'
 import { FaSearch } from 'react-icons/fa'
+import Layout2 from '@/components/layout/layout2'
 
-export default function ProductTest() {
+export default function ProductList() {
   return (
-    <div className="d-flex flex-column h-100">
-      <main className="flex-shrink-0">
-        {/* <!-- navbar --------------------------------> */}
-        <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-          <div className="container-fluid fs-3">
-            {/* <img src="./img/cama.png" alt="" style={{ width: "200px" }} /> */}
-            <a className="navbar-brand fs-3" href="./index.html">
-              貓咪咖啡館
-            </a>
-            <button
-              className="navbar-toggler"
-              type="button"
-              data-bs-toggle="collapse"
-              data-bs-target="#navbarSupportedContent"
-              aria-controls="navbarSupportedContent"
-              aria-expanded="false"
-              aria-label="Toggle navigation"
-            >
-              <span className="navbar-toggler-icon"></span>
-            </button>
-            <div
-              className="collapse navbar-collapse"
-              id="navbarSupportedContent"
-            >
-              <ul className="navbar-nav mx-2 mb-2 mb-lg-0">
-                <li className="nav-item">
-                  <a className="nav-link" href="./news.html">
-                    最新消息
-                  </a>
-                </li>
-                <li className="nav-item">
-                  <a className="nav-link" href="./product-list.html">
-                    周邊商品
-                  </a>
-                </li>
-                <li className="nav-item">
-                  <a className="nav-link" href="./faq.html">
-                    常見問題
-                  </a>
-                </li>
-                <li className="nav-item">
-                  <a className="nav-link" href="./about.html">
-                    探索
-                  </a>
-                </li>
-                <li className="nav-item">
-                  <a className="nav-link" href="./product_homework.html">
-                    熱門
-                  </a>
-                </li>
-                <li className="nav-item">
-                  <a className="nav-link" href="./contact.html">
-                    聯絡我們
-                  </a>
-                </li>
-              </ul>
-              {/* <!-- 會員&購物車icon ----------------------> */}
-              <div className="d-flex ms-auto">
-                <button
-                  className="btn btn-outline-success position-relative"
-                  data-bs-toggle="modal"
-                  data-bs-target="#exampleModal"
-                >
-                  <i className="bi bi-cart-fill fs-3"></i>
-
-                  <span className="position-absolute top-0 start-25 translate-middle badge rounded-pill bg-danger">
-                    99+
-                    <span className="visually-hidden">unread messages</span>
-                  </span>
-                </button>
-                <a
-                  className="btn btn-primary ms-2"
-                  data-bs-toggle="offcanvas"
-                  href="#offcanvasExample"
-                  role="button"
-                  aria-controls="offcanvasExample"
-                >
-                  <i className="bi bi-person-raised-hand fs-3"></i>
-                </a>
-              </div>
-              {/* <!-- 會員&購物車icon ---------------------------> */}
-            </div>
-          </div>
-        </nav>
-        {/* <!-- navbar -END------------------------------->
-      <!-- Bannner --> */}
-        <div className="container-fluid">
-          <div className="row">
-            <div className="col-12">
-              <div className={styles.banner}>
-                {/* <!-- 麵包屑 --> */}
-                <div className={styles.bread}>
-                  <nav aria-label="breadcrumb">
-                    <ol className="breadcrumb">
-                      <li className="breadcrumb-item fs-5">
-                        <a href="#" style={{ color: '#a7a7a7' }}>
-                          首頁
-                        </a>
-                      </li>
-                      <li
-                        className="breadcrumb-item active fs-5"
-                        style={{ color: '#a7a7a7' }}
-                        aria-current="page"
-                      >
-                        商品
-                      </li>
-                    </ol>
-                  </nav>
-                </div>
-                {/* <!-- 麵包屑 --> */}
-                <div className={styles.bannerText}>
-                  <h1>豐富的健身商城</h1>
-                  <p>Find a product you need !</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        {/* <!-- Bannner --END-------> */}
+    <Layout2 pageName="products">
+      <main className={styles.mainWithMargin}>
         <div className={styles.container}>
           <div className={styles.fix}>
             <div className="row">
@@ -205,8 +89,14 @@ export default function ProductTest() {
                     <div className={styles.cardsize}>
                       <img src="/product-img/cloth.jpg" alt="" class="w-100" />
                       <div className={styles.cardbody}>
-                        <p className={styles.cardText}>商品</p>
-                        <p className={styles.cardText}>價錢</p>
+                        <h6 className={styles.cardText}>商品</h6>
+                        <h6 className={styles.cardText}>價錢</h6>
+                        <div className="d-flex flex-row bd-highlight mb-1 mx-2">
+                          <div className={styles.color1}></div>
+                          <div className={styles.color2}></div>
+                          <div className={styles.color3}></div>
+                          <div className={styles.color4}></div>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -214,8 +104,14 @@ export default function ProductTest() {
                     <div className={styles.cardsize}>
                       <img src="/product-img/cloth.jpg" alt="" class="w-100" />
                       <div className={styles.cardbody}>
-                        <p className={styles.cardText}>商品</p>
-                        <p className={styles.cardText}>價錢</p>
+                        <h6 className={styles.cardText}>商品</h6>
+                        <h6 className={styles.cardText}>價錢</h6>
+                        <div className="d-flex flex-row bd-highlight mb-1 mx-2">
+                          <div className={styles.color1}></div>
+                          <div className={styles.color2}></div>
+                          <div className={styles.color3}></div>
+                          <div className={styles.color4}></div>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -223,8 +119,14 @@ export default function ProductTest() {
                     <div className={styles.cardsize}>
                       <img src="/product-img/cloth.jpg" alt="" class="w-100" />
                       <div className={styles.cardbody}>
-                        <p className={styles.cardText}>商品</p>
-                        <p className={styles.cardText}>價錢</p>
+                        <h6 className={styles.cardText}>商品</h6>
+                        <h6 className={styles.cardText}>價錢</h6>
+                        <div className="d-flex flex-row bd-highlight mb-1 mx-2">
+                          <div className={styles.color1}></div>
+                          <div className={styles.color2}></div>
+                          <div className={styles.color3}></div>
+                          <div className={styles.color4}></div>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -232,8 +134,14 @@ export default function ProductTest() {
                     <div className={styles.cardsize}>
                       <img src="/product-img/cloth.jpg" alt="" class="w-100" />
                       <div className={styles.cardbody}>
-                        <p className={styles.cardText}>商品</p>
-                        <p className={styles.cardText}>價錢</p>
+                        <h6 className={styles.cardText}>商品</h6>
+                        <h6 className={styles.cardText}>價錢</h6>
+                        <div className="d-flex flex-row bd-highlight mb-1 mx-2">
+                          <div className={styles.color1}></div>
+                          <div className={styles.color2}></div>
+                          <div className={styles.color3}></div>
+                          <div className={styles.color4}></div>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -241,8 +149,14 @@ export default function ProductTest() {
                     <div className={styles.cardsize}>
                       <img src="/product-img/cloth.jpg" alt="" class="w-100" />
                       <div className={styles.cardbody}>
-                        <p className={styles.cardText}>商品</p>
-                        <p className={styles.cardText}>價錢</p>
+                        <h6 className={styles.cardText}>商品</h6>
+                        <h6 className={styles.cardText}>價錢</h6>
+                        <div className="d-flex flex-row bd-highlight mb-1 mx-2">
+                          <div className={styles.color1}></div>
+                          <div className={styles.color2}></div>
+                          <div className={styles.color3}></div>
+                          <div className={styles.color4}></div>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -250,8 +164,14 @@ export default function ProductTest() {
                     <div className={styles.cardsize}>
                       <img src="/product-img/cloth.jpg" alt="" class="w-100" />
                       <div className={styles.cardbody}>
-                        <p className={styles.cardText}>商品</p>
-                        <p className={styles.cardText}>價錢</p>
+                        <h6 className={styles.cardText}>商品</h6>
+                        <h6 className={styles.cardText}>價錢</h6>
+                        <div className="d-flex flex-row bd-highlight mb-1 mx-2">
+                          <div className={styles.color1}></div>
+                          <div className={styles.color2}></div>
+                          <div className={styles.color3}></div>
+                          <div className={styles.color4}></div>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -290,36 +210,25 @@ export default function ProductTest() {
                   </ul>
                 </nav>
                 {/* 分頁 (Pagination) */}
-                {/* 加入會員卡片 */}
-                <div className="container">
-                  <div className="row justify-content-center">
-                    <div className="col-12 col-md-8 mt-5 text-center ">
-                      <div
-                        style={{ 'background-color': '#fff7e9' }}
-                        className={styles.card1}
-                      >
-                        <div className="pt-4 fs-5">
-                          <h3 className="fw-bold">會員資料</h3>
-                          <p>
-                            看完我們的網站心動了嗎？立馬點擊下面按鈕加入會員！
-                          </p>
-                        </div>
-                        <button
-                          style={{ 'background-color': '#1a394a' }}
-                          className={styles.btn1}
-                        >
-                          去健身
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
                 {/* 商品卡片 */}
               </div>
             </div>
           </div>
         </div>
+        <section className="join-member">
+          <div className="container p-0">
+            <div className="row flex-column align-items-center text-center">
+              <div className="col-lg-7 join-member-card bg-secondary">
+                <h3>加入會員 ?</h3>
+                <p>看完我們的網站心動了嗎？立馬點擊下面按鈕加入會員！</p>
+                <button className="btn btn-lg btn-primary text-white h4-font rounded-pill">
+                  去健身
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
       </main>
-    </div>
+    </Layout2>
   )
 }
