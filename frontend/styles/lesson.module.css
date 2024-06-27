@@ -43,3 +43,68 @@
     width: 600px;
     background-color: var(--color-old-lace);
 }
+
+/* checkbox */
+.filter{
+    margin-top: 30px;
+    display: flex;
+    align-items: center;
+    color:var(--color-dark-gray);
+    gap: 15px;
+}
+
+.select{
+    color: #1A394A;
+    font-weight: 400;
+    padding-top: 15px;
+    line-height: 100%; /* 18px */
+    letter-spacing: 0.18px;
+}
+
+
+.checkboxes {
+    display: flex;
+    align-items: center;
+    gap: 5px; /* 根据需要调整 */
+  }
+
+.checkbox {
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    background-color: #e8e2d8;
+    border: 2px solid #464441;
+    border-radius: 3px;
+    position: relative;
+    cursor: pointer;
+    margin-right: 6px;
+  }
+  
+  .checkbox:hover {
+    border: 3px solid #1a394a;
+  }
+  
+  .checkbox:checked {
+    background-color: #1a394a;
+    border: 2px solid #1a394a;
+  }
+  
+  .checkbox:checked::after {
+    content: 'v';
+    color: white;
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 16px;
+  }
+  
+  .checkbox:hover + label {
+    font-weight: bold;
+    color: #1a394a;
+  }
+  
+  .checkbox:checked + label {
+    font-weight: bolder;
+    color: #1a394a;
+  }

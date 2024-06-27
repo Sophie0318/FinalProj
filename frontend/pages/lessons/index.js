@@ -43,6 +43,48 @@ export default function Index() {
               placeholder="請輸入地址搜尋..."
             />
           </div>
+          <div className={styles.filter}>
+            <p className={styles.select}>請選擇類別 ｜</p>
+            <div class={styles.checkboxes}>
+              <input
+                type="checkbox"
+                id="male"
+                name="sex"
+                className={styles.checkbox}
+              />
+              <label htmlFor="male">男性</label>
+            </div>
+
+            <div class={styles.checkboxes}>
+              <input
+                type="checkbox"
+                id="female"
+                name="female"
+                className={styles.checkbox}
+              />
+              <label htmlFor="female">女性</label>
+            </div>
+
+            <div class={styles.checkboxes}>
+              <input
+                type="checkbox"
+                id="homo"
+                name="homo"
+                className={styles.checkbox}
+              />
+              <label htmlFor="homo">同性</label>
+            </div>
+
+            <div class={styles.checkboxes}>
+              <input
+                type="checkbox"
+                id="other"
+                name="other"
+                className={styles.checkbox}
+              />
+              <label htmlFor="other">其他</label>
+            </div>
+          </div>
         </div>
       </Layout2>
     </>
