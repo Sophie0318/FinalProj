@@ -14,5 +14,32 @@
 
 /* 搜尋欄 */
 .search{
-    margin-left: 16px;
+    margin-top: 50px;
+    display: flex;
+    position: relative;
+    align-items: center;
+
+}
+
+.searchIcon{
+    position: absolute;
+    height: 60px;
+    width: 60px;
+    background-color: var(--color-midnight-green);
+    border-radius: 50%;
+    display: flex;
+    align-items: center; /* 垂直居中 */
+    justify-content: center; /* 水平居中 */
+    color: var(--color-old-lace);
+    font-size: 30px;
+}
+
+.search_input{
+    height: 60px;
+    padding-left: 69px; /* 確保文本不會重疊到圖標 */
+    border: 3px solid var(--color-midnight-green);
+    border-radius: 50px;
+    box-sizing: border-box; /* 包括內邊距和邊框在內的寬度 */
+    width: 600px;
+    background-color: var(--color-old-lace);
 }

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Layout2 from '@/components/layout/layout2'
 import Carousel from '@/components/carousel'
 import styles from '@/styles/lesson.module.css'
+import { IoSearch } from 'react-icons/io5'
 
 export default function Index() {
   // const [articles, setArticles] = useState([])
@@ -32,10 +33,15 @@ export default function Index() {
             </section>
           </div>
           <div className={styles.search}>
-            <div class="searchIcon">
-              <ion-icon name="search" class="search_icon"></ion-icon>
+            <div className={styles.searchIcon}>
+              <IoSearch />
             </div>
-            <input type="text" name="search" class="search_input" />
+            <input
+              type="text"
+              name="search_input"
+              className={styles.search_input}
+              placeholder="請輸入地址搜尋..."
+            />
           </div>
         </div>
       </Layout2>
