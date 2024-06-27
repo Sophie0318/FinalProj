@@ -47,8 +47,8 @@ export default function ProductOrder() {
             <tbody>
               <tr>
                 <th scope="row">1</th>
-                <td>
-                  <img src="/product-img/cloth.jpg" alt="" class="w-25 " />
+                <td style={{ width: '30%' }}>
+                  <img src="/product-img/cloth.jpg" alt="" class="w-75" />
                 </td>
                 <td>Mark</td>
                 <td>Otto</td>
@@ -57,7 +57,7 @@ export default function ProductOrder() {
               </tr>
             </tbody>
           </table>
-          <table className={`table ${styles.customTable}`}>
+          {/* <table className={`table ${styles.customTable}`}>
             <thead>
               <tr>
                 <th scope="col">#</th>
@@ -73,15 +73,17 @@ export default function ProductOrder() {
             </thead>
             <tbody>
               <tr>
-                <th scope="row">1</th>
-                <td>照片</td>
+                <th scope="row">2</th>
+                <td>
+                  <img src="/product-img/cloth.jpg" alt="" class="w-75" />
+                </td>
                 <td>Mark</td>
                 <td>Otto</td>
                 <td>@mdo</td>
                 <td>@mdo</td>
               </tr>
             </tbody>
-          </table>
+          </table> */}
           <div className="row">
             <div
               className={`col-12 col-md-12 d-flex justify-content-between ${styles.count}`}
