@@ -26,11 +26,38 @@ export default function ProductCheckout2() {
         <div className="row">
           <div className={`col-12 col-md-12 text-center ${styles.Revise}`}>
             <h2>填寫收件人資料</h2>
-            <div className={styles.ppp}>
-              <input type="checkbox" className={styles.customCheckbox} />
-              <span>同會員資料</span>
-            </div>
           </div>
+        </div>
+        <div className="col-12 col-md-12 text-center d-flex justify-content-center align-items-center mb-3">
+          <div className={styles.ppp}>
+            <input type="checkbox" className={styles.customCheckbox} />
+            <span>同會員資料</span>
+          </div>
+        </div>
+        <div className={`col-12 col-md-12 text-center mb-5  ${styles.inside}`}>
+          <label htmlFor="text">姓名</label>
+          <input
+            type="text"
+            className={styles.outside}
+            placeholder="請輸入姓名"
+          />
+        </div>
+        <div className={`col-12 col-md-12 text-center mb-5 ${styles.inside}`}>
+          <label htmlFor="text">手機</label>
+          <input
+            type="text"
+            className={styles.outside}
+            placeholder="請輸入手機號碼"
+          />
+        </div>
+        <div className={`col-12 col-md-12 text-center mb-5 ${styles.inside}`}>
+          <label htmlFor="text">取貨門市</label>
+          <input type="text" className={styles.outside} />
+        </div>
+        <div
+          className={`con-12 col-md-12 text-center d-flex justify-content-center align-items-center`}
+        >
+          <button className={styles.btn}>確定</button>
         </div>
       </div>
     </>

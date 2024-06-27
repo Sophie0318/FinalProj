@@ -32,16 +32,70 @@
 
 .Revise{
   margin-top: 50px;
+  
+  margin-bottom: 60px;
+
 }
 .ppp{
-  display: flex;
+display: flex;
 width: 202px;
 padding: 0px 22px;
 align-items: center;
 gap: 20px;
+font-size: 18px;
+color: #464441;
+
+margin-bottom: 40px;
+
+
 }
 .customCheckbox{
-border-radius: 5px;
-border: 2px solid black;
-background: white
+display: flex;
+width: 23px;
+height: 23px;
+padding: 10px;
+align-items: center;
+gap: 10px;
+flex-shrink: 0;
+}
+.outside{
+border-radius: 100px;
+border: 2px solid var(--dark-gray, #464441);
+background: var(--old-lace, #FFF7E9);
+width: 50%;
+height: 50px;
+padding-left: 10px;
+
+}
+.inside{
+  display: flex;
+flex-direction: column;
+align-items: flex-start;
+flex-shrink: 0;
+color: var(--dark-gray, #464441);
+font-family: jf-openhuninn-2.0;
+font-size: 18px;
+font-weight: 400;
+line-height: 200%; /* 36px */
+letter-spacing: 0.18px;
+align-items: center;
+
+}
+
+.rrr{
+  display: flex;
+width: 265px;
+height: 48px;
+padding: 18px 0px;
+justify-content: center;
+align-items: center;
+gap: 10px;
+}
+.btn{
+  background-color: #1a394a;
+  border-radius: 50px;
+  font-size: 18px;
+  width: 265px;
+  height: 65px;
+  color: white;
 }
