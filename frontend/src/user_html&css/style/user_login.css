@@ -59,6 +59,10 @@
     src: url("../../fonts/jf-openhuninn-2.0.ttf") format("truetype");
     font-weight: normal;
   }
+  @font-face {
+    font-family: 'Otomanopee';
+    src: url('./fonts/OtomanopeeOne-Regular.ttf') format('truetype');
+  }
 
 *{
     padding: 0;
@@ -94,7 +98,8 @@ p{
     margin-bottom: 0;
 }
 input{
-  border-radius: 20px;
+  border-radius: 40px;
+  padding: 8px 10px;
 }
 label{
   margin-bottom: 15px;
@@ -150,7 +155,6 @@ label{
  padding-right:10px ;
 }
 a{
-  text-decoration: none;
   color: var(--color-midnight-green);
 }
 .warp2{
