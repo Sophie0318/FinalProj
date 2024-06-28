@@ -5,6 +5,11 @@ import Carousel from '@/components/carousel'
 import { IoSearch, IoHeart } from 'react-icons/io5'
 
 export default function Index() {
+  const [isClicked, setIsClicked] = useState(false)
+
+  const handleClick = () => {
+    setIsClicked(!isClicked)
+  }
   return (
     <>
       <Layout2 title="教練列表" pageName="coaches">
@@ -74,7 +79,12 @@ export default function Index() {
                 <div className={styles.overlay}>
                   <div className={styles.coach}>
                     <div className={styles.coachName}>李安妮</div>
-                    <div class={styles.heart}>
+                    <div
+                      className={`${styles.heart} ${
+                        isClicked ? styles.clicked : ''
+                      }`}
+                      onClick={handleClick}
+                    >
                       <IoHeart />
                     </div>
                   </div>
@@ -90,7 +100,12 @@ export default function Index() {
                 <div className={styles.overlay}>
                   <div className={styles.coach}>
                     <div className={styles.coachName}>李安妮</div>
-                    <div class={styles.heart}>
+                    <div
+                      className={`${styles.heart} ${
+                        isClicked ? styles.clicked : ''
+                      }`}
+                      onClick={handleClick}
+                    >
                       <IoHeart />
                     </div>
                   </div>
@@ -106,7 +121,12 @@ export default function Index() {
                 <div className={styles.overlay}>
                   <div className={styles.coach}>
                     <div className={styles.coachName}>李安妮</div>
-                    <div class={styles.heart}>
+                    <div
+                      className={`${styles.heart} ${
+                        isClicked ? styles.clicked : ''
+                      }`}
+                      onClick={handleClick}
+                    >
                       <IoHeart />
                     </div>
                   </div>
@@ -122,7 +142,12 @@ export default function Index() {
                 <div className={styles.overlay}>
                   <div className={styles.coach}>
                     <div className={styles.coachName}>李安妮</div>
-                    <div class={styles.heart}>
+                    <div
+                      className={`${styles.heart} ${
+                        isClicked ? styles.clicked : ''
+                      }`}
+                      onClick={handleClick}
+                    >
                       <IoHeart />
                     </div>
                   </div>
@@ -138,7 +163,12 @@ export default function Index() {
                 <div className={styles.overlay}>
                   <div className={styles.coach}>
                     <div className={styles.coachName}>李安妮</div>
-                    <div class={styles.heart}>
+                    <div
+                      className={`${styles.heart} ${
+                        isClicked ? styles.clicked : ''
+                      }`}
+                      onClick={handleClick}
+                    >
                       <IoHeart />
                     </div>
                   </div>
@@ -154,7 +184,12 @@ export default function Index() {
                 <div className={styles.overlay}>
                   <div className={styles.coach}>
                     <div className={styles.coachName}>李安妮</div>
-                    <div class={styles.heart}>
+                    <div
+                      className={`${styles.heart} ${
+                        isClicked ? styles.clicked : ''
+                      }`}
+                      onClick={handleClick}
+                    >
                       <IoHeart />
                     </div>
                   </div>
@@ -170,7 +205,12 @@ export default function Index() {
                 <div className={styles.overlay}>
                   <div className={styles.coach}>
                     <div className={styles.coachName}>李安妮</div>
-                    <div class={styles.heart}>
+                    <div
+                      className={`${styles.heart} ${
+                        isClicked ? styles.clicked : ''
+                      }`}
+                      onClick={handleClick}
+                    >
                       <IoHeart />
                     </div>
                   </div>
@@ -186,7 +226,12 @@ export default function Index() {
                 <div className={styles.overlay}>
                   <div className={styles.coach}>
                     <div className={styles.coachName}>李安妮</div>
-                    <div class={styles.heart}>
+                    <div
+                      className={`${styles.heart} ${
+                        isClicked ? styles.clicked : ''
+                      }`}
+                      onClick={handleClick}
+                    >
                       <IoHeart />
                     </div>
                   </div>
