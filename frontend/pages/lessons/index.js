@@ -85,6 +85,131 @@ export default function Index() {
               <label htmlFor="other">其他</label>
             </div>
           </div>
+          <div className={styles.result}>
+            <p className={styles.result_title}>篩選結果</p>
+            <div className={styles.cards}>
+              <div className={styles.lessonCard}>
+                <img
+                  src="/course4.jpg"
+                  alt="描述圖片內容"
+                  className={styles.img}
+                />
+                <div className={styles.lessonName}>
+                  <div className={styles.lessonTitle}>阿罵武術</div>
+                  <div className={styles.lessonTitle}>NT.900</div>
+                </div>
+                <div className={styles.lessonInfo}>
+                  <div>有氧/伸展</div>
+                  <div>超派健身房</div>
+                </div>
+              </div>
+              <div className={styles.lessonCard}>
+                <img
+                  src="/course4.jpg"
+                  alt="描述圖片內容"
+                  className={styles.img}
+                />
+                <div className={styles.lessonName}>
+                  <div className={styles.lessonTitle}>阿罵武術</div>
+                  <div className={styles.lessonTitle}>NT.900</div>
+                </div>
+                <div className={styles.lessonInfo}>
+                  <div>有氧/伸展</div>
+                  <div>超派健身房</div>
+                </div>
+              </div>{' '}
+              <div className={styles.lessonCard}>
+                <img
+                  src="/course4.jpg"
+                  alt="描述圖片內容"
+                  className={styles.img}
+                />
+                <div className={styles.lessonName}>
+                  <div className={styles.lessonTitle}>阿罵武術</div>
+                  <div className={styles.lessonTitle}>NT.900</div>
+                </div>
+                <div className={styles.lessonInfo}>
+                  <div>有氧/伸展</div>
+                  <div>超派健身房</div>
+                </div>
+              </div>{' '}
+              <div className={styles.lessonCard}>
+                <img
+                  src="/course4.jpg"
+                  alt="描述圖片內容"
+                  className={styles.img}
+                />
+                <div className={styles.lessonName}>
+                  <div className={styles.lessonTitle}>阿罵武術</div>
+                  <div className={styles.lessonTitle}>NT.900</div>
+                </div>
+                <div className={styles.lessonInfo}>
+                  <div>有氧/伸展</div>
+                  <div>超派健身房</div>
+                </div>
+              </div>{' '}
+              <div className={styles.lessonCard}>
+                <img
+                  src="/course4.jpg"
+                  alt="描述圖片內容"
+                  className={styles.img}
+                />
+                <div className={styles.lessonName}>
+                  <div className={styles.lessonTitle}>阿罵武術</div>
+                  <div className={styles.lessonTitle}>NT.900</div>
+                </div>
+                <div className={styles.lessonInfo}>
+                  <div>有氧/伸展</div>
+                  <div>超派健身房</div>
+                </div>
+              </div>{' '}
+              <div className={styles.lessonCard}>
+                <img
+                  src="/course4.jpg"
+                  alt="描述圖片內容"
+                  className={styles.img}
+                />
+                <div className={styles.lessonName}>
+                  <div className={styles.lessonTitle}>阿罵武術</div>
+                  <div className={styles.lessonTitle}>NT.900</div>
+                </div>
+                <div className={styles.lessonInfo}>
+                  <div>有氧/伸展</div>
+                  <div>超派健身房</div>
+                </div>
+              </div>{' '}
+              <div className={styles.lessonCard}>
+                <img
+                  src="/course4.jpg"
+                  alt="描述圖片內容"
+                  className={styles.img}
+                />
+                <div className={styles.lessonName}>
+                  <div className={styles.lessonTitle}>阿罵武術</div>
+                  <div className={styles.lessonTitle}>NT.900</div>
+                </div>
+                <div className={styles.lessonInfo}>
+                  <div>有氧/伸展</div>
+                  <div>超派健身房</div>
+                </div>
+              </div>
+              <div className={styles.lessonCard}>
+                <img
+                  src="/course4.jpg"
+                  alt="描述圖片內容"
+                  className={styles.img}
+                />
+                <div className={styles.lessonName}>
+                  <div className={styles.lessonTitle}>阿罵武術</div>
+                  <div className={styles.lessonTitle}>NT.900</div>
+                </div>
+                <div className={styles.lessonInfo}>
+                  <div>有氧/伸展</div>
+                  <div>超派健身房</div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </Layout2>
     </>
