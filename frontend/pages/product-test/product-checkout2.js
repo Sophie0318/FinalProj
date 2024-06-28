@@ -35,7 +35,7 @@ export default function ProductCheckout2() {
           </div>
         </div>
         <div className={`col-12 col-md-12 text-center mb-5  ${styles.inside}`}>
-          <label htmlFor="text">姓名</label>
+          <div className={`col-6 col-md-6 ${styles.fixleft}`}>姓名</div>
           <input
             type="text"
             className={styles.outside}
@@ -43,7 +43,7 @@ export default function ProductCheckout2() {
           />
         </div>
         <div className={`col-12 col-md-12 text-center mb-5 ${styles.inside}`}>
-          <label htmlFor="text">手機</label>
+          <div className={`col-6 col-md-6 ${styles.fixleft}`}>手機</div>
           <input
             type="text"
             className={styles.outside}
@@ -51,7 +51,7 @@ export default function ProductCheckout2() {
           />
         </div>
         <div className={`col-12 col-md-12 text-center mb-5 ${styles.inside}`}>
-          <label htmlFor="text">取貨門市</label>
+          <div className={`col-6 col-md-6 ${styles.fixleft}`}>取貨門市</div>
           <input type="text" className={styles.outside} />
         </div>
         <div
