@@ -67,26 +67,25 @@ export default function Home() {
 
           <section className={`${styles.keyVisualSP}`}>
             <div className={`${styles.hero}`}>
-              <div className={`${styles.heroContainer} container-fluid p-0`}>
-                <div className="row g-0 p-0 m-0">
-                  <div className={`${styles.heroImage} col-12`}>
-                    <img src="/hero-img-mobile.svg" />
-                  </div>
+              <div className="row g-0 p-0 m-0">
+                <div className={`${styles.heroImage} col-12`}>
+                  <img src="/hero-img-mobile.svg" />
                 </div>
               </div>
             </div>
 
-            <div className={`${styles.cta1} bg-secondary`}>
+            <div className={`${styles.cta1}`}>
               <div className="container">
                 <div className="row g-0 p-0 m-0">
                   <div className={`${styles.heroText} col-12`}>
                     <h1 className="text-primary">{`[健康]`}</h1>
                     <h1 className="text-primary">人生第一財富</h1>
-                    <ul>
-                      <li>啟動活力</li>
-                      <li>永續生活</li>
-                      <li>幸福起點</li>
+                    <ul className="d-flex">
+                      <li className="h5-font me-2">啟動活力 |</li>
+                      <li className="h5-font me-2">永續生活 |</li>
+                      <li className="h5-font me-2">幸福起點 |</li>
                     </ul>
+                    <div className={`${styles.cta1Filler}`}></div>
                   </div>
                 </div>
               </div>
