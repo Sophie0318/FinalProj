@@ -53,9 +53,11 @@ export default function Navbar() {
       </header>
 
       <header className={`${styles.navbarSP}`}>
-        <div className="container-fluid justify-content-center">
+        <div className="container-fluid">
           <Link href="/">
-            <div className={`${styles.logo}`}>
+            <div
+              className={`${styles.logo} row justify-content-center p-0 m-0`}
+            >
               <img src="/logo.png" alt="" className={`${styles.logoPhoto}`} />
             </div>
           </Link>

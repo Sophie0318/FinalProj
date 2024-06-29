@@ -13,6 +13,7 @@ import styles from '@/styles/home.module.css'
 // TODO: 困擾卡片 RWD 可不可以用 container-fluid
 // TODO: 考慮要不要把"是否有這些煩惱"卡片 text-align justify
 // TODO: 思考hero text可以怎麼RWD
+// TODO: PC版 heroImage 改成 svg
 
 export default function Home() {
   return (
@@ -65,19 +66,28 @@ export default function Home() {
           </section>
 
           <section className={`${styles.keyVisualSP}`}>
-            <div className={`${styles.heroContainer} container-fluid p-0`}>
-              <div className="row g-0">
-                <div className={`${styles.heroImage} col-12`}>
-                  <img src="/hero-img.png" />
+            <div className={`${styles.hero}`}>
+              <div className={`${styles.heroContainer} container-fluid p-0`}>
+                <div className="row g-0 p-0 m-0">
+                  <div className={`${styles.heroImage} col-12`}>
+                    <img src="/hero-img-mobile.svg" />
+                  </div>
                 </div>
-                <div className={`${styles.heroText} col-12`}>
-                  <h1 className="text-primary">{`[健康]`}</h1>
-                  <h1 className="text-primary">人生第一財富</h1>
-                  <ul>
-                    <li>啟動活力</li>
-                    <li>永續生活</li>
-                    <li>幸福起點</li>
-                  </ul>
+              </div>
+            </div>
+
+            <div className={`${styles.cta1} bg-secondary`}>
+              <div className="container">
+                <div className="row g-0 p-0 m-0">
+                  <div className={`${styles.heroText} col-12`}>
+                    <h1 className="text-primary">{`[健康]`}</h1>
+                    <h1 className="text-primary">人生第一財富</h1>
+                    <ul>
+                      <li>啟動活力</li>
+                      <li>永續生活</li>
+                      <li>幸福起點</li>
+                    </ul>
+                  </div>
                 </div>
               </div>
             </div>

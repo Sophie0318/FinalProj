@@ -53,7 +53,6 @@
 }
 /* header 相關樣式結束 */
 
-
 /* section 相關樣式開始 */
 .intro {
   background-color: #fff7e9;
@@ -126,14 +125,14 @@
 
 @keyframes slideUp {
   0% {
-      bottom: -50px;
+    bottom: -50px;
 
-      opacity: 0;
+    opacity: 0;
   }
 
   100% {
-      bottom: 0px;
-      opacity: 1;
+    bottom: 0px;
+    opacity: 1;
   }
 }
 
@@ -147,7 +146,6 @@
 }
 /* footer 相關樣式結束 */
 
-
 /* 手機板 */
 @media (max-width: 576px) {
   .navbarPC {
@@ -155,6 +153,7 @@
   }
   .navbarSP {
     display: block;
+    margin: 10px 0;
   }
 
   .navToggleBtn {
@@ -212,9 +211,10 @@
     border-radius: 100px;
     margin: 10px 10px 10px 0;
   }
-
-  
-
-
-
+  .logo {
+    margin-right: 0;
+  }
+  .logoPhoto {
+    width: 162px;
+  }
 }
