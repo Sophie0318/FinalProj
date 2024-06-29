@@ -1,5 +1,13 @@
+.keyVisualSP {
+  display: none;
+}
+
 .hero {
   padding: 56px 150px;
+}
+
+.heroContainer {
+  max-width: 960px;
 }
 
 .hero h1 {
@@ -70,12 +78,12 @@
   padding-top: 67px;
 }
 
-.cta2 h3 {
-  margin-left: 100px;
+.cta2List{
   margin-bottom: 56px;
 }
 
-.cta2List{
+.cta2ListTitle {
+  max-width: 1000px;
   margin-bottom: 56px;
 }
 
@@ -176,6 +184,7 @@
   .heroText {
     text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff;
   }
+
 }
 
 /* 解決困擾卡片在比較窄的版面的跑版 */
@@ -183,6 +192,11 @@
   .heroText h1{
     font-size: 48px;
     line-height: 150%;
+  }
+
+  .startAction {
+    font-size: 32px;
+    letter-spacing: 6px;
   }
 
   .knee {
@@ -195,5 +209,27 @@
   
   .sleepy {
     padding: 55px 3% 55px 3%;
+  }
+}
+
+@media (max-width: 576px) {
+  .keyVisualPC {
+    display: none;
+  }
+
+  .keyVisualSP {
+    display: block;
+  }
+
+  .hero {
+    padding: 0 16px;
+  }
+
+  .heroContainer {
+    max-width: 100%;
+  }
+
+  .heroImage img{
+    width: 120%;
   }
 }

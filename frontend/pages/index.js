@@ -1,7 +1,6 @@
 // 功能類
 import { useState, useEffect } from 'react'
 import Head from 'next/head'
-import useWindowSize from '@/hooks/index/useWindowSize'
 
 // 樣式 or 元件類
 import Layout1 from '@/components/layout/layout1'
@@ -11,12 +10,11 @@ import { BtnLg } from '@/components/common/buttons/'
 import styles from '@/styles/home.module.css'
 
 // TODO: 問牙牙條RWD的時候滿版兩旁要留多少margin ex. 卡片輪播
+// TODO: 困擾卡片 RWD 可不可以用 container-fluid
 // TODO: 考慮要不要把"是否有這些煩惱"卡片 text-align justify
 // TODO: 思考hero text可以怎麼RWD
 
 export default function Home() {
-  const size = useWindowSize()
-
   return (
     <>
       <Layout1>
@@ -27,96 +25,72 @@ export default function Home() {
         </Head>
 
         <main>
-          {size.width >= 768 && (
-            <section className="key-visual-pc">
-              <div className={`${styles.hero}`}>
-                <div className={`container fixed-960 p-0`}>
-                  <div className="row g-0">
-                    <div className={`${styles.heroText} col-md-8`}>
-                      <h1 className="text-primary pe-1">
-                        愛默生曾經說過健康是人生第一財富。
-                      </h1>
-                      <Link href="/#">
-                        <h3
-                          className={`${styles.startAction}`}
-                        >{`[ Start ]`}</h3>
-                      </Link>
-                    </div>
-                    <div className={`${styles.heroImage} col-md-4`}>
-                      <img src="/hero-img.png" />
-                    </div>
+          <section className={`${styles.keyVisualPC}`}>
+            <div className={`${styles.hero}`}>
+              <div className={`${styles.heroContainer} container-fluid p-0`}>
+                <div className="row g-0">
+                  <div className={`${styles.heroText} col-md-8`}>
+                    <h1 className="text-primary pe-1">
+                      愛默生曾經說過健康是人生第一財富。
+                    </h1>
+                    <Link href="/#">
+                      <h3 className={`${styles.startAction}`}>{`[ Start ]`}</h3>
+                    </Link>
+                  </div>
+                  <div className={`${styles.heroImage} col-md-4`}>
+                    <img src="/hero-img.png" />
                   </div>
                 </div>
               </div>
+            </div>
 
-              <div className={`${styles.cta1} bg-secondary`}>
-                <div className="container fixed-960 p-0">
-                  <div className="row g-0 justify-content-between mx-3">
-                    <div className={`${styles.cta1Img} col-md-4`}>
-                      <img src="/marisa-howenstine-nFsOlSE9Mn8-unsplash.jpg" />
-                    </div>
-                    <div className="col-md-7">
-                      <h3>活力無限，擁抱健康</h3>
-                      <p>
-                        運動是保持健康的關鍵，活力啟點幫您找到最佳運動場所。立即搜尋，讓健康和活力成為生活常態！
-                        <br />
-                        讓我們活到老，動到老！
-                      </p>
-                      <BtnLg>找場館</BtnLg>
-                    </div>
+            <div className={`${styles.cta1} bg-secondary`}>
+              <div className="container fixed-960 p-0">
+                <div className="row g-0 justify-content-between mx-3">
+                  <div className={`${styles.cta1Img} col-md-4`}>
+                    <img src="/marisa-howenstine-nFsOlSE9Mn8-unsplash.jpg" />
+                  </div>
+                  <div className="col-md-7">
+                    <h3>活力無限，擁抱健康</h3>
+                    <p>
+                      運動是保持健康的關鍵，活力啟點幫您找到最佳運動場所。立即搜尋，讓健康和活力成為生活常態！
+                      <br />
+                      讓我們活到老，動到老！
+                    </p>
+                    <BtnLg>找場館</BtnLg>
                   </div>
                 </div>
               </div>
-            </section>
-          )}
+            </div>
+          </section>
 
-          {size.width <= 767 && (
-            <section className="key-visual-sp">
-              <div className={`${styles.hero}`}>
-                <div className={`container-fluid p-0`}>
-                  <div className="row flex-column g-0 m-0 p-0">
-                    <div className={`${styles.heroText} col-md-8`}>
-                      <h1 className="text-primary pe-1">
-                        愛默生曾經說過健康是人生第一財富。
-                      </h1>
-                      <Link href="/#">
-                        <h3
-                          className={`${styles.startAction}`}
-                        >{`[ Start ]`}</h3>
-                      </Link>
-                    </div>
-                    <div className={`${styles.heroImage} col-md-4`}>
-                      <img src="/hero-img.png" />
-                    </div>
-                  </div>
+          <section className={`${styles.keyVisualSP}`}>
+            <div className={`${styles.heroContainer} container-fluid p-0`}>
+              <div className="row g-0">
+                <div className={`${styles.heroImage} col-12`}>
+                  <img src="/hero-img.png" />
+                </div>
+                <div className={`${styles.heroText} col-12`}>
+                  <h1 className="text-primary">{`[健康]`}</h1>
+                  <h1 className="text-primary">人生第一財富</h1>
+                  <ul>
+                    <li>啟動活力</li>
+                    <li>永續生活</li>
+                    <li>幸福起點</li>
+                  </ul>
                 </div>
               </div>
-
-              <div className={`${styles.cta1} bg-secondary`}>
-                <div className="container fixed-960 p-0">
-                  <div className="row g-0 justify-content-between mx-3">
-                    <div className={`${styles.cta1Img} col-md-4`}>
-                      <img src="/marisa-howenstine-nFsOlSE9Mn8-unsplash.jpg" />
-                    </div>
-                    <div className="col-md-7">
-                      <h3>活力無限，擁抱健康</h3>
-                      <p>
-                        運動是保持健康的關鍵，活力啟點幫您找到最佳運動場所。立即搜尋，讓健康和活力成為生活常態！
-                        <br />
-                        讓我們活到老，動到老！
-                      </p>
-                      <BtnLg>找場館</BtnLg>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </section>
-          )}
+            </div>
+          </section>
 
           <div className={`${styles.pageWrap}`}>
             <section className={`${styles.cta2}`}>
               <div className="container-fluid p-0">
-                <h3>你是不是有這些困擾呢？</h3>
+                <div className={`row justify-content-center`}>
+                  <h3 className={`${styles.cta2ListTitle} `}>
+                    你是不是有這些困擾呢？
+                  </h3>
+                </div>
                 <div
                   className={`${styles.cta2List} row justify-content-center m-0`}
                 >
