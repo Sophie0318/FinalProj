@@ -10,9 +10,9 @@ export default function Gyms() {
   const [boo, setBoo] = useState(true)
   return (
     <Layout3 title="尋找場館" pageName="gyms">
-      <div className={`${styles.p16} ${styles.containerFixedP80} `}>
+      <div className={`${styles.container}`}>
         <div className={'row'}>
-          <div className={` ${styles.rt50}`}>
+          <div className={` ${styles.radius50}`}>
             <div
               className={
                 'd-flex flex-row justify-content-between align-items-stretch '
