@@ -8,7 +8,7 @@ export default function ProductCheckout2() {
         <div className="row">
           <div className={`col-3 col-md-3  ${styles.size}`}>
             <div className={styles.test}>1</div>
-            <div className={styles.checkFount}>1.檢視商品</div>
+            <div className={styles.checkFount}>檢視商品</div>
           </div>
           <div className={`col-3 col-md-3 ${styles.size} `}>
             <div className={styles.test}>2</div>
@@ -45,7 +45,7 @@ export default function ProductCheckout2() {
         <div className={`col-12 col-md-12 text-center mb-5 ${styles.inside}`}>
           <div className={`col-6 col-md-6 ${styles.fixleft}`}>手機</div>
           <input
-            type="text"
+            type="mobile"
             className={styles.outside}
             placeholder="請輸入手機號碼"
           />

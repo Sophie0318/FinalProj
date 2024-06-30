@@ -99,8 +99,3 @@ gap: 10px;
   height: 65px;
   color: white;
 }
-.fixleft{
-  display: flex;
-  justify-self: start;
-  
-}

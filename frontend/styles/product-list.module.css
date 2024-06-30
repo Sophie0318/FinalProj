@@ -21,20 +21,19 @@
   line-height: normal;
   letter-spacing: 12px;
 }
-.card1 {
-  border-radius: 50px;
-}
-.cardbody {
-  width: 100%;
-}
+
+
 .imagradius {
   border-radius: 0px 0px 0px 50px;
-  margin-bottom: 40px;
+  /* margin-bottom: 40px; */
+  
+  
 }
 
 .cardsize {
-  width: 18.75rem;
-  height: 22.875rem;
+  /* width: 18.75rem;
+  height: 22.875rem; */
+  width: 100%;
   border-radius: 40px;
   background: #fff;
   margin-bottom: 20px;
@@ -47,7 +46,7 @@
 }
 .search {
   position: relative;
-  width: 80%;
+  width: 100%;
   float: left;
   margin-bottom: 50px;
   margin-top: 50px;
@@ -116,4 +115,6 @@ margin-right: 7px;
   border-radius: 50%;
   margin-right: 7px;
   }
- 
+  .cardbody{
+    height: 150px;
+  }
