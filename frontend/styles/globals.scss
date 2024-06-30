@@ -207,8 +207,6 @@ h6,
 
 p,
 .p-font {
-  // TODO: priority 通知大家有這個更動
-  font-family: 'Huninn', sans-serif;
   font-size: 18px;
   letter-spacing: 1px;
   line-height: 160%;
@@ -235,11 +233,6 @@ p,
 }
 
 // 暫存, 之後需要整理的
-.btn-lg {
-  // 已經放到 components/common/button
-  letter-spacing: 6.72px;
-  padding: 24px 101px;
-}
 
 // 輪播覆蓋, 其他客製樣式
 .carousel-control-prev,
@@ -309,14 +302,7 @@ p,
     letter-spacing: 3px;
   }
 
-  p,
-  .p-font {
-    // TODO: priority 通知大家有這個更動
-    font-family: 'Huninn', sans-serif;
-    font-size: 18px;
-    letter-spacing: 1px;
-    line-height: 160%;
-  }
+// 手機板 p 沒有變
 
   .small-font {
     font-size: 16px;

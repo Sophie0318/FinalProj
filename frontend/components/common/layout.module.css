@@ -24,7 +24,6 @@
   padding: 0;
 }
 
-/* TODO: navbar hover bgcolor change on li */
 .list li {
   display: flex;
   justify-content: center;
@@ -42,7 +41,6 @@
 .list a {
   position: relative;
   display: block;
-  /* height: 28px; */
   width: 114px;
   transition: all 0.2s linear 0s;
   text-align: center;
@@ -77,35 +75,38 @@
 .icons {
   display: flex;
   margin-left: auto; /* 將 icons 列表推到最右邊 */
-  align-items: flex-end;
   justify-content: center;
-  padding-top: 39px;
+  margin-top: 18px; /* 讓icons對齊navlink文字下緣用 與align-items擇一 */
+  /* align-items: flex-end; */
 }
 
 .icons .member {
   color: black;
   margin-right: 10px;
-  font-size: 21px;
+  height: 32px;
+  width: 32px;
 }
 
 .icons .cart {
   color: black;
   margin-right: 10px;
-  font-size: 21px;
+  height: 32px;
+  width: 32px;
 }
 /* header 相關樣式結束 */
 
-/* section 相關樣式開始 */
+/* page-title 相關樣式開始 */
 .intro {
   background-color: #fff7e9;
   border-radius: 50px 50px 0 0;
   height: 205px;
-  align-items: center; /* 垂直居中 /
-  justify-content: center; / 水平居中 */
+  align-items: center; /* 垂直居中 */
 }
+
 .info {
   gap: 15px;
 }
+
 .bread {
   padding-top: 24px;
   text-align: center;
@@ -113,6 +114,7 @@
   color: #1a394a;
   font-family: 'Huninn';
 }
+
 .title {
   padding-top: 15px;
   text-align: center;
@@ -121,6 +123,7 @@
   font-weight: bold;
   font-family: 'Gensen';
 }
+
 .subTitle {
   padding-top: 15px;
   text-align: center;
@@ -189,7 +192,7 @@
 /* footer 相關樣式結束 */
 
 /* 手機板 */
-@media (max-width: 576px) {
+@media (max-width: 900px) {
   .navbarPC {
     display: none;
   }

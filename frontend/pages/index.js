@@ -10,8 +10,7 @@ import { BtnLg } from '@/components/common/buttons/'
 import JoinMember from '@/components/joinMember'
 import styles from '@/styles/home.module.css'
 
-// TODO: 問牙牙條RWD的時候滿版兩旁要留多少margin ex. 卡片輪播
-// TODO: 考慮要不要把"是否有這些煩惱"卡片 text-align justify
+// TODO: 問牙牙index PC版的文字要不要變成 Huninn 因為手機板是Huninn
 // TODO: PC版 heroImage 改成 svg
 
 export default function Home() {
@@ -26,10 +25,11 @@ export default function Home() {
 
         <main>
           <section className={`${styles.keyVisualPC}`}>
+            {/* TODO: 之後來優化 keyVisualPC 的結構 */}
             <div className={`${styles.hero}`}>
               <div className={`${styles.heroContainer} container-fluid p-0`}>
-                <div className="row g-0">
-                  <div className={`${styles.heroText} col-md-8 col-6`}>
+                <div className="row g-0 position-relative">
+                  <div className={`${styles.heroText} col-md-8 col-8`}>
                     <h1 className="text-primary pe-1">
                       愛默生曾經說過健康是人生第一財富。
                     </h1>
@@ -37,9 +37,7 @@ export default function Home() {
                       <h3 className={`${styles.startAction}`}>{`[ Start ]`}</h3>
                     </Link>
                   </div>
-                  <div className={`${styles.heroImage} col-md-4 col-6`}>
-                    <img src="/hero-img.png" />
-                  </div>
+                  <img src="/hero-img.png" className={`${styles.heroImage}`} />
                 </div>
               </div>
             </div>
@@ -47,10 +45,10 @@ export default function Home() {
             <div className={`${styles.cta1} bg-secondary`}>
               <div className="container fixed-960 p-0">
                 <div className="row g-0 justify-content-between mx-3">
-                  <div className={`${styles.cta1Img} col-md-5 col-6`}>
+                  <div className={`${styles.cta1Img} col-lg-5 col-5`}>
                     <img src="/marisa-howenstine-nFsOlSE9Mn8-unsplash.jpg" />
                   </div>
-                  <div className="col-md-7 col-6">
+                  <div className="col-lg-7 col-6">
                     <h3>活力無限，擁抱健康</h3>
                     <p>
                       運動是保持健康的關鍵，活力啟點幫您找到最佳運動場所。立即搜尋，讓健康和活力成為生活常態！
@@ -117,7 +115,7 @@ export default function Home() {
                 </div>
               </div>
 
-              <div className={`container-fluid`}>
+              <div className={`container-fluid p-0`}>
                 <div className={`row p-0 m-0 justify-content-center`}>
                   <h3 className={`${styles.cta2ListTitlePC}`}>
                     你是不是有這些困擾呢？
@@ -130,7 +128,7 @@ export default function Home() {
                   </p>
                 </div>
                 <div
-                  className={`${styles.cta2List} row flex-sm-row flex-column justify-content-center mx-0`}
+                  className={`${styles.cta2List} row justify-content-center mx-3`}
                 >
                   <div
                     className={`${styles.knee} d-flex flex-column justify-content-start align-items-center bg-secondary`}
@@ -138,7 +136,8 @@ export default function Home() {
                     <h4 className={`${styles.numTitle}`}>
                       {'['}01{']'}
                     </h4>
-                    <h5>你會膝蓋痛嗎？</h5>
+                    {/* <h5>你會膝蓋痛嗎？</h5> */}
+                    <h5>膝蓋會痛嗎？</h5>
                     <img src="/knee.svg" className="d-block" />
                     <p>
                       膝蓋痛是否讓你很困擾？為何不試著透過運動來緩解呢？快快來加入我們吧！
@@ -150,7 +149,8 @@ export default function Home() {
                     <h4 className={`${styles.numTitle}`}>
                       {'['}02{']'}
                     </h4>
-                    <h5>生活很無聊嗎？</h5>
+                    {/* <h5>生活很無聊嗎？</h5> */}
+                    <h5>生活無聊嗎？</h5>
                     <img src="/bored.svg" className="d-block" />
                     <p>
                       運動是改善心情的最佳良方！從今天開始，每天花點時間運動，身心煥然一新。

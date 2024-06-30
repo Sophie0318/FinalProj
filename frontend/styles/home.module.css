@@ -8,11 +8,11 @@
 
 .hero {
   padding: 56px 15px 0 15px;
+  height: 674px;
 }
 
 .heroContainer {
   max-width: 960px;
-  height: 47vw;
 }
 
 .hero h1 {
@@ -23,18 +23,10 @@
   letter-spacing: 15px;
 }
 
-.heroText {
-  /* height: 39vw; */
-}
-
 .heroImage {
-  position: relative;
-}
-
-.heroImage img {
   position: absolute;
-  width: 210%;
-  min-width: 429px;
+  /* width: 47vw; */
+  max-width: 676px;
   top: -30px;
   right: 0;
 }
@@ -92,7 +84,8 @@
   margin-bottom: 56px;
 }
 
-.cta2ListTitleMobile, .cta2ListTitleMobile + p {
+.cta2ListTitleMobile,
+.cta2ListTitleMobile + p {
   display: none;
 }
 
@@ -110,6 +103,8 @@
   text-align: justify;
   margin: 0;
 }
+
+/* next: 試試看把.knee padding放到 .knee p */
 
 .knee {
   position: relative;
@@ -180,9 +175,14 @@
 
 /* 解決困擾卡片在比較窄的版面的跑版 */
 @media (max-width: 992px) {
-  .heroText h1 {
-    font-size: 48px;
-    line-height: 150%;
+  .hero {
+    height: 450px;
+  }
+
+  .heroImage {
+    width: 466px;
+    top: 0;
+    /* min-width: 429px; */
   }
 
   .startAction {
@@ -203,7 +203,8 @@
   }
 }
 
-@media (max-width: 576px) {
+/* 手機板 */
+@media (max-width: 696px) {
   .keyVisualPC {
     display: none;
   }
@@ -217,7 +218,7 @@
 
   .heroImage img {
     position: fixed;
-    width: 120vw;
+    width: 100vw;
     top: calc(80px + 10px);
     left: 50%;
     transform: translateX(-50%);
@@ -283,23 +284,25 @@
     margin-bottom: 50px;
   }
 
-  .ctaMobile h3, .cta2 h3 {
+  .ctaMobile h3,
+  .cta2 h3 {
     margin-bottom: 30px;
   }
 
-  .ctaMobile p, .cta2 h3 + p {
+  .ctaMobile p,
+  .cta2 h3 + p {
     margin-bottom: 30px;
   }
 
-  .cta2ListTitlePC{
+  .cta2ListTitlePC {
     display: none;
   }
 
-  .cta2List{
+  .cta2List {
     margin-bottom: 30px;
   }
 
-  .cta2ListTitleMobile{
+  .cta2ListTitleMobile {
     display: flex;
     justify-content: center;
   }
@@ -334,5 +337,10 @@
     padding-top: 0;
     padding-bottom: 50px;
   }
+}
 
+@media (max-width: 576px) {
+  .heroImage img {
+    width: 120vw;
+  }
 }
