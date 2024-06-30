@@ -85,10 +85,15 @@
 }
 .more>a{
     color: var(--color-midnight-green);
+    font-weight: bold;
 }
 .more>a:hover{
     color: var(--color-dark-yellow);
-    font-weight: bold;
+}
+.card_2>.card:hover{
+    border: 3px solid var(--color-midnight-green);
+     /* figma shadow-card */
+     box-shadow: 0px 5px 30px 0px rgba(70, 68, 65, 0.20);
 }
 @media screen and (max-width: 950px){
     .menu{
