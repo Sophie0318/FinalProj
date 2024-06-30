@@ -1,10 +1,8 @@
 /* header 相關樣式開始 */
 .navbarPC {
-  margin: 10px 0px 25px 0px;
-  padding: 0px 10px 0px 10px;
-  /* background-color: aqua; */
+  margin: 20px 0px 25px 0px;
+  padding: 0px 50px 0px 50px;
   display: flex;
-  /* align-items: center;  */
   height: 66px;
 }
 
@@ -21,16 +19,53 @@
 
 .list {
   display: flex;
-  margin: 0;
+  justify-content: center;
+  margin: 0 0 0 30px;
   padding: 0;
 }
 
 .list li {
-  margin-right: 20px; /* 可選 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 26px;  
+  height: 28px;
+  width: 114px;
   font-family: 'Gensen', sans-serif;
   font-size: 18px;
-  padding-top: 21px;
 }
+
+.list a {
+  position: relative;
+  display: block;
+  height: 28px;
+  width: 114px;
+  transition: all 0.2s linear 0s;
+  text-align: center;
+  transition: text-indent 0.2s linear 0s;
+}
+
+.linkArrow {
+  position: absolute;
+  left: 20px;
+  top: 0;
+  height: 13px;
+  width: 11px;
+  opacity: 0;
+  transform: translateY(50%);
+  transition: opacity 0.2s linear 0s;
+}
+
+.list a:hover {
+  background-color: var(--color-yellow);
+  border-radius: 50px;
+  text-indent: 20px;
+}
+
+.list a:hover .linkArrow {
+  opacity: 1;
+}
+
 
 .icons {
   display: flex;

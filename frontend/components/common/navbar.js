@@ -10,8 +10,8 @@ import {
   IoBagCheck,
 } from 'react-icons/io5'
 import { PiMapPinFill, PiLightbulbFilamentFill } from 'react-icons/pi'
+import { FaArrowRight } from 'react-icons/fa6'
 import styles from './layout.module.css'
-// TODO: next step, add icons
 
 export default function Navbar() {
   return (
@@ -20,21 +20,36 @@ export default function Navbar() {
         <div className="logo">
           <img src="/logo.png" alt="" className={`${styles.logoPhoto}`} />
         </div>
-        <ul className={`${styles.list}`}>
+        <ul className={`${styles.list} h6-font`}>
           <li>
-            <Link href="./gyms">找場館</Link>
+            <Link href="./gyms">
+              <FaArrowRight className={styles.linkArrow} />
+              找場館
+            </Link>
           </li>
           <li>
-            <Link href="./products">找商城</Link>
+            <Link href="./products">
+              <FaArrowRight className={styles.linkArrow} />
+              找商城
+            </Link>
           </li>
           <li>
-            <Link href="./lessons">找課程</Link>
+            <Link href="./lessons">
+              <FaArrowRight className={styles.linkArrow} />
+              找課程
+            </Link>
           </li>
           <li>
-            <Link href="./coaches">找教練</Link>
+            <Link href="./coaches">
+              <FaArrowRight className={styles.linkArrow} />
+              找教練
+            </Link>
           </li>
           <li>
-            <Link href="./articles">找知識</Link>
+            <Link href="./articles">
+              <FaArrowRight className={styles.linkArrow} />
+              找知識
+            </Link>
           </li>
         </ul>
 
@@ -66,8 +81,8 @@ export default function Navbar() {
           className={`${styles.navToggleBtn} navbar-toggler d-flex justify-content-center align-items-center bg-secondary`}
           type="button"
           data-bs-toggle="offcanvas"
-          data-bs-target="#offcanvasNavbar"
-          aria-controls="offcanvasNavbar"
+          data-bs-target="#navbarMobile"
+          aria-controls="navbarMobile"
           aria-label="Toggle navigation"
         >
           <IoReorderTwoOutline className={`${styles.navToggleIcon}`} />
@@ -83,8 +98,8 @@ export default function Navbar() {
             backgroundColor: '#fff7e9',
           }}
           tabIndex="-1"
-          id="offcanvasNavbar"
-          aria-labelledby="offcanvasNavbarLabel"
+          id="navbarMobile"
+          aria-labelledby="navbarMobileLabel"
         >
           <div className={`container-fluid py-3`}>
             <div
