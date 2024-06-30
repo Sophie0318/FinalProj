@@ -32,14 +32,17 @@
   margin-top: 26px;  
   height: 28px;
   width: 114px;
+  background-color: transparent;
+  border-radius: 50px;
   font-family: 'Gensen', sans-serif;
   font-size: 18px;
+  transition: background-color 0.2s linear 0s;
 }
 
 .list a {
   position: relative;
   display: block;
-  height: 28px;
+  /* height: 28px; */
   width: 114px;
   transition: all 0.2s linear 0s;
   text-align: center;
@@ -57,9 +60,12 @@
   transition: opacity 0.2s linear 0s;
 }
 
-.list a:hover {
+.list li a:hover {
   background-color: var(--color-yellow);
   border-radius: 50px;
+}
+
+.list a:hover {
   text-indent: 20px;
 }
 
