@@ -24,6 +24,7 @@
   padding: 0;
 }
 
+/* TODO: navbar hover bgcolor change on li */
 .list li {
   display: flex;
   justify-content: center;

@@ -8,9 +8,15 @@
   border-radius: 50px;
 }
 
-.joinMemberCard h3,
-.joinMemberCard p {
+.joinMemberCard h3 {
   margin-bottom: 27px;
+}
+
+.joinMember p {
+  margin-bottom: 42px;
+  font-family: 'Gensen', sans-serif;
+  font-size: 22px;
+  line-height: 42px;
 }
 
 @media (max-width: 576px) {

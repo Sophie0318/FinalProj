@@ -7,11 +7,12 @@
 }
 
 .hero {
-  padding: 56px 150px;
+  padding: 56px 15px 0 15px;
 }
 
 .heroContainer {
   max-width: 960px;
+  height: 47vw;
 }
 
 .hero h1 {
@@ -23,7 +24,7 @@
 }
 
 .heroText {
-  height: 39vw;
+  /* height: 39vw; */
 }
 
 .heroImage {
@@ -48,8 +49,7 @@
   margin-bottom: 30px;
 }
 
-.cta1 p,
-.joinMember p {
+.cta1 p {
   margin-bottom: 42px;
   font-family: 'Gensen', sans-serif;
   font-size: 22px;
@@ -149,20 +149,6 @@
 .popular {
   padding-top: 110px;
   padding-bottom: 56px;
-}
-
-.joinMember {
-  padding: 110px 0;
-}
-
-.joinMemberCard {
-  padding: 55px 70px;
-  border-radius: 50px;
-}
-
-.joinMemberCard h3,
-.joinMemberCard p {
-  margin-bottom: 27px;
 }
 
 /* 為了解決困擾卡片在 1178px 會出現跑版的斷點 */
@@ -347,15 +333,6 @@
   .popular {
     padding-top: 0;
     padding-bottom: 50px;
-  }
-
-  .joinMember {
-    padding: 0 24px;
-    margin-bottom: 55px;
-  }
-
-  .joinMemberCard {
-    padding: 40px 24px 24px 24px;
   }
 
 }

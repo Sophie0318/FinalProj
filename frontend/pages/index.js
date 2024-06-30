@@ -7,6 +7,7 @@ import Layout1 from '@/components/layout/layout1'
 import Carousel from '@/components/carousel'
 import Link from 'next/link'
 import { BtnLg } from '@/components/common/buttons/'
+import JoinMember from '@/components/joinMember'
 import styles from '@/styles/home.module.css'
 
 // TODO: 問牙牙條RWD的時候滿版兩旁要留多少margin ex. 卡片輪播
@@ -28,7 +29,7 @@ export default function Home() {
             <div className={`${styles.hero}`}>
               <div className={`${styles.heroContainer} container-fluid p-0`}>
                 <div className="row g-0">
-                  <div className={`${styles.heroText} col-md-8`}>
+                  <div className={`${styles.heroText} col-md-8 col-6`}>
                     <h1 className="text-primary pe-1">
                       愛默生曾經說過健康是人生第一財富。
                     </h1>
@@ -36,7 +37,7 @@ export default function Home() {
                       <h3 className={`${styles.startAction}`}>{`[ Start ]`}</h3>
                     </Link>
                   </div>
-                  <div className={`${styles.heroImage} col-md-4`}>
+                  <div className={`${styles.heroImage} col-md-4 col-6`}>
                     <img src="/hero-img.png" />
                   </div>
                 </div>
@@ -46,10 +47,10 @@ export default function Home() {
             <div className={`${styles.cta1} bg-secondary`}>
               <div className="container fixed-960 p-0">
                 <div className="row g-0 justify-content-between mx-3">
-                  <div className={`${styles.cta1Img} col-md-4`}>
+                  <div className={`${styles.cta1Img} col-md-5 col-6`}>
                     <img src="/marisa-howenstine-nFsOlSE9Mn8-unsplash.jpg" />
                   </div>
-                  <div className="col-md-7">
+                  <div className="col-md-7 col-6">
                     <h3>活力無限，擁抱健康</h3>
                     <p>
                       運動是保持健康的關鍵，活力啟點幫您找到最佳運動場所。立即搜尋，讓健康和活力成為生活常態！
@@ -219,23 +220,7 @@ export default function Home() {
               </div>
             </section>
 
-            <section className={`${styles.joinMember}`}>
-              <div className="container-fluid p-0">
-                <div className="row flex-column align-items-center text-center">
-                  <div
-                    className={`${styles.joinMemberCard} col-sm-7 col-12 d-flex flex-column justify-content-center align-items-center bg-secondary`}
-                  >
-                    <h3>加入會員 ?</h3>
-                    <p>看完我們的網站心動了嗎？立馬點擊下面按鈕加入會員！</p>
-                    <BtnLg>
-                      <Link href="/" className="text-white">
-                        去健身
-                      </Link>
-                    </BtnLg>
-                  </div>
-                </div>
-              </div>
-            </section>
+            <JoinMember />
           </div>
         </main>
       </Layout1>
