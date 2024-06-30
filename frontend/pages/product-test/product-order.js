@@ -1,8 +1,7 @@
 import React from 'react'
 import styles from '@/styles/product-order.module.css'
 import { IoClose } from 'react-icons/io5'
-import { IoAddSharp } from 'react-icons/io5'
-import { IoRemove } from 'react-icons/io5'
+import { IoAddSharp, IoRemove } from 'react-icons/io5'
 
 export default function ProductOrder() {
   return (
