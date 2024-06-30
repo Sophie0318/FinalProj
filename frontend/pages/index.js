@@ -10,9 +10,7 @@ import { BtnLg } from '@/components/common/buttons/'
 import styles from '@/styles/home.module.css'
 
 // TODO: 問牙牙條RWD的時候滿版兩旁要留多少margin ex. 卡片輪播
-// TODO: 困擾卡片 RWD 可不可以用 container-fluid
 // TODO: 考慮要不要把"是否有這些煩惱"卡片 text-align justify
-// TODO: 思考hero text可以怎麼RWD
 // TODO: PC版 heroImage 改成 svg
 
 export default function Home() {
@@ -66,26 +64,28 @@ export default function Home() {
           </section>
 
           <section className={`${styles.keyVisualSP}`}>
-            <div className={`${styles.hero}`}>
-              <div className="row g-0 p-0 m-0">
-                <div className={`${styles.heroImage} col-12`}>
-                  <img src="/hero-img-mobile.svg" />
-                </div>
-              </div>
+            <div className={`${styles.heroImage}`}>
+              <img src="/hero-img-mobile.svg" />
             </div>
 
             <div className={`${styles.cta1}`}>
               <div className="container">
                 <div className="row g-0 p-0 m-0">
-                  <div className={`${styles.heroText} col-12`}>
-                    <h1 className="text-primary">{`[健康]`}</h1>
-                    <h1 className="text-primary">人生第一財富</h1>
-                    <ul className="d-flex">
-                      <li className="h5-font me-2">啟動活力 |</li>
-                      <li className="h5-font me-2">永續生活 |</li>
-                      <li className="h5-font me-2">幸福起點 |</li>
-                    </ul>
-                    <div className={`${styles.cta1Filler}`}></div>
+                  <h1 className="text-primary">
+                    {`[ 健康 ]`}
+                    <br />
+                    人生第一財富
+                  </h1>
+                  <ul className="d-flex flex-wrap">
+                    <li className="h5-font me-2">啟動活力 |</li>
+                    <li className="h5-font me-2">永續生活 |</li>
+                    <li className="h5-font me-2">幸福起點 |</li>
+                  </ul>
+                  <div className={`${styles.cta1Img} col-md-4`}>
+                    <img src="/marisa-howenstine-nFsOlSE9Mn8-unsplash.jpg" />
+                  </div>
+                  <div className={`${styles.cta1Mask} col-md-4`}>
+                    <img src="/hero-mobile-mask.svg" />
                   </div>
                 </div>
               </div>
@@ -94,14 +94,42 @@ export default function Home() {
 
           <div className={`${styles.pageWrap}`}>
             <section className={`${styles.cta2}`}>
-              <div className="container-fluid p-0">
-                <div className={`row justify-content-center`}>
-                  <h3 className={`${styles.cta2ListTitle} `}>
+              <div
+                className={`${styles.ctaMobile} container-fluid px-3 px-sm-0`}
+              >
+                <div className="row p-0 m-0 justify-content-center">
+                  <h3>活力無限，擁抱健康</h3>
+                  <p>
+                    運動是保持健康的關鍵，活力啟點幫您找到最佳運動場所。立即搜尋，讓健康和活力成為生活常態！
+                    <br />
+                    讓我們活到老，動到老！
+                  </p>
+                </div>
+                <div className={`${styles.cta2Btn} row`}>
+                  <div className="col d-flex justify-content-center">
+                    <BtnLg>
+                      <Link href="/" className="text-white">
+                        找場館
+                      </Link>
+                    </BtnLg>
+                  </div>
+                </div>
+              </div>
+
+              <div className={`container-fluid`}>
+                <div className={`row p-0 m-0 justify-content-center`}>
+                  <h3 className={`${styles.cta2ListTitlePC}`}>
                     你是不是有這些困擾呢？
                   </h3>
+                  <h3 className={`${styles.cta2ListTitleMobile}`}>你也是嗎?</h3>
+                  <p>
+                    運動是保持健康的關鍵，活力啟點幫您找到最佳運動場所。立即搜尋，讓健康和活力成為生活常態！
+                    <br />
+                    讓我們活到老，動到老！
+                  </p>
                 </div>
                 <div
-                  className={`${styles.cta2List} row justify-content-center m-0`}
+                  className={`${styles.cta2List} row flex-sm-row flex-column justify-content-center mx-0`}
                 >
                   <div
                     className={`${styles.knee} d-flex flex-column justify-content-start align-items-center bg-secondary`}
@@ -142,7 +170,11 @@ export default function Home() {
                 </div>
                 <div className={`${styles.cta2Btn} row`}>
                   <div className="col d-flex justify-content-center">
-                    <BtnLg>找解答</BtnLg>
+                    <BtnLg>
+                      <Link href="/" className="text-white">
+                        找場館
+                      </Link>
+                    </BtnLg>
                   </div>
                 </div>
               </div>
@@ -150,27 +182,39 @@ export default function Home() {
 
             <section className={`${styles.popular} ${styles.lessons}`}>
               <Carousel carouselTitle="熱門課程" />
-              <div className="row">
+              <div className="row p-0 m-0">
                 <div className="col d-flex justify-content-center">
-                  <BtnLg>找課程</BtnLg>
+                  <BtnLg>
+                    <Link href="/" className="text-white">
+                      找課程
+                    </Link>
+                  </BtnLg>
                 </div>
               </div>
             </section>
 
             <section className={`${styles.popular} ${styles.coaches}`}>
               <Carousel carouselTitle="熱門教練" />
-              <div className="row">
+              <div className="row p-0 m-0">
                 <div className="col d-flex justify-content-center">
-                  <BtnLg>找教練</BtnLg>
+                  <BtnLg>
+                    <Link href="/" className="text-white">
+                      找教練
+                    </Link>
+                  </BtnLg>
                 </div>
               </div>
             </section>
 
             <section className={`${styles.popular} ${styles.articles}`}>
               <Carousel carouselTitle="熱門文章" />
-              <div className="row">
+              <div className="row  p-0 m-0">
                 <div className="col d-flex justify-content-center">
-                  <BtnLg>找文章</BtnLg>
+                  <BtnLg>
+                    <Link href="/" className="text-white">
+                      找文章
+                    </Link>
+                  </BtnLg>
                 </div>
               </div>
             </section>
@@ -179,11 +223,15 @@ export default function Home() {
               <div className="container-fluid p-0">
                 <div className="row flex-column align-items-center text-center">
                   <div
-                    className={`${styles.joinMemberCard} col-md-7 bg-secondary`}
+                    className={`${styles.joinMemberCard} col-sm-7 col-12 d-flex flex-column justify-content-center align-items-center bg-secondary`}
                   >
                     <h3>加入會員 ?</h3>
                     <p>看完我們的網站心動了嗎？立馬點擊下面按鈕加入會員！</p>
-                    <BtnLg>去健身</BtnLg>
+                    <BtnLg>
+                      <Link href="/" className="text-white">
+                        去健身
+                      </Link>
+                    </BtnLg>
                   </div>
                 </div>
               </div>

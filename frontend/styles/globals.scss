@@ -207,6 +207,8 @@ h6,
 
 p,
 .p-font {
+  // TODO: priority 通知大家有這個更動
+  font-family: 'Huninn', sans-serif;
   font-size: 18px;
   letter-spacing: 1px;
   line-height: 160%;
@@ -307,7 +309,14 @@ p,
     letter-spacing: 3px;
   }
 
-  // p 手機板沒有變
+  p,
+  .p-font {
+    // TODO: priority 通知大家有這個更動
+    font-family: 'Huninn', sans-serif;
+    font-size: 18px;
+    letter-spacing: 1px;
+    line-height: 160%;
+  }
 
   .small-font {
     font-size: 16px;
