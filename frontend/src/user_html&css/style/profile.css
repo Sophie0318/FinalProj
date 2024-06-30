@@ -81,6 +81,14 @@
     flex-basis: 100%;
     flex-direction: row;
     justify-content: end;
+    max-width: 1000px;
+}
+.more>a{
+    color: var(--color-midnight-green);
+}
+.more>a:hover{
+    color: var(--color-dark-yellow);
+    font-weight: bold;
 }
 @media screen and (max-width: 950px){
     .menu{

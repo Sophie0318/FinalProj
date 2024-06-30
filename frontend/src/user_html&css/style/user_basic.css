@@ -153,6 +153,10 @@ h6{
     border-radius: 50px;
     background-color: var(--color-white);
   } 
+  .inline-link:hover{ 
+    background-color: var(--color-old-lace);
+    border: 3px solid var(--color-dark-yellow);
+  } 
   .icon {
     display: flex;
     gap: 15px;
