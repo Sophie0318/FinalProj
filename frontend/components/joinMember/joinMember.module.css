@@ -1,0 +1,25 @@
+.joinMember {
+  padding: 110px 0;
+}
+
+.joinMemberCard {
+  max-width: 724px;
+  padding: 55px 70px;
+  border-radius: 50px;
+}
+
+.joinMemberCard h3,
+.joinMemberCard p {
+  margin-bottom: 27px;
+}
+
+@media (max-width: 576px) {
+.joinMember {
+  padding: 0 24px;
+  margin-bottom: 55px;
+}
+
+.joinMemberCard {
+  padding: 40px 24px 24px 24px;
+}
+}
