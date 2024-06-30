@@ -1,7 +1,7 @@
 import React from 'react'
 import styles from './switch.module.css'
 
-export default function Switch({ isOn, handleToggle }) {
+export default function Switch({ isOn, handleToggle, }) {
   return (
     <>
       <input

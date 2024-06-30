@@ -10,19 +10,22 @@ export default function Gyms() {
   const [boo, setBoo] = useState(true)
   return (
     <Layout3 title="尋找場館" pageName="gyms">
-      <div className={`${styles.containerFixedP80} `}>
+      <div className={`${styles.p16} ${styles.containerFixedP80} `}>
         <div className={'row'}>
           <div className={` ${styles.rt50}`}>
             <div
               className={
-                'd-flex flex-row justify-content-between align-items-center'
+                'd-flex flex-row justify-content-between align-items-stretch '
               }
             >
               <SearchBar
+                className=""
                 placeholder="輸入地址查詢最近場館..."
                 maxWidth="789px"
               />
-              <Switch isOn={boo} handleToggle={() => setBoo(!boo)} />
+              <div className="d-none d-md-flex align-items-center ps-3">
+                <Switch isOn={boo} handleToggle={() => setBoo(!boo)} />
+              </div>
             </div>
           </div>
         </div>

@@ -1,17 +1,31 @@
-.containerFixedP80 {
-  padding: 0 80px;
-}
-
-.mt50 {
-  margin-top: 50px;
-}
-
 .rt50 {
   border-radius: 50px 50px 0 0;
 }
 
+.p16{
+  padding: 0 16px;
+}
 .searchAndSwitch {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
+
+@media (width >= 768px){
+  .containerFixedP80 {
+    padding: 0 80px;
+  }
+
+
+}
+
+@media(width >= 992px){
+
+}
+
+
+
+
+
+
+
