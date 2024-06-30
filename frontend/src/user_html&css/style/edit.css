@@ -1,5 +1,4 @@
 .user_details{
-    width: 700px;
     margin-top: 40px;
     display: flex;
     flex-direction: column;
@@ -12,9 +11,6 @@
     flex-direction: column;
     gap: 30px;
 }
-/* .form-group{
-    margin-left: 120px;
-} */
 .change_password{
     border: none;
 }
@@ -28,7 +24,7 @@
 }
 .change_password .form-group{
     position: relative;
-    padding-bottom: 20px;
+    padding-bottom: 60px;
 }
 .input-container{
     width: 240px;
@@ -46,6 +42,7 @@
     gap: 40px;
     justify-content: flex-end;
     margin-right:35px ;
+    max-width: 1200px;
 }
 .edit_btn>a{
     display: block;
@@ -72,3 +69,63 @@
     color: var(--color-tomato);
     font-size: 24px;
 }
+@media screen and (max-width: 1080px){
+    .edit_btn{
+        justify-content: center; 
+    }
+    .btn_md{
+        width: 150px;
+        height: 60px;
+    }
+}
+
+@media screen and (max-width: 950px){
+    .menu{
+        display:none ;
+      }
+      .warp{
+        padding:0 16px;
+        border-radius:0;
+        background-color: var(--color-white);
+    }
+    .userinfo{
+        background: white;
+        padding:0;
+        border-radius:0;
+        width: 100%;
+        box-shadow:none;
+    }
+}
+@media screen and (max-width: 600px){
+    .menu{
+        display:none ;
+      }
+      .warp{
+        padding:0 16px;
+        border-radius:0;
+        background-color: var(--color-white);
+    }
+    .userinfo{
+        background: white;
+        padding:0;
+        border-radius:0;
+        width: 100%;
+        box-shadow:none;
+    }
+    .form-group input{
+        max-width: 350px;
+    }
+    .flex .form-group{
+
+        padding-bottom: 0;
+    }
+    .flex{
+        flex-direction: column;
+        justify-content: center; 
+        align-items: start;
+        gap: 30px;
+    }
+}
+
+
+
