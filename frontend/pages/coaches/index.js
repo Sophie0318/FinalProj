@@ -3,13 +3,14 @@ import Layout2 from '@/components/layout/layout2'
 import styles from '@/styles/coach.module.css'
 import Carousel from '@/components/carousel'
 import { IoSearch, IoHeart } from 'react-icons/io5'
+import CoachCard from '@/components/coaches/coacgCard'
 
 export default function Index() {
-  const [isClicked, setIsClicked] = useState(false)
-
-  const handleClick = () => {
-    setIsClicked(!isClicked)
-  }
+  const coaches = [
+    { name: '李安妮', skill: '心肺/有氧', imgSrc: '/coach4.jpg' },
+    { name: '林大衛', skill: '重訓/增肌', imgSrc: '/coach3.jpg' },
+    // 添加更多教练数据
+  ]
   return (
     <>
       <Layout2 title="教練列表" pageName="coaches">
@@ -70,173 +71,15 @@ export default function Index() {
           <div className={styles.result}>
             <p className={styles.result_title}>篩選結果</p>
             <div className={styles.coachCards}>
-              <div className={styles.coachCard}>
-                <img
-                  src="/coach4.jpg"
-                  alt="描述圖片內容"
-                  className={styles.img}
-                />
-                <div className={styles.overlay}>
-                  <div className={styles.coach}>
-                    <div className={styles.coachName}>李安妮</div>
-                    <div
-                      className={`${styles.heart} ${
-                        isClicked ? styles.clicked : ''
-                      }`}
-                      onClick={handleClick}
-                    >
-                      <IoHeart />
-                    </div>
-                  </div>
-                  <div className={styles.coachSkill}>心肺/有氧</div>
-                </div>
-              </div>
-              <div className={styles.coachCard}>
-                <img
-                  src="/coach4.jpg"
-                  alt="描述圖片內容"
-                  className={styles.img}
-                />
-                <div className={styles.overlay}>
-                  <div className={styles.coach}>
-                    <div className={styles.coachName}>李安妮</div>
-                    <div
-                      className={`${styles.heart} ${
-                        isClicked ? styles.clicked : ''
-                      }`}
-                      onClick={handleClick}
-                    >
-                      <IoHeart />
-                    </div>
-                  </div>
-                  <div className={styles.coachSkill}>心肺/有氧</div>
-                </div>
-              </div>
-              <div className={styles.coachCard}>
-                <img
-                  src="/coach4.jpg"
-                  alt="描述圖片內容"
-                  className={styles.img}
-                />
-                <div className={styles.overlay}>
-                  <div className={styles.coach}>
-                    <div className={styles.coachName}>李安妮</div>
-                    <div
-                      className={`${styles.heart} ${
-                        isClicked ? styles.clicked : ''
-                      }`}
-                      onClick={handleClick}
-                    >
-                      <IoHeart />
-                    </div>
-                  </div>
-                  <div className={styles.coachSkill}>心肺/有氧</div>
-                </div>
-              </div>
-              <div className={styles.coachCard}>
-                <img
-                  src="/coach4.jpg"
-                  alt="描述圖片內容"
-                  className={styles.img}
-                />
-                <div className={styles.overlay}>
-                  <div className={styles.coach}>
-                    <div className={styles.coachName}>李安妮</div>
-                    <div
-                      className={`${styles.heart} ${
-                        isClicked ? styles.clicked : ''
-                      }`}
-                      onClick={handleClick}
-                    >
-                      <IoHeart />
-                    </div>
-                  </div>
-                  <div className={styles.coachSkill}>心肺/有氧</div>
-                </div>
-              </div>
-              <div className={styles.coachCard}>
-                <img
-                  src="/coach4.jpg"
-                  alt="描述圖片內容"
-                  className={styles.img}
-                />
-                <div className={styles.overlay}>
-                  <div className={styles.coach}>
-                    <div className={styles.coachName}>李安妮</div>
-                    <div
-                      className={`${styles.heart} ${
-                        isClicked ? styles.clicked : ''
-                      }`}
-                      onClick={handleClick}
-                    >
-                      <IoHeart />
-                    </div>
-                  </div>
-                  <div className={styles.coachSkill}>心肺/有氧</div>
-                </div>
-              </div>
-              <div className={styles.coachCard}>
-                <img
-                  src="/coach4.jpg"
-                  alt="描述圖片內容"
-                  className={styles.img}
-                />
-                <div className={styles.overlay}>
-                  <div className={styles.coach}>
-                    <div className={styles.coachName}>李安妮</div>
-                    <div
-                      className={`${styles.heart} ${
-                        isClicked ? styles.clicked : ''
-                      }`}
-                      onClick={handleClick}
-                    >
-                      <IoHeart />
-                    </div>
-                  </div>
-                  <div className={styles.coachSkill}>心肺/有氧</div>
-                </div>
-              </div>
-              <div className={styles.coachCard}>
-                <img
-                  src="/coach4.jpg"
-                  alt="描述圖片內容"
-                  className={styles.img}
-                />
-                <div className={styles.overlay}>
-                  <div className={styles.coach}>
-                    <div className={styles.coachName}>李安妮</div>
-                    <div
-                      className={`${styles.heart} ${
-                        isClicked ? styles.clicked : ''
-                      }`}
-                      onClick={handleClick}
-                    >
-                      <IoHeart />
-                    </div>
-                  </div>
-                  <div className={styles.coachSkill}>心肺/有氧</div>
-                </div>
-              </div>
-              <div className={styles.coachCard}>
-                <img
-                  src="/coach4.jpg"
-                  alt="描述圖片內容"
-                  className={styles.img}
-                />
-                <div className={styles.overlay}>
-                  <div className={styles.coach}>
-                    <div className={styles.coachName}>李安妮</div>
-                    <div
-                      className={`${styles.heart} ${
-                        isClicked ? styles.clicked : ''
-                      }`}
-                      onClick={handleClick}
-                    >
-                      <IoHeart />
-                    </div>
-                  </div>
-                  <div className={styles.coachSkill}>心肺/有氧</div>
-                </div>
+              <div className={styles.coachCards}>
+                {coaches.map((coach, index) => (
+                  <CoachCard
+                    key={index}
+                    name={coach.name}
+                    skill={coach.skill}
+                    imgSrc={coach.imgSrc}
+                  />
+                ))}
               </div>
             </div>
           </div>
