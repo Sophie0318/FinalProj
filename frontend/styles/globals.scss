@@ -3,9 +3,8 @@
 $primary: #1a394a; // midnight green
 $secondary: #fff7e9; // old lace
 
-
 // 輪播覆蓋, 其他客製樣式在後面
-// TODO: 輪播覆蓋研究中 
+// TODO: 輪播覆蓋研究中
 $carousel-control-color: var(--color-white);
 $carousel-control-opacity: 1;
 $carousel-control-hover-opacity: 0.5;
@@ -17,7 +16,6 @@ $carousel-control-next-icon-bg: linear-gradient(black, black);
 // 導入所有 bootstrap 樣式
 @import '~bootstrap/scss/bootstrap';
 // ↓↓↓  其它客製樣式要寫在這行的"下面" ↓↓↓
-
 
 // ↓↓↓  這下面是全域的 CSS 樣式, 包含共用的樣式跟要洗掉的樣式 ↓↓↓
 :root {
@@ -93,8 +91,8 @@ $carousel-control-next-icon-bg: linear-gradient(black, black);
 
 // 定義中文字體用
 body {
-  font-family: 'Huninn', Helvetica, Arial, 'PingFang TC',
-    '苹方-繁', 'Heiti TC', '黑體-繁', 'Microsoft JhengHei', '微軟正黑體',
+  font-family: 'Huninn', Helvetica, Arial, 'PingFang TC', '苹方-繁', 'Heiti TC',
+    '黑體-繁', 'Microsoft JhengHei', '微軟正黑體',
     // Cross-platform generic font family (default user interface font)
     system-ui,
     // Safari for macOS and iOS (San Francisco)
@@ -116,7 +114,8 @@ body {
     'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 }
 
-html, body{
+html,
+body {
   height: 100vh;
   max-width: 100vw;
   overflow-x: hidden;
@@ -126,7 +125,8 @@ a {
   text-decoration: none;
 }
 
-ul, ol {
+ul,
+ol {
   list-style: none;
   margin: 0;
   padding: 0;
@@ -138,7 +138,7 @@ ul, ol {
 }
 
 // 頁面內容很少時讓footer 黏在下面的設定, 搭配 body height 100vh + footer margin-top auto
-#__next{
+#__next {
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -149,7 +149,7 @@ ul, ol {
   width: 24px;
 }
 
-.icon-md{
+.icon-md {
   height: 30px;
   width: 30px;
 }
@@ -159,54 +159,61 @@ ul, ol {
   width: 40px;
 }
 
-h1, .h1-font {
+h1,
+.h1-font {
   font-family: 'Gensen', sans-serif;
   font-size: 64px;
   font-weight: 900;
   line-height: 100px;
 }
 
-h2, .h2-font {
+h2,
+.h2-font {
   font-family: 'Gensen', sans-serif;
   font-size: 48px;
   font-weight: 700;
 }
 
-h3, .h3-font {
+h3,
+.h3-font {
   font-family: 'Gensen', sans-serif;
   font-size: 40px;
   font-weight: 700;
   letter-spacing: 6px;
 }
 
-h4, .h4-font {
+h4,
+.h4-font {
   font-family: 'Gensen', sans-serif;
   font-size: 32px;
   font-weight: 700;
   letter-spacing: 3.2px;
 }
 
-h5, .h5-font{
+h5,
+.h5-font {
   font-family: 'Gensen', sans-serif;
   font-size: 24px;
   font-weight: 700;
   letter-spacing: 5px;
 }
 
-h6, .h6-font{
+h6,
+.h6-font {
   font-family: 'Gensen', sans-serif;
   font-size: 18px;
   font-weight: 700;
   letter-spacing: 3px;
 }
 
-p, .p-font{
+p,
+.p-font {
   font-size: 18px;
   letter-spacing: 1px;
   line-height: 160%;
 }
 
-.small-font{
+.small-font {
   font-size: 16px;
   letter-spacing: 1.6px;
   line-height: 130%;
@@ -226,21 +233,23 @@ p, .p-font{
   padding: 0 120px;
 }
 
-
 // 暫存, 之後需要整理的
-.btn-lg { // 已經放到 components/common/button
+.btn-lg {
+  // 已經放到 components/common/button
   letter-spacing: 6.72px;
   padding: 24px 101px;
 }
 
 // 輪播覆蓋, 其他客製樣式
-.carousel-control-prev, .carousel-control-next{
+.carousel-control-prev,
+.carousel-control-next {
   width: fit-content;
   height: fit-content;
   top: 50%; // TODO: maybe use cal() to dynamically change top position
   transform: translateY(-50%);
 }
-.carousel-control-prev-icon, .carousel-control-next-icon {
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
   padding: 0 9px;
   height: 48px;
   width: 48px;
@@ -250,61 +259,79 @@ p, .p-font{
   width: fit-content;
 }
 
-
 // 手機板 576以下
 @media (max-width: 576px) {
-  h1, .h1-font {
+  h1,
+  .h1-font {
     font-family: 'Gensen', sans-serif;
     font-size: 48px;
     font-weight: 900;
     line-height: 150%;
   }
-  
-  h2, .h2-font {
+
+  h2,
+  .h2-font {
     font-family: 'Gensen', sans-serif;
     font-size: 36px;
     font-weight: 700;
   }
-  
-  h3, .h3-font {
+
+  h3,
+  .h3-font {
     font-family: 'Gensen', sans-serif;
     font-size: 30px;
     font-weight: 700;
     letter-spacing: 6px;
   }
-  
-  h4, .h4-font {
+
+  h4,
+  .h4-font {
     font-family: 'Gensen', sans-serif;
     font-size: 24px;
     font-weight: 700;
     letter-spacing: 2.4px;
   }
-  
-  h5, .h5-font{
+
+  h5,
+  .h5-font {
     font-family: 'Gensen', sans-serif;
     font-size: 22px;
     font-weight: 700;
     letter-spacing: 2px;
   }
-  
-  h6, .h6-font{
+
+  h6,
+  .h6-font {
     font-family: 'Gensen', sans-serif;
     font-size: 18px;
     font-weight: 700;
     letter-spacing: 3px;
   }
-  
-// p 手機板沒有變
-  
-  .small-font{
+
+  // p 手機板沒有變
+
+  .small-font {
     font-size: 16px;
     letter-spacing: 1.6px;
     line-height: 130%;
   }
-  
+
   .number-font {
     font-family: 'Otomanopee', sans-serif;
     font-size: 20px;
     letter-spacing: 1px;
   }
+}
+
+// 試著調整switch/toggle 的大小 用覆蓋scss的方式
+:root {
+  --form-switch-width: 3em;
+  --form-switch-padding-start: calc(var(--form-switch-width) + 0.5em);
+  --form-switch-border-radius: var(--form-switch-width);
+}
+
+.form-switch {
+  width: var(--form-switch-width);
+  padding-left: var(--form-switch-padding-start);
+  border-radius: var(--form-switch-border-radius);
 }

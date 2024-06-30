@@ -1,7 +1,17 @@
-.containerFixedP80{
-padding: 0 80px;
+.containerFixedP80 {
+  padding: 0 80px;
 }
 
-.mt50{
+.mt50 {
   margin-top: 50px;
+}
+
+.rt50 {
+  border-radius: 50px 50px 0 0;
+}
+
+.searchAndSwitch {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }

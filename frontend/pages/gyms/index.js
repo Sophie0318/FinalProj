@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import Layout2 from '@/components/layout/layout2'
+import Layout3 from '@/components/layout/layout3'
 import styles from './gyms.module.css'
 import SearchBar from '@/components/common/searchbar/searchbar'
 import Switch from '@/components/common/switch/switch'
@@ -9,10 +9,10 @@ export default function Gyms() {
   //switch 的state
   const [boo, setBoo] = useState(true)
   return (
-    <Layout2 title="尋找場館" pageName="gyms">
-      <div className={styles.containerFixedP80}>
-        <div className="row">
-          <div className={`${styles.mt50} ${styles.rt50}`}>
+    <Layout3 title="尋找場館" pageName="gyms">
+      <div className={`${styles.containerFixedP80} `}>
+        <div className={'row'}>
+          <div className={` ${styles.rt50}`}>
             <div
               className={
                 'd-flex flex-row justify-content-between align-items-center'
@@ -27,6 +27,6 @@ export default function Gyms() {
           </div>
         </div>
       </div>
-    </Layout2>
+    </Layout3>
   )
 }

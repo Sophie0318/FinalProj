@@ -57,7 +57,7 @@
 .intro {
   background-color: #fff7e9;
   border-radius: 50px 50px 0 0;
-  height: 205px;
+  /* height: 205px; */
   align-items: center; /* 垂直居中 /
   justify-content: center; / 水平居中 */
 }
