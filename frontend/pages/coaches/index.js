@@ -9,6 +9,9 @@ export default function Index() {
   const coaches = [
     { name: '李安妮', skill: '心肺/有氧', imgSrc: '/coach4.jpg' },
     { name: '林大衛', skill: '重訓/增肌', imgSrc: '/coach3.jpg' },
+    { name: '林大衛', skill: '重訓/增肌', imgSrc: '/coach4.jpg' },
+    { name: '林大衛', skill: '重訓/增肌', imgSrc: '/coach4.jpg' },
+    { name: '林大衛', skill: '重訓/增肌', imgSrc: '/coach4.jpg' },
     // 添加更多教练数据
   ]
   return (
