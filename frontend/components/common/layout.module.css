@@ -96,6 +96,7 @@
 /* header 相關樣式結束 */
 
 /* page-title 相關樣式開始 */
+/* TODO: 修改 page-title 字體 + 間距 */
 .intro {
   background-color: #fff7e9;
   border-radius: 50px 50px 0 0;
@@ -204,7 +205,8 @@
   .navToggleBtn {
     position: fixed;
     top: 0;
-    right: 0;
+    right: 16px; 
+    /* 只能用在chrome, right=0 btn會蓋在scrollbar上 */
     z-index: 1030;
     border-radius: 0 0 0 30px;
     height: 80px;

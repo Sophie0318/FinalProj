@@ -12,6 +12,9 @@ import styles from '@/styles/home.module.css'
 
 // TODO: 問牙牙index PC版的文字要不要變成 Huninn 因為手機板是Huninn
 // TODO: PC版 heroImage 改成 svg
+// TODO: 首頁keyVisual_SP滑動動畫優化, 參考 kacco
+// TODO: carousel 的 separater 的右邊緣要對其 joinMember card
+// TODO: 之後來優化 keyVisualPC 的結構
 
 export default function Home() {
   return (
@@ -25,7 +28,6 @@ export default function Home() {
 
         <main>
           <section className={`${styles.keyVisualPC}`}>
-            {/* TODO: 之後來優化 keyVisualPC 的結構 */}
             <div className={`${styles.hero}`}>
               <div className={`${styles.heroContainer} container-fluid p-0`}>
                 <div className="row g-0 position-relative">

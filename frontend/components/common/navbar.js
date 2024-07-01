@@ -68,6 +68,7 @@ export default function Navbar() {
       </header>
 
       <header className={`${styles.navbarSP}`}>
+        {/* TODO: header logo offsets when toggle offcanvas */}
         <div className="container-fluid">
           <Link href="/">
             <div
@@ -88,7 +89,6 @@ export default function Navbar() {
           <IoReorderTwoOutline className={`${styles.navToggleIcon}`} />
         </button>
         <div
-          // TODO: offcanvas 寬度設定可能要覆蓋t變數, 先用inline style, 之後研究sass
           className="offcanvas offcanvas-end"
           style={{
             border: '0',
@@ -122,7 +122,7 @@ export default function Navbar() {
                     className={`${styles.memberAvatar}`}
                     src="/test_avatar.png"
                   />
-                  <span className={` h3-font`}>你阿罵</span>
+                  <span className={`h3-font`}>你阿罵</span>
                 </li>
                 <li>
                   <IoCart
@@ -132,30 +132,30 @@ export default function Navbar() {
                       margin: '10px 10px 10px 0',
                     }}
                   />
-                  <span className={` h3-font`}>購物車</span>
+                  <span className={`h3-font`}>購物車</span>
                 </li>
               </ul>
 
               <ul className={`${styles.icons} ${styles.navLinks} col-12`}>
                 <li>
                   <PiMapPinFill />
-                  <span className={` h3-font`}>找場館</span>
+                  <span className={`h3-font`}>找場館</span>
                 </li>
                 <li>
                   <IoBarbell />
-                  <span className={` h3-font`}>找教練</span>
+                  <span className={`h3-font`}>找教練</span>
                 </li>
                 <li>
                   <IoWalk />
-                  <span className={` h3-font`}>找課程</span>
+                  <span className={`h3-font`}>找課程</span>
                 </li>
                 <li>
                   <IoBagCheck />
-                  <span className={` h3-font`}>找商品</span>
+                  <span className={`h3-font`}>找商品</span>
                 </li>
                 <li>
                   <PiLightbulbFilamentFill />
-                  <span className={` h3-font`}>找知識</span>
+                  <span className={`h3-font`}>找知識</span>
                 </li>
               </ul>
             </div>
