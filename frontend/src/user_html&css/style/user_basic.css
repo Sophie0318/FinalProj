@@ -163,15 +163,16 @@ select{
     align-items: center;
     justify-content: center;
     gap: 6px;
-    padding: 15px 25px;
+    padding: 12px 22px;
     margin-bottom: 13px;
+    border: 3px solid transparent;
     border-radius: 50px;
     background-color: var(--color-white);
   } 
   .inline-link:hover,
   .inline-link:active{ 
     background-color: var(--color-old-lace);
-    border: 3px solid var(--color-dark-yellow);
+    border-color: var(--color-dark-yellow);
   } 
   .userinfo{
     background: white;
