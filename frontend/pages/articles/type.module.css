@@ -1,0 +1,25 @@
+.card {
+  margin-bottom: 25px;
+}
+
+.padding80 {
+  padding: 0 80px;
+}
+
+.titleRow {
+  margin-bottom: 50px;
+  padding-left: 20px;
+}
+
+.page {
+  margin-bottom: 110px;
+}
+
+/* RWD 需要再調 */
+
+@media (max-width: 768px) {
+  .padding80 {
+    padding: 0 16px;
+  }
+  
+}

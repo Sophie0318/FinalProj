@@ -15,75 +15,63 @@
 }
 
 .typeGrid a h3 {
-  transition: font-size 0.1s linear;
+  transition: font-size 0.1s ease-in;
 }
 
 .typeGrid a:hover h3 {
   font-size: 52px;
 }
 
-.typeGrid:nth-child(1) {
-  background-image: url('/articles-img/240117_voice03.png');
+.typeGrid {
   background-color: var(--color-gray-50);
   background-blend-mode: multiply;
   background-size: 100%;
   background-position: center;
+  transition: background-size 0.1s ease-in;
+}
+
+.typeGrid:hover {
+  background-size: 110%;
+}
+
+.typeGrid:nth-child(1) {
+  background-image: url('/articles-img/240117_voice03.png');
   grid-column-start: 1;
   grid-column-end: 4;
   grid-row-start: 1;
   grid-row-end: 1;
-  transition: background-size 0.1s linear;
 }
 
 .typeGrid:nth-child(2) {
   background-image: url('/articles-img/louis-hansel-9CjvlbUGhY-unsplash.jpg');
-  background-color: var(--color-gray-50);
-  background-blend-mode: multiply;
-  background-size: cover;
   grid-column-start: 4;
   grid-column-end: 7;
   grid-row-start: 1;
   grid-row-end: 1;
-  transition: background-size 0.1s linear;
 }
 
 .typeGrid:nth-child(3) {
   background-image: url('/articles-img/julia-zyablova-S1v7hVUiCg0-unsplash.jpg');
-  background-color: var(--color-gray-50);
-  background-blend-mode: multiply;
-  background-size: cover;
-  background-position: center;
   grid-column-start: 1;
   grid-column-end: 3;
   grid-row-start: 2;
   grid-row-end: 2;
-  transition: background-size 0.1s linear;
 }
 
 .typeGrid:nth-child(4) {
   background-image: url('/articles-img/priscilla-du-preez-aPa843frIzI-unsplash.jpg');
-  background-color: var(--color-gray-50);
-  background-blend-mode: multiply;
-  background-size: cover;
-  background-position: center;
   grid-column-start: 3;
   grid-column-end: 5;
   grid-row-start: 2;
   grid-row-end: 2;
-  transition: background-size 0.1s linear;
 }
 
 .typeGrid:nth-child(5) {
   background-image: url('/articles-img/priscilla-du-preez-aPa843frIzI-unsplash.jpg');
-  background-color: var(--color-gray-50);
-  background-blend-mode: multiply;
-  background-size: cover;
-  background-position: center;
   grid-column-start: 5;
   grid-column-end: 7;
   grid-row-start: 2;
   grid-row-end: 2;
-  transition: background-size 0.1s linear;
 }
 
 .latest, .popular {
