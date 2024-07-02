@@ -1,11 +1,8 @@
 /* 白底section整體 */
 .content {
-  margin-top: -30px;
   padding-left: 80px;
   padding-right: 80px;
   border-radius: 50px 50px 0px 0px;
-  background: var(--color-white);
-  box-shadow: 0px -4px 50px 0px rgba(0, 0, 0, 0.1);
 }
 
 /* 課程內容 */

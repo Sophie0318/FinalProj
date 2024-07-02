@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import Layout2 from '@/components/layout/layout2'
+import Layout3 from '@/components/layout/layout3'
 import Carousel from '@/components/carousel'
 import styles from '@/styles/lessonDetail.module.css'
-import { IoCall, IoHeart } from 'react-icons/io5'
+import { IoCart, IoHeart } from 'react-icons/io5'
 
 export default function Detail() {
   const [isClicked, setIsClicked] = useState(false)
@@ -13,7 +13,7 @@ export default function Detail() {
 
   return (
     <>
-      <Layout2 title="課程列表" pageName="lessons">
+      <Layout3 title="課程列表" pageName="lessons">
         <div className={styles.content}>
           <div className={styles.lessson}>
             <div className={styles.imgContainer}>
@@ -48,13 +48,13 @@ export default function Detail() {
                   <span>收藏</span>
                 </button>
                 <button className={styles.btnReserve}>
-                  <IoCall /> 預約
+                  <IoCart /> 購買
                 </button>
               </div>
             </div>
           </div>
         </div>
-      </Layout2>
+      </Layout3>
     </>
   )
 }
