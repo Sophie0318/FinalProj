@@ -69,25 +69,25 @@ export default function Navbar() {
                 aria-controls="offcanvasRight"
               />
               <div
-                class="offcanvas offcanvas-end"
-                tabindex="-1"
+                className="offcanvas offcanvas-end"
+                tabIndex="-1"
                 id="offcanvasRight"
                 aria-labelledby="offcanvasRightLabel"
               >
-                <div class="offcanvas-header">
+                <div className="offcanvas-header">
                   <h5 id="offcanvasRightLabel">
                     {' '}
                     <IoCart /> 您的購物車
                   </h5>
                   <button
                     type="button"
-                    class="btn-close text-reset"
+                    className="btn-close text-reset"
                     data-bs-dismiss="offcanvas"
                     aria-label="Close"
                   ></button>
                 </div>
                 <div
-                  class="offcanvas-body"
+                  className="offcanvas-body"
                   style={{ backgroundColor: '#FFF7E9' }}
                 >
                   <div style={{ display: 'flex', gap: '17px' }}>

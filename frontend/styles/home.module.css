@@ -6,13 +6,10 @@
   display: none;
 }
 
-.hero {
-  padding: 56px 15px 0 15px;
-  height: 674px;
-}
-
 .heroContainer {
+  margin: 56px 16px 0 16px;
   max-width: 960px;
+  height: 674px;
 }
 
 .hero h1 {
