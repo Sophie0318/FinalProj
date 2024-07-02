@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { BtnLg } from '../common/buttons'
 import styles from './joinMember.module.css'
 
+// TODO: 找場館 link 要調整, 不要用button包起來
 export default function JoinMember() {
   return (
     <>

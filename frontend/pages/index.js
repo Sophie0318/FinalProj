@@ -10,10 +10,10 @@ import { BtnLg } from '@/components/common/buttons/'
 import JoinMember from '@/components/joinMember'
 import styles from '@/styles/home.module.css'
 
-// TODO: 問牙牙index PC版的文字要不要變成 Huninn 因為手機板是Huninn
+// PC heroImg and heroText position-relative / absolute 對調
+// TODO: carousel 的 separater 的右邊緣要對其 joinMember card
 // TODO: PC版 heroImage 改成 svg
 // TODO: 首頁keyVisual_SP滑動動畫優化, 參考 kacco
-// TODO: carousel 的 separater 的右邊緣要對其 joinMember card
 // TODO: 之後來優化 keyVisualPC 的結構
 
 export default function Home() {
