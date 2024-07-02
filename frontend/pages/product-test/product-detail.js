@@ -19,21 +19,24 @@ export default function ProductDetail() {
                 <div className="carousel-item active ">
                   <img
                     src="/product-img/cloth.jpg"
-                    className=" w-75"
+                    // className=" w-75"
+                    style={{ height: '636px' }}
                     alt="..."
                   />
                 </div>
                 <div className="carousel-item">
                   <img
                     src="/product-img/cloth.jpg"
-                    className=" w-75"
+                    // className=" w-75"
+                    style={{ height: '636px' }}
                     alt="..."
                   />
                 </div>
                 <div className="carousel-item">
                   <img
                     src="/product-img/cloth.jpg"
-                    className=" w-75"
+                    // className=" w-75"
+                    style={{ height: '636px' }}
                     alt="..."
                   />
                 </div>
