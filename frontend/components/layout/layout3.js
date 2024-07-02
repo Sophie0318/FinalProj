@@ -23,10 +23,7 @@ export default function Layout3({ children, title = '', pageName = 'index' }) {
       <Navbar />
       <div className={`d-flex flex-column`}>
         <PageTitle pageName={pageName} height="255px" />
-        <section className={styles.whiteSection}>
-          {children}
-          123
-        </section>
+        <section className={styles.whiteSection}>{children}</section>
       </div>
       <Footer />
     </>
