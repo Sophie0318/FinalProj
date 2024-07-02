@@ -14,11 +14,7 @@ import styles from './layout3.module.css'
 // articles -> 文章
 // users -> 會員
 
-export default function Layout3({
-  children,
-  title = '',
-  pageName = 'index',
-}) {
+export default function Layout3({ children, title = '', pageName = 'index' }) {
   return (
     <>
       <Head>
@@ -26,7 +22,7 @@ export default function Layout3({
       </Head>
       <Navbar />
       <div className={`d-flex flex-column`}>
-        <PageTitle pageName={pageName} height='255px' />
+        <PageTitle pageName={pageName} height="255px" />
         <section className={styles.whiteSection}>
           {children}
           123

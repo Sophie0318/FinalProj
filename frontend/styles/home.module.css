@@ -1,5 +1,18 @@
+.keyVisualSP {
+  display: none;
+}
+
+.ctaMobile {
+  display: none;
+}
+
 .hero {
-  padding: 56px 150px;
+  padding: 56px 15px 0 15px;
+  height: 674px;
+}
+
+.heroContainer {
+  max-width: 960px;
 }
 
 .hero h1 {
@@ -10,17 +23,10 @@
   letter-spacing: 15px;
 }
 
-.heroText {
-  height: 562px;
-}
-
 .heroImage {
-  position: relative;
-}
-
-.heroImage img {
   position: absolute;
-  width: 210%;
+  /* width: 47vw; */
+  max-width: 676px;
   top: -30px;
   right: 0;
 }
@@ -35,7 +41,7 @@
   margin-bottom: 30px;
 }
 
-.cta1 p, .joinMember p {
+.cta1 p {
   margin-bottom: 42px;
   font-family: 'Gensen', sans-serif;
   font-size: 22px;
@@ -56,11 +62,10 @@
   box-shadow: 0px 5px 30px 0px rgba(0, 0, 0, 0.15);
 }
 
-.pageWrap{
-  box-shadow: 0px -4px 50px 0px rgba(0, 0, 0, 0.10);
+.pageWrap {
+  box-shadow: 0px -4px 50px 0px rgba(0, 0, 0, 0.1);
   border-radius: 50px 50px 0 0;
   background-color: var(--color-white);
-
 }
 
 .cta2 {
@@ -69,13 +74,19 @@
   padding-top: 67px;
 }
 
-.cta2 h3 {
-  margin-left: 100px;
+.cta2List {
   margin-bottom: 56px;
 }
 
-.cta2List{
+.cta2ListTitlePC {
+  max-width: 1250px;
+  padding-left: calc(84px - 12px);
   margin-bottom: 56px;
+}
+
+.cta2ListTitleMobile,
+.cta2ListTitleMobile + p {
+  display: none;
 }
 
 .numTitle {
@@ -92,6 +103,8 @@
   text-align: justify;
   margin: 0;
 }
+
+/* next: 試試看把.knee padding放到 .knee p */
 
 .knee {
   position: relative;
@@ -115,7 +128,7 @@
 .sleepy {
   position: relative;
   max-width: 450px;
-  width: calc(100%/3);
+  width: calc(100% / 3);
   border-radius: 50px;
   padding: 55px;
   margin-left: -50px;
@@ -128,53 +141,206 @@
   margin: 45px 0;
 }
 
-.cta2Btn {
-  margin-top: 56px;
-}
-
 .popular {
   padding-top: 110px;
   padding-bottom: 56px;
 }
 
-.joinMember {
-  padding: 110px 0;
-}
-
-.joinMemberCard {
-  padding: 55px 70px;
-  border-radius: 50px;
-}
-
-.joinMemberCard h3, .joinMemberCard p {
-  margin-bottom: 27px;
-}
-
 /* 為了解決困擾卡片在 1178px 會出現跑版的斷點 */
-@media (max-width: 1300px) { 
+@media (max-width: 1300px) {
   .knee {
     padding: 55px calc(3% + 50px) 55px 3%;
   }
-  
+
   .bored {
     padding: 55px calc(3% + 50px) 55px 3%;
   }
-  
+
   .sleepy {
     padding: 55px 3% 55px 3%;
   }
 }
 
-@media (max-width: 992px) { 
+/* 調整 hero image & text 在 1240px 以下的排版 */
+@media (max-width: 1240px) {
+  .heroImage {
+    z-index: -1;
+  }
+
+  .heroText {
+    text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff,
+      1px 1px 0 #fff;
+  }
+}
+
+/* 解決困擾卡片在比較窄的版面的跑版 */
+@media (max-width: 992px) {
+  .hero {
+    height: 450px;
+  }
+
+  .heroImage {
+    width: 466px;
+    top: 0;
+    /* min-width: 429px; */
+  }
+
+  .startAction {
+    font-size: 32px;
+    letter-spacing: 6px;
+  }
+
   .knee {
     padding: 55px calc(3% + 50px) 55px 3%;
   }
-  
+
   .bored {
     padding: 55px calc(3% + 50px) 55px 3%;
   }
-  
+
   .sleepy {
     padding: 55px 3% 55px 3%;
+  }
+}
+
+/* 手機板 */
+@media (max-width: 696px) {
+  .keyVisualPC {
+    display: none;
+  }
+
+  .keyVisualSP {
+    display: block;
+    position: relative;
+    height: calc(100vh - 70px);
+    width: 100vw;
+  }
+
+  .heroImage img {
+    position: fixed;
+    width: 100vw;
+    top: calc(80px + 10px);
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: -3;
+  }
+
+  .cta1 {
+    position: absolute;
+    bottom: calc(30px + 50px);
+    left: 0;
+    z-index: -1;
+    width: 100vw;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* TODO: solve text stroke issue */
+  .cta1 h1 {
+    text-shadow: 0px 0px 8px var(--color-white);
+    -webkit-text-stroke-width: 1;
+    -webkit-text-stroke-color: var(--color-old-lace);
+  }
+
+  .cta1 li {
+    text-shadow: -1px -1px 0 #fff7e9, 1px -1px 0 #fff7e9, -1px 1px 0 #fff7e9,
+      1px 1px 0 #fff7e9;
+  }
+
+  .cta1Img > img {
+    z-index: -1;
+    right: 0;
+    bottom: 5px;
+    border-radius: 25px;
+    height: 244px;
+    width: 181px;
+    box-shadow: 0px 5px 30px 0px rgba(0, 0, 0, 0.2);
+  }
+
+  .cta1Mask img {
+    position: absolute;
+    right: -41px;
+    top: -94px;
+    z-index: -2;
+  }
+
+  .cta2 {
+    padding-top: 45px;
+    padding-left: 8px;
+    padding-right: 8px;
+    margin-bottom: 50;
+  }
+
+  .cta2 p {
+    font-family: 'Huninn', sans-serif;
+    font-size: 18px;
+    letter-spacing: 1px;
+    line-height: 160%;
+    text-align: justify;
+  }
+
+  .ctaMobile {
+    display: block;
+    margin-bottom: 50px;
+  }
+
+  .ctaMobile h3,
+  .cta2 h3 {
+    margin-bottom: 30px;
+  }
+
+  .ctaMobile p,
+  .cta2 h3 + p {
+    margin-bottom: 30px;
+  }
+
+  .cta2ListTitlePC {
+    display: none;
+  }
+
+  .cta2List {
+    margin-bottom: 30px;
+  }
+
+  .cta2ListTitleMobile {
+    display: flex;
+    justify-content: center;
+  }
+
+  .knee {
+    max-width: 100vw;
+    width: 100%;
+    border-radius: 40px 40px 0 0;
+    padding: 40px 24px 80px 24px;
+    margin-left: 0;
+    margin-bottom: -40px;
+  }
+
+  .bored {
+    max-width: 100vw;
+    width: 100%;
+    border-radius: 40px 40px 0 0;
+    padding: 40px 24px 80px 24px;
+    margin-left: 0;
+    margin-bottom: -40px;
+  }
+
+  .sleepy {
+    max-width: 100vw;
+    width: 100%;
+    border-radius: 40px;
+    padding: 40px 24px 42px 24px;
+    margin: 0;
+  }
+
+  .popular {
+    padding-top: 0;
+    padding-bottom: 50px;
+  }
+}
+
+@media (max-width: 576px) {
+  .heroImage img {
+    width: 120vw;
   }
 }

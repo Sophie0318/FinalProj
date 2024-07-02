@@ -13,7 +13,7 @@ export default function Carousel({
     <>
       <div className={`${styles.carouselRow} row px-0 mx-0`}>
         <div
-          className={`${styles.carouselTitle} col-md-3 d-flex justify-content-center align-items-center`}
+          className={`${styles.carouselTitle} col-md-3 d-flex justify-content-start align-items-center`}
         >
           <h3>{carouselTitle}</h3>
         </div>
