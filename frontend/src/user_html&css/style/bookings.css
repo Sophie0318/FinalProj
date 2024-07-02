@@ -1,13 +1,3 @@
-.user_select{
-    margin: 22px 0;
-    display: flex;
-    justify-content: flex-end;
-}
-.user_select select{
-    width: 327px;
-    height: 80px;
-    padding: 0;
-}
 .year_num{
     font-family: 'Otomanopee';
     font-size: 22px;

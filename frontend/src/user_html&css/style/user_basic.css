@@ -243,6 +243,16 @@ footer {
     transition: opacity 1s ease, bottom 1s ease;
     animation: slideUp 1s forwards;
 }
+.user_select{
+  margin: 22px 0;
+  display: flex;
+  justify-content: flex-end;
+}
+.user_select select{
+  width: 327px;
+  height: 80px;
+  padding: 0;
+}
 
 @keyframes slideUp {
     0% {
