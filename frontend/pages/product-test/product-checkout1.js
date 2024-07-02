@@ -1,30 +1,13 @@
 import React from 'react'
 import styles from '@/styles/product-checkout1.module.css'
 import { IoAddOutline } from 'react-icons/io5'
-
+import ProductCheckout1 from '@/components/product/product-checkout1'
 export default function ProductCheckout() {
   return (
     <>
       {/* 結帳進度 */}
       <div className="container">
-        <div className="row">
-          <div className={`col-3 col-md-3  ${styles.size}`}>
-            <div className={styles.test}>1</div>
-            <div className={styles.checkFount}>1.檢視商品</div>
-          </div>
-          <div className={`col-3 col-md-3 ${styles.size} `}>
-            <div className={styles.test}>2</div>
-            <div className={styles.checkFount}>2.選擇配送</div>
-          </div>
-          <div className={`col-3 col-md-3 ${styles.size}`}>
-            <div className={styles.test}>3</div>
-            <div className={styles.checkFount}>3.選擇付款</div>
-          </div>
-          <div className={`col-3 col-md-3 ${styles.size}`}>
-            <div className={styles.test}>4</div>
-            <div className={styles.checkFount}>4.完成結帳</div>
-          </div>
-        </div>
+        <ProductCheckout1 />
         {/* 結帳進度 */}
         {/* 手風琴 */}
         <div className="col-12 col-md-8  mx-auto text-center">

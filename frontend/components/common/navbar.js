@@ -86,7 +86,7 @@ export default function Navbar() {
                       />
                       <div
                         className="d-flex"
-                        style={{ height: '20px', marginTop: '70px' }}
+                        style={{ height: '30px', marginTop: '70px' }}
                       >
                         <div
                           style={{
@@ -96,6 +96,7 @@ export default function Navbar() {
                             alignItems: 'center',
                             justifyItems: 'center',
                             color: 'white',
+                            fontSize: '30px',
                           }}
                         >
                           <IoAddSharp />
@@ -110,6 +111,7 @@ export default function Navbar() {
                             alignItems: 'center',
                             justifyItems: 'center',
                             paddingLeft: '8px',
+                            fontSize: '25px',
                           }}
                         >
                           4
@@ -122,6 +124,7 @@ export default function Navbar() {
                             alignItems: 'center',
                             justifyItems: 'center',
                             color: 'white',
+                            fontSize: '30px',
                           }}
                         >
                           <IoRemove />
