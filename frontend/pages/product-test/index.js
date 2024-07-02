@@ -2,6 +2,7 @@ import React from 'react'
 import Image from 'next/image'
 import styles from '@/styles/product.module.css'
 import Layout2 from '@/components/layout/layout2'
+import { BtnLg } from '@/components/common/buttons'
 
 export default function ProductTest() {
   return (
@@ -74,15 +75,14 @@ export default function ProductTest() {
             </div>
           </div>
         </div>
-        <section className="join-member">
-          <div className="container p-0">
+
+        <section className={`${styles.joinMember}`}>
+          <div className="container-fluid p-0">
             <div className="row flex-column align-items-center text-center">
-              <div className="col-lg-7 join-member-card bg-secondary">
+              <div className={`${styles.joinMemberCard} col-md-7 bg-secondary`}>
                 <h3>加入會員 ?</h3>
                 <p>看完我們的網站心動了嗎？立馬點擊下面按鈕加入會員！</p>
-                <button className="btn btn-lg btn-primary text-white h4-font rounded-pill">
-                  去健身
-                </button>
+                <BtnLg>去健身</BtnLg>
               </div>
             </div>
           </div>
@@ -91,3 +91,4 @@ export default function ProductTest() {
     </Layout2>
   )
 }
+// 卡片壞掉

@@ -19,21 +19,21 @@ export default function ProductDetail() {
                 <div className="carousel-item active ">
                   <img
                     src="/product-img/cloth.jpg"
-                    className="d-block w-75"
+                    className=" w-75"
                     alt="..."
                   />
                 </div>
                 <div className="carousel-item">
                   <img
                     src="/product-img/cloth.jpg"
-                    className="d-block w-75"
+                    className=" w-75"
                     alt="..."
                   />
                 </div>
                 <div className="carousel-item">
                   <img
                     src="/product-img/cloth.jpg"
-                    className="d-block w-75"
+                    className=" w-75"
                     alt="..."
                   />
                 </div>
@@ -95,7 +95,7 @@ export default function ProductDetail() {
             </div>
           </div>
           <div
-            className="col-md-6"
+            className="col-md-4"
             style={{
               paddingLeft: '50px',
             }}
@@ -186,9 +186,78 @@ export default function ProductDetail() {
             </div>
           </div>
         </div>
-        <div className="row  text-center align-items-center">
+        <div className="row  text-center align-items-center d-flex">
           <div className="col-12 col-md-12">
-            <h2>你可能喜歡</h2>
+            <h2
+              style={{
+                marginTop: '50px',
+                marginBottom: '50px',
+              }}
+            >
+              你可能喜歡
+            </h2>
+          </div>
+          <div className="col-12 col-md-12 d-flex flex-wrap justify-content-center">
+            <div className={styles.cardsize}>
+              <img
+                src="/product-img/大豆.webp"
+                alt=""
+                className="img-fluid"
+                style={{
+                  marginBottom: '110px',
+                }}
+              />
+              <div className={styles.card}>
+                <h6
+                  style={{
+                    paddingRight: '100px',
+                  }}
+                >
+                  乳清蛋白
+                </h6>
+                <p>每份蛋白質含量高達....</p>
+              </div>
+            </div>
+            <div className={styles.cardsize}>
+              <img
+                src="/product-img/大豆.webp"
+                alt=""
+                className="img-fluid"
+                style={{
+                  marginBottom: '110px',
+                }}
+              />
+              <div className={styles.card}>
+                <h6
+                  style={{
+                    paddingRight: '100px',
+                  }}
+                >
+                  乳清蛋白
+                </h6>
+                <p>每份蛋白質含量高達....</p>
+              </div>
+            </div>
+            <div className={styles.cardsize}>
+              <img
+                src="/product-img/大豆.webp"
+                alt=""
+                className="img-fluid"
+                style={{
+                  marginBottom: '110px',
+                }}
+              />
+              <div className={styles.card}>
+                <h6
+                  style={{
+                    paddingRight: '100px',
+                  }}
+                >
+                  乳清蛋白
+                </h6>
+                <p>每份蛋白質含量高達....</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
