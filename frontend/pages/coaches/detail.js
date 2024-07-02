@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import Layout2 from '@/components/layout/layout2'
+import Layout3 from '@/components/layout/layout3'
 import Carousel from '@/components/carousel'
 import styles from '@/styles/coachDetail.module.css'
 import { IoCall, IoHeart } from 'react-icons/io5'
@@ -13,7 +13,7 @@ export default function Detail() {
 
   return (
     <>
-      <Layout2 title="教練列表" pageName="coaches">
+      <Layout3 title="教練列表" pageName="coaches">
         <div className={styles.content}>
           <div className={styles.coach}>
             <div className={styles.imgContainer}>
@@ -48,7 +48,7 @@ export default function Detail() {
             </div>
           </div>
         </div>
-      </Layout2>
+      </Layout3>
     </>
   )
 }
