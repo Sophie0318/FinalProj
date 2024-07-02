@@ -31,7 +31,7 @@
     justify-content: center;
     align-items: center;
     border-radius: 40px;
-    padding-top: 18px; /* 添加顶部内边距以对齐图片和文本 */
+   
 }
 
 .img {
@@ -96,4 +96,56 @@
     line-height: 160%;
     color: var(--color-midnight-green);
     width: 100%; /* 使描述区域宽度为100% */
+}
+
+.btn{
+  display: flex;
+  max-width: 500px;
+  gap: 40px;
+}
+
+.btnLike {
+    display: flex;
+    width: 150px;
+    height: 60px;
+    padding: 18px 20px;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 18px;
+    border-radius: 40px;
+    background: var(--midnight-green, #1A394A);
+    font-family: 'Gensen', sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: 5px;
+    color: var(--color-old-lace); /* 保留文本颜色 */
+  }
+
+.btnReserve{
+display: flex;
+width: 150px;
+height: 60px;
+padding: 18px 20px;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+gap: 18px;
+color: var(--color-old-lace);
+border-radius: 40px;
+background: var(--midnight-green, #1A394A);
+font-family: 'Gensen', sans-serif;
+font-size: 24px;
+font-weight: 700;
+letter-spacing: 5px;
+}
+
+.icon {
+    display: flex;
+    align-items: center;
+  }
+
+.clicked{
+    animation: 0.5s ease-in-out;
+    color: var(--color-tomato); /* 最终的颜色 */
 }
