@@ -75,3 +75,54 @@
     display: flex;
     gap:10px;
 }
+@media screen and (max-width: 1080px){
+    .edit_btn{
+        justify-content: center; 
+    }
+    .btn_md{
+        width: 150px;
+        height: 60px;
+    }
+}
+
+@media screen and (max-width: 950px){
+    .menu{
+        display:none ;
+      }
+      .warp{
+        padding:0 16px;
+        border-radius:0;
+        background-color: var(--color-white);
+    }
+    .userinfo{
+        background: white;
+        padding:0;
+        border-radius:0;
+        width: 100%;
+        box-shadow:none;
+    }
+    .month {
+        justify-content: center;
+        /* gap:30px; */
+    }
+    .date_card {
+        gap: 10px;
+        margin-bottom: 50px;
+    }
+    .schedule{
+        width:100%;
+    }
+}
+@media screen and (max-width: 600px){
+    .month {
+        justify-content: center;
+        /* gap:30px; */
+    }
+    .date_card {
+        gap: 10px;
+        margin-bottom: 50px;
+    }
+    .schedule{
+        width:100%;
+    }
+}
