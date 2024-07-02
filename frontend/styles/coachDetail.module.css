@@ -1,0 +1,90 @@
+/* 白底section整體 */
+.content{
+    margin-top: -30px;
+    padding-left:80px;
+    padding-right: 80px;
+    border-radius: 50px 50px 0px 0px;
+    background: var(--color-white);
+    box-shadow: 0px -4px 50px 0px rgba(0, 0, 0, 0.10);   
+}
+
+/* 課程內容 */
+.coach {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 40px; /* 调整间距以平衡布局 */
+    padding: 50px 80px 110px 80px;
+}
+
+.imgContainer {
+    width: 383px; /* 固定宽度 */
+    height: 254px; /* 固定高度 */
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 40px;
+}
+
+.img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    border-radius: 40px;
+}
+
+.coachText {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px; /* 减小 gap 以调整布局 */
+}
+
+.coachInfo {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 18px;
+}
+
+.coachName {
+    font-family: 'Gensen', sans-serif;
+    font-size: 32px;
+    font-weight: 700;
+    letter-spacing: 3.2px;
+    color: var(--color-midnight-green);
+}
+
+.coachGym {
+    font-family: 'Gensen', sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: 5px;
+    color: var(--color-midnight-green);
+}
+
+.desc {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+    width: 100%; /* 确保描述区域充满可用空间 */
+}
+
+.descTitle {
+    font-family: 'Gensen', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    color: var(--color-midnight-green);
+}
+
+.coachDesc {
+    font-size: 18px;
+    letter-spacing: 1px;
+    line-height: 160%;
+    color: var(--color-midnight-green);
+    width: 100%; /* 使描述区域宽度为100% */
+}
