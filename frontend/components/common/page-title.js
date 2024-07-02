@@ -2,7 +2,7 @@ import React from 'react'
 import Breadcrumb from './breadcrumb'
 import styles from './layout.module.css'
 
-export default function PageTitle({ pageName = 'index' , height = '205px'}) {
+export default function PageTitle({ pageName = 'index', height = '205px' }) {
   // 列出所有可能的副標題, 由 prop 決定副標題要用哪一個
   const pageList = {
     index: {

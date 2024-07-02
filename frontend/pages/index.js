@@ -1,13 +1,20 @@
+// 功能類
+import { useState, useEffect } from 'react'
 import Head from 'next/head'
+
+// 樣式 or 元件類
 import Layout1 from '@/components/layout/layout1'
 import Carousel from '@/components/carousel'
 import Link from 'next/link'
 import { BtnLg } from '@/components/common/buttons/'
+import JoinMember from '@/components/joinMember'
 import styles from '@/styles/home.module.css'
 
-// TODO: 問牙牙條RWD的時候滿版兩旁要留多少margin ex. 卡片輪播
-// TODO: 考慮要不要把"是否有這些煩惱"卡片 text-align justify
-// TODO: 思考hero text可以怎麼RWD
+// PC heroImg and heroText position-relative / absolute 對調
+// TODO: carousel 的 separater 的右邊緣要對其 joinMember card
+// TODO: PC版 heroImage 改成 svg
+// TODO: 首頁keyVisual_SP滑動動畫優化, 參考 kacco
+// TODO: 之後來優化 keyVisualPC 的結構
 
 export default function Home() {
   return (
@@ -20,11 +27,11 @@ export default function Home() {
         </Head>
 
         <main>
-          <section className="key-visual-pc">
+          <section className={`${styles.keyVisualPC}`}>
             <div className={`${styles.hero}`}>
-              <div className="container fixed-960 p-0">
-                <div className="row g-0">
-                  <div className={`${styles.heroText} col-md-8`}>
+              <div className={`${styles.heroContainer} container-fluid p-0`}>
+                <div className="row g-0 position-relative">
+                  <div className={`${styles.heroText} col-md-8 col-8`}>
                     <h1 className="text-primary pe-1">
                       愛默生曾經說過健康是人生第一財富。
                     </h1>
@@ -32,9 +39,7 @@ export default function Home() {
                       <h3 className={`${styles.startAction}`}>{`[ Start ]`}</h3>
                     </Link>
                   </div>
-                  <div className={`${styles.heroImage} col-md-4`}>
-                    <img src="/hero-img.png" />
-                  </div>
+                  <img src="/hero-img.png" className={`${styles.heroImage}`} />
                 </div>
               </div>
             </div>
@@ -42,10 +47,10 @@ export default function Home() {
             <div className={`${styles.cta1} bg-secondary`}>
               <div className="container fixed-960 p-0">
                 <div className="row g-0 justify-content-between mx-3">
-                  <div className={`${styles.cta1Img} col-md-4`}>
+                  <div className={`${styles.cta1Img} col-lg-5 col-5`}>
                     <img src="/marisa-howenstine-nFsOlSE9Mn8-unsplash.jpg" />
                   </div>
-                  <div className="col-md-7">
+                  <div className="col-lg-7 col-6">
                     <h3>活力無限，擁抱健康</h3>
                     <p>
                       運動是保持健康的關鍵，活力啟點幫您找到最佳運動場所。立即搜尋，讓健康和活力成為生活常態！
@@ -59,12 +64,73 @@ export default function Home() {
             </div>
           </section>
 
+          <section className={`${styles.keyVisualSP}`}>
+            <div className={`${styles.heroImage}`}>
+              <img src="/hero-img-mobile.svg" />
+            </div>
+
+            <div className={`${styles.cta1}`}>
+              <div className="container">
+                <div className="row g-0 p-0 m-0">
+                  <h1 className="text-primary">
+                    {`[ 健康 ]`}
+                    <br />
+                    人生第一財富
+                  </h1>
+                  <ul className="d-flex flex-wrap">
+                    <li className="h5-font me-2">啟動活力 |</li>
+                    <li className="h5-font me-2">永續生活 |</li>
+                    <li className="h5-font me-2">幸福起點 |</li>
+                  </ul>
+                  <div className={`${styles.cta1Img} col-md-4`}>
+                    <img src="/marisa-howenstine-nFsOlSE9Mn8-unsplash.jpg" />
+                  </div>
+                  <div className={`${styles.cta1Mask} col-md-4`}>
+                    <img src="/hero-mobile-mask.svg" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
           <div className={`${styles.pageWrap}`}>
             <section className={`${styles.cta2}`}>
-              <div className="container-fluid">
-                <h3>你是不是有這些困擾呢？</h3>
+              <div
+                className={`${styles.ctaMobile} container-fluid px-3 px-sm-0`}
+              >
+                <div className="row p-0 m-0 justify-content-center">
+                  <h3>活力無限，擁抱健康</h3>
+                  <p>
+                    運動是保持健康的關鍵，活力啟點幫您找到最佳運動場所。立即搜尋，讓健康和活力成為生活常態！
+                    <br />
+                    讓我們活到老，動到老！
+                  </p>
+                </div>
+                <div className={`${styles.cta2Btn} row`}>
+                  <div className="col d-flex justify-content-center">
+                    <BtnLg>
+                      <Link href="/" className="text-white">
+                        找場館
+                      </Link>
+                    </BtnLg>
+                  </div>
+                </div>
+              </div>
+
+              <div className={`container-fluid p-0`}>
+                <div className={`row p-0 m-0 justify-content-center`}>
+                  <h3 className={`${styles.cta2ListTitlePC}`}>
+                    你是不是有這些困擾呢？
+                  </h3>
+                  <h3 className={`${styles.cta2ListTitleMobile}`}>你也是嗎?</h3>
+                  <p>
+                    運動是保持健康的關鍵，活力啟點幫您找到最佳運動場所。立即搜尋，讓健康和活力成為生活常態！
+                    <br />
+                    讓我們活到老，動到老！
+                  </p>
+                </div>
                 <div
-                  className={`${styles.cta2List} row justify-content-center m-0`}
+                  className={`${styles.cta2List} row justify-content-center mx-3`}
                 >
                   <div
                     className={`${styles.knee} d-flex flex-column justify-content-start align-items-center bg-secondary`}
@@ -72,7 +138,8 @@ export default function Home() {
                     <h4 className={`${styles.numTitle}`}>
                       {'['}01{']'}
                     </h4>
-                    <h5>你會膝蓋痛嗎？</h5>
+                    {/* <h5>你會膝蓋痛嗎？</h5> */}
+                    <h5>膝蓋會痛嗎？</h5>
                     <img src="/knee.svg" className="d-block" />
                     <p>
                       膝蓋痛是否讓你很困擾？為何不試著透過運動來緩解呢？快快來加入我們吧！
@@ -84,7 +151,8 @@ export default function Home() {
                     <h4 className={`${styles.numTitle}`}>
                       {'['}02{']'}
                     </h4>
-                    <h5>生活很無聊嗎？</h5>
+                    {/* <h5>生活很無聊嗎？</h5> */}
+                    <h5>生活無聊嗎？</h5>
                     <img src="/bored.svg" className="d-block" />
                     <p>
                       運動是改善心情的最佳良方！從今天開始，每天花點時間運動，身心煥然一新。
@@ -105,7 +173,11 @@ export default function Home() {
                 </div>
                 <div className={`${styles.cta2Btn} row`}>
                   <div className="col d-flex justify-content-center">
-                    <BtnLg>找解答</BtnLg>
+                    <BtnLg>
+                      <Link href="/" className="text-white">
+                        找場館
+                      </Link>
+                    </BtnLg>
                   </div>
                 </div>
               </div>
@@ -113,44 +185,44 @@ export default function Home() {
 
             <section className={`${styles.popular} ${styles.lessons}`}>
               <Carousel carouselTitle="熱門課程" />
-              <div className="row">
+              <div className="row p-0 m-0">
                 <div className="col d-flex justify-content-center">
-                  <BtnLg>找課程</BtnLg>
+                  <BtnLg>
+                    <Link href="/" className="text-white">
+                      找課程
+                    </Link>
+                  </BtnLg>
                 </div>
               </div>
             </section>
 
             <section className={`${styles.popular} ${styles.coaches}`}>
               <Carousel carouselTitle="熱門教練" />
-              <div className="row">
+              <div className="row p-0 m-0">
                 <div className="col d-flex justify-content-center">
-                  <BtnLg>找教練</BtnLg>
+                  <BtnLg>
+                    <Link href="/" className="text-white">
+                      找教練
+                    </Link>
+                  </BtnLg>
                 </div>
               </div>
             </section>
 
             <section className={`${styles.popular} ${styles.articles}`}>
               <Carousel carouselTitle="熱門文章" />
-              <div className="row">
+              <div className="row  p-0 m-0">
                 <div className="col d-flex justify-content-center">
-                  <BtnLg>找文章</BtnLg>
+                  <BtnLg>
+                    <Link href="/" className="text-white">
+                      找文章
+                    </Link>
+                  </BtnLg>
                 </div>
               </div>
             </section>
 
-            <section className={`${styles.joinMember}`}>
-              <div className="container-fluid p-0">
-                <div className="row flex-column align-items-center text-center">
-                  <div
-                    className={`${styles.joinMemberCard} col-md-7 bg-secondary`}
-                  >
-                    <h3>加入會員 ?</h3>
-                    <p>看完我們的網站心動了嗎？立馬點擊下面按鈕加入會員！</p>
-                    <BtnLg>去健身</BtnLg>
-                  </div>
-                </div>
-              </div>
-            </section>
+            <JoinMember />
           </div>
         </main>
       </Layout1>

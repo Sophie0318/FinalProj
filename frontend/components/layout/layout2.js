@@ -13,14 +13,19 @@ import Head from 'next/head'
 // articles -> 文章
 // users -> 會員
 
-export default function Layout2({ children, title = '', pageName = 'index' }) {
+export default function Layout2({
+  children,
+  title = '',
+  pageName = 'index',
+  height = '',
+}) {
   return (
     <>
       <Head>
         <title>{title ? title : ''}</title>
       </Head>
       <Navbar />
-      <PageTitle pageName={pageName} />
+      <PageTitle pageName={pageName} height={height} />
       {children}
       <Footer />
     </>
