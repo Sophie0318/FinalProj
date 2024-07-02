@@ -2,8 +2,15 @@ import React, { useEffect, useState } from 'react'
 import Layout2 from '@/components/layout/layout2'
 import Carousel from '@/components/carousel'
 import styles from '@/styles/lessonDetail.module.css'
+import { IoCall, IoHeart } from 'react-icons/io5'
 
 export default function Detail() {
+  const [isClicked, setIsClicked] = useState(false)
+
+  const handleClick = () => {
+    setIsClicked(!isClicked)
+  }
+
   return (
     <>
       <Layout2 title="課程列表" pageName="lessons">
@@ -28,6 +35,21 @@ export default function Detail() {
                   的瑜伽愛好者，我們的專業教練將根據您的需求
                   和能力，為您量身打造合適的動作。
                 </p>
+              </div>
+              <div className={styles.btn}>
+                <button className={`${styles.btnLike}`} onClick={handleClick}>
+                  <span
+                    className={`${styles.icon} ${
+                      isClicked ? styles.clicked : ''
+                    }`}
+                  >
+                    <IoHeart />
+                  </span>
+                  <span>收藏</span>
+                </button>
+                <button className={styles.btnReserve}>
+                  <IoCall /> 預約
+                </button>
               </div>
             </div>
           </div>
