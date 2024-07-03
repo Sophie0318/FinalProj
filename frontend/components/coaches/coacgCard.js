@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import styles from '@/styles/coach.module.css'
+import styles from '@/styles/coachCard.module.css'
 import { IoHeart } from 'react-icons/io5'
 
 const CoachCard = ({ name, skill, imgSrc }) => {
