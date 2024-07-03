@@ -3,6 +3,12 @@ import Link from 'next/link'
 import Btn from '@/components/articles/buttons_test'
 import Layout3 from '@/components/layout/layout3'
 import Carousel from '@/components/carousel'
+import {
+  IoHeart,
+  IoSearch,
+  IoChatbubbleEllipses,
+  IoShareSocialSharp,
+} from 'react-icons/io5'
 import styles from './articleId.module.css'
 
 export default function ArticlePage() {
@@ -12,9 +18,21 @@ export default function ArticlePage() {
         <main className={`${styles.article} container`}>
           <aside className={styles.sidebarTrack}>
             <div className={styles.sidebar}>
-              <div>
-                <img src="/articles-img/font-size.svg"></img>
-              </div>
+              <button className={styles.sidebarBtn}>
+                <img src="/articles-img/font-size.svg" />
+              </button>
+              <button className={styles.sidebarBtn}>
+                <IoHeart />
+              </button>
+              <button className={styles.sidebarBtn}>
+                <IoChatbubbleEllipses />
+              </button>
+              <button className={styles.sidebarBtn}>
+                <IoShareSocialSharp />
+              </button>
+              <button className={styles.sidebarBtn}>
+                <IoSearch />
+              </button>
             </div>
           </aside>
           <article className="row mx-0">
