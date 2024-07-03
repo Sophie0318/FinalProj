@@ -6,7 +6,6 @@ import Head from 'next/head'
 import Layout1 from '@/components/layout/layout1'
 import Carousel from '@/components/carousel'
 import Link from 'next/link'
-import { BtnLg } from '@/components/common/buttons/'
 import JoinMember from '@/components/joinMember'
 import styles from '@/styles/home.module.css'
 
@@ -61,7 +60,13 @@ export default function Home() {
                       <br />
                       讓我們活到老，動到老！
                     </p>
-                    <BtnLg>找場館</BtnLg>
+                    <Link
+                      href="/"
+                      className={`${styles.link} ${styles.lg} ${styles.midnightgreen} rounded-pill`}
+                      style={{ maxWidth: '312px' }}
+                    >
+                      找場館
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -112,11 +117,13 @@ export default function Home() {
                 </div>
                 <div className={`${styles.cta2Btn} row`}>
                   <div className="col d-flex justify-content-center">
-                    <BtnLg>
-                      <Link href="/" className="text-white">
-                        找場館
-                      </Link>
-                    </BtnLg>
+                    <Link
+                      href="/"
+                      className={`${styles.link} ${styles.thin2} ${styles.midnightgreen} rounded-pill`}
+                      style={{ width: '100%', maxWidth: '210px' }}
+                    >
+                      找場館
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -143,7 +150,6 @@ export default function Home() {
                       {'['}01{']'}
                     </h4>
                     <h5>你會膝蓋痛嗎？</h5>
-                    {/* <h5>膝蓋會痛嗎？</h5> */}
                     <img src="/knee.svg" className="d-block" />
                     <p>
                       膝蓋痛是否讓你很困擾？為何不試著透過運動來緩解呢？快快來加入我們吧！
@@ -156,7 +162,6 @@ export default function Home() {
                       {'['}02{']'}
                     </h4>
                     <h5>生活很無聊嗎？</h5>
-                    {/* <h5>生活無聊嗎？</h5> */}
                     <img src="/bored.svg" className="d-block" />
                     <p>
                       運動是改善心情的最佳良方！從今天開始，每天花點時間運動，身心煥然一新。
@@ -175,13 +180,24 @@ export default function Home() {
                     </p>
                   </div>
                 </div>
-                <div className={`${styles.cta2Btn} row`}>
-                  <div className="col d-flex justify-content-center">
-                    <BtnLg>
-                      <Link href="/" className="text-white">
-                        找場館
-                      </Link>
-                    </BtnLg>
+                <div className={`row`}>
+                  <div className={`${styles.cta2BtnPC}`}>
+                    <Link
+                      href="/"
+                      className={`${styles.link} ${styles.lg} ${styles.midnightgreen} rounded-pill`}
+                      style={{ width: '100%', maxWidth: '312px' }}
+                    >
+                      找解答
+                    </Link>
+                  </div>
+                  <div className={`${styles.cta2BtnSP}`}>
+                    <Link
+                      href="/"
+                      className={`${styles.link} ${styles.thin2} ${styles.midnightgreen} rounded-pill`}
+                      style={{ width: '100%', maxWidth: '210px' }}
+                    >
+                      找解答
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -190,12 +206,23 @@ export default function Home() {
             <section className={`${styles.popular} ${styles.lessons}`}>
               <Carousel carouselTitle="熱門課程" />
               <div className="row p-0 m-0">
-                <div className="col d-flex justify-content-center">
-                  <BtnLg>
-                    <Link href="/" className="text-white">
-                      找課程
-                    </Link>
-                  </BtnLg>
+                <div className={`${styles.carouselBtnPC}`}>
+                  <Link
+                    href="/"
+                    className={`${styles.link} ${styles.lg} ${styles.midnightgreen} rounded-pill`}
+                    style={{ width: '100%', maxWidth: '312px' }}
+                  >
+                    找課程
+                  </Link>
+                </div>
+                <div className={`${styles.carouselBtnSP}`}>
+                  <Link
+                    href="/"
+                    className={`${styles.link} ${styles.thin2} ${styles.midnightgreen} rounded-pill`}
+                    style={{ width: '100%', maxWidth: '210px' }}
+                  >
+                    找課程
+                  </Link>
                 </div>
               </div>
             </section>
@@ -203,12 +230,23 @@ export default function Home() {
             <section className={`${styles.popular} ${styles.coaches}`}>
               <Carousel carouselTitle="熱門教練" />
               <div className="row p-0 m-0">
-                <div className="col d-flex justify-content-center">
-                  <BtnLg>
-                    <Link href="/" className="text-white">
-                      找教練
-                    </Link>
-                  </BtnLg>
+                <div className={`${styles.carouselBtnPC}`}>
+                  <Link
+                    href="/"
+                    className={`${styles.link} ${styles.lg} ${styles.midnightgreen} rounded-pill`}
+                    style={{ width: '100%', maxWidth: '312px' }}
+                  >
+                    找教練
+                  </Link>
+                </div>
+                <div className={`${styles.carouselBtnSP}`}>
+                  <Link
+                    href="/"
+                    className={`${styles.link} ${styles.thin2} ${styles.midnightgreen} rounded-pill`}
+                    style={{ width: '100%', maxWidth: '210px' }}
+                  >
+                    找教練
+                  </Link>
                 </div>
               </div>
             </section>
@@ -216,12 +254,23 @@ export default function Home() {
             <section className={`${styles.popular} ${styles.articles}`}>
               <Carousel carouselTitle="熱門文章" />
               <div className="row  p-0 m-0">
-                <div className="col d-flex justify-content-center">
-                  <BtnLg>
-                    <Link href="/" className="text-white">
-                      找文章
-                    </Link>
-                  </BtnLg>
+                <div className={`${styles.carouselBtnPC}`}>
+                  <Link
+                    href="/"
+                    className={`${styles.link} ${styles.lg} ${styles.midnightgreen} rounded-pill`}
+                    style={{ width: '100%', maxWidth: '312px' }}
+                  >
+                    找文章
+                  </Link>
+                </div>
+                <div className={`${styles.carouselBtnSP}`}>
+                  <Link
+                    href="/"
+                    className={`${styles.link} ${styles.thin2} ${styles.midnightgreen} rounded-pill`}
+                    style={{ width: '100%', maxWidth: '210px' }}
+                  >
+                    找文章
+                  </Link>
                 </div>
               </div>
             </section>

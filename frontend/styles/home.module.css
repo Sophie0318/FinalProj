@@ -1,3 +1,40 @@
+/* 按鈕樣式 */
+.link {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.thin2 {
+  height: 50px;
+  font-family: 'Gensen', sans-serif;
+  font-size: 24px;
+  font-weight: 500;
+  letter-spacing: 12px;
+}
+
+.lg {
+  height: 80px;
+  font-family: 'Gensen', sans-serif;
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: 6.72px;
+  line-height: 100%;
+}
+
+.midnightgreen {
+  background-color: var(--color-midnight-green);
+  color: var(--color-white);
+  border: 0;
+}
+
+.midnightgreen:hover {
+  background-color: #16303f;
+  color: var(--color-white);
+  border: 0;
+}
+
+/* 設定SP版本元件不要顯示在PC版面 */
 .keyVisualSP {
   display: none;
 }
@@ -6,6 +43,24 @@
   display: none;
 }
 
+.cta2BtnPC {
+  display: flex;
+  justify-content: center;
+}
+
+.cta2BtnSP {
+  display: none;
+}
+
+.carouselBtnPC {
+  display: flex;
+  justify-content: center;
+}
+.carouselBtnSP {
+  display: none;
+}
+
+/* 整體頁面樣式 */
 .hero {
   padding: 26px 15px 0 15px;
 }
@@ -185,6 +240,17 @@
   }
 }
 
+@media (max-width: 888px) {
+  .carouselBtnPC {
+    display: none;
+  }
+
+  .carouselBtnSP {
+    display: flex;
+    justify-content: center;
+  }
+}
+
 /* 困擾卡片 */
 @media (max-width: 775px) {
   .cta2 {
@@ -200,6 +266,15 @@
     letter-spacing: 1px;
     line-height: 160%;
     text-align: justify;
+  }
+
+  .cta2BtnPC {
+    display: none;
+  }
+
+  .cta2BtnSP {
+    display: flex;
+    justify-content: center;
   }
 
   .ctaMobile {
