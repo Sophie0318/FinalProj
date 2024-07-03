@@ -9,20 +9,28 @@ export default function ArticlePage() {
   return (
     <>
       <Layout3 title="文章頁面" pageName="articles">
-        <main className={`${styles.article} container fixed-960 px-0`}>
-          <aside className="sidebar"></aside>
-          <article className="row mx-0 px-0">
-            <div className="row justify-content-between mx-0">
+        <main className={`${styles.article} container`}>
+          <aside className={styles.sidebarTrack}>
+            <div className={styles.sidebar}>
+              <div>
+                <img src="/articles-img/font-size.svg"></img>
+              </div>
+            </div>
+          </aside>
+          <article className="row mx-0">
+            <div className="d-flex flex-column mx-0">
               <h3 className={`${styles.articleTitle} text-primary`}>
                 49歲騎單車減18公斤！台大醫師：健康中年生活享受無比
               </h3>
-              <div className={`${styles.articleAuthor} col-6`}>
-                作者：林芳如
+              <div className="d-flex">
+                <div className={`${styles.articleAuthor} w-50`}>
+                  作者：林芳如
+                </div>
+                <div className={`${styles.articleUpdateAt} w-50`}>
+                  最後更新：2024.03.08
+                </div>
               </div>
-              <div className={`${styles.articleUpdateAt} col-6`}>
-                最後更新：2024.03.08
-              </div>
-              <div className={`${styles.articleDesc} col-12`}>
+              <div className={`${styles.articleDesc}`}>
                 <p>
                   編按：靠著騎單車，台大醫院麻醉部疼痛治療科主任林至芃減重18公斤，不僅消除三高，體力也變得更好。和台大EMBA同學一起外出騎單車時，他還能幫忙調整同學的姿勢，成為有餘力照顧別人的人。「成為一個健康的中年人很享受！」但他也坦言，時間對他而言最為珍貴。工作、生活忙碌，如何找出時間有效率地騎車，且找到持續的動力？（本文出自《50+週刊》）
                 </p>

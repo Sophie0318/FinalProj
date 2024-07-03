@@ -1,10 +1,28 @@
 .article {
   display: flex;
   justify-content: flex-start;
+  /* max-width: 960px 裡面加上保留左右24px */
+  max-width: 1008px;
+  padding: 0 24px;
+}
+
+.sidebarTrack {
+  position: relative;
+  background-color: #eee;
+  min-width: 80px;
+  margin-right: 25px;
+}
+
+.sidebar {
 }
 
 .article article {
   max-width: 855px;
+}
+
+.article article > * {
+  padding-left: 0;
+  padding-right: 0;
 }
 
 /* 文章資訊區塊樣式 */
@@ -45,7 +63,7 @@
 }
 
 .articleCover img {
-  width: 855px;
+  width: 100%;
   aspect-ratio: 16/9;
   border-radius: 50px;
   object-fit: cover;
@@ -78,7 +96,7 @@
   flex-direction: column;
   max-height: 600px;
   height: auto;
-  width: 855px;
+  width: 100%;
   padding: 0;
   margin-bottom: 45px;
   overflow: hidden;
