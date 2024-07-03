@@ -270,3 +270,10 @@ footer {
 #back-to-top:hover {
     background-color: #d1a402;
 }
+
+/*當視窗寬度小到一定程度時換成另一種footer，目前寬度不足時先隱藏*/
+@media screen and (max-width: 600px){
+  footer{
+      display: none;
+  }
+}
