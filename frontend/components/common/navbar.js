@@ -14,6 +14,8 @@ import { FaArrowRight } from 'react-icons/fa6'
 import styles from './layout.module.css'
 import { IoAddSharp, IoRemove, IoCloseSharp } from 'react-icons/io5'
 
+// TODO: header logo offsets when toggle offcanvas, 可以參考kacco
+// TODO: toggle button 會蓋住scrollbar, 也參考kacco
 export default function Navbar() {
   return (
     <>
@@ -197,7 +199,6 @@ export default function Navbar() {
       </header>
 
       <header className={`${styles.navbarSP}`}>
-        {/* TODO: header logo offsets when toggle offcanvas */}
         <div className="container-fluid">
           <Link href="/">
             <div
