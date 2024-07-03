@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import MyProductList from '@/components/product/product-list'
 import styles from '@/styles/product-list.module.css'
 import Index from '@/components/joinMember'
@@ -8,6 +8,21 @@ import CardList from '@/components/product/card-list/card-list'
 import SideBar from '@/components/product/side-bar/side-bar'
 
 export default function ProductList() {
+  const [data, setData] = useState({
+    //呈現資料內容要用狀態
+    success: false,
+    rows: [],
+  })
+  //用useEffect去抓(fetch)後端的資料
+  useEffect(() => {
+    fetch('http://localhost:3001/products/api')
+      .then((r) => r.json())
+      .then((myData) => {
+        console.log(data)
+        setData(myData)
+      })
+  }, [])
+
   return (
     <Layout3 pageName="products">
       <main className={styles.mainWithMargin}>
@@ -17,7 +32,7 @@ export default function ProductList() {
               <SideBar />
               <MyProductList />
             </div>
-            <CardList />
+            <CardList products={data.rows} />
             <Pagination />
           </div>
         </div>

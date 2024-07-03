@@ -1,8 +1,8 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { IoAddOutline } from 'react-icons/io5'
 import styles from './product-checkout.module.css'
 
-export default function ProductAccordion() {
+export default function ProductAccordion({ store = '' }) {
   return (
     <>
       <div className={`accordion  ${styles.qqq}`} id="accordionExample ">
