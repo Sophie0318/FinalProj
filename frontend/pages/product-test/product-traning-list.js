@@ -6,8 +6,9 @@ import Layout3 from '@/components/layout/layout3'
 import Pagination from '@/components/product/Pagination/Pagination'
 import CardList from '@/components/product/card-list/card-list'
 import SideBar from '@/components/product/side-bar/side-bar'
-
+import { useRouter } from 'next/router'
 export default function ProductList() {
+  const router = useRouter()
   const [data, setData] = useState({
     //呈現資料內容要用狀態
     success: false,
@@ -15,13 +16,15 @@ export default function ProductList() {
   })
   //用useEffect去抓(fetch)後端的資料
   useEffect(() => {
-    fetch('http://localhost:3001/products/api')
+    const query = new URLSearchParams(router.query)
+    console.log(router)
+    fetch(`http://localhost:3001/productTraning/api?${query}`)
       .then((r) => r.json())
       .then((myData) => {
         console.log(data)
         setData(myData)
       })
-  }, [])
+  }, [router])
 
   return (
     <Layout3 pageName="products">
@@ -32,7 +35,25 @@ export default function ProductList() {
               <SideBar />
               <MyProductList />
             </div>
-            <CardList products={data.rows} />
+            <div className="col-12 col-md-8">
+              <div className="row d-flex justify-content-center">
+                {data.rows.map((v, i) => {
+                  return (
+                    <div
+                      key={v.Product_id}
+                      className="col-12 col-md-8 col-lg-4 mb-3 "
+                    >
+                      <CardList
+                        id={v.Product_id}
+                        name={v.Product_name}
+                        price={v.Product_price}
+                      />
+                    </div>
+                  )
+                })}
+              </div>
+            </div>
+
             <Pagination />
           </div>
         </div>

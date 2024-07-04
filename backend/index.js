@@ -8,7 +8,7 @@ import mysql_session from "express-mysql-session";
 import aRouter from "./routes/articles/article-book.js";
 import lessonRouter from "./routes/lessons/lesson.js";
 import coachRouter from "./routes/coaches/coach.js";
-import productListRouter from "./routes/product/product-list.js";
+import productTraningRouter from "./routes/product/product-traning-list.js";
 
 const app = express();
 
@@ -51,7 +51,7 @@ app.use((req, res, next) => {
 // app.use('/articles', aRouter);
 app.use("/lessons", lessonRouter);
 app.use("/coaches", coachRouter);
-app.use("/products", productListRouter);
+app.use("/productTraning", productTraningRouter);
 
 app.get("/", (req, res) => {
   res.locals.title = "首頁 | " + res.locals.title;
