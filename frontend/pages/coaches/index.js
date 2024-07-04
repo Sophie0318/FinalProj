@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import Layout2 from '@/components/layout/layout2'
+import Layout3 from '@/components/layout/layout3'
 import styles from '@/styles/coach.module.css'
 import Carousel from '@/components/carousel'
 import { IoSearch, IoHeart } from 'react-icons/io5'
@@ -16,7 +16,7 @@ export default function Index() {
   ]
   return (
     <>
-      <Layout2 title="教練列表" pageName="coaches">
+      <Layout3 title="教練列表" pageName="coaches">
         <div className={styles.content}>
           <div className={styles.search}>
             <div className={styles.searchIcon}>
@@ -87,7 +87,7 @@ export default function Index() {
             </div>
           </div>
         </div>
-      </Layout2>
+      </Layout3>
     </>
   )
 }
