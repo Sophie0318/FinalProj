@@ -34,21 +34,32 @@ export default function Reservation() {
                 <div className={styles.formLabel}>手機</div>
                 <input type="text" name="phone" id="phone" />
 
-                <div className={styles.formLabel}>信箱</div>
+                <div className={styles.formLabel}>聯絡信箱</div>
                 <input type="text" name="email" id="email" />
 
+                <div className={styles.formLabel}>選擇時段</div>
+                <select className={styles.timeSelect}>
+                  <option>1</option>
+                  <option>1</option>
+                  <option>1</option>
+                  <option>1</option>
+                </select>
+
                 <div className={styles.formLabel}>預約教練</div>
-                <div className={styles.resCoach}>
-                  {' '}
-                  {coaches.map((coach, index) => (
-                    <CoachCard
-                      key={index}
-                      name={coach.name}
-                      skill={coach.skill}
-                      imgSrc={coach.imgSrc}
-                    />
-                  ))}
+                <div className={styles.cardContainer}>
+                  <div className={styles.resCoach}>
+                    {' '}
+                    {coaches.map((coach, index) => (
+                      <CoachCard
+                        key={index}
+                        name={coach.name}
+                        skill={coach.skill}
+                        imgSrc={coach.imgSrc}
+                      />
+                    ))}
+                  </div>
                 </div>
+
                 <div className={styles.btnContainer}>
                   <button className={styles.btnSend}>送出預約</button>
                 </div>

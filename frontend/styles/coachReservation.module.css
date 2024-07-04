@@ -101,7 +101,7 @@
 .form input {
   height: 60px;
   padding-left: 30px; /* 確保文本不會重疊到圖標 */
-  margin-bottom: 60px;
+  margin-bottom: 45px;
   border: 3px solid var(--color-midnight-green);
   border-radius: 50px;
   box-sizing: border-box; /* 包括內邊距和邊框在內的寬度 */
@@ -109,7 +109,26 @@
   background-color: var(--color-old-lace);
 }
 
+.timeSelect {
+  height: 60px;
+  width: 450px;
+  background-color: var(--color-old-lace);
+  border: 3px solid var(--color-midnight-green);
+  border-radius: 50px;
+  margin-bottom: 45px;
+  padding: 0 30px 0 30px;
+  box-sizing: border-box;
+}
+
+.cardContainer {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
 .resCoach {
+  display: flex;
+  justify-content: center;
   margin-bottom: 75px;
 }
 
