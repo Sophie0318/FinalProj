@@ -1,0 +1,148 @@
+.modal {
+  background-color: var(--color-old-lace);
+  width: 700px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 40px;
+  gap: 15px;
+  padding: 12px 10px;
+}
+
+.success {
+  font-family: 'Gensen', sans-serif;
+  font-size: 40px;
+  font-weight: 700;
+  letter-spacing: 6px;
+  color: var(--color-midnight-green);
+}
+
+.reserveInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.infoRow {
+  display: flex;
+  align-items: flex-start;
+  justify-content: start;
+}
+
+.label {
+  font-family: 'Gensen', sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 10px;
+  margin-right: 18px;
+  width: 180px; /* Adjust this value to ensure alignment */
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+}
+
+.name {
+  font-family: 'Gensen', sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 10px;
+}
+
+.contact {
+  display: flex;
+  gap: 30px;
+  font-size: 16px;
+  letter-spacing: 1.6px;
+  line-height: 130%;
+}
+
+.coachInfo {
+  display: flex;
+  flex-direction: column;
+  font-family: 'Gensen', sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 8px;
+}
+
+.reserveTime {
+  display: flex;
+  flex-direction: column;
+  font-family: 'Gensen', sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.nice {
+  background-color: var(--color-white);
+  width: 90%;
+  margin: 0 36px 3px 36px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  border-radius: 30px;
+  gap: 20px;
+}
+
+.niceTitle {
+  font-family: 'Gensen', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  padding-top: 20px;
+}
+
+.niceRemind {
+  font-family: 'Gensen', sans-serif;
+  font-size: 16px;
+  letter-spacing: 1px;
+  padding: 0px 18px 20px 18px;
+}
+
+.join {
+  margin-left: 30px;
+  width: 40%;
+  padding: 10px 20px;
+  border-radius: 50px;
+  background: var(--color-tomato);
+  border: var(--color-tomato);
+  color: var(--color-old-lace);
+}
+
+.btns {
+  width: 70%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.btnBack {
+  width: 50%;
+  height: 40px;
+  font-family: 'Gensen', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  border-radius: 50px;
+  border: 3px solid var(--dark-gray, #464441);
+  background-color: var(--color-white);
+  color: var(--color-dark-gray);
+}
+
+.btnFin {
+  width: 50%;
+  height: 40px;
+  font-family: 'Gensen', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  border-radius: 50px;
+  color: var(--color-whitesmoke);
+  border: var(--color-midnight-green);
+  background-color: var(--color-midnight-green);
+}
