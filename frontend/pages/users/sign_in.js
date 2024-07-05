@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import styles from '../../styles/sign-in.module.css'
 import { FaAngleRight } from 'react-icons/fa'
-import UserSignin from '../../components/layout/userSignin'
+import UserSignin from '../../components/layout/user-layout1'
 
 export default function SignIn() {
   const [email, setEmail] = useState('')
@@ -21,7 +21,7 @@ export default function SignIn() {
         title="登入"
         description="請輸入您的電子信箱及密碼進行登入，也可以選擇其他帳號登入"
       >
-        {/* 將原來的表單內容放在這裡 */}
+        {/* 將html的表單內容放在這裡 */}
         <form onSubmit={handleSubmit}>
           {/* ... 表單內容 ... */}
           <div className={styles.form_group_flex}>
@@ -56,6 +56,7 @@ export default function SignIn() {
               />
             </div>
           </div>
+
           <div className={styles.flex}>
             <div className={styles.form_check}>
               <input
