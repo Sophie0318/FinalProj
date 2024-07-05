@@ -2,8 +2,9 @@ import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { GoogleMap, useJsApiLoader } from '@react-google-maps/api'
 
 const mapStyles = {
-  height: '400px',
+  height: '60vh',
   width: '100%',
+  
 }
 
 const center = {

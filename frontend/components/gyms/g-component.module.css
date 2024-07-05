@@ -2,14 +2,24 @@
   border-radius: 50px 50px 0 0;
 }
 
+.zIndex {
+  position: relative;
+  z-index: 999;
+}
+
+.myMap {
+  position: relative;
+  z-index: -1;
+}
+
 .container {
   padding: 0 16px;
 }
 
 .searchAndSwitch {
-  /* 寫得很開心 結果用boostrap沒套 */
+  /* margin: 16px 16px; */
   display: flex;
-  align-items: center;
+  align-items: stretch;
   justify-content: space-between;
 }
 
@@ -118,7 +128,7 @@
   background-color: var(--color-old-lace);
   max-width: 50vw;
   border-radius: 25px 0 0 25px;
-  
+
 }
 
 
@@ -145,16 +155,17 @@
   cursor: pointer;
 }
 
+/* MapErea */
+.zm1 {
+  z-index: -1;
+}
+
 @media (width >=768px) {
   .container {
     padding: 0 80px;
   }
 
-  .filter {
-    flex-direction: column;
 
-
-  }
 
 
 
