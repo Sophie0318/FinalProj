@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import Layout2 from '@/components/layout/layout2'
+import Layout3 from '@/components/layout/layout3'
 import Carousel from '@/components/carousel'
 import LessonCard from '@/components/lessons/lessonCard'
 import styles from '@/styles/lesson.module.css'
@@ -46,7 +46,7 @@ export default function Index() {
   ]
   return (
     <>
-      <Layout2 title="課程列表" pageName="lessons">
+      <Layout3 title="課程列表" pageName="lessons">
         <div className={styles.content}>
           <div className={styles.popularCard}>
             <section className="popular lessons">
@@ -131,7 +131,7 @@ export default function Index() {
             </div>
           </div>
         </div>
-      </Layout2>
+      </Layout3>
     </>
   )
 }
