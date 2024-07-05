@@ -12,6 +12,16 @@ export default function SignUp() {
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
 
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    if (password !== confirmPassword) {
+      alert('密碼不一致，請重新輸入')
+      return
+    }
+    // 驗證邏輯...施工中...
+    console.log('提交表單', { email, name, password })
+  }
+
   //點擊下一步時
   const handleNextStep = (e) => {
     e.preventDefault()
@@ -43,7 +53,7 @@ export default function SignUp() {
             </label>
           </div>
           <input
-            className={styles.user_input}
+            className={`${styles.user_input} ${styles2.form_group_input}`}
             type="email"
             id="email"
             name="email"
@@ -82,7 +92,7 @@ export default function SignUp() {
             </label>
           </div>
           <input
-            className={styles.user_input}
+            className={`${styles.user_input} ${styles2.form_group_input}`}
             type="text"
             id="name"
             name="name"
@@ -113,7 +123,7 @@ export default function SignUp() {
             </label>
           </div>
           <input
-            className={styles.user_input}
+            className={`${styles.user_input} ${styles2.form_group_input}`}
             type="password"
             id="password"
             name="password"
@@ -134,7 +144,7 @@ export default function SignUp() {
             </label>
           </div>
           <input
-            className={styles.user_input}
+            className={`${styles.user_input} ${styles2.form_group_input}`}
             type="password"
             id="confirmPassword"
             name="confirmPassword"
@@ -152,23 +162,41 @@ export default function SignUp() {
       <div className={styles2.user_title}>
         <h4 className={styles.h4}>建立一個帳戶</h4>
       </div>
-      <form onSubmit={handleNextStep}>
+      <form onSubmit={handleSubmit}>
         {step === 1 && renderStepOne()}
         {step === 2 && renderStepTwo()}
         {step === 3 && renderStepThree()}
         <div className={styles2.form_group_row}>
-          {step > 1 && (
-            <button className={styles2.btn_md_back} onClick={handlePrevStep}>
+          {step === 1 ? (
+            <button
+              className={styles2.btn_md_back}
+              type="button"
+              onClick={() => {
+                /* 回首頁邏輯 */
+              }}
+            >
+              <h6 className={styles.h6}>回首頁</h6>
+            </button>
+          ) : (
+            <button
+              className={styles2.btn_md_back}
+              type="button"
+              onClick={handlePrevStep}
+            >
               <h6 className={styles.h6}>上一步</h6>
             </button>
           )}
           {step < 3 ? (
-            <button className={styles.btn_md} type="submit">
+            <button
+              className={styles.btn_md}
+              type="button"
+              onClick={handleNextStep}
+            >
               <h6 className={styles.h6}>下一步</h6>
             </button>
           ) : (
             <button className={styles.btn_md} type="submit">
-              <h6 className={styles.h6}>完成註冊</h6>
+              <h6 className={styles.h6}>送出</h6>
             </button>
           )}
         </div>
