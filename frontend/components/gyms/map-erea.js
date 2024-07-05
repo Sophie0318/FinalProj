@@ -4,7 +4,6 @@ import { GoogleMap, useJsApiLoader } from '@react-google-maps/api'
 const mapStyles = {
   height: '60vh',
   width: '100%',
-  
 }
 
 const center = {
@@ -16,7 +15,7 @@ const center = {
 export default function MapErea() {
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
-    googleMapsApiKey: 'AIzaSyArUxEcuZpGkUEM3MSJe3vZbsvxDOHkLsY',
+    googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY,
   })
 
   const [map, setMap] = useState(null)
