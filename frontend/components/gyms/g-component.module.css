@@ -2,15 +2,6 @@
   border-radius: 50px 50px 0 0;
 }
 
-.zIndex {
-  position: relative;
-  z-index: 999;
-}
-
-.myMap {
-  position: relative;
-  z-index: -1;
-}
 
 .container {
   padding: 0 16px;

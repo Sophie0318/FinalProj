@@ -18,6 +18,19 @@
   height: 100vh
 }
 
+.indexContainer {
+  position: relative
+}
+
+.zIndex {
+  margin-top: 30px;
+  position: absolute;
+  z-index: 1;
+  width: 100%
+}
+
+
+
 @media (width >=768px) {
   .container {
     padding: 0 80px;

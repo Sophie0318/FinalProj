@@ -12,27 +12,30 @@ export default function Gyms() {
   const [boo, setBoo] = useState(true) //switch 的外觀state
   return (
     <Layout3 title="尋找場館" pageName="gyms">
-      <div className={styles.zIndex}></div>
-      <div className={styles.container}>
-        <div title="searchbar&Switch" className={styles.searchAndSwitch}>
-          <SearchBar
-            className=""
-            placeholder="輸入地址查詢最近場館..."
-            maxWidth="789px"
-          />
-          <div
-            title="switch"
-            className="d-none d-md-flex align-items-center ps-3"
-          >
-            <Switch isOn={boo} handleToggle={() => setBoo(!boo)} />
+      <div className={styles.indexContainer}>
+        <div className={styles.zIndex}>
+          <div className={styles.container}>
+            <div title="searchbar&Switch" className={styles.searchAndSwitch}>
+              <SearchBar
+                className=""
+                placeholder="輸入地址查詢最近場館..."
+                maxWidth="789px"
+              />
+              <div
+                title="switch"
+                className="d-none d-md-flex align-items-center ps-3"
+              >
+                <Switch isOn={boo} handleToggle={() => setBoo(!boo)} />
+              </div>
+            </div>
           </div>
+          <GymFilters />
         </div>
-      </div>
-      <GymFilters />
 
-      <div className="myMap">
         <MapErea />
       </div>
+
+      <div title="resultCard"></div>
     </Layout3>
   )
 }
