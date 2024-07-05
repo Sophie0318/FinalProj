@@ -58,15 +58,21 @@
                     <div class=" information">
                         <h5>個人資料</h5>
                         <div class="form-group">
-                            <label for="name"><p>姓名:</p></label>
+                            <label for="name">
+                                <p>姓名:</p>
+                            </label>
                             <input type="text" id="name" name="name">
                         </div>
                         <div class="form-group">
-                            <label for="nickname"><p>暱稱:</p></label>
+                            <label for="nickname">
+                                <p>暱稱:</p>
+                            </label>
                             <input type="text" id="nickname" name="nickname">
                         </div>
                         <div class="form-group">
-                            <label for="phone"><p>手機:</p></label>
+                            <label for="phone">
+                                <p>手機:</p>
+                            </label>
                             <input type="text" id="phone" name="phone">
                         </div>
                     </div>
@@ -74,7 +80,9 @@
                     <div class="address">
                         <h5>地址</h5>
                         <div class="form-group">
-                            <label for="city"><p>縣市:</p></label>
+                            <label for="city">
+                                <p>縣市:</p>
+                            </label>
                             <select id="city" name="city">
                                 <option value="0">--請選擇--</option>
                                 <option value="1">台北市</option>
@@ -84,7 +92,9 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="district"><p>行政區:</p></label>
+                            <label for="district">
+                                <p>行政區:</p>
+                            </label>
                             <select id="district" name="district">
                                 <option value="0">--請選擇--</option>
                                 <option value="1">信義區</option>
@@ -94,7 +104,9 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="address"><p>詳細地址:</p></label>
+                            <label for="address">
+                                <p>詳細地址:</p>
+                            </label>
                             <input type="text" id="address" name="address" style="width:420px;">
                         </div>
                     </div>
@@ -103,11 +115,15 @@
                         <h5>更改密碼</h5>
                         <div class="flex">
                             <div class="form-group">
-                                <label for="password"><p>密碼:</p></label>
+                                <label for="password">
+                                    <p>密碼:</p>
+                                </label>
                                 <input type="password" id="new_password" name="password">
                             </div>
                             <div class="form-group" style="width: 350px;">
-                                <label for="password"><p>請再輸入一次密碼:</p></label>
+                                <label for="password">
+                                    <p>請再輸入一次密碼:</p>
+                                </label>
                                 <div class="input-container">
                                     <input class="myinput" type="password" id="confirm_password" name="password">
                                     <div class="myicon"><a href=""><i class="fa-solid fa-eye-slash"></i></a></div>
@@ -140,14 +156,77 @@
             <img src="./pic/logo-forNow-small.svg" alt="">
             <p>Copyright &copy; 2024 All Rights Reserved. </p>
         </div>
-
     </footer>
+    <!-- mobile的footer -->
+    <footer class="mobile_footer">
+        <div class="footer_info">
+            <li><a href="#" class="footer_title">
+                    <h6>網站資訊</h6></i>
+                </a></li>
+            <div class="content">
+                <li><a href="#">
+                        <p>關於我們</p>
+                    </a></li>
+                <li><a href="#">
+                        <p>聯絡我們</p>
+                    </a></li>
+                <li><a href="#">
+                        <p>隱私政策</p>
+                    </a></li>
+                <li><a href="#">
+                        <p>服務條款</p>
+                    </a></li>
+            </div>
+            <li><a href="#" class="footer_title">
+                    <h6>我想要運動</h6>
+                </a></li>
+            <div class="content">
+                <li><a href="#">
+                        <p>去那裡運動?</p>
+                    </a></li>
+                <li><a href="#">
+                        <p>有那些課程?</p>
+                    </a></li>
+                <li><a href="#">
+                        <p>教練資歷</p>
+                    </a></li>
+                <li><a href="#">
+                        <p>運動商城</p>
+                    </a></li>
+                <li><a href="#">
+                        <p>知識補給</p>
+                    </a></li>
+            </div>
+            <li><a href="#" class="footer_title">
+                    <h6>常見問題</h6>
+                </a></li>
+            <div class="content">
+                <li><a href="#">
+                        <p>如何預約課程?</p>
+                    </a></li>
+                <li><a href="#">
+                        <p>哪個教練適合我?</p>
+                    </a></li>
+                <li><a href="#">
+                        <p>怎麼買商品?</p>
+                    </a></li>
+                <li><a href="#">
+                        <p>如何加入會員</p>
+                    </a></li>
+            </div>
+        </div>
+        <div class="mobile_footer_img">
+            <img src="./pic/logo-forNow-mini.svg" alt="">
+        </div>
+    </footer>
+
     <button id="back-to-top" onclick="scrollToTop()">
         <i class="fa-solid fa-arrow-up"></i>
         <p>Top</p>
     </button>
     <script src="edit.js"></script>
-    <script src="testfooter.js"></script>
+    <script src="scroll_to_top.js"></script>
+    <script src="mobile_footer.js"></script>
 </body>
 
 </html>

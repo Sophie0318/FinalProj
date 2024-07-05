@@ -190,19 +190,6 @@ select{
 .title_describe{
 padding: 20px 0;
 }
-  .icon {
-    display: flex;
-    gap: 15px;
-    align-items: center;
-}
-.icon>li{
-    font-size: 30px;
-}
-
-.icon>li a:hover{
-    color: var(--color-tomato);
-}
-
 .btn_md{
   width: 265px;
   height: 65px;
@@ -211,6 +198,7 @@ padding: 20px 0;
   border-radius: 50px;
 }
 
+/* pc版footer start */
 footer {
     display: flex;
     background-color: #FFF7E9;
@@ -219,6 +207,39 @@ footer {
     padding: 20px 100px 20px 30px;
     justify-content: space-between;
 }
+.icon {
+  display: flex;
+   gap: 15px;
+  align-items: center;
+}
+.icon>li{
+    font-size: 30px;
+}
+
+.icon>li a:hover{
+    color: var(--color-tomato);
+}
+/* pc版footer end */
+
+/* mobile版footer start */
+.mobile_footer{
+  position: relative;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 20px 60px;
+  display: none;
+}
+.footer_info .mobile_footer_img{
+  width: 80%;
+}
+.content{
+  display: none;
+  padding-left: 20px;
+}
+.content.active {
+  display: block;
+}
+/* mobile版footer end */
 
 #back-to-top {
     display: flex;
@@ -243,6 +264,16 @@ footer {
     transition: opacity 1s ease, bottom 1s ease;
     animation: slideUp 1s forwards;
 }
+.user_select{
+  margin: 22px 0;
+  display: flex;
+  justify-content: flex-end;
+}
+.user_select select{
+  width: 327px;
+  height: 80px;
+  padding: 0;
+}
 
 @keyframes slideUp {
     0% {
@@ -259,4 +290,15 @@ footer {
 
 #back-to-top:hover {
     background-color: #d1a402;
+}
+
+/*當視窗寬度小到一定程度時換成另一種footer*/
+@media screen and (max-width: 750px){
+footer{
+  display: none;
+}
+.mobile_footer{
+  display: flex;
+  gap: 50px;
+}
 }
