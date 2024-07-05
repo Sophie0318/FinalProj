@@ -34,6 +34,14 @@ export default function CheckoutModal() {
           <button className={styles.btnFin}>回到課程頁</button>
         </div>
       </div>
+
+      <div className={styles.modal}>
+        <div className={styles.success}>付款失敗...</div>
+        <div className={styles.reminder}>要不要再檢查看看呢？</div>
+        <div className={styles.btns}>
+          <button className={styles.btnClose}>關閉視窗</button>
+        </div>
+      </div>
     </>
   )
 }

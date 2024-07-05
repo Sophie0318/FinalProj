@@ -86,7 +86,7 @@
 .btns {
   width: 80%;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   gap: 20px;
 }
@@ -106,6 +106,19 @@
 
 .btnFin {
   width: 50%;
+  height: 40px;
+  font-family: 'Gensen', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  border-radius: 50px;
+  color: var(--color-whitesmoke);
+  border: var(--color-midnight-green);
+  background-color: var(--color-midnight-green);
+}
+
+.btnClose {
+  width: 40%;
   height: 40px;
   font-family: 'Gensen', sans-serif;
   font-size: 18px;
