@@ -1,9 +1,23 @@
 import React from 'react'
 import styles from '@/styles/lessonCheckout-modal.module.css'
+import { useRouter } from 'next/router'
 
-export default function CheckoutModal() {
+function SuccessModal({
+  orderNumber,
+  lessonName,
+  lessonTime,
+  lessonPlace,
+  totalAmount,
+  onClose,
+}) {
+  const router = useRouter()
+
+  const handleReturnToLessons = () => {
+    onClose()
+    router.push('/lessons')
+  }
   return (
-    <>
+    <div className={styles.modalOverlay}>
       <div className={styles.modal}>
         <div className={styles.success}>付款成功！</div>
         <div className={styles.reminder}>記得準時出席喔～</div>
@@ -11,37 +25,34 @@ export default function CheckoutModal() {
           <div className={styles.infoRow}>
             <div className={styles.label}>訂單編號</div>
             <div className={styles.details}>
-              <div className={styles.name}>6VF2NC</div>
+              <div className={styles.name}>{orderNumber}</div>
             </div>
           </div>
           <div className={styles.infoRow}>
-            <div className={styles.label}>活力瑜珈</div>
+            <div className={styles.label}>{lessonName}</div>
             <div className={styles.details}>
               <div className={styles.lessonInfo}>
-                {' '}
-                05/29 09:00 <br />
-                黑皮健身房
+                {lessonTime} <br />
+                {lessonPlace}
               </div>
             </div>
           </div>
         </div>
         <div className={styles.total}>
           <div>小計</div>
-          <div>NT$900</div>
+          <div>NT${totalAmount}</div>
         </div>
         <div className={styles.btns}>
-          <button className={styles.btnBack}>取消預約</button>
-          <button className={styles.btnFin}>回到課程頁</button>
+          <button className={styles.btnBack} onClick={onClose}>
+            檢視訂單
+          </button>
+          <button className={styles.btnFin} onClick={handleReturnToLessons}>
+            回到課程頁
+          </button>
         </div>
       </div>
-
-      <div className={styles.modal}>
-        <div className={styles.success}>付款失敗...</div>
-        <div className={styles.reminder}>要不要再檢查看看呢？</div>
-        <div className={styles.btns}>
-          <button className={styles.btnClose}>關閉視窗</button>
-        </div>
-      </div>
-    </>
+    </div>
   )
 }
+
+export default SuccessModal

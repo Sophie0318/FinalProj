@@ -1,8 +1,29 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styles from '@/styles/lessonCheckout.module.css'
 import { IoCard } from 'react-icons/io5'
+import SuccessModal from '@/components/lessons/success-modal'
+import FailureModal from '@/components/lessons/fail-modal'
 
 export default function Checkout() {
+  const [showSuccessModal, setShowSuccessModal] = useState(false)
+  const [showFailModalm, setShowFailModal] = useState(false)
+
+  const handlePayment = () => {
+    setShowSuccessModal(true)
+  }
+
+  const handleCloseModal = () => {
+    setShowSuccessModal(false)
+  }
+
+  const handleFailModal = () => {
+    setShowFailModal(true)
+  }
+
+  const handleCloseFailModal = () => {
+    setShowFailModal(false)
+  }
+
   return (
     <>
       <div className={styles.contain}>
@@ -64,10 +85,26 @@ export default function Checkout() {
           className={styles.input}
         />
         <div className={styles.btns}>
-          <button className={styles.btnBack}>回到上一頁</button>
-          <button className={styles.btnFin}>完成付款</button>
+          <button className={styles.btnBack} onClick={handleFailModal}>
+            回到上一頁
+          </button>
+          <button className={styles.btnFin} onClick={handlePayment}>
+            完成付款
+          </button>
         </div>
       </div>
+      {showSuccessModal && (
+        <SuccessModal
+          orderNumber="6VF2NC"
+          lessonName="活力瑜珈"
+          lessonTime="05/29 09:00"
+          lessonPlace="黑皮健身房"
+          totalAmount="900"
+          onClose={handleCloseModal}
+        />
+      )}
+
+      {showFailModalm && <FailureModal onClose={handleCloseFailModal} />}
     </>
   )
 }
