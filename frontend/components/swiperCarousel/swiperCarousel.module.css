@@ -1,0 +1,43 @@
+.swiperCarousel{
+  position:relative;
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+.swiperCarousel swiper-container {
+  width: calc(100%);
+}
+
+.swiperCarousel swiper-slide{
+  width: fit-content;
+}
+
+.navBtn{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 48px;
+  width: 48px;
+  border:0;
+  border-radius:50px;
+  background: var(--color-black);
+  position: absolute;
+  top: 50%;
+  z-index: 3;
+  transform: translateY(-50%);
+}
+
+.navIcon{
+  color: var(--color-white);
+  height: 28px;
+  width: 28px;
+}
+
+.prevBtn{
+  right: calc(100% + 20px);
+}
+
+.nextBtn{
+  right:20px;
+}

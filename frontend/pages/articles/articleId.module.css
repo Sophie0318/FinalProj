@@ -1,3 +1,148 @@
+.article {
+  display: flex;
+  justify-content: flex-start;
+  /* max-width= 960px 裡面加上保留左右24px */
+  max-width: 1008px;
+  padding: 0 24px;
+}
+
+.sidebarTrack {
+  min-width: 80px;
+  margin-right: 25px;
+}
+
+.sidebar {
+  position: sticky;
+  top: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-top: 30px;
+}
+
+.sidebarBtn > svg {
+  height: 32px;
+  width: 32px;
+  color: var(--color-white);
+}
+
+.sidebarBtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80px;
+  width: 80px;
+  background-color: var(--color-midnight-green);
+  border: 0;
+  border-radius: 100px;
+  margin-bottom: 15px;
+}
+
+.article article {
+  max-width: 855px;
+}
+
+.article article > * {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+/* 文章資訊區塊樣式 */
+.articleTitle {
+  margin-top: 30px;
+  margin-bottom: 25px;
+}
+
+.articleAuthor,
+.articleUpdateAt {
+  font-family: 'Gensen', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  height: 48px;
+}
+
+.articleAuthor {
+  padding-left: 15px;
+}
+
+.articleUpdateAt {
+  text-align: right;
+  padding-right: 15px;
+}
+
+.articleDesc {
+  background-color: var(--color-old-lace);
+  border-radius: 40px;
+  padding: 20px 30px;
+  margin-bottom: 30px;
+}
+
+.articleCover {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+.articleCover img {
+  width: 100%;
+  aspect-ratio: 16/9;
+  border-radius: 50px;
+  object-fit: cover;
+}
+
+/* 文章內文區樣式 */
+.articleContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.articleContent a {
+  color: #e8b600;
+}
+
+.articleContent p {
+  width: 100%;
+  margin-bottom: 30px;
+}
+
+.articleContent h4 {
+  width: 100%;
+  margin-top: 25px;
+  margin-bottom: 30px;
+}
+
+.articleImg {
+  display: flex;
+  flex-direction: column;
+  max-height: 600px;
+  height: auto;
+  width: 100%;
+  padding: 0;
+  margin-bottom: 45px;
+  overflow: hidden;
+  border-radius: 50px;
+  box-shadow: 0 5px 30px rgb(70, 68, 65, 0.25);
+}
+
+.articleImg img {
+  height: calc(100% - 78px);
+  width: 100%;
+  border-radius: 0 0 0 50px;
+  object-fit: cover;
+}
+
+.articleImgText {
+  height: 78px;
+  padding: 20px 20px 20px 40px;
+  font-family: 'Gensen', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 3px;
+}
+
+/* 關於作者卡片 */
 .author {
   margin-top: 146px;
   padding-top: 57px;
@@ -28,6 +173,12 @@
   box-shadow: 0px 5px 30px 0px rgba(0, 0, 0, 0.15);
 }
 
+/* 留言區樣式 */
+.comment h3 {
+  text-align: center;
+}
+
+/* cta 找健身房卡片 */
 .cta {
   padding: 110px 0;
 }
@@ -53,12 +204,12 @@
 }
 
 @media (max-width: 576px) {
-.cta {
-  padding: 0 24px;
-  margin-bottom: 55px;
-}
+  .cta {
+    padding: 0 24px;
+    margin-bottom: 55px;
+  }
 
-.ctaCard {
-  padding: 40px 24px 24px 24px;
-}
+  .ctaCard {
+    padding: 40px 24px 24px 24px;
+  }
 }

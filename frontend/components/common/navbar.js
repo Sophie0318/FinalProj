@@ -14,6 +14,8 @@ import { FaArrowRight } from 'react-icons/fa6'
 import styles from './layout.module.css'
 import { IoAddSharp, IoRemove, IoCloseSharp } from 'react-icons/io5'
 
+// TODO: header logo offsets when toggle offcanvas, 可以參考kacco
+// TODO: toggle button 會蓋住scrollbar, 也參考kacco
 export default function Navbar() {
   return (
     <>
@@ -69,25 +71,25 @@ export default function Navbar() {
                 aria-controls="offcanvasRight"
               />
               <div
-                class="offcanvas offcanvas-end"
-                tabindex="-1"
+                className="offcanvas offcanvas-end"
+                tabIndex="-1"
                 id="offcanvasRight"
                 aria-labelledby="offcanvasRightLabel"
               >
-                <div class="offcanvas-header">
+                <div className="offcanvas-header">
                   <h5 id="offcanvasRightLabel">
                     {' '}
                     <IoCart /> 您的購物車
                   </h5>
                   <button
                     type="button"
-                    class="btn-close text-reset"
+                    className="btn-close text-reset"
                     data-bs-dismiss="offcanvas"
                     aria-label="Close"
                   ></button>
                 </div>
                 <div
-                  class="offcanvas-body"
+                  className="offcanvas-body"
                   style={{ backgroundColor: '#FFF7E9' }}
                 >
                   <div style={{ display: 'flex', gap: '17px' }}>
@@ -197,7 +199,6 @@ export default function Navbar() {
       </header>
 
       <header className={`${styles.navbarSP}`}>
-        {/* TODO: header logo offsets when toggle offcanvas */}
         <div className="container-fluid">
           <Link href="/">
             <div
