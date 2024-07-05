@@ -1,0 +1,118 @@
+.modal {
+  background-color: var(--color-white);
+  width: 600px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 40px;
+  gap: 30px;
+  padding: 12px 10px;
+}
+
+.success {
+  font-family: 'Gensen', sans-serif;
+  font-size: 40px;
+  font-weight: 700;
+  letter-spacing: 6px;
+  color: var(--color-midnight-green);
+}
+
+.reminder {
+  font-family: 'Gensen', sans-serif;
+  font-size: 32px;
+  /* font-weight: 700; */
+  letter-spacing: 5px;
+}
+
+.reserveInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin-bottom: 30px;
+}
+
+.infoRow {
+  display: flex;
+  align-items: flex-start;
+  justify-content: start;
+}
+
+.label {
+  font-family: 'Gensen', sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 10px;
+  margin-right: 18px;
+  width: 180px; /* Adjust this value to ensure alignment */
+  color: var(--color-midnight-green);
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+}
+
+.name {
+  font-family: 'Gensen', sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 10px;
+  color: var(--color-yellow);
+}
+
+.lessonInfo {
+  font-family: 'Gensen', sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 10px;
+  color: var(--color-midnight-green);
+}
+
+.total {
+  width: 80%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--color-gray-25);
+  padding: 0 15px;
+  font-family: 'Gensen', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  border-radius: 50px;
+}
+
+.btns {
+  width: 80%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+
+.btnBack {
+  width: 50%;
+  height: 40px;
+  font-family: 'Gensen', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  border-radius: 50px;
+  border: solid var(--color-dark-gray);
+  background-color: var(--color-dark-gray);
+  color: var(--color-white);
+}
+
+.btnFin {
+  width: 50%;
+  height: 40px;
+  font-family: 'Gensen', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  border-radius: 50px;
+  color: var(--color-whitesmoke);
+  border: var(--color-midnight-green);
+  background-color: var(--color-midnight-green);
+}
