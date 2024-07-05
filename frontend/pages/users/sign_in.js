@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css'
-import userLogin from '../../styles/sign-in.module.css'
+import styles from '../../styles/sign-in.module.css'
 import { FaAngleRight } from 'react-icons/fa'
-// import '@fortawesome/fontawesome-free/css/all.min.css'
+import UserSignin from '../../components/layout/userSignin'
 
-const UserLogin = () => {
+export default function SignIn() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [rememberMe, setRememberMe] = useState(false)
@@ -16,24 +16,21 @@ const UserLogin = () => {
   }
 
   return (
-    <div className={userLogin.warp}>
-      <div className={userLogin.user_title}>
-        <h4 className={userLogin.h4}>登入</h4>
-      </div>
-      <div className={userLogin.title_describe}>
-        <p className={userLogin.p}>
-          請輸入您的電子信箱及密碼進行登入，也可以選擇其他帳號登入
-        </p>
-      </div>
-      <div className={userLogin.user_container}>
+    <>
+      <UserSignin
+        title="登入"
+        description="請輸入您的電子信箱及密碼進行登入，也可以選擇其他帳號登入"
+      >
+        {/* 將原來的表單內容放在這裡 */}
         <form onSubmit={handleSubmit}>
-          <div className={userLogin.form_group_flex}>
-            <div className={userLogin.form_group}>
-              <label className={userLogin.user_label} htmlFor="email">
-                <p className={userLogin.p}>電子信箱</p>
+          {/* ... 表單內容 ... */}
+          <div className={styles.form_group_flex}>
+            <div className={styles.form_group}>
+              <label className={styles.user_label} htmlFor="email">
+                <p className={styles.p}>電子信箱</p>
               </label>
               <input
-                className={userLogin.user_input}
+                className={styles.user_input}
                 type="email"
                 id="email"
                 name="email"
@@ -43,15 +40,12 @@ const UserLogin = () => {
                 placeholder="請輸入您的電子信箱"
               />
             </div>
-            <div className={userLogin.form_group}>
-              <label
-                className={userLogin.user_label}
-                htmlFor={userLogin.password}
-              >
-                <p className={userLogin.p}>密碼</p>
+            <div className={styles.form_group}>
+              <label className={styles.user_label} htmlFor={styles.password}>
+                <p className={styles.p}>密碼</p>
               </label>
               <input
-                className={userLogin.user_input}
+                className={styles.user_input}
                 type="password"
                 id="password"
                 name="password"
@@ -62,8 +56,8 @@ const UserLogin = () => {
               />
             </div>
           </div>
-          <div className={userLogin.flex}>
-            <div className={userLogin.form_check}>
+          <div className={styles.flex}>
+            <div className={styles.form_check}>
               <input
                 type="checkbox"
                 id="flexCheckDefault"
@@ -71,45 +65,44 @@ const UserLogin = () => {
                 onChange={(e) => setRememberMe(e.target.checked)}
               />
               <label
-                className={userLogin.form_check_label}
+                className={styles.form_check_label}
                 htmlFor="flexCheckDefault"
               >
-                <p className={userLogin.p}>記住我</p>
+                <p className={styles.p}>記住我</p>
               </label>
             </div>
-            <div className={userLogin.form_group_center}>
-              <button className={userLogin.btn_md} type="submit">
-                <h6 className={userLogin.h6}>立刻登入</h6>
+            <div className={styles.form_group_center}>
+              <button className={styles.btn_md} type="submit">
+                <h6 className={styles.h6}>立刻登入</h6>
               </button>
             </div>
           </div>
         </form>
-        <div className={userLogin.forget_password}>
-          <a className={userLogin.a} href="#">
+        {/* ... 其他內容 ... */}
+        <div className={styles.forget_password}>
+          <a className={styles.a} href="#">
             <FaAngleRight />
-            <span className={userLogin.p}>我忘記密碼了</span>
+            <span className={styles.p}>我忘記密碼了</span>
           </a>
         </div>
-        <a className={userLogin.a} href="#">
-          <p className={userLogin.p}>還不是會員?那快點加入我們開始運動吧</p>
+        <a className={styles.a} href="#">
+          <p className={styles.p}>還不是會員?那快點加入我們開始運動吧</p>
         </a>
-        <div className={userLogin.warp2}>
-          <div className={userLogin.third_party_login}>
-            <a className={userLogin.a} href="#">
+        <div className={styles.warp2}>
+          <div className={styles.third_party_login}>
+            <a className={styles.a} href="#">
               <img src="/users-img/Logo-google-icon.svg" alt="google icon" />
-              <p className={userLogin.p}>以Google帳號登入</p>
+              <p className={styles.p}>以Google帳號登入</p>
             </a>
           </div>
-          <div className={userLogin.third_party_login}>
-            <a className={userLogin.a} href="#">
+          <div className={styles.third_party_login}>
+            <a className={styles.a} href="#">
               <img src="/users-img/Facebook_icon.svg" alt="facebook icon" />
-              <p className={userLogin.p}>以Facebook帳號登入</p>
+              <p className={styles.p}>以Facebook帳號登入</p>
             </a>
           </div>
         </div>
-      </div>
-    </div>
+      </UserSignin>
+    </>
   )
 }
-
-export default UserLogin

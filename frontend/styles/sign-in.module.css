@@ -1,5 +1,5 @@
 /*以下為會員登入、註冊、忘記密碼相關的基本樣式版型*/
-
+/* 這在styles */
 /*字型*/
 .h6{
   font-family:'Gensen', sans-serif;
@@ -20,15 +20,15 @@
     line-height: 160%;
     letter-spacing: 1px;
     margin-bottom: 0;
-} 
+}  
 
 .warp{
   width: 100%;
   max-width: 700px;
   padding: 0 80px;
   margin: 40px auto;
-}
-.user_input{
+} 
+ .user_input{
   border-radius: 40px;
   padding: 8px 10px;
 }
@@ -60,7 +60,7 @@
 .form_group{
   display: flex;
   flex-direction: column;
-}
+} 
 .form_group_center{
   text-align: center;
 }
@@ -70,12 +70,12 @@
   border: none;
   background-color: var(--color-yellow);
   border-radius: 50px;
-}
+} 
 .flex{
   display: flex;
   flex-direction: column;
   gap: 10px;
-}
+} 
 .forget_password{
   width: 100%;
   text-align: center;
@@ -88,7 +88,7 @@
 .a{
   color: var(--color-midnight-green);
   text-decoration: none;
-}
+} 
 .warp2{
   width:100% ;
   display: flex;
@@ -117,4 +117,4 @@
   .user-container{
     padding:0;
   }
-}
+} 
