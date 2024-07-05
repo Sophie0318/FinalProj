@@ -6,22 +6,36 @@ import Layout3 from '@/components/layout/layout3'
 import Pagination from '@/components/product/Pagination/Pagination'
 import CardList from '@/components/product/card-list/card-list'
 import SideBar from '@/components/product/side-bar/side-bar'
+import { useRouter } from 'next/router'
 
 export default function ProductList() {
+  const router = useRouter()
   const [data, setData] = useState({
     //呈現資料內容要用狀態
     success: false,
     rows: [],
   })
-  //用useEffect去抓(fetch)後端的資料
   useEffect(() => {
-    fetch('http://localhost:3001/products/api')
+    const pathname = router.pathname
+    const pathParts = pathname.split('/')
+    const query = pathParts[pathParts.length - 1].split('?')[0]
+
+    const existingParams = new URLSearchParams(router.query)
+    const page = existingParams.get('page') || '1'
+    const queryParams = new URLSearchParams({
+      category: query,
+      page: page,
+    })
+
+    // const query = new URLSearchParams({ id: productId })
+    console.log(router)
+    fetch(`http://localhost:3001/product/api?${queryParams.toString()}`)
       .then((r) => r.json())
       .then((myData) => {
         console.log(data)
         setData(myData)
       })
-  }, [])
+  }, [router])
 
   return (
     <Layout3 pageName="products">

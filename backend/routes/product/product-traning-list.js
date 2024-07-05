@@ -14,20 +14,24 @@ const getListData = async (req) => {
     redirect = "?page=1";
     return { success, redirect }; //res.redirect("?page=1"); //跳轉頁面。排除0以下的
   }
-  // let traning = req.query.traning || "";
-  // let protection = req.query.protection || "";
-  // let food = req.query.food || "";
-  // let cloth = req.query.cloth || "";
+  let category = req.query.category || "";
 
-  // let where = " WHERE 1 ";
-  // if (traning) {
-  //   where += ` AND \`CommonType.commontype_id\` = 50 ${traning}`;
-  // }
+  let product_sql = " WHERE 1 ";
+  if (category === "productTraningList") {
+    product_sql += " AND CommonType.commontype_id = 50";
+  }
+  if (category === "productProtectList") {
+    product_sql += " AND CommonType.commontype_id = 52";
+  }
 
-  const t_sql = ` SELECT COUNT(1) AS totalRows
-    FROM Products
-    JOIN CommonType ON Products.Product_type_id_fk = CommonType.commontype_id
-    WHERE CommonType.commontype_id = 50;`;
+  if (category === "productFoodList") {
+    product_sql += " AND CommonType.commontype_id = 53";
+  }
+  if (category === "productClothList") {
+    product_sql += " AND CommonType.commontype_id = 51";
+  }
+
+  const t_sql = `SELECT COUNT(1) AS totalRows FROM products join CommonType on Products.Product_type_id_fk = CommonType.commontype_id ${product_sql}`;
   const [[{ totalRows }]] = await db.query(t_sql);
   let totalPages = 0; //總頁數，預設值
   let rows = []; //分頁資料
@@ -52,7 +56,7 @@ const getListData = async (req) => {
       on Products.Product_type_id_fk = commontype.commontype_id
        join CommonType as iCommonType 
       on Products.Suppliers_id_fk = iCommonType.commontype_id
-       where commontype.commontype_id =50 LIMIT 
+        ${product_sql} LIMIT 
        ${(page - 1) * perPage}, ${perPage}`;
 
     [rows] = await db.query(sql, [(page - 1) * perPage, perPage]);
@@ -62,11 +66,11 @@ const getListData = async (req) => {
   success = true;
   return {
     success,
-    perPage,
-    page,
-    totalRows,
-    totalPages,
-    rows,
+    perPage, //每頁最多有幾筆
+    page, //現在第幾頁
+    totalRows, //總筆數
+    totalPages, //總頁數
+    rows, //分頁資料
     error: "finish query",
   };
 };
