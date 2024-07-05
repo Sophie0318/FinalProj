@@ -1,5 +1,5 @@
 .modal {
-  background-color: var(--color-old-lace);
+  background-color: var(--color-white);
   width: 700px;
   display: flex;
   flex-direction: column;
@@ -77,7 +77,7 @@
 }
 
 .nice {
-  background-color: var(--color-white);
+  background-color: var(--color-old-lace);
   width: 90%;
   margin: 0 36px 3px 36px;
   display: flex;
