@@ -3,7 +3,8 @@ import MyProductList from '@/components/product/product-list'
 import styles from '@/styles/product-list.module.css'
 import Index from '@/components/joinMember'
 import Layout3 from '@/components/layout/layout3'
-import Pagination from '@/components/product/Pagination/Pagination'
+// import Pagination from '@/components/product/Pagination/Pagination'
+import BS5Pagination from '@/components/product/Pagination/bs5-pagination'
 import CardList from '@/components/product/card-list/card-list'
 import SideBar from '@/components/product/side-bar/side-bar'
 import { useRouter } from 'next/router'
@@ -14,6 +15,10 @@ export default function ProductList() {
     success: false,
     rows: [],
   })
+
+  const [page, setPage] = useState(1) // 目前第幾頁
+  const [perpage, setPerpage] = useState(10) // 每頁幾筆資料
+
   //用useEffect去抓(fetch)後端的資料
   useEffect(() => {
     const pathname = router.pathname
@@ -65,7 +70,13 @@ export default function ProductList() {
               </div>
             </div>
 
-            <Pagination />
+            <BS5Pagination
+              forcePage={page - 1}
+              onPageChange={(e) => {
+                setPage(e.selected + 1)
+              }}
+              totalRows={data.totalRows}
+            />
           </div>
         </div>
         <Index />
