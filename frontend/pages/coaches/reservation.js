@@ -3,8 +3,19 @@ import Layout3 from '@/components/layout/layout3'
 import Carousel from '@/components/carousel'
 import styles from '@/styles/coachReservation.module.css'
 import CoachCard from '@/components/coaches/coacgCard'
+import ReserveModal from '@/components/coaches/reserve-modal'
 
 export default function Reservation() {
+  const [showModal, setShowModal] = useState(false)
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    setShowModal(true)
+  }
+
+  const handleCloseModal = () => {
+    setShowModal(false)
+  }
   const coaches = [
     { name: '李安妮', skill: '心肺/有氧', imgSrc: '/coach4.jpg' },
     // 添加更多教练数据
@@ -27,7 +38,7 @@ export default function Reservation() {
               </div>
             </div>
             <div className={styles.formContainer}>
-              <form className={styles.form}>
+              <form className={styles.form} onSubmit={handleSubmit}>
                 <div className={styles.formLabel}>姓名</div>
                 <input type="text" name="name" id="name" />
 
@@ -68,6 +79,7 @@ export default function Reservation() {
           </div>
         </div>
       </Layout3>
+      {showModal && <ReserveModal onClose={handleCloseModal} />}
     </>
   )
 }
