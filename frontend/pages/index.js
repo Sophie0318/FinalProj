@@ -5,6 +5,7 @@ import Head from 'next/head'
 // 樣式 or 元件類
 import Layout1 from '@/components/layout/layout1'
 import Carousel from '@/components/carousel'
+import SwiperCarousel from '@/components/swiperCarousel'
 import Link from 'next/link'
 import JoinMember from '@/components/joinMember'
 import styles from '@/styles/home.module.css'
@@ -204,7 +205,9 @@ export default function Home() {
             </section>
 
             <section className={`${styles.popular} ${styles.lessons}`}>
-              <Carousel carouselTitle="熱門課程" />
+              <div>
+                <SwiperCarousel />
+              </div>
               <div className="row p-0 m-0">
                 <div className={`${styles.carouselBtnPC}`}>
                   <Link
