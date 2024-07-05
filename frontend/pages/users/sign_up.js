@@ -10,6 +10,8 @@ export default function SignUp() {
   const [email, setEmail] = useState('')
   const [name, setName] = useState('')
   const [password, setPassword] = useState('')
+  const [confirmPassword, setConfirmPassword] = useState('')
+
   //點擊下一步時
   const handleNextStep = (e) => {
     e.preventDefault()
@@ -75,7 +77,7 @@ export default function SignUp() {
             <div className={styles2.inline}>
               <h6 className={`${styles.h6} ${styles2.h6}`}>必填</h6>
             </div>
-            <label className={styles.label} htmlFor="email">
+            <label className={styles.label} htmlFor="name">
               <p className={`${styles.p} ${styles2.label_p}`}>如何稱呼您?</p>
             </label>
           </div>
@@ -106,7 +108,7 @@ export default function SignUp() {
             <div className={styles2.inline}>
               <h6 className={`${styles.h6} ${styles2.h6}`}>必填</h6>
             </div>
-            <label className={styles.label} htmlFor="email">
+            <label className={styles.label} htmlFor="password">
               <p className={`${styles.p} ${styles2.label_p}`}>請輸入密碼</p>
             </label>
           </div>
@@ -119,22 +121,28 @@ export default function SignUp() {
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-          <div className={styles2.inline}>
-            <h6 className={`${styles.h6} ${styles2.h6}`}>必填</h6>
-          </div>
-          <label className={styles.label} htmlFor="email">
-            <p className={`${styles.p} ${styles2.label_p}`}>請輸入密碼</p>
-          </label>
         </div>
-        <input
-          className={styles.user_input}
-          type="password"
-          id="password"
-          name="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
+      </div>
+      <div className={styles.form_group_flex}>
+        <div className={styles.form_group}>
+          <div className={styles2.flex_row}>
+            <div className={styles2.inline}>
+              <h6 className={`${styles.h6} ${styles2.h6}`}>必填</h6>
+            </div>
+            <label className={styles.label} htmlFor="password">
+              <p className={`${styles.p} ${styles2.label_p}`}>再確認一次密碼</p>
+            </label>
+          </div>
+          <input
+            className={styles.user_input}
+            type="password"
+            id="confirmPassword"
+            name="confirmPassword"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            required
+          />
+        </div>
       </div>
     </>
   )
