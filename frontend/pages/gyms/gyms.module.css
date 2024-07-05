@@ -14,6 +14,10 @@
 }
 
 /* 地圖樣式 */
+.mapContainerStyle {
+  margin: 0;
+}
+
 .myMap {
   height: 100vh
 }
@@ -102,6 +106,13 @@
   .checkbox:checked+label {
     font-weight: bolder;
     color: var(--color-midnight-green);
+  }
+
+
+  .mapContainerStyle {
+    margin: 0 80px;
+    border-radius: 30px;
+    overflow: hidden;
   }
 
   .zIndex {

@@ -71,13 +71,9 @@ const ResponsiveCheckboxFilter = ({ options }) => {
               closeButton
               className="styles.offcanvasHeader"
             ></Offcanvas.Header>
-            <Offcanvas.Body>
-              <Form className="d-flex flex-column   ">
-                <p
-                  className={``}
-                >
-                  篩選｜
-                </p>
+            <Offcanvas.Body className={styles.offcanvasBody}>
+              <Form className={styles.flexBetween}>
+                <p>篩選｜</p>
                 {renderCheckboxes()}
               </Form>
             </Offcanvas.Body>

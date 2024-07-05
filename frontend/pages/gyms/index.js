@@ -5,6 +5,7 @@ import SearchBar from '@/components/common/searchbar/searchbar'
 import Switch from '@/components/common/switch/switch'
 import MapErea from '@/components/gyms/map-erea'
 import GymFilters from './gymfilter'
+import GymCard from '@/components/gyms/gym-card'
 
 export default function Gyms() {
   // 功能寫在這
@@ -31,11 +32,14 @@ export default function Gyms() {
           </div>
           <GymFilters />
         </div>
-
-        <MapErea />
+        <div className={styles.mapContainerStyle}>
+          <MapErea />
+        </div>
       </div>
 
-      <div title="resultCard"></div>
+      <div title="resultCard">
+        <GymCard />
+      </div>
     </Layout3>
   )
 }
