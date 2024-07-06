@@ -3,11 +3,11 @@ import MyProductList from '@/components/product/product-list'
 import styles from '@/styles/product-list.module.css'
 import Index from '@/components/joinMember'
 import Layout3 from '@/components/layout/layout3'
-import Pagination from '@/components/product/Pagination/Pagination'
+// import Pagination from '@/components/product/Pagination/Pagination'
+import BS5Pagination from '@/components/product/Pagination/bs5-pagination'
 import CardList from '@/components/product/card-list/card-list'
 import SideBar from '@/components/product/side-bar/side-bar'
 import { useRouter } from 'next/router'
-
 export default function ProductList() {
   const router = useRouter()
   const [data, setData] = useState({
@@ -15,28 +15,45 @@ export default function ProductList() {
     success: false,
     rows: [],
   })
+
+  const [page, setPage] = useState(1) // 目前第幾頁
+  const [perpage, setPerpage] = useState(10) // 每頁幾筆資料
+
   //用useEffect去抓(fetch)後端的資料
   useEffect(() => {
     const pathname = router.pathname
     const pathParts = pathname.split('/')
     const query = pathParts[pathParts.length - 1].split('?')[0]
 
-    const existingParams = new URLSearchParams(router.query)
-    const page = existingParams.get('page') || '1'
-    const queryParams = new URLSearchParams({
-      category: query,
-      page: page,
-    })
+    //URLSearchParams這是一個 Web API，用於處理 URL 的查詢字符串。它提供了一種簡單的方式來創建、修改和解析 URL 參數。
+
+    const queryParams = new URLSearchParams(
+      {
+        category: query,
+        page: page,
+      }
+
+      // const existingParams = new URLSearchParams(router.query)
+      // const page = existingParams.get('page') || '1'
+      // const queryParams = new URLSearchParams({
+      //   category: query,
+      //   page: page,
+      // }
+    )
+    console.log(queryParams.toString())
 
     // const query = new URLSearchParams({ id: productId })
     console.log(router)
-    fetch(`http://localhost:3001/product/api?${queryParams.toString()}`)
+    const url = `http://localhost:3001/product/api?${queryParams.toString()}`
+
+    fetch(url)
       .then((r) => r.json())
       .then((myData) => {
         console.log(data)
         setData(myData)
       })
-  }, [router])
+  }, [router, page, perpage])
+
   return (
     <Layout3 pageName="products">
       <main className={styles.mainWithMargin}>
@@ -64,8 +81,14 @@ export default function ProductList() {
                 })}
               </div>
             </div>
-
-            <Pagination />
+            <BS5Pagination
+              forcePage={page - 1}
+              onPageChange={(e) => {
+                setPage(e.selected + 1)
+                router.push(`?page=${e.selected + 1}`)
+              }}
+              totalPages={data.totalPages}
+            />
           </div>
         </div>
         <Index />
