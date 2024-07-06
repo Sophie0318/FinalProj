@@ -49,7 +49,7 @@ const MyEmailInput = ({ email, setEmail }) => {
           required
           value={email}
           onChange={handleEmailChange}
-          placeholder="請輸入您的電子信箱"
+          placeholder="example@example.com"
         />
         <div
           className={`${styles.myicon} ${
