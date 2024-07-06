@@ -37,7 +37,7 @@
   border: 3px solid var(--color-midnight-green);
   border-radius: 50px;
   box-sizing: border-box; /* 包括內邊距和邊框在內的寬度 */
-  width: 600px;
+  width: 60%;
   background-color: var(--color-old-lace);
 }
 
@@ -57,6 +57,14 @@
   padding-top: 15px;
   line-height: 100%; /* 18px */
   letter-spacing: 0.18px;
+  width: 10%;
+}
+
+.checkboxWrapper {
+  display: flex;
+  /* flex-wrap: wrap; */
+  gap: 15px;
+  width: 90%;
 }
 
 .checkboxes {
@@ -87,13 +95,16 @@
 }
 
 .checkbox:checked::after {
-  content: 'v';
-  color: white;
+  content: '';
   position: absolute;
-  top: 40%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 16px;
+  top: 0px;
+  left: 4px;
+  transform: rotate(45deg);
+  width: 8px;
+  height: 15px;
+  border: solid var(--color-old-lace);
+  border-width: 0 3px 3px 0;
+  border-radius: 2px;
 }
 
 .checkbox:hover + label {
@@ -169,4 +180,63 @@
   letter-spacing: 1.6px;
   line-height: 130%;
   color: var(--color-gray-50);
+}
+
+@media (max-width: 900px) {
+  .content {
+    margin-top: -30px;
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .search_input {
+    width: 100%;
+  }
+
+  .filter {
+    margin-top: 30px;
+    margin-bottom: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    color: var(--color-dark-gray);
+  }
+
+  .select {
+    font-weight: 400;
+    padding-top: 15px;
+    line-height: 100%; /* 18px */
+    letter-spacing: 0.18px;
+    width: 100%; /* 占据整行 */
+    margin-bottom: 15px; /* 与复选框分开 */
+  }
+
+  .checkboxWrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    width: 100%;
+  }
+
+  .checkboxes {
+    display: flex;
+    align-items: center;
+    gap: 5px; /* 根据需要调整 */
+    width: calc(33.333% - 10px); /* 每行显示三个，减去 gap */
+  }
+
+  .result {
+    /* display: block; */
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .cards {
+    justify-content: center;
+  }
+
+  .lessonCard {
+    width: 90%;
+  }
 }

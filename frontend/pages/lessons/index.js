@@ -75,44 +75,76 @@ export default function Index() {
           </div>
           <div className={styles.filter}>
             <p className={styles.select}>請選擇類別 ｜</p>
-            <div class={styles.checkboxes}>
-              <input
-                type="checkbox"
-                id="male"
-                name="sex"
-                className={styles.checkbox}
-              />
-              <label htmlFor="male">男性</label>
-            </div>
+            <div className={styles.checkboxWrapper}>
+              <div className={styles.checkboxes}>
+                <input
+                  type="checkbox"
+                  id="aerobic"
+                  name="aerobic"
+                  className={styles.checkbox}
+                />
+                <label htmlFor="aerobic">有氧</label>
+              </div>
 
-            <div class={styles.checkboxes}>
-              <input
-                type="checkbox"
-                id="female"
-                name="female"
-                className={styles.checkbox}
-              />
-              <label htmlFor="female">女性</label>
-            </div>
+              <div className={styles.checkboxes}>
+                <input
+                  type="checkbox"
+                  id="stretching"
+                  name="stretching"
+                  className={styles.checkbox}
+                />
+                <label htmlFor="stretching">伸展</label>
+              </div>
 
-            <div class={styles.checkboxes}>
-              <input
-                type="checkbox"
-                id="homo"
-                name="homo"
-                className={styles.checkbox}
-              />
-              <label htmlFor="homo">同性</label>
-            </div>
+              <div className={styles.checkboxes}>
+                <input
+                  type="checkbox"
+                  id="muscle"
+                  name="muscle"
+                  className={styles.checkbox}
+                />
+                <label htmlFor="muscle">增肌</label>
+              </div>
 
-            <div class={styles.checkboxes}>
-              <input
-                type="checkbox"
-                id="other"
-                name="other"
-                className={styles.checkbox}
-              />
-              <label htmlFor="other">其他</label>
+              <div className={styles.checkboxes}>
+                <input
+                  type="checkbox"
+                  id="weight"
+                  name="weight"
+                  className={styles.checkbox}
+                />
+                <label htmlFor="weight">重訓</label>
+              </div>
+
+              <div className={styles.checkboxes}>
+                <input
+                  type="checkbox"
+                  id="cardio"
+                  name="cardio"
+                  className={styles.checkbox}
+                />
+                <label htmlFor="cardio">心肺</label>
+              </div>
+
+              <div className={styles.checkboxes}>
+                <input
+                  type="checkbox"
+                  id="swimming"
+                  name="swimming"
+                  className={styles.checkbox}
+                />
+                <label htmlFor="swimming">游泳</label>
+              </div>
+
+              <div className={styles.checkboxes}>
+                <input
+                  type="checkbox"
+                  id="bodyweight"
+                  name="bodyweight"
+                  className={styles.checkbox}
+                />
+                <label htmlFor="bodyweight">徒手訓練</label>
+              </div>
             </div>
           </div>
           <div className={styles.result}>
