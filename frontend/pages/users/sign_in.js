@@ -10,7 +10,10 @@ import {
 } from 'react-icons/fa'
 
 import UserSignin from '../../components/layout/user-layout1'
-import MyForm from '../../components/users/MyForm'
+import MyEmailInput from '@/components/users/MyEmailInput'
+import MyPasswordInput from '@/components/users/MyPasswordInput'
+import MyLabel from '@/components/users/Mylabel'
+import MyBtn from '@/components/users/MyBtn'
 
 export default function SignIn() {
   const [email, setEmail] = useState('')
@@ -29,15 +32,35 @@ export default function SignIn() {
         title="登入"
         description="請輸入您的電子信箱及密碼進行登入，也可以選擇其他帳號登入"
       >
-        <MyForm
-          email={email}
-          setEmail={setEmail}
-          password={password}
-          setPassword={setPassword}
-          rememberMe={rememberMe}
-          setRememberMe={setRememberMe}
-          handleSubmit={handleSubmit}
-        />
+        <form onSubmit={handleSubmit}>
+          <div className={styles.form_group_flex}>
+            <MyLabel labelText="電子信箱" />
+            <MyEmailInput email={email} setEmail={setEmail} />
+          </div>
+          <div className={styles.form_group_flex}>
+            <MyLabel labelText="密碼" />
+            <MyPasswordInput password={password} setPassword={setPassword} />
+          </div>
+
+          <div className={styles.flex}>
+            <div className={styles.form_check}>
+              <input
+                type="checkbox"
+                id="flexCheckDefault"
+                checked={rememberMe}
+                onChange={(e) => setRememberMe(e.target.checked)}
+              />
+              <label
+                className={styles.form_check_label}
+                htmlFor="flexCheckDefault"
+              >
+                <p className={styles.p}>記住我</p>
+              </label>
+            </div>
+            <MyBtn buttonText="立即登入" />
+          </div>
+        </form>
+
         <div className={styles.forget_password}>
           <a className={styles.a} href="#">
             <FaAngleRight />
