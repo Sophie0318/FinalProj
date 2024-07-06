@@ -2,8 +2,10 @@ import React from 'react'
 import { FaSearch } from 'react-icons/fa'
 import styles from '@/components/product/product-list.module.css'
 import Image from 'next/image'
+import { useState } from 'react'
 
-export default function ProductList() {
+export default function ProductList({ keyword }) {
+  const [nameLike, setNameLike] = useState('')
   return (
     <>
       <div className="accordion" id="accordionExample">
@@ -53,18 +55,22 @@ export default function ProductList() {
         </div>
       </div>
       <div className="wrap">
-        <div className={styles.search}>
+        <form className={styles.search}>
           <input
             className={styles.searchBar}
             type="text"
-            name="search"
+            name="searchInput"
+            value={nameLike}
+            onChange={(e) => {
+              setNameLike(e.target.value)
+            }}
             id="search"
             placeholder="搜尋商品"
           />
           <button className={styles.searchBtn}>
             <FaSearch className={styles.iconLarge} />
           </button>
-        </div>
+        </form>
       </div>
     </>
   )

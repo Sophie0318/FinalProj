@@ -61,7 +61,7 @@ export default function ProductList() {
           <div className="row">
             <div className="col-12 col-md-3 ">
               <SideBar />
-              <MyProductList />
+              <MyProductList keyword={router.query.keyword} />
             </div>
             <div className="col-12 col-md-8">
               <div className="row d-flex justify-content-center">
