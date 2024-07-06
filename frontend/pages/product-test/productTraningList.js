@@ -25,22 +25,34 @@ export default function ProductList() {
     const pathParts = pathname.split('/')
     const query = pathParts[pathParts.length - 1].split('?')[0]
 
-    const existingParams = new URLSearchParams(router.query)
-    const page = existingParams.get('page') || '1'
-    const queryParams = new URLSearchParams({
-      category: query,
-      page: page,
-    })
+    //URLSearchParams這是一個 Web API，用於處理 URL 的查詢字符串。它提供了一種簡單的方式來創建、修改和解析 URL 參數。
+
+    const queryParams = new URLSearchParams(
+      {
+        category: query,
+        page: page,
+      }
+
+      // const existingParams = new URLSearchParams(router.query)
+      // const page = existingParams.get('page') || '1'
+      // const queryParams = new URLSearchParams({
+      //   category: query,
+      //   page: page,
+      // }
+    )
+    console.log(queryParams.toString())
 
     // const query = new URLSearchParams({ id: productId })
     console.log(router)
-    fetch(`http://localhost:3001/product/api?${queryParams.toString()}`)
+    const url = `http://localhost:3001/product/api?${queryParams.toString()}`
+
+    fetch(url)
       .then((r) => r.json())
       .then((myData) => {
         console.log(data)
         setData(myData)
       })
-  }, [router])
+  }, [router, page, perpage])
 
   return (
     <Layout3 pageName="products">
@@ -69,13 +81,13 @@ export default function ProductList() {
                 })}
               </div>
             </div>
-
             <BS5Pagination
               forcePage={page - 1}
               onPageChange={(e) => {
                 setPage(e.selected + 1)
+                router.push(`?page=${e.selected + 1}`)
               }}
-              totalRows={data.totalRows}
+              totalPages={data.totalPages}
             />
           </div>
         </div>
