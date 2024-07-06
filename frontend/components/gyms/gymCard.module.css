@@ -1,0 +1,101 @@
+.resultCards {
+  /* display: flex;
+  flex-direction: column; */
+  border-radius: 50px 50px 0 0;
+  padding-top: 24px;
+  background-color: white;
+  box-shadow: 0px -4px 50px 0px rgba(0, 0, 0, 0.1);
+  gap: 8px;
+  /* margin-top: -50px; */
+  position: relative;
+  z-index: 4;
+}
+
+.card {
+  max-width: 576px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 16px 0px 24px 16px;
+  border-radius: 0px;
+  overflow: hidden;
+  /* box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); */
+  background-color: white;
+  border-bottom: 8px solid var(--color-gray-25);
+  transition: 0.6s ease-in-out;
+
+}
+
+/* .card:hover {
+  background-color: var(--color-light-gray);
+} */
+
+.imageContainer {
+  display: flex;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  gap: 8px;
+}
+
+.imageContainer::-webkit-scrollbar {
+  display: none;
+}
+
+.image {
+  border-radius: 16px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.textBtn {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.content {
+  margin-top: 13px;
+  gap: 10px;
+}
+
+.title {
+  color: var(--color-midnight-green);
+  padding: 0;
+  margin-bottom: 13px;
+}
+
+.smallFont {
+  font-size: 16px;
+  letter-spacing: 1.6px;
+  line-height: 0.5;
+}
+
+
+.badgeRow {
+  gap: 8px;
+}
+
+.badge {
+  background-color: var(--color-light-gray);
+  padding: 5px 8px;
+  margin-right: 8px;
+  border-radius: 50px;
+  text-align: center;
+  color: black;
+}
+
+
+.bookButton {
+  display: flex;
+  width: 90px;
+  height: 40px;
+  padding-right: 16px;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+  border-radius: 50px 0px 0px 50px;
+  background: var(--midnight-green, #1A394A);
+  color: white;
+}
