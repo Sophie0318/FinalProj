@@ -14,6 +14,7 @@ export default function SwiperCarousel({
   arrow = true,
   data = initlist,
   width = '100%',
+  gap = '-30',
   renderItem,
 }) {
   const sliderRef = useRef(null)
@@ -64,7 +65,7 @@ export default function SwiperCarousel({
           ref={sliderRef}
           free-mode={freeMode}
           slides-per-view="auto"
-          space-between="30"
+          space-between={gap}
           speed="500"
         >
           {data.map((v, i) => {

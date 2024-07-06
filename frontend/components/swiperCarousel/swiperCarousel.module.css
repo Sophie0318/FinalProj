@@ -6,10 +6,12 @@
 
 .swiperCarousel swiper-container {
   width: calc(100%);
+  padding-left: 10px;
 }
 
 .swiperCarousel swiper-slide {
   width: fit-content;
+  padding: 30px;
 }
 
 .navBtn {
