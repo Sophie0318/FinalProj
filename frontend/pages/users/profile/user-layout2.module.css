@@ -1,0 +1,240 @@
+/*以下為會員中心相關的基本樣式版型*/
+
+/*字型*/
+.layout h6 {
+  font-family: 'Gensen', sans-serif;
+  font-size: 18px;
+  letter-spacing: 3px;
+  font-weight: 700;
+  margin-bottom: 0;
+}
+.layout h5 {
+  font-family: 'Gensen', sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: 5px;
+}
+.layout h4 {
+  font-family: 'Gensen', sans-serif;
+  font-weight: 700;
+  font-size: 32px;
+  letter-spacing: 3.2px;
+}
+.layout p {
+  font-family: 'Huninn', sans-serif;
+  font-size: 18x;
+  line-height: 160%;
+  letter-spacing: 1px;
+  margin-bottom: 0;
+}
+.num {
+  font-family: 'Otomanopee', sans-serif;
+  font-size: 18x;
+  line-height: 160%;
+  letter-spacing: 1px;
+  margin-bottom: 0;
+}
+/* *{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+} */
+.layout select {
+  border-radius: 40px;
+  padding: 10px;
+  max-width: 420px;
+  width: 120px;
+  text-align: center;
+}
+.layout input {
+  border-radius: 40px;
+  padding: 8px 10px;
+  width: 240px;
+}
+.layout input:focus,
+.layout select:focus {
+  border: 3px solid var(--color-midnight-green);
+}
+.layout a {
+  text-decoration: none;
+  color: var(--color-black);
+  padding: 10px;
+}
+.layout li {
+  list-style: none;
+}
+.bread {
+  width: 100%;
+  padding: 0 120px;
+  margin-bottom: 50px;
+  font-family: 'Huninn', sans-serif;
+  font-size: 18x;
+  line-height: 160%;
+  letter-spacing: 1px;
+}
+.warp {
+  background: var(--color-old-lace);
+  border-radius: 50px 0 0 50px;
+  display: flex;
+  gap: 30px;
+  padding-bottom: 110px;
+  margin-bottom: 115px;
+}
+.user,
+.user_sidebar {
+  text-align: center;
+  padding-left: 30px;
+  margin-bottom: 25px;
+}
+.user {
+  padding-top: 30px;
+}
+.user_sidebar {
+  width: 328px;
+}
+.inline_link {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 12px 22px;
+  margin-bottom: 13px;
+  border: 3px solid transparent;
+  border-radius: 50px;
+  background-color: var(--color-white);
+}
+.inline_link:hover,
+.inline_link:active {
+  background-color: var(--color-old-lace);
+  border-color: var(--color-dark-yellow);
+}
+.userinfo {
+  background: white;
+  padding: 32px;
+  border-radius: 40px 0 0 40px;
+  width: 100%;
+  /* figma shadow-card */
+  box-shadow: 0px 5px 30px 0px rgba(70, 68, 65, 0.2);
+}
+.user_title {
+  margin-right: 32px;
+  border-bottom: 1px solid var(--color-gray-50);
+  color: var(--color-midnight-green);
+}
+.title_describe {
+  padding: 20px 0;
+}
+.btn_md {
+  width: 265px;
+  height: 65px;
+  border: none;
+  background-color: var(--color-yellow);
+  border-radius: 50px;
+}
+
+/* pc版footer start */
+.footer {
+  display: flex;
+  background-color: #fff7e9;
+  margin-left: 20px;
+  border-radius: 40px 0 0 0;
+  padding: 20px 100px 20px 30px;
+  justify-content: space-between;
+}
+.icon {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+.icon > li {
+  font-size: 30px;
+}
+
+.icon > li a:hover {
+  color: var(--color-tomato);
+}
+/* pc版footer end */
+
+/* mobile版footer start */
+.mobile_footer {
+  position: relative;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 20px 60px;
+  display: none;
+}
+.footer_info .mobile_footer_img {
+  width: 80%;
+}
+.content {
+  display: none;
+  padding-left: 20px;
+}
+.content.active {
+  display: block;
+}
+/* mobile版footer end */
+
+.back-to-top {
+  /*頁面裡面沒有?*/
+  display: flex;
+  padding: 40px 16px 40px 16px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  height: 120px;
+  border-radius: 43px 0 0 0;
+  position: fixed;
+  bottom: 0px;
+  right: 0px;
+  display: none;
+  /* Initially hidden */
+  background-color: #ffc800;
+  color: black;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  transition: opacity 1s ease, bottom 1s ease;
+  animation: slideUp 1s forwards;
+}
+.user_select {
+  margin: 22px 0;
+  display: flex;
+  justify-content: flex-end;
+}
+.user_select select {
+  width: 327px;
+  height: 80px;
+  padding: 0;
+}
+
+@keyframes slideUp {
+  0% {
+    bottom: -50px;
+
+    opacity: 0;
+  }
+
+  100% {
+    bottom: 0px;
+    opacity: 1;
+  }
+}
+
+#back-to-top:hover {
+  background-color: #d1a402;
+}
+
+/*當視窗寬度小到一定程度時換成另一種footer*/
+@media screen and (max-width: 750px) {
+  .footer {
+    display: none;
+  }
+  .mobile_footer {
+    display: flex;
+    gap: 50px;
+  }
+}
