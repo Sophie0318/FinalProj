@@ -1,8 +1,16 @@
 import React, { useState } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import styles from '../../styles/sign-in.module.css'
-import { FaAngleRight } from 'react-icons/fa'
+import {
+  FaAngleRight,
+  FaEye,
+  FaEyeSlash,
+  FaCheckCircle,
+  FaExclamationCircle,
+} from 'react-icons/fa'
+
 import UserSignin from '../../components/layout/user-layout1'
+import MyForm from '../../components/users/MyForm'
 
 export default function SignIn() {
   const [email, setEmail] = useState('')
@@ -21,65 +29,15 @@ export default function SignIn() {
         title="登入"
         description="請輸入您的電子信箱及密碼進行登入，也可以選擇其他帳號登入"
       >
-        {/* 將html的表單內容放在這裡 */}
-        <form onSubmit={handleSubmit}>
-          {/* ... 表單內容 ... */}
-          <div className={styles.form_group_flex}>
-            <div className={styles.form_group}>
-              <label className={styles.user_label} htmlFor="email">
-                <p className={styles.p}>電子信箱</p>
-              </label>
-              <input
-                className={styles.user_input}
-                type="email"
-                id="email"
-                name="email"
-                required
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="請輸入您的電子信箱"
-              />
-            </div>
-            <div className={styles.form_group}>
-              <label className={styles.user_label} htmlFor={styles.password}>
-                <p className={styles.p}>密碼</p>
-              </label>
-              <input
-                className={styles.user_input}
-                type="password"
-                id="password"
-                name="password"
-                required
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="請輸入您的密碼"
-              />
-            </div>
-          </div>
-
-          <div className={styles.flex}>
-            <div className={styles.form_check}>
-              <input
-                type="checkbox"
-                id="flexCheckDefault"
-                checked={rememberMe}
-                onChange={(e) => setRememberMe(e.target.checked)}
-              />
-              <label
-                className={styles.form_check_label}
-                htmlFor="flexCheckDefault"
-              >
-                <p className={styles.p}>記住我</p>
-              </label>
-            </div>
-            <div className={styles.form_group_center}>
-              <button className={styles.btn_md} type="submit">
-                <h6 className={styles.h6}>立刻登入</h6>
-              </button>
-            </div>
-          </div>
-        </form>
-        {/* ... 其他內容 ... */}
+        <MyForm
+          email={email}
+          setEmail={setEmail}
+          password={password}
+          setPassword={setPassword}
+          rememberMe={rememberMe}
+          setRememberMe={setRememberMe}
+          handleSubmit={handleSubmit}
+        />
         <div className={styles.forget_password}>
           <a className={styles.a} href="#">
             <FaAngleRight />
