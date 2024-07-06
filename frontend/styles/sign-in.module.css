@@ -55,7 +55,7 @@
 .form_group_flex{
   display: flex;
   flex-direction: column;
-  gap: 30px;
+  gap: 10px;
   margin-bottom: 30px;
 }
 .form_group{
@@ -119,18 +119,23 @@
 }
 .myicon{
   position: absolute;
-  right:5px;
-  bottom: 8px;
-  /* display: none; */
+  right: 5px;
+  top: 50%;
+  transform: translateY(-50%);
   cursor: pointer;
-  font-size: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
   color: var(--color-midnight-green);/* 睜眼閉眼及勾勾時的icon顏色 */
 }
 
-.erro_message{
+.error_message{
   color: var(--color-tomato);
   /* display: none; */
   position: absolute;
+  bottom: -20px;
   left: 0;
   width: 100%;
 }
@@ -143,7 +148,7 @@
 }
 
 /* 錯誤時的驚嘆號顏色 */
-.myicon.error {
+.myiconError {
   color: var(--color-tomato);
 }
 
