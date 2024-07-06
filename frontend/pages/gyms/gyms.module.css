@@ -16,6 +16,10 @@
 /* 地圖樣式 */
 .mapContainerStyle {
   margin: 0;
+  border-radius: 50px 50px 0 0;
+  overflow: hidden;
+  margin-top: -50px;
+  box-shadow: 0px -4px 50px 0px rgba(0, 0, 0, 0.10);
 }
 
 .myMap {
@@ -113,6 +117,7 @@
     margin: 0 80px;
     border-radius: 30px;
     overflow: hidden;
+    box-shadow: 0px -4px 50px 0px rgba(0, 0, 0, 0.10);
   }
 
   .zIndex {
