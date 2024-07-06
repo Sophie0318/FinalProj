@@ -1,12 +1,11 @@
 // 功能類
 import { useState, useEffect } from 'react'
 import Head from 'next/head'
+import Link from 'next/link'
 
 // 樣式 or 元件類
 import Layout1 from '@/components/layout/layout1'
-import Carousel from '@/components/carousel'
 import SwiperCarousel from '@/components/swiperCarousel'
-import Link from 'next/link'
 import JoinMember from '@/components/joinMember'
 import styles from '@/styles/home.module.css'
 
@@ -204,11 +203,16 @@ export default function Home() {
               </div>
             </section>
 
-            <section className={`${styles.popular} ${styles.lessons}`}>
-              <div>
-                <SwiperCarousel />
+            <section className={`${styles.popular}`}>
+              <div className="row px-0 mx-0">
+                <div className="col-md-3 px-0 d-flex justify-content-end align-items-center">
+                  <h3 className="my-0">熱門課程</h3>
+                </div>
+                <div className="col-md-9 px-0 ">
+                  <SwiperCarousel />
+                </div>
               </div>
-              <div className="row p-0 m-0">
+              <div className="row px-0 mx-0">
                 <div className={`${styles.carouselBtnPC}`}>
                   <Link
                     href="/"
@@ -230,9 +234,16 @@ export default function Home() {
               </div>
             </section>
 
-            <section className={`${styles.popular} ${styles.coaches}`}>
-              <Carousel carouselTitle="熱門教練" />
-              <div className="row p-0 m-0">
+            <section className={`${styles.popular}`}>
+              <div className="row px-0 mx-0">
+                <div className="col-md-3 d-flex justify-content-end align-items-center">
+                  <h3 className="my-0">熱門教練</h3>
+                </div>
+                <div className="col-md-9">
+                  <SwiperCarousel />
+                </div>
+              </div>
+              <div className="row px-0 mx-0">
                 <div className={`${styles.carouselBtnPC}`}>
                   <Link
                     href="/"
@@ -254,9 +265,17 @@ export default function Home() {
               </div>
             </section>
 
-            <section className={`${styles.popular} ${styles.articles}`}>
-              <Carousel carouselTitle="熱門文章" />
-              <div className="row  p-0 m-0">
+            <section className={`${styles.popular}`}>
+              <div className="row px-0 mx-0">
+                <div className="col-md-3 d-flex justify-content-end align-items-center">
+                  <h3 className="my-0">熱門文章</h3>
+                </div>
+                <div className="col-md-9">
+                  <SwiperCarousel />
+                </div>
+              </div>
+
+              <div className="row px-0 mx-0">
                 <div className={`${styles.carouselBtnPC}`}>
                   <Link
                     href="/"
