@@ -1,17 +1,6 @@
 .userinfo_profile {
   padding: 32px 0 32px 32px;
 }
-
-.user_title {
-  margin-right: 32px;
-  border-bottom: 1px solid var(--color-gray-50);
-  color: var(--color-midnight-green);
-}
-
-.title_describe {
-  padding: 20px 0;
-}
-
 .card_1 {
   display: flex;
   flex-wrap: wrap;
@@ -28,19 +17,19 @@
   margin-top: 80px;
 }
 
-/* .card {
+.card {
   border-radius: 40px;
   width: 100%;
   max-width: 238px;
-} */
+}
 .card_1 > .card {
   /* figma shadow-card */
-  /* box-shadow: 0px 5px 30px 0px rgba(70, 68, 65, 0.2); */
+  box-shadow: 0px 5px 30px 0px rgba(70, 68, 65, 0.2);
 }
 .card_2 > .card {
-  /* background-color: var(--color-old-lace); */
+  background-color: var(--color-old-lace);
 }
-/* .card_body {
+.card_body {
   display: flex;
   gap: 10px;
   flex: 1 1 auto;
@@ -70,7 +59,7 @@
 .flexbox {
   display: flex;
   gap: 10px;
-} */
+}
 .more {
   display: flex;
   flex-basis: 100%;
@@ -86,26 +75,26 @@
   color: var(--color-dark-yellow);
 }
 .card_2 > .card:hover {
-  /* border: 3px solid var(--color-midnight-green); */
+  border: 3px solid var(--color-midnight-green);
   /* figma shadow-card */
-  /* box-shadow: 0px 5px 30px 0px rgba(70, 68, 65, 0.2); */
+  box-shadow: 0px 5px 30px 0px rgba(70, 68, 65, 0.2);
 }
 @media screen and (max-width: 950px) {
-  /* .menu {
+  .menu {
     display: none;
-  } */
-  /* .warp {
+  }
+  .warp {
     padding: 0 16px;
     border-radius: 0;
     background-color: var(--color-white);
-  } */
-  /* .userinfo {
+  }
+  .userinfo {
     background: white;
     padding: 0;
     border-radius: 0;
     width: 100%;
     box-shadow: none;
-  } */
+  }
   .more {
     flex-basis: 90%;
   }

@@ -135,14 +135,28 @@
 /* section 相關樣式結束 */
 
 /* footer 相關樣式開始 */
-.footer {
+.mobile_footer {
+  display: none;
+}
+.PC_footer {
   display: flex;
   background-color: #fff7e9;
-  margin-top: auto;
   margin-left: 20px;
   border-radius: 40px 0 0 0;
-  padding: 20px 100px 10px 30px;
+  padding: 20px 100px 20px 30px;
   justify-content: space-between;
+}
+.icon {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+.icon > li {
+  font-size: 30px;
+}
+
+.icon > li a:hover {
+  color: var(--color-tomato);
 }
 
 .backToTop {
@@ -265,4 +279,32 @@
   .logoPhoto {
     width: 162px;
   }
+}
+
+/*當視窗寬度小到一定程度時換成另一種footer*/
+@media (max-width: 750px) {
+  .PC_footer {
+    display: none;
+  }
+
+  /* mobile版footer start */
+  .mobile_footer {
+    display: flex;
+    gap: 50px;
+    position: relative;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 20px 60px;
+  }
+  .footer_info .mobile_footer_img {
+    width: 80%;
+  }
+  .content {
+    display: none;
+    padding-left: 20px;
+  }
+  .content.active {
+    display: block;
+  }
+  /* mobile版footer end */
 }

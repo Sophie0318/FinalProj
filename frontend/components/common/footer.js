@@ -28,7 +28,30 @@ export default function Footer() {
   // }
   return (
     <>
-      <footer className={`${styles.footer}`}>
+      <footer className={styles.PC_footer}>
+        <div className={styles.icon}>
+          <li>
+            <Link href="/#">
+              <IoLogoFacebook className="icon-lg" />
+            </Link>
+          </li>
+          <li>
+            <Link href="/#">
+              <FaLine className="icon-lg" />
+            </Link>
+          </li>
+          <li>
+            <Link href="/#">
+              <IoLogoInstagram className="icon-lg" />
+            </Link>
+          </li>
+        </div>
+        <div>
+          <img src="/users-img/logo-forNow-small.svg" alt="" />
+          <p>Copyright &copy; 2024 All Rights Reserved. </p>
+        </div>
+      </footer>
+      {/* <footer className={`${styles.PC_footer}`}>
         <ul className="d-flex">
           <li className="me-3">
             <Link href="/#">
@@ -52,11 +75,106 @@ export default function Footer() {
             Copyright &copy; 2024 All Rights Reserved.{' '}
           </p>
         </div>
-      </footer>
-      <button className={`${styles.backToTop}`} onClick={() => {}}>
+      </footer> */}
+      <button className={`${styles.backToTop}`} onClick={() => { }}>
         <FaArrowUpLong />
         <p>Top</p>
       </button>
+
+      {/* <!-- mobile的footer --> */}
+      <footer className={styles.mobile_footer}>
+        <div className={styles.footer_info}>
+          <li>
+            <a href="#" className={styles.footer_title}>
+              <h6 className={styles.h6_font}>網站資訊</h6>
+            </a>
+          </li>
+          <div className={styles.content}>
+            <li>
+              <a href="#">
+                <p className={styles.p_font}>關於我們</p>
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                <p className={styles.p_font}>聯絡我們</p>
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                <p className={styles.p_font}>隱私政策</p>
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                <p className={styles.p_font}>服務條款</p>
+              </a>
+            </li>
+          </div>
+          <li>
+            <a href="#" className={styles.footer_title}>
+              <h6 className={styles.h6_font}>我想要運動</h6>
+            </a>
+          </li>
+          <div className={styles.content}>
+            <li>
+              <a href="#">
+                <p className={styles.p_font}>去那裡運動?</p>
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                <p className={styles.p_font}>有那些課程?</p>
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                <p className={styles.p_font}>教練資歷</p>
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                <p className={styles.p_font}>運動商城</p>
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                <p className={styles.p_font}>知識補給</p>
+              </a>
+            </li>
+          </div>
+          <li>
+            <a href="#" className={styles.footer_title}>
+              <h6 className={styles.h6_font}>常見問題</h6>
+            </a>
+          </li>
+          <div className={styles.content}>
+            <li>
+              <a href="#">
+                <p className={styles.p_font}>如何預約課程?</p>
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                <p className={styles.p_font}>哪個教練適合我?</p>
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                <p className={styles.p_font}>怎麼買商品?</p>
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                <p className={styles.p_font}>如何加入會員</p>
+              </a>
+            </li>
+          </div>
+        </div>
+        <div className={styles.mobile_footer_img}>
+          <img src="/users-img/logo-forNow-mini.svg" alt="" />
+        </div>
+      </footer>
     </>
   )
 }

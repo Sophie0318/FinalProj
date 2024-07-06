@@ -1,45 +1,45 @@
 /*以下為會員中心相關的基本樣式版型*/
 
 /*字型*/
-.layout h6 {
+/* .h6_font {
   font-family: 'Gensen', sans-serif;
   font-size: 18px;
   letter-spacing: 3px;
   font-weight: 700;
   margin-bottom: 0;
-}
-.layout h5 {
+} */
+.h5_font {
   font-family: 'Gensen', sans-serif;
   font-size: 24px;
   font-weight: 700;
   letter-spacing: 5px;
 }
-.layout h4 {
+.h4_font {
   font-family: 'Gensen', sans-serif;
   font-weight: 700;
   font-size: 32px;
   letter-spacing: 3.2px;
 }
-.layout p {
+.p_font {
   font-family: 'Huninn', sans-serif;
   font-size: 18x;
   line-height: 160%;
   letter-spacing: 1px;
   margin-bottom: 0;
 }
-.num {
+/* .num {
   font-family: 'Otomanopee', sans-serif;
   font-size: 18x;
   line-height: 160%;
   letter-spacing: 1px;
   margin-bottom: 0;
-}
+} */
 /* *{
     padding: 0;
     margin: 0;
     box-sizing: border-box;
 } */
-.layout select {
+/* .layout select {
   border-radius: 40px;
   padding: 10px;
   max-width: 420px;
@@ -54,15 +54,15 @@
 .layout input:focus,
 .layout select:focus {
   border: 3px solid var(--color-midnight-green);
-}
+} */
 .layout a {
   text-decoration: none;
   color: var(--color-black);
   padding: 10px;
 }
-.layout li {
+/* .layout li {
   list-style: none;
-}
+} */
 .bread {
   width: 100%;
   padding: 0 120px;
@@ -111,27 +111,27 @@
 }
 .userinfo {
   background: white;
-  padding: 32px;
+  /* padding: 32px; */
   border-radius: 40px 0 0 40px;
   width: 100%;
   /* figma shadow-card */
   box-shadow: 0px 5px 30px 0px rgba(70, 68, 65, 0.2);
 }
-.user_title {
+/* .user_title {
   margin-right: 32px;
   border-bottom: 1px solid var(--color-gray-50);
   color: var(--color-midnight-green);
-}
-.title_describe {
+} */
+/* .title_describe {
   padding: 20px 0;
-}
-.btn_md {
+} */
+/* .btn_md {
   width: 265px;
   height: 65px;
   border: none;
   background-color: var(--color-yellow);
   border-radius: 50px;
-}
+} */
 
 /* pc版footer start */
 .footer {
@@ -155,26 +155,6 @@
   color: var(--color-tomato);
 }
 /* pc版footer end */
-
-/* mobile版footer start */
-.mobile_footer {
-  position: relative;
-  flex-direction: column;
-  justify-content: flex-start;
-  padding: 20px 60px;
-  display: none;
-}
-.footer_info .mobile_footer_img {
-  width: 80%;
-}
-.content {
-  display: none;
-  padding-left: 20px;
-}
-.content.active {
-  display: block;
-}
-/* mobile版footer end */
 
 .back-to-top {
   /*頁面裡面沒有?*/
@@ -200,7 +180,7 @@
   transition: opacity 1s ease, bottom 1s ease;
   animation: slideUp 1s forwards;
 }
-.user_select {
+/* .user_select {
   margin: 22px 0;
   display: flex;
   justify-content: flex-end;
@@ -209,7 +189,7 @@
   width: 327px;
   height: 80px;
   padding: 0;
-}
+} */
 
 @keyframes slideUp {
   0% {
@@ -226,6 +206,27 @@
 
 #back-to-top:hover {
   background-color: #d1a402;
+}
+
+@media screen and (max-width: 950px) {
+  .menu {
+    display: none;
+  }
+  .warp {
+    padding: 0 16px;
+    border-radius: 0;
+    background-color: var(--color-white);
+  }
+  .userinfo {
+    background: white;
+    padding: 0;
+    border-radius: 0;
+    width: 100%;
+    box-shadow: none;
+  }
+  .more {
+    flex-basis: 90%;
+  }
 }
 
 /*當視窗寬度小到一定程度時換成另一種footer*/
