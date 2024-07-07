@@ -49,11 +49,16 @@ const GymCard = ({ data }) => {
 }
 
 const ResultCards = ({ gyms }) => {
+  if (!gyms) {
+    return <div>Loading...</div>
+  }
   return (
     <div className={styles.resultCards}>
-      {gyms.map((gym, i) => (
-        <GymCard key={i} data={gym} />
-      ))}
+      {Array.isArray(gyms) && gyms.length > 0 ? (
+        gyms.map((gym, i) => <GymCard key={i} data={gym} />)
+      ) : (
+        <p>沒有接收到gyms資料，檢查是不是陣列</p>
+      )}
     </div>
   )
 }
