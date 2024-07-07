@@ -1,0 +1,37 @@
+.test{
+    width: 80px;
+    height: 80px;
+    border: 8px solid #1A394A;
+    border-radius: 50%;
+    background-color: #FFC800;
+    color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 40px;
+    font-family: 'Otomanopee',sans-serif;
+    font-weight: 400;
+    }
+
+    .checkFount{
+    font-size: 20px;
+    font-family: 'Otomanopee',sans-serif;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: 4.8px;
+    margin-top: 14px;
+    
+    }
+    .size{
+      display: flex;
+      padding-top: 40px;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      /* gap: 14px, */
+    }
+    .dash{
+        display: inline;
+        border: 2px dashed red;
+        width: 20px;
+    }

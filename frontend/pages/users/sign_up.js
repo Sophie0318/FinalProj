@@ -3,9 +3,13 @@ import { useRouter } from 'next/router'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import styles from '../../styles/sign-in.module.css'
 import styles2 from '../../styles/user-sign-up.module.css'
+import UserSignin from '../../components/layout/user-layout1'
+import UserSignup from '@/components/layout/user-layout2'
+import MyStepProcess from '@/components/users/MyStepProcess'
 import StepOne from '../../components/users/StepOne'
 import StepTwo from '../../components/users/StepTwo'
 import StepThree from '../../components/users/StepThree'
+import MyBtn from '@/components/users/MyBtn'
 
 export default function SignUp() {
   const router = useRouter()
@@ -35,10 +39,11 @@ export default function SignUp() {
   }
 
   return (
-    <div className={`${styles.warp} ${styles2.warp}`}>
-      <div className={styles2.user_title}>
-        <h4 className={styles.h4}>建立一個帳戶</h4>
-      </div>
+    <UserSignup
+      title="建立一個帳戶"
+      description="運動是保持健康的關鍵，請填寫以下資訊以創建您的帳號，加入我們，讓健康和活力成為生活常態！"
+    >
+      {/* <MyStepProcess step={step}></MyStepProcess> */}
       <form onSubmit={handleSubmit}>
         {step === 1 && <StepOne email={email} setEmail={setEmail} />}
         {step === 2 && <StepTwo name={name} setName={setName} />}
@@ -50,6 +55,7 @@ export default function SignUp() {
             setConfirmPassword={setConfirmPassword}
           />
         )}
+
         <div className={styles2.form_group_row}>
           {step === 1 ? (
             <button
@@ -79,12 +85,10 @@ export default function SignUp() {
               <h6 className={styles.h6}>下一步</h6>
             </button>
           ) : (
-            <button className={styles.btn_md} type="submit">
-              <h6 className={styles.h6}>送出</h6>
-            </button>
+            <MyBtn buttonText="送出" />
           )}
         </div>
       </form>
-    </div>
+    </UserSignup>
   )
 }

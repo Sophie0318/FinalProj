@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import styles from '../../styles/sign-in.module.css'
+import MyLabel from './Mylabel'
 import { FaEye, FaEyeSlash, FaExclamationCircle } from 'react-icons/fa'
 
 const MyPasswordInput = ({ password, setPassword }) => {

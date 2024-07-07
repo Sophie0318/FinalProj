@@ -30,7 +30,7 @@
     display: flex;
     align-items: center;
     margin-bottom: 15px;
-    gap:20px;
+    gap:10px;
 }
 .why_email_h6{
     display: inline-block;

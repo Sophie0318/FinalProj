@@ -12,8 +12,8 @@ import {
 import UserSignin from '../../components/layout/user-layout1'
 import MyEmailInput from '@/components/users/MyEmailInput'
 import MyPasswordInput from '@/components/users/MyPasswordInput'
-import MyLabel from '@/components/users/Mylabel'
 import MyBtn from '@/components/users/MyBtn'
+import Link from 'next/link'
 
 export default function SignIn() {
   const [email, setEmail] = useState('')
@@ -32,13 +32,11 @@ export default function SignIn() {
         title="登入"
         description="請輸入您的電子信箱及密碼進行登入，也可以選擇其他帳號登入"
       >
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} noValidate>
           <div className={styles.form_group_flex}>
-            <MyLabel labelText="電子信箱" />
             <MyEmailInput email={email} setEmail={setEmail} />
           </div>
           <div className={styles.form_group_flex}>
-            <MyLabel labelText="密碼" />
             <MyPasswordInput password={password} setPassword={setPassword} />
           </div>
 
@@ -62,10 +60,10 @@ export default function SignIn() {
         </form>
 
         <div className={styles.forget_password}>
-          <a className={styles.a} href="#">
+          <Link className={styles.a} href="#">
             <FaAngleRight />
             <span className={styles.p}>我忘記密碼了</span>
-          </a>
+          </Link>
         </div>
         <a className={styles.a} href="#">
           <p className={styles.p}>還不是會員?那快點加入我們開始運動吧</p>
