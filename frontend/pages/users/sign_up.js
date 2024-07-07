@@ -41,6 +41,7 @@ export default function SignUp() {
     <UserSignup
       title="建立一個帳戶"
       description="運動是保持健康的關鍵，請填寫以下資訊以創建您的帳號，加入我們，讓健康和活力成為生活常態！"
+      currentStep={step} //目前的狀態
     >
       <form onSubmit={handleSubmit}>
         {step === 1 && <StepOne email={email} setEmail={setEmail} />}
