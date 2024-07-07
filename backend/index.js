@@ -9,6 +9,7 @@ import aRouter from "./routes/articles/article-book.js";
 import lessonRouter from "./routes/lessons/lesson.js";
 import coachRouter from "./routes/coaches/coach.js";
 import productRouter from "./routes/product/product-traning-list.js";
+import usersRouter from "./routes/users/users.js";
 
 const app = express();
 
@@ -52,6 +53,7 @@ app.use((req, res, next) => {
 app.use("/lessons", lessonRouter);
 app.use("/coaches", coachRouter);
 app.use("/product", productRouter);
+app.use("/users", usersRouter);
 
 app.get("/", (req, res) => {
   res.locals.title = "首頁 | " + res.locals.title;
