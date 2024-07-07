@@ -3,9 +3,8 @@ import { useRouter } from 'next/router'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import styles from '../../styles/sign-in.module.css'
 import styles2 from '../../styles/user-sign-up.module.css'
-import UserSignin from '../../components/layout/user-layout1'
 import UserSignup from '@/components/layout/user-layout2'
-import MyStepProcess from '@/components/users/MyStepProcess'
+// import MyStepProcess from '@/components/users/MyStepProcess'
 import StepOne from '../../components/users/StepOne'
 import StepTwo from '../../components/users/StepTwo'
 import StepThree from '../../components/users/StepThree'
@@ -43,7 +42,6 @@ export default function SignUp() {
       title="建立一個帳戶"
       description="運動是保持健康的關鍵，請填寫以下資訊以創建您的帳號，加入我們，讓健康和活力成為生活常態！"
     >
-      {/* <MyStepProcess step={step}></MyStepProcess> */}
       <form onSubmit={handleSubmit}>
         {step === 1 && <StepOne email={email} setEmail={setEmail} />}
         {step === 2 && <StepTwo name={name} setName={setName} />}
