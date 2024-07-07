@@ -4,8 +4,31 @@ import styles from '@/components/product/product-list.module.css'
 import Image from 'next/image'
 import { useState } from 'react'
 
-export default function ProductList({ keyword }) {
-  const [nameLike, setNameLike] = useState('')
+export default function ProductList({
+  nameLike,
+  setNameLike,
+  updateProductData,
+}) {
+  function searchKeyword() {
+    /* console.log(
+      `User input: ${nameLike}, and send searching keyword to backend api.`
+    )
+    const queryParams = new URLSearchParams({
+      category: query,
+      page: page,
+      keyword: nameLike,
+    })
+    const url = `http://localhost:3001/product/api?${queryParams.toString()}`
+
+    fetch(url)
+      .then((r) => r.json())
+      .then((myData) => {
+        console.log(`search result: ${myData}`)
+        setData(myData)
+      }) */
+    updateProductData()
+  }
+
   return (
     <>
       <div className="accordion" id="accordionExample">
@@ -55,22 +78,27 @@ export default function ProductList({ keyword }) {
         </div>
       </div>
       <div className="wrap">
-        <form className={styles.search}>
+        <div className={styles.search}>
           <input
             className={styles.searchBar}
             type="text"
             name="searchInput"
+            id="search"
+            placeholder="搜尋商品"
             value={nameLike}
             onChange={(e) => {
               setNameLike(e.target.value)
             }}
-            id="search"
-            placeholder="搜尋商品"
           />
           <button className={styles.searchBtn}>
-            <FaSearch className={styles.iconLarge} />
+            <FaSearch
+              className={styles.iconLarge}
+              onClick={() => {
+                searchKeyword()
+              }}
+            />
           </button>
-        </form>
+        </div>
       </div>
     </>
   )

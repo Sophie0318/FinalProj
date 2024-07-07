@@ -18,9 +18,22 @@ export default function ProductList() {
 
   const [page, setPage] = useState(1) // 目前第幾頁
   const [perpage, setPerpage] = useState(10) // 每頁幾筆資料
-
-  //用useEffect去抓(fetch)後端的資料
+  const [nameLike, setNameLike] = useState('') // 搜尋關鍵字
+  // const [query, setQuery] = useState('') //
+  /*
   useEffect(() => {
+    // 剛進入頁面時，依據網址 url path 解析出 query value ，給分類使用
+    
+    const pathname = router.pathname
+    const pathParts = pathname.split('/')
+    const queryValue = pathParts[pathParts.length - 1].split('?')[0]
+    console.log(`query value: ${queryValue}`)
+    setQuery(queryValue)
+    
+  }, [])
+  */
+
+  function updateProductData() {
     const pathname = router.pathname
     const pathParts = pathname.split('/')
     const query = pathParts[pathParts.length - 1].split('?')[0]
@@ -31,6 +44,7 @@ export default function ProductList() {
       {
         category: query,
         page: page,
+        keyword: nameLike,
       }
 
       // const existingParams = new URLSearchParams(router.query)
@@ -40,7 +54,7 @@ export default function ProductList() {
       //   page: page,
       // }
     )
-    console.log(queryParams.toString())
+    console.log(`query params: ${queryParams.toString()}`)
 
     // const query = new URLSearchParams({ id: productId })
     console.log(router)
@@ -49,9 +63,14 @@ export default function ProductList() {
     fetch(url)
       .then((r) => r.json())
       .then((myData) => {
-        console.log(data)
+        console.log(`page result: ${myData}`)
         setData(myData)
       })
+  }
+
+  //用useEffect去抓(fetch)後端的資料
+  useEffect(() => {
+    updateProductData()
   }, [router, page, perpage])
 
   return (
@@ -61,7 +80,11 @@ export default function ProductList() {
           <div className="row">
             <div className="col-12 col-md-3 ">
               <SideBar />
-              <MyProductList keyword={router.query.keyword} />
+              <MyProductList
+                nameLike={nameLike} // 將 nameLike 傳到下層給 search 使用
+                setNameLike={setNameLike} // 將 setNameLike 傳到下層給 search 使用
+                updateProductData={updateProductData}
+              />
             </div>
             <div className="col-12 col-md-8">
               <div className="row d-flex justify-content-center">
