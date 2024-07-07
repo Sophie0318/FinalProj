@@ -1,10 +1,9 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import styles from '../../styles/sign-in.module.css'
 import styles2 from '../../styles/user-sign-up.module.css'
 import UserSignup from '@/components/layout/user-layout2'
-// import MyStepProcess from '@/components/users/MyStepProcess'
 import StepOne from '../../components/users/StepOne'
 import StepTwo from '../../components/users/StepTwo'
 import StepThree from '../../components/users/StepThree'
@@ -18,13 +17,33 @@ export default function SignUp() {
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
+
     if (password !== confirmPassword) {
       alert('密碼不一致，請重新輸入')
       return
     }
-    console.log('提交表單', { email, name, password })
+
+    console.log('送出', name, email, password)
+
+    const res = await fetch('http://localhost:3001/users/add', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      // 要傳遞的資料
+      body: JSON.stringify({ name, email, password }),
+    })
+
+    const result = await res.json()
+    if (result.success) {
+      alert('註冊成功，請登入')
+      // todo: 註冊成功的madule
+      router.push('sign_in') // 跳到登入頁面
+    } else {
+      alert('Error 會員註冊失敗')
+    }
   }
 
   const handleNextStep = (e) => {
