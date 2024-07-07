@@ -33,11 +33,21 @@ export default function SignIn() {
         description="請輸入您的電子信箱及密碼進行登入，也可以選擇其他帳號登入"
       >
         <form onSubmit={handleSubmit} noValidate>
-          <div className={styles.form_group_flex}>
-            <MyEmailInput email={email} setEmail={setEmail} />
+          <div className={styles.form_group}>
+            <div className={styles.form_group_flex}>
+              <label className={styles.user_label} htmlFor="email">
+                <p className={styles.p}>電子信箱</p>
+              </label>
+              <MyEmailInput email={email} setEmail={setEmail} />
+            </div>
           </div>
-          <div className={styles.form_group_flex}>
-            <MyPasswordInput password={password} setPassword={setPassword} />
+          <div className={styles.form_group}>
+            <label className={styles.user_label} htmlFor="password">
+              <p className={styles.p}>密碼</p>
+            </label>
+            <div className={styles.form_group_flex}>
+              <MyPasswordInput password={password} setPassword={setPassword} />
+            </div>
           </div>
 
           <div className={styles.flex}>

@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import styles from '../../styles/sign-in.module.css'
 import { FaCheckCircle, FaExclamationCircle } from 'react-icons/fa'
 
-const MyEmailInput = ({ email, setEmail }) => {
+const MyEmailInput = ({ email, setEmail, style }) => {
   const [errorMessage, setErrorMessage] = useState('')
 
   const handleEmailChange = (e) => {
@@ -31,36 +31,29 @@ const MyEmailInput = ({ email, setEmail }) => {
   }
 
   return (
-    <div className={styles.form_group}>
-      <label className={styles.user_label} htmlFor="email">
-        <p className={styles.p}>電子信箱</p>
-      </label>
-      <div className={styles.input_container}>
-        <input
-          className={`${styles.user_input} ${
-            errorMessage ? styles.error_input : ''
-          }`}
-          type="email"
-          id="email"
-          name="email"
-          required
-          value={email}
-          onChange={handleEmailChange}
-          placeholder="example@example.com"
-        />
-        <div
-          className={`${styles.myicon} ${
-            errorMessage ? styles.myiconError : ''
-          }`}
-        >
-          {renderIcon()}
-        </div>
-        {errorMessage && (
-          <div className={styles.error_message}>
-            <p className={styles.tomatoP}>{errorMessage}</p>
-          </div>
-        )}
+    <div className={styles.input_container}>
+      <input
+        className={`${styles.user_input} ${
+          errorMessage ? styles.error_input : ''
+        }`}
+        type="email"
+        id="email"
+        name="email"
+        required
+        value={email}
+        onChange={handleEmailChange}
+        placeholder="example@example.com"
+      />
+      <div
+        className={`${styles.myicon} ${errorMessage ? styles.myiconError : ''}`}
+      >
+        {renderIcon()}
       </div>
+      {errorMessage && (
+        <div className={styles.error_message}>
+          <p className={styles.tomatoP}>{errorMessage}</p>
+        </div>
+      )}
     </div>
   )
 }

@@ -1,8 +1,6 @@
 import React from 'react'
 import styles from '../../styles/sign-in.module.css'
 import styles2 from '../../styles/user-sign-up.module.css'
-import UserSignin from '../../components/layout/user-layout1'
-import MyLabel from './Mylabel'
 import MyEmailInput from './MyEmailInput'
 
 const StepOne = ({ email, setEmail }) => (
@@ -13,17 +11,13 @@ const StepOne = ({ email, setEmail }) => (
           <div className={styles2.inline}>
             <h6 className={`${styles.h6} ${styles2.h6}`}>必填</h6>
           </div>
-          <MyLabel /> 您的電子信箱是?
+          <label className={styles.label} htmlFor="name">
+            <p className={`${styles.p} ${styles2.label_p}`}>您的電子信箱是?</p>
+          </label>
         </div>
-        <input
-          className={`${styles.user_input} ${styles2.form_group_input}`}
-          type="email"
-          id="email"
-          name="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
+        <div style={{ width: '420px' }}>
+          <MyEmailInput email={email} setEmail={setEmail} />
+        </div>
       </div>
       <div className={styles2.why_email}>
         <h6 className={`${styles.h6} ${styles2.why_email_h6}`}>

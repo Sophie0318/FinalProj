@@ -25,6 +25,7 @@ const StepTwo = ({ name, setName }) => (
           id="name"
           name="name"
           value={name}
+          placeholder="請輸入您的名字"
           onChange={(e) => setName(e.target.value)}
           required
         />

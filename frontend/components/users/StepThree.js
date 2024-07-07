@@ -1,6 +1,7 @@
 import React from 'react'
 import styles from '../../styles/sign-in.module.css'
 import styles2 from '../../styles/user-sign-up.module.css'
+import MyPasswordInput from './MyPasswordInput'
 
 const StepThree = ({
   password,
@@ -24,15 +25,13 @@ const StepThree = ({
             <p className={`${styles.p} ${styles2.label_p}`}>請輸入密碼</p>
           </label>
         </div>
-        <input
-          className={`${styles.user_input} ${styles2.form_group_input}`}
-          type="password"
-          id="password"
-          name="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
+        <div style={{ width: '420px' }}>
+          <MyPasswordInput
+            password={password}
+            setPassword={setPassword}
+            style={{ width: '420px' }}
+          />
+        </div>
       </div>
     </div>
     <div className={styles.form_group_flex}>
@@ -45,15 +44,12 @@ const StepThree = ({
             <p className={`${styles.p} ${styles2.label_p}`}>再確認一次密碼</p>
           </label>
         </div>
-        <input
-          className={`${styles.user_input} ${styles2.form_group_input}`}
-          type="password"
-          id="confirmPassword"
-          name="confirmPassword"
-          value={confirmPassword}
-          onChange={(e) => setConfirmPassword(e.target.value)}
-          required
-        />
+        <div style={{ width: '420px' }}>
+          <MyPasswordInput
+            password={confirmPassword}
+            setPassword={setConfirmPassword}
+          />
+        </div>
       </div>
     </div>
   </>

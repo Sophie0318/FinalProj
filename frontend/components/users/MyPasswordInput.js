@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import styles from '../../styles/sign-in.module.css'
-import MyLabel from './Mylabel'
+// import MyLabel from './Mylabel'
 import { FaEye, FaEyeSlash, FaExclamationCircle } from 'react-icons/fa'
 
 const MyPasswordInput = ({ password, setPassword }) => {
@@ -33,37 +33,30 @@ const MyPasswordInput = ({ password, setPassword }) => {
   }
 
   return (
-    <div className={styles.form_group}>
-      <label className={styles.user_label} htmlFor="password">
-        <p className={styles.p}>密碼</p>
-      </label>
-      <div className={styles.input_container}>
-        <input
-          className={`${styles.user_input} ${
-            errorMessage ? styles.error_input : ''
-          }`}
-          type={showPassword ? 'text' : 'password'}
-          id="password"
-          name="password"
-          required
-          value={password}
-          onChange={handlePasswordChange}
-          placeholder="請輸入您的密碼"
-        />
-        <div
-          className={`${styles.myicon} ${
-            errorMessage ? styles.myiconError : ''
-          }`}
-          onClick={errorMessage ? null : togglePasswordVisibility}
-        >
-          {renderIcon()}
-        </div>
-        {errorMessage && (
-          <div className={styles.error_message}>
-            <p className={styles.tomatoP}>{errorMessage}</p>
-          </div>
-        )}
+    <div className={styles.input_container}>
+      <input
+        className={`${styles.user_input} ${
+          errorMessage ? styles.error_input : ''
+        }`}
+        type={showPassword ? 'text' : 'password'}
+        id="password"
+        name="password"
+        required
+        value={password}
+        onChange={handlePasswordChange}
+        placeholder="請輸入您的密碼"
+      />
+      <div
+        className={`${styles.myicon} ${errorMessage ? styles.myiconError : ''}`}
+        onClick={errorMessage ? null : togglePasswordVisibility}
+      >
+        {renderIcon()}
       </div>
+      {errorMessage && (
+        <div className={styles.error_message}>
+          <p className={styles.tomatoP}>{errorMessage}</p>
+        </div>
+      )}
     </div>
   )
 }
