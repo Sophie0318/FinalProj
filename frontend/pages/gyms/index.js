@@ -90,12 +90,13 @@ export default function Gyms() {
           </div>
           <GymFilters />
         </div>
-        <div className={styles.mapContainerStyle}>
-          <MapErea />
+        <div className={styles.flexRow}>
+          <div className={styles.mapContainerStyle}>
+            <MapErea />
+          </div>
+          <ResultCards gyms={gymsData} />
         </div>
       </div>
-
-      <ResultCards gyms={gymsData} />
     </Layout3>
   )
 }

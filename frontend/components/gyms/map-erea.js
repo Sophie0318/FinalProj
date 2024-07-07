@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { GoogleMap, useJsApiLoader } from '@react-google-maps/api'
 
 const mapStyles = {
-  height: '60vh',
+  height: '100%',
   width: '100%',
 }
 

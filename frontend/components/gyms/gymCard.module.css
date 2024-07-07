@@ -99,3 +99,19 @@
   background: var(--midnight-green, #1A394A);
   color: white;
 }
+
+@media (width >=768px) {
+
+  .resultCards {
+    border-radius: 0;
+    padding-top: 0px;
+    box-shadow: none;
+    position: relative;
+    overflow: auto;
+    scroll-behavior: smooth;
+    max-height: 80vh;
+    width: 500px;
+  }
+
+
+}
