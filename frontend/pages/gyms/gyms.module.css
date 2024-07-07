@@ -14,8 +14,11 @@
 }
 
 /* 地圖樣式 */
+
+
 .mapContainerStyle {
   margin: 0;
+  height: 50vh;
   border-radius: 50px 50px 0 0;
   overflow: hidden;
   margin-top: -50px;
