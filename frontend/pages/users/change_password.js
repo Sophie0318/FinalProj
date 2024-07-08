@@ -25,16 +25,26 @@ export default function ForgetPassword() {
         <div className={styles.userContainer}>
           <form className={styles.userForm} onSubmit={handleSubmit}>
             <div
-              style={{ display: 'flex', flexDirection: 'column', gap: '30px' }}
+              style={{ display: 'flex', flexDirection: 'column', gap: '50px' }}
             >
-              <MyPasswordInput
-                password={newPassword}
-                setPassword={setNewPassword}
-              />
-              <MyPasswordInput
-                password={confirmPassword}
-                setPassword={setConfirmPassword}
-              />
+              <div className={styles.form_group_flex}>
+                <label className={styles.user_label} htmlFor="password">
+                  <p className={styles.p}>輸入您的新密碼</p>
+                </label>
+                <MyPasswordInput
+                  password={newPassword}
+                  setPassword={setNewPassword}
+                />
+              </div>
+              <div className={styles.form_group_flex}>
+                <label className={styles.user_label} htmlFor="passowrd">
+                  <p className={styles.p}>確認新密碼</p>
+                </label>
+                <MyPasswordInput
+                  password={confirmPassword}
+                  setPassword={setConfirmPassword}
+                />
+              </div>
             </div>
             <MyBtn buttonText="送出" />
           </form>
