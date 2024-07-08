@@ -1,5 +1,5 @@
 import React from 'react'
-import LayoutUser from '@/components/layout/user-layout2'
+import LayoutUser from '@/components/layout/user-layout3'
 import ReserveCard from '@/components/users/reserveCard'
 import BranchCard from '@/components/users/branchCard'
 import styles from '@/styles/user-profile.module.css'

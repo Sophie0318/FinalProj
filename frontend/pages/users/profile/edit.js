@@ -1,5 +1,5 @@
 import React from 'react'
-import LayoutUser from '@/components/layout/user-layout2'
+import LayoutUser from '@/components/layout/user-layout3'
 import styles from '@/styles/user-edit.module.css'
 
 export default function LessonsOrders() {

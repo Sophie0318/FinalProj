@@ -11,33 +11,6 @@
   margin-right: 25px;
 }
 
-.sidebar {
-  position: sticky;
-  top: 30px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  margin-top: 30px;
-}
-
-.sidebarBtn > svg {
-  height: 32px;
-  width: 32px;
-  color: var(--color-white);
-}
-
-.sidebarBtn {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 80px;
-  width: 80px;
-  background-color: var(--color-midnight-green);
-  border: 0;
-  border-radius: 100px;
-  margin-bottom: 15px;
-}
-
 .article article {
   max-width: 855px;
 }
@@ -176,6 +149,11 @@
 /* 留言區樣式 */
 .comment h3 {
   text-align: center;
+}
+
+/* 延伸閱讀 */
+.moreArticles {
+  margin: 110px 0;
 }
 
 /* cta 找健身房卡片 */
