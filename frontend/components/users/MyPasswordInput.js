@@ -3,7 +3,7 @@ import styles from '../../styles/sign-in.module.css'
 // import MyLabel from './Mylabel'
 import { FaEye, FaEyeSlash, FaExclamationCircle } from 'react-icons/fa'
 
-const MyPasswordInput = ({ password, setPassword }) => {
+const MyPasswordInput = ({ password, setPassword, id, name, placeholder }) => {
   const [showPassword, setShowPassword] = useState(false)
   const [errorMessage, setErrorMessage] = useState('')
 
@@ -39,12 +39,12 @@ const MyPasswordInput = ({ password, setPassword }) => {
           errorMessage ? styles.error_input : ''
         }`}
         type={showPassword ? 'text' : 'password'}
-        id="password"
-        name="password"
+        id={id}
+        name={name}
         required
         value={password}
         onChange={handlePasswordChange}
-        placeholder="請輸入您的密碼"
+        placeholder={placeholder}
       />
       <div
         className={`${styles.myicon} ${errorMessage ? styles.myiconError : ''}`}

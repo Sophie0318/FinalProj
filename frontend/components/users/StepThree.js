@@ -21,7 +21,13 @@ const StepThree = ({
           </label>
         </div>
         <div>
-          <MyPasswordInput password={password} setPassword={setPassword} />
+          <MyPasswordInput
+            password={password}
+            setPassword={setPassword}
+            id="password"
+            name="password"
+            placeholder="請輸入您的密碼"
+          />
         </div>
       </div>
     </div>
@@ -39,6 +45,9 @@ const StepThree = ({
           <MyPasswordInput
             password={confirmPassword}
             setPassword={setConfirmPassword}
+            id="confirmPassword"
+            name="confirmPassword"
+            placeholder="請再次輸入您的密碼"
           />
         </div>
       </div>

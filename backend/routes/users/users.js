@@ -1,23 +1,30 @@
 import express from 'express';
 const router = express.Router();
 import db from "../../utils/connect-mysql.js";
+import bcrypt from "bcrypt";
 
-router.get('/', (req, res) => {
-    // 假設這裡有一個用戶資料庫
-    const users = [
-        { id: 1, name: '小明' },
-        { id: 2, name: '小王' },
-    ];
-});
+// router.get('/', (req, res) => {
+//     // 假設這裡有一個用戶資料庫
+//     const users = [
+//         { id: 1, name: '小明' },
+//         { id: 2, name: '小王' },
+//     ];
+// });
+
+
 
 // 會員註冊 把會員在簽端填的資料寫入database
 router.post('/add', async (req, res) => {
     const { name, email, password } = req.body;
 
     try {
+        // 生成鹽值並雜湊密碼
+        const saltRounds = 10;
+        const hashedPassword = await bcrypt.hash(password, saltRounds);
+
         const [result] = await db.query(
             'INSERT INTO members (member_name, member_email, member_password) VALUES (?, ?, ?)',
-            [name, email, password]
+            [name, email, hashedPassword]
         );
 
         res.json({ success: true, memberId: result.insertId });
