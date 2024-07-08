@@ -114,7 +114,7 @@
 }
 
 
-/* Offcanvas 自定义样式 */
+/* Offcanvas  */
 .offcanvas {
   background-color: var(--color-old-lace);
   max-width: 50vw;
@@ -130,6 +130,8 @@
 
 .offcanvasBody {
   padding: 1rem;
+  display: flex;
+  align-items: center;
 }
 
 .offcanvasBody .filter {
@@ -146,10 +148,14 @@
   cursor: pointer;
 }
 
-/* MapErea */
-.zm1 {
-  z-index: -1;
+.flexBetween {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 50%;
 }
+
+/* MapErea */
 
 @media (width >=768px) {
   .container {
