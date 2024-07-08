@@ -54,6 +54,7 @@
     padding: 25px 0;
     color:var(--color-yellow);
 }
+/*flex行程卡片的時間及場館*/
 .flexbox{
     display: flex;
     gap: 10px;

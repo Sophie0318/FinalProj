@@ -66,7 +66,7 @@
       src: url('../../fonts/OtomanopeeOne-Regular.ttf') format('truetype');
     }
     
-    /*字型*/
+    /*自訂義的字型*/
 h6{
     font-family:'Gensen', sans-serif;
     font-size: 18px;
@@ -100,11 +100,14 @@ h6{
     letter-spacing: 1px;
     margin-bottom: 0;
   }
+
   *{
       padding: 0;
       margin: 0;
       box-sizing: border-box;
   }
+
+/*我的檔案-地址的下拉選單*/
 select{
   border-radius: 40px;
   padding: 10px;
@@ -112,6 +115,9 @@ select{
   width: 120px;
   text-align: center;
 }
+/*我的檔案-地址的下拉選單*/
+
+/*我的檔案-全部的input*/
   input{
     border-radius: 40px;
     padding: 8px 10px;
@@ -120,14 +126,19 @@ select{
   input:focus,select:focus{
     border: 3px solid var(--color-midnight-green);
   }
+  /*我的檔案-全部的input*/
+
   a{
     text-decoration: none;
     color: var(--color-black);
     padding: 10px;
   }
+
   li{
     list-style: none;
   }
+
+  /*麵包屑*/
   .bread{
     width: 100%;
     padding: 0 120px;
@@ -137,6 +148,7 @@ select{
       line-height: 160%;
       letter-spacing: 1px;
   }
+/*會員中心基礎布局*/
   .warp{
     background: var(--color-old-lace);
     border-radius: 50px 0 0 50px;
@@ -145,18 +157,24 @@ select{
     padding-bottom: 110px;
     margin-bottom: 115px;
   }
+
+/*會員大頭貼的區塊及sidebar*/
   .user,
   .user_sidebar{
     text-align: center;
     padding-left:30px;
     margin-bottom: 25px;
   }
+
   .user{
     padding-top: 30px;
   }
+
   .user_sidebar {
     width:328px;
   }
+
+/*會員sidebar的內容*/
  .inline-link{ 
     display: flex;
     width: 100%;
@@ -169,11 +187,14 @@ select{
     border-radius: 50px;
     background-color: var(--color-white);
   } 
+
   .inline-link:hover,
   .inline-link:active{ 
     background-color: var(--color-old-lace);
     border-color: var(--color-dark-yellow);
   } 
+
+  /*會員中心的內區塊*/
   .userinfo{
     background: white;
     padding: 32px;
@@ -182,14 +203,17 @@ select{
      /* figma shadow-card */
     box-shadow: 0px 5px 30px 0px rgba(70, 68, 65, 0.20);
 }
+
 .user_title{
   margin-right: 32px;
   border-bottom: 1px solid var(--color-gray-50);
   color: var(--color-midnight-green);
 }
+
 .title_describe{
 padding: 20px 0;
 }
+
 .btn_md{
   width: 265px;
   height: 65px;
@@ -264,6 +288,8 @@ footer {
     transition: opacity 1s ease, bottom 1s ease;
     animation: slideUp 1s forwards;
 }
+
+/*右上角的下拉選單*/
 .user_select{
   margin: 22px 0;
   display: flex;
@@ -274,6 +300,7 @@ footer {
   height: 80px;
   padding: 0;
 }
+/*右上角的下拉選單*/
 
 @keyframes slideUp {
     0% {

@@ -23,22 +23,22 @@
 .label{
     margin-bottom: 0;
   }
-  .label_p{
+.label_p{
     color:var(--color-midnight-green)
   }
 .flex_row{
     display: flex;
     align-items: center;
     margin-bottom: 15px;
-    gap:20px;
+    gap:10px;
 }
 .why_email_h6{
     display: inline-block;
-    margin-bottom: 10px;
+    margin: 20px 0;
     border-bottom: 1px solid  var(--color-gray-50);
     color: var(--color-midnight-green);
 }
-.form_group>input{
+.form_group_input{
     max-width: 420px;
 }
 .form_group_row{

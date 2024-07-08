@@ -1,8 +1,20 @@
 import React, { useState } from 'react'
-import 'bootstrap/dist/css/bootstrap.min.css'
+// import 'bootstrap/dist/css/bootstrap.min.css'
 import styles from '../../styles/sign-in.module.css'
-import { FaAngleRight } from 'react-icons/fa'
+import {
+  FaAngleRight,
+  FaEye,
+  FaEyeSlash,
+  FaCheckCircle,
+  FaExclamationCircle,
+} from 'react-icons/fa'
+
 import UserSignin from '../../components/layout/user-layout1'
+import MyEmailInput from '@/components/users/MyEmailInput'
+import MyPasswordInput from '@/components/users/MyPasswordInput'
+import MyBtn from '@/components/users/MyBtn'
+import MyCheckBox from '@/components/users/MyCheckBox'
+import Link from 'next/link'
 
 export default function SignIn() {
   const [email, setEmail] = useState('')
@@ -21,39 +33,21 @@ export default function SignIn() {
         title="登入"
         description="請輸入您的電子信箱及密碼進行登入，也可以選擇其他帳號登入"
       >
-        {/* 將html的表單內容放在這裡 */}
-        <form onSubmit={handleSubmit}>
-          {/* ... 表單內容 ... */}
-          <div className={styles.form_group_flex}>
-            <div className={styles.form_group}>
+        <form onSubmit={handleSubmit} noValidate>
+          <div className={styles.form_group}>
+            <div className={styles.form_group_flex}>
               <label className={styles.user_label} htmlFor="email">
                 <p className={styles.p}>電子信箱</p>
               </label>
-              <input
-                className={styles.user_input}
-                type="email"
-                id="email"
-                name="email"
-                required
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="請輸入您的電子信箱"
-              />
+              <MyEmailInput email={email} setEmail={setEmail} />
             </div>
-            <div className={styles.form_group}>
-              <label className={styles.user_label} htmlFor={styles.password}>
-                <p className={styles.p}>密碼</p>
-              </label>
-              <input
-                className={styles.user_input}
-                type="password"
-                id="password"
-                name="password"
-                required
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="請輸入您的密碼"
-              />
+          </div>
+          <div className={styles.form_group}>
+            <label className={styles.user_label} htmlFor="password">
+              <p className={styles.p}>密碼</p>
+            </label>
+            <div className={styles.form_group_flex}>
+              <MyPasswordInput password={password} setPassword={setPassword} />
             </div>
           </div>
 
@@ -72,19 +66,16 @@ export default function SignIn() {
                 <p className={styles.p}>記住我</p>
               </label>
             </div>
-            <div className={styles.form_group_center}>
-              <button className={styles.btn_md} type="submit">
-                <h6 className={styles.h6}>立刻登入</h6>
-              </button>
-            </div>
+            <MyCheckBox />
+            <MyBtn buttonText="立即登入" />
           </div>
         </form>
-        {/* ... 其他內容 ... */}
+
         <div className={styles.forget_password}>
-          <a className={styles.a} href="#">
+          <Link className={styles.a} href="#">
             <FaAngleRight />
             <span className={styles.p}>我忘記密碼了</span>
-          </a>
+          </Link>
         </div>
         <a className={styles.a} href="#">
           <p className={styles.p}>還不是會員?那快點加入我們開始運動吧</p>
