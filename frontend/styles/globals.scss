@@ -87,6 +87,7 @@ $carousel-control-next-icon-bg: linear-gradient(black, black);
 * {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
 // 定義中文字體用
@@ -130,7 +131,10 @@ ol {
   list-style: none;
   margin: 0;
   padding: 0;
-  margin-bottom: 21px;
+}
+
+li {
+  list-style: none;
 }
 
 .btn {

@@ -47,6 +47,7 @@
 /* 卡片整體樣式 */
 .joinMember {
   padding: 110px 0;
+  background-color: var(--color-white);
 }
 
 .joinMemberCard {

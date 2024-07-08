@@ -60,7 +60,9 @@ export default function PageTitle({ pageName = 'index', height = '205px' }) {
     <>
       <section className={styles.intro} style={{ height: height }}>
         <div className={`${styles.info}`}>
-          <Breadcrumb />
+          <div className={styles.bread}>
+            <Breadcrumb />
+          </div>
           <div className={`${styles.title}`}>{activePage[0]}</div>
           <div className={`${styles.subTitle}`}>{activePage[1]}</div>
         </div>

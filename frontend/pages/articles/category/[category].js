@@ -1,5 +1,6 @@
 import React from 'react'
 import Layout3 from '@/components/layout/layout3'
+import SearchBar from '@/components/common/searchbar/searchbar'
 import styles from '../type.module.css'
 
 const articleList = Array(12).fill(1)
@@ -15,16 +16,8 @@ export default function ArticleType() {
                 className={`${styles.titleRow} col-12 d-flex justify-content-between align-items-center`}
               >
                 <h4 className="text-primary">體能鍛鍊</h4>
-                <div
-                  style={{
-                    backgroundColor: '#bbb',
-                    height: '60px',
-                    width: '351px',
-                    borderRadius: '50px',
-                  }}
-                >
-                  searchbar
-                </div>
+                {/* TODO: NEXT searchbar RWD  */}
+                <SearchBar maxWidth="351px" className={styles.searchbarPC} />
               </div>
               {articleList.map((v, i) => {
                 return (
@@ -41,7 +34,7 @@ export default function ArticleType() {
                         borderRadius: '40px',
                       }}
                     >
-                      {v}
+                      <a href="/articles/1">{v}</a>
                     </div>
                   </div>
                 )

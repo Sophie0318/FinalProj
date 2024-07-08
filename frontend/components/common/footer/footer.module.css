@@ -1,0 +1,133 @@
+.mobile_footer {
+  display: none;
+}
+.PC_footer {
+  display: flex;
+  background-color: #fff7e9;
+  margin-left: 20px;
+  border-radius: 40px 0 0 0;
+  padding: 20px 100px 20px 30px;
+  justify-content: space-between;
+}
+
+.PC_footer a,
+.mobile_footer a {
+  color: var(--color-black);
+}
+
+.PC_footer p,
+.mobile_footer p {
+  margin-bottom: 0;
+}
+
+.icon {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+.footer_icon {
+  height: 30px;
+  width: 30px;
+}
+
+.icon > li a:hover {
+  color: var(--color-tomato);
+}
+
+.footer_title {
+  margin: 24px 0;
+  font-family: 'Gensen', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 3px;
+}
+
+.footer_item {
+  font-size: 18px;
+  letter-spacing: 1px;
+  line-height: 160%;
+}
+
+.backto_top {
+  display: flex;
+  padding: 40px 0 30px 0;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  min-width: 72px;
+  min-height: 120px;
+  border-radius: 43px 0 0 0;
+  position: fixed;
+  bottom: 0px;
+  right: 0px;
+  /* display: none; */
+  /* Initially hidden */
+  background-color: #ffc800;
+  color: black;
+  border: none;
+  cursor: pointer;
+  font-family: 'Gensen', sans-serif;
+  font-size: 16px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  transition: opacity 1s ease, bottom 1s ease;
+  animation: slideUp 1s forwards;
+}
+
+.backto_top_icon {
+  height: 18px;
+  width: 18px;
+}
+
+@keyframes slideUp {
+  0% {
+    bottom: -50px;
+
+    opacity: 0;
+  }
+
+  100% {
+    bottom: 0px;
+    opacity: 1;
+  }
+}
+
+.backto_top:hover {
+  background-color: #d1a402;
+}
+
+.copyRight {
+  font-family: 'Huninn', sans-serif;
+  font-size: 16px;
+  text-align: right;
+}
+
+/*當視窗寬度小到一定程度時換成另一種footer*/
+@media (max-width: 750px) {
+  .PC_footer {
+    display: none;
+  }
+
+  .mobile_footer {
+    display: flex;
+    gap: 50px;
+    position: relative;
+    flex-direction: column;
+    justify-content: flex-start;
+    background-color: #fff7e9;
+    border-radius: 40px 0 0 0;
+    padding: 20px 60px;
+    margin-left: 20px;
+  }
+
+  .footer_info .mobile_footer_img {
+    width: 80%;
+  }
+  .content {
+    display: none;
+    padding-left: 20px;
+  }
+  .content.active {
+    display: block;
+  }
+}

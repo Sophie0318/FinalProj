@@ -200,7 +200,11 @@
 
 .popular {
   padding-top: 110px;
-  padding-bottom: 56px;
+  /* padding-bottom: 56px; */
+}
+
+.popular > div:nth-child(odd) {
+  margin-bottom: 86px;
 }
 
 /* 為了解決困擾卡片在 1178px 會出現跑版的斷點 */

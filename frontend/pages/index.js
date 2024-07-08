@@ -1,13 +1,18 @@
 // 功能類
 import { useState, useEffect } from 'react'
 import Head from 'next/head'
+import Link from 'next/link'
 
 // 樣式 or 元件類
 import Layout1 from '@/components/layout/layout1'
-import Carousel from '@/components/carousel'
-import Link from 'next/link'
 import JoinMember from '@/components/joinMember'
+import SwiperCarousel from '@/components/swiperCarousel'
+import LessonCard from '@/components/lessons/lessonCard'
+import CoachCard from '@/components/coaches/coacgCard'
 import styles from '@/styles/home.module.css'
+
+// 測試用data
+import dataList from '@/data/Product.json'
 
 // TODO: carousel 的 separater 的右邊緣要對其 joinMember card
 // TODO: 首頁keyVisual_SP滑動動畫優化, 參考 kacco
@@ -16,6 +21,23 @@ import styles from '@/styles/home.module.css'
 // viewport height 參考 kacco
 
 export default function Home() {
+  const [data, setData] = useState([])
+
+  const renderCard = (item) => {
+    return (
+      <LessonCard
+        title={item.name}
+        price={item.price}
+        category={item.stock}
+        imgSrc="/defaultImg.png"
+      />
+    )
+  }
+
+  useEffect(() => {
+    setData(dataList)
+  }, [])
+
   return (
     <>
       <Layout1>
@@ -203,9 +225,16 @@ export default function Home() {
               </div>
             </section>
 
-            <section className={`${styles.popular} ${styles.lessons}`}>
-              <Carousel carouselTitle="熱門課程" />
-              <div className="row p-0 m-0">
+            <section className={`${styles.popular}`}>
+              <div className="row px-0 mx-0 g-0">
+                <div className="col-md-3 d-flex justify-content-md-end justify-content-center align-items-center">
+                  <h3 className="my-0">熱門課程</h3>
+                </div>
+                <div className="col-md-9 ps-3">
+                  <SwiperCarousel data={data} renderItem={renderCard} />
+                </div>
+              </div>
+              <div className="row px-0 mx-0 g-0">
                 <div className={`${styles.carouselBtnPC}`}>
                   <Link
                     href="/"
@@ -227,9 +256,16 @@ export default function Home() {
               </div>
             </section>
 
-            <section className={`${styles.popular} ${styles.coaches}`}>
-              <Carousel carouselTitle="熱門教練" />
-              <div className="row p-0 m-0">
+            <section className={`${styles.popular}`}>
+              <div className="row px-0 mx-0 g-0">
+                <div className="col-md-3 d-flex justify-content-md-end justify-content-center align-items-center">
+                  <h3 className="my-0">熱門教練</h3>
+                </div>
+                <div className="col-md-9 ps-3">
+                  <SwiperCarousel />
+                </div>
+              </div>
+              <div className="row px-0 mx-0 g-0">
                 <div className={`${styles.carouselBtnPC}`}>
                   <Link
                     href="/"
@@ -251,9 +287,17 @@ export default function Home() {
               </div>
             </section>
 
-            <section className={`${styles.popular} ${styles.articles}`}>
-              <Carousel carouselTitle="熱門文章" />
-              <div className="row  p-0 m-0">
+            <section className={`${styles.popular}`}>
+              <div className="row px-0 mx-0 g-0">
+                <div className="col-md-3 d-flex justify-content-md-end justify-content-center align-items-center">
+                  <h3 className="my-0">熱門文章</h3>
+                </div>
+                <div className="col-md-9 ps-3">
+                  <SwiperCarousel />
+                </div>
+              </div>
+
+              <div className="row px-0 mx-0 g-0">
                 <div className={`${styles.carouselBtnPC}`}>
                   <Link
                     href="/"

@@ -8,6 +8,7 @@ import {
   IoBarbell,
   IoWalk,
   IoBagCheck,
+  IoChevronDown,
 } from 'react-icons/io5'
 import { PiMapPinFill, PiLightbulbFilamentFill } from 'react-icons/pi'
 import { FaArrowRight } from 'react-icons/fa6'
@@ -16,12 +17,15 @@ import { IoAddSharp, IoRemove, IoCloseSharp } from 'react-icons/io5'
 
 // TODO: header logo offsets when toggle offcanvas, 可以參考kacco
 // TODO: toggle button 會蓋住scrollbar, 也參考kacco
+// 也可以用看看 bootstrap offcanvas body scrollable
 export default function Navbar() {
   return (
     <>
       <header className={`${styles.navbarPC}`}>
         <div className="logo">
-          <img src="/logo.png" alt="" className={`${styles.logoPhoto}`} />
+          <Link href="/">
+            <img src="/logo.png" alt="" className={`${styles.logoPhoto}`} />
+          </Link>
         </div>
         <ul className={`${styles.list} h6-font`}>
           <li>
@@ -58,9 +62,9 @@ export default function Navbar() {
 
         <ul className={`${styles.icons}`}>
           <li>
-            <a href="#">
+            <Link href="/users/profile">
               <IoPersonAdd className={`${styles.member}`} />
-            </a>
+            </Link>
           </li>
           <li>
             <a href="#">
@@ -231,7 +235,7 @@ export default function Navbar() {
           id="navbarMobile"
           aria-labelledby="navbarMobileLabel"
         >
-          <div className={`container-fluid py-3`}>
+          <div className={`container-fluid p-3`}>
             <div
               className={`${styles.closeBtnRow} row justify-content-end p-0 m-0`}
             >
@@ -248,11 +252,53 @@ export default function Navbar() {
             <div className="row p-0 m-0 flex-column justify-content-between h-100">
               <ul className={`${styles.icons} col-12`}>
                 <li>
-                  <img
-                    className={`${styles.memberAvatar}`}
-                    src="/test_avatar.png"
-                  />
-                  <span className={`h3-font`}>你阿罵</span>
+                  <Link
+                    className={`h3-font`}
+                    href="#"
+                    role="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    <img
+                      className={`${styles.memberAvatar}`}
+                      src="/test_avatar.png"
+                    />
+                    <div className={styles.navbarSPLink}>你阿罵</div>
+                    <IoChevronDown />
+                  </Link>
+                  <ul className="dropdown-menu">
+                    <li>
+                      <Link
+                        className="dropdown-item"
+                        href="/users/profile/edit"
+                      >
+                        我的檔案
+                      </Link>
+                    </li>
+                    <li>
+                      <Link className="dropdown-item" href="/users/bookings">
+                        我的預約
+                      </Link>
+                    </li>
+                    <li>
+                      <Link
+                        className="dropdown-item"
+                        href="/users/lessons_orders"
+                      >
+                        我的課程
+                      </Link>
+                    </li>
+                    <li>
+                      <Link className="dropdown-item" href="/users/orders">
+                        歷史訂單
+                      </Link>
+                    </li>
+                    <li>
+                      <Link className="dropdown-item" href="/users/favorites">
+                        我的收藏
+                      </Link>
+                    </li>
+                  </ul>
                 </li>
                 <li>
                   <IoCart
@@ -266,26 +312,36 @@ export default function Navbar() {
                 </li>
               </ul>
 
-              <ul className={`${styles.icons} ${styles.navLinks} col-12`}>
+              <ul className={`${styles.icons} col-12`}>
                 <li>
-                  <PiMapPinFill />
-                  <span className={`h3-font`}>找場館</span>
+                  <Link className={`h3-font`} href="/gyms">
+                    <PiMapPinFill />
+                    <div className={styles.navbarSPLink}>找場館</div>
+                  </Link>
                 </li>
                 <li>
-                  <IoBarbell />
-                  <span className={`h3-font`}>找教練</span>
+                  <Link className={`h3-font`} href="/coaches">
+                    <IoBarbell />
+                    <div className={styles.navbarSPLink}>找教練</div>
+                  </Link>
                 </li>
                 <li>
-                  <IoWalk />
-                  <span className={`h3-font`}>找課程</span>
+                  <Link className={`h3-font`} href="/lessons">
+                    <IoWalk />
+                    <div className={styles.navbarSPLink}>找課程</div>
+                  </Link>
                 </li>
                 <li>
-                  <IoBagCheck />
-                  <span className={`h3-font`}>找商品</span>
+                  <Link className={`h3-font`} href="/product-test">
+                    <IoBagCheck />
+                    <div className={styles.navbarSPLink}>找商品</div>
+                  </Link>
                 </li>
                 <li>
-                  <PiLightbulbFilamentFill />
-                  <span className={`h3-font`}>找知識</span>
+                  <Link className={`h3-font`} href="/articles">
+                    <PiLightbulbFilamentFill />
+                    <div className={styles.navbarSPLink}>找知識</div>
+                  </Link>
                 </li>
               </ul>
             </div>
