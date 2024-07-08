@@ -13,7 +13,7 @@ export default function IndexPhoto() {
         <div className="row">
           <div className="col-12 col-md-6 position-relative p-0">
             <Link
-              href="/product-test/productTraningList"
+              href="/product/productTraningList"
               className="text-decoration-none"
             >
               <img src="/product-img/居家訓練.jpg" alt="" className="w-100" />
@@ -24,7 +24,7 @@ export default function IndexPhoto() {
           </div>
           <div className="col-12 col-md-6 position-relative p-0">
             <Link
-              href="/product-test/productTraningList"
+              href="/product/productTraningList"
               className="text-decoration-none"
             >
               <img src="/product-img/居家訓練2.jpg" alt="" className="w-100" />
@@ -35,7 +35,7 @@ export default function IndexPhoto() {
           </div>
           <div className="col-12 col-md-6 position-relative p-0">
             <Link
-              href="/product-test/productFoodList"
+              href="/product/productFoodList"
               className="text-decoration-none"
             >
               <img src="/product-img/健康食品.jpg" alt="" className="w-100" />
@@ -46,7 +46,7 @@ export default function IndexPhoto() {
           </div>
           <div className="col-12 col-md-6 position-relative p-0">
             <Link
-              href="/product-test/productFoodList"
+              href="/product/productFoodList"
               className="text-decoration-none"
             >
               <img src="/product-img/健康食品2.jpg" alt="" className="w-100" />
@@ -57,7 +57,7 @@ export default function IndexPhoto() {
           </div>
           <div className="col-12 col-md-6 position-relative p-0">
             <Link
-              href="/product-test/productClothList"
+              href="/product/productClothList"
               className="text-decoration-none"
             >
               <img src="/product-img/健身服飾.jpg" alt="" className="w-100" />
@@ -68,7 +68,7 @@ export default function IndexPhoto() {
           </div>
           <div className="col-12 col-md-6 position-relative p-0">
             <Link
-              href="/product-test/productProtectList"
+              href="/product/productProtectList"
               className="text-decoration-none"
             >
               <img src="/product-img/健身護具2.jpg" alt="" className="w-100" />
