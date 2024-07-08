@@ -8,7 +8,7 @@ import styles1 from '../../styles/sign-in.module.css'
 import MyStepProcess from '../users/MyStepProcess'
 
 export default function UserSignup({ title, description, children }) {
-  const steps = ['輸入電子信箱', '輸入姓名', '創建密碼']
+  const steps = ['輸入信箱', '輸入姓名', '創建密碼']
   const currentStep = 1 //從第一步開始
   return (
     <>

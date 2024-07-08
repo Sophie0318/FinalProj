@@ -1,12 +1,14 @@
-.row{
-    
+.MyStepProcess{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 .test {
     width: 80px;
     height: 80px;
     border: 8px solid #1A394A;
     border-radius: 50%;
-    background-color: #FFC800;
+    background-color:   white;
     color: black;
     display: flex;
     justify-content: center;
@@ -48,5 +50,20 @@
     border: 2px dashed var(--color-gray-50);
     width:100%;
     height: 2px;
+  }
+  .activeStep{
+    width: 80px;
+    height: 80px;
+    border: 8px solid #1A394A;
+    border-radius: 50%;
+    background-color: var(--color-yellow);
+    color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 40px;
+    font-family: 'Otomanopee', sans-serif;
+    font-weight: 400;
+
   }
   

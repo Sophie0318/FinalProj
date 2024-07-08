@@ -62,7 +62,7 @@ export default function SignUp() {
       description="運動是保持健康的關鍵，請填寫以下資訊以創建您的帳號，加入我們，讓健康和活力成為生活常態！"
       currentStep={step} //目前的狀態
     >
-      <form onSubmit={handleSubmit} noValidate>
+      <form onSubmit={handleSubmit} noValidate style={{ width: '100%' }}>
         {step === 1 && <StepOne email={email} setEmail={setEmail} />}
         {step === 2 && <StepTwo name={name} setName={setName} />}
         {step === 3 && (

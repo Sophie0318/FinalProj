@@ -32,6 +32,10 @@
     margin-bottom: 15px;
     gap:10px;
 }
+.email_input_container{
+    max-width: 420px;
+  width: 100%;
+}
 .why_email_h6{
     display: inline-block;
     margin: 20px 0;
@@ -74,3 +78,10 @@
         display: none;
     }
   }
+
+  @media (max-width: 420px) {
+  .email_input_container {
+    max-width: 100%;
+    max-width: 390px;
+  }
+}

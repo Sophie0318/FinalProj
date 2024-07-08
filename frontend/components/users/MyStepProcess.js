@@ -5,7 +5,7 @@ export default function MyStepProcess({ steps = [] }) {
   const currentStep = 1
   return (
     <div className="container  mb-5">
-      <div className="row justify-content-center">
+      <div className={styles.MyStepProcess}>
         {steps.map((step, i) => (
           <React.Fragment key={i}>
             <div className={`col-3 col-md-3 ${styles.size}`}>

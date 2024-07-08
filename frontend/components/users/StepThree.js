@@ -20,12 +20,8 @@ const StepThree = ({
             <p className={`${styles.p} ${styles2.label_p}`}>請輸入密碼</p>
           </label>
         </div>
-        <div style={{ width: '420px' }}>
-          <MyPasswordInput
-            password={password}
-            setPassword={setPassword}
-            style={{ width: '420px' }}
-          />
+        <div>
+          <MyPasswordInput password={password} setPassword={setPassword} />
         </div>
       </div>
     </div>
@@ -39,7 +35,7 @@ const StepThree = ({
             <p className={`${styles.p} ${styles2.label_p}`}>再確認一次密碼</p>
           </label>
         </div>
-        <div style={{ width: '420px' }}>
+        <div>
           <MyPasswordInput
             password={confirmPassword}
             setPassword={setConfirmPassword}

@@ -15,7 +15,7 @@ const StepOne = ({ email, setEmail }) => (
             <p className={`${styles.p} ${styles2.label_p}`}>您的電子信箱是?</p>
           </label>
         </div>
-        <div style={{ width: '420px' }}>
+        <div className={styles2.email_input_container}>
           <MyEmailInput email={email} setEmail={setEmail} />
         </div>
       </div>
