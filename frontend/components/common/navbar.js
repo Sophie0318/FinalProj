@@ -35,7 +35,7 @@ export default function Navbar() {
             </Link>
           </li>
           <li>
-            <Link href="/products">
+            <Link href="/product">
               <FaArrowRight className={styles.linkArrow} />
               找商城
             </Link>
