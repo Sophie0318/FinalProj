@@ -4,10 +4,10 @@ import ProductAccordion from '@/components/product/accordion/product-accordion'
 import Checkout1Btn from '@/components/product/button/checkout1-btn'
 
 export default function ProductCheckout() {
-  const [store, setStore] = useState('')
-  useEffect(() => {
-    fetch('third party api.....')
-  })
+  // const [store, setStore] = useState('')
+  // useEffect(() => {
+  //   fetch('third party api.....')
+  // })
   return (
     <>
       {/* 結帳進度 */}
@@ -15,7 +15,7 @@ export default function ProductCheckout() {
         <ProductCheckout1 />
         {/* 結帳進度 */}
         {/* 手風琴 */}
-        <ProductAccordion store={store} />
+        <ProductAccordion />
         <div className="col-12 col-md-8  mx-auto text-center">
           {/* 手風琴 end*/}
           <Checkout1Btn />
