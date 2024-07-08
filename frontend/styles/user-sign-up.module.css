@@ -81,6 +81,9 @@
     .btn_md_back{
         width: 100%;
     }
+    .form{
+      width: 100%;
+    }
   }
 
   @media (max-width: 420px) {
