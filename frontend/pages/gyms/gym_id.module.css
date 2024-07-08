@@ -17,6 +17,8 @@
   overflow-x: auto;
   padding-left: 16px;
   gap: 13px;
+  scrollbar-width: none;
+  margin: 32px 0;
 }
 
 .coverImg {
@@ -30,6 +32,7 @@
   align-items: center;
   padding-right: 16px;
   gap: 13px;
+
 }
 
 .otherImg {
@@ -37,15 +40,21 @@
   border-radius: 40px;
 }
 
+.px8 {
+  padding: 0 8px;
+}
+
 .btn {
   display: flex;
+  width: 100%;
   max-width: 500px;
-  gap: 40px;
+  gap: 16px;
+  margin: 20px 0;
 }
 
 .btnLike {
   display: flex;
-  width: 150px;
+  width: 40dvh;
   height: 60px;
   padding: 18px 20px;
   flex-direction: row;
@@ -53,25 +62,26 @@
   align-items: center;
   gap: 18px;
   border-radius: 40px;
-  background: var(--midnight-green, #1a394a);
+  border: 3px solid var(--color-midnight-green);
+  background: white;
   font-family: 'Gensen', sans-serif;
   font-size: 24px;
   font-weight: 700;
   letter-spacing: 5px;
-  color: var(--color-old-lace);
+  color: var(--color-midnight-green);
   /* 保留文本颜色 */
 }
 
 .btnReserve {
   display: flex;
-  width: 150px;
+  width: 60dvh;
   height: 60px;
   padding: 18px 20px;
   flex-direction: row;
   justify-content: center;
   align-items: center;
   gap: 18px;
-  color: var(--color-old-lace);
+  color: white;
   border-radius: 40px;
   background: var(--midnight-green, #1a394a);
   font-family: 'Gensen', sans-serif;
@@ -83,6 +93,20 @@
 .icon {
   display: flex;
   align-items: center;
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+  margin-top: 48px;
+  margin-bottom: 48px;
+  gap: 48px;
+  padding: 0 8px;
+}
+
+.h5 {
+  color: var(--color-midnight-green);
+  margin-bottom: 24px;
 }
 
 /* gym_id 詳細頁 新增樣式從此結束*/
@@ -106,37 +130,34 @@
 
   }
 
-  .mapContainerStyle {
-    flex: 1;
-    height: 100%;
-    margin: 0;
-    border-radius: 30px;
-    overflow: hidden;
-    box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.25) inset;
-    position: relative;
-  }
-
-  .mapContainerStyle::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    box-shadow: inset 0 4px 20px 0px rgba(0, 0, 0, 0.25);
-    /* 調整陰影效果 */
-    pointer-events: none;
-    /* 確保不影響地圖的交互 */
-    z-index: 5;
-    /* 確保在地圖之上 */
-  }
-
-  .zIndex {
-    margin-top: 0;
-    position: relative;
-  }
-
   /* gym_id 詳細頁 新增樣式從此開始*/
+  .imgContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    overflow-x: auto;
+    padding-left: 16px;
+    gap: 13px;
+    scrollbar-width: none;
+    margin: 32px 80px;
+  }
+
+  .coverImg {
+    height: 300px;
+    width: 45dvh;
+
+  }
+
+  .imgGroup {
+    display: flex;
+
+    flex-direction: row;
+    align-items: center;
+    padding-right: 16px;
+    gap: 13px;
+  }
+
   .btn {
     display: flex;
     max-width: 500px;
