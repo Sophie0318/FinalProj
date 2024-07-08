@@ -7,10 +7,6 @@ import CoachCard from '@/components/coaches/coacgCard'
 export default function SwiperTest() {
   const [data, setData] = useState([])
 
-  useEffect(() => {
-    setData(dataList)
-  }, [])
-
   const renderCard = (item) => {
     return (
       <LessonCard
@@ -21,6 +17,10 @@ export default function SwiperTest() {
       />
     )
   }
+
+  useEffect(() => {
+    setData(dataList)
+  }, [])
 
   const renderCoachCard = (item) => {
     return (

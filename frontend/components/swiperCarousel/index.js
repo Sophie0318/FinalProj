@@ -31,7 +31,7 @@ export default function SwiperCarousel({
 
   let showArrow = 'block'
   let maxWidth = 'calc(100vw - 16px)'
-  let paddingLeft = 'calc(48px + 20px)'
+  let paddingLeft = 'calc(48px)'
   let freeMode = 'false'
   if (!arrow) {
     showArrow = 'none'
@@ -41,7 +41,7 @@ export default function SwiperCarousel({
   } else {
     showArrow = 'block'
     maxWidth = 'calc(100vw - 16px)'
-    paddingLeft = 'calc(48px + 20px)'
+    paddingLeft = 'calc(48px)'
     freeMode = 'false'
   }
 
