@@ -62,10 +62,16 @@
   letter-spacing: 0.18px;
 }
 
+.checkboxWrapper {
+  display: flex;
+  align-items: center;
+  gap: 15px; /* 根据需要调整 */
+}
+
 .checkboxes {
   display: flex;
   align-items: center;
-  gap: 5px; /* 根据需要调整 */
+  gap: 5px;
 }
 
 .checkbox {
@@ -90,13 +96,16 @@
 }
 
 .checkbox:checked::after {
-  content: 'v';
-  color: white;
+  content: '';
   position: absolute;
-  top: 40%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 16px;
+  top: 0px;
+  left: 4px;
+  transform: rotate(45deg);
+  width: 8px;
+  height: 15px;
+  border: solid var(--color-old-lace);
+  border-width: 0 3px 3px 0;
+  border-radius: 2px;
 }
 
 .checkbox:hover + label {
@@ -129,4 +138,60 @@
   gap: 25px;
   align-self: stretch;
   flex-wrap: wrap;
+}
+
+@media (max-width: 900px) {
+  .content {
+    margin-top: -30px;
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .search_input {
+    width: 100%;
+  }
+
+  .filter {
+    margin-top: 30px;
+    margin-bottom: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    color: var(--color-dark-gray);
+  }
+
+  .select {
+    font-weight: 400;
+    padding-top: 15px;
+    line-height: 100%; /* 18px */
+    letter-spacing: 0.18px;
+    width: 100%; /* 占据整行 */
+    margin-bottom: 15px; /* 与复选框分开 */
+  }
+
+  .checkboxWrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    width: 100%;
+  }
+
+  .result {
+    justify-content: center;
+    align-items: center;
+  }
+
+  .result {
+    padding: 0 15px; /* 添加一些左右内边距 */
+  }
+
+  .result_title {
+    text-align: center; /* 使标题文字居中 */
+    font-size: 28px; /* 可能需要稍微减小字体大小 */
+  }
+
+  .coachCards {
+    justify-content: center; /* 使卡片在水平方向上居中 */
+    gap: 15px; /* 可能需要减小卡片之间的间隔 */
+  }
 }

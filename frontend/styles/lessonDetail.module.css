@@ -136,3 +136,42 @@
   animation: 0.5s ease-in-out;
   color: var(--color-tomato); /* 最终的颜色 */
 }
+
+@media (max-width: 900px) {
+  .content {
+    margin-top: -30px;
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .lessson {
+    display: block;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    padding: 50px 8px 110px 8px;
+    flex: 1 0 0;
+    align-self: stretch;
+  }
+
+  .lessonInfo {
+    margin-top: 30px;
+  }
+
+  .lessonName {
+    font-family: 'Gensen', sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: 2.4px;
+  }
+
+  .lessonCoach,
+  .lessonGym,
+  .lessonDate {
+    font-family: 'Gensen', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: var(--color-midnight-green);
+  }
+}

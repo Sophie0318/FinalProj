@@ -43,6 +43,7 @@ export default function Checkout() {
           <div className={styles.num}>NT.900</div>
         </div>
       </div>
+
       <div className={styles.pcontainer}>
         <div className={styles.title}>2、選擇付款方式</div>
         <div className={styles.card}>

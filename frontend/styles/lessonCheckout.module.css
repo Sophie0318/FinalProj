@@ -194,3 +194,79 @@
   border: var(--color-midnight-green);
   background-color: var(--color-midnight-green);
 }
+
+@media (max-width: 900px) {
+  .contain {
+    padding: 0 10px;
+    gap: 15px;
+  }
+
+  .title {
+    margin-bottom: 10px;
+  }
+
+  .check {
+    background-color: var(--color-midnight-green);
+    border-radius: 20px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+    height: auto;
+  }
+
+  .imgContain {
+    width: 100%;
+    padding: 0;
+    margin-bottom: 10px;
+  }
+
+  .imgContain img {
+    width: 100%;
+    border-radius: 10px;
+  }
+
+  .infos {
+    width: 100%;
+  }
+
+  .infoN {
+    font-family: 'Gensen', sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: 2.4px;
+    color: var(--color-old-lace);
+  }
+
+  .infoT {
+    font-family: 'Gensen', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    color: var(--color-old-lace);
+  }
+
+  .total {
+    background-color: var(--color-gray-25);
+    border-radius: 10px;
+    /* padding: 15px; */
+    display: flex;
+    justify-content: center; /* 水平居中 */
+    align-items: center; /* 垂直居中 */
+  }
+
+  .sum,
+  .num {
+    width: 50%;
+    padding: 0 10px; /* 添加一些水平内边距 */
+    text-align: center;
+    font-family: 'Gensen', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: 2px;
+  }
+
+  .pcontainer {
+    padding: 0 10px;
+  }
+}
