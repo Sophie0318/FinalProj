@@ -23,27 +23,27 @@ export default function Articles() {
         <section>
           <div className={`${styles.articleTypes}`}>
             <div className={`${styles.typeGrid}`}>
-              <Link href="/category/fitness">
+              <Link href="/articles/category/fitness">
                 <h3>體能鍛鍊</h3>
               </Link>
             </div>
             <div className={`${styles.typeGrid}`}>
-              <Link href="/category/healthy_diet">
+              <Link href="/articles/category/healthy_diet">
                 <h3>健康飲食</h3>
               </Link>
             </div>
             <div className={`${styles.typeGrid}`}>
-              <Link href="/category/medical_care">
+              <Link href="/articles/category/medical_care">
                 <h3>醫療保健</h3>
               </Link>
             </div>
             <div className={`${styles.typeGrid}`}>
-              <Link href="/category/mental_wellness">
+              <Link href="/articles/category/mental_wellness">
                 <h3>心靈健康</h3>
               </Link>
             </div>
             <div className={`${styles.typeGrid}`}>
-              <Link href="/category/happy_learning">
+              <Link href="/articles/category/happy_learning">
                 <h3>熟齡學習</h3>
               </Link>
             </div>

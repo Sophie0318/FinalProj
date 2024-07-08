@@ -34,7 +34,7 @@ export default function ArticleType() {
                         borderRadius: '40px',
                       }}
                     >
-                      {v}
+                      <a href="/articles/1">{v}</a>
                     </div>
                   </div>
                 )
