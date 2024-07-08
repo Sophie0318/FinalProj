@@ -31,7 +31,13 @@ const getListData = async (req) => {
     product_sql += " AND CommonType.commontype_id = 51";
   }
 
-  const t_sql = `SELECT COUNT(1) AS totalRows FROM products join CommonType on Products.Product_type_id_fk = CommonType.commontype_id ${product_sql}`;
+  let keyword = req.query.keyword || "";
+  let where = " ";
+  if (keyword) {
+    where = ` AND \`Product_name\` LIKE '%${keyword}%' `;
+  }
+
+  const t_sql = `SELECT COUNT(1) AS totalRows FROM products join CommonType on Products.Product_type_id_fk = CommonType.commontype_id ${product_sql}${where}`;
   const [[{ totalRows }]] = await db.query(t_sql);
   let totalPages = 0; //總頁數，預設值
   let rows = []; //分頁資料
@@ -50,13 +56,13 @@ const getListData = async (req) => {
       Product_photo,
       Product_desc,
       Product_price,
-       commontype.code_desc 'product_type'
+       commontype.code_desc AS 'product_type'
 		from Products 
       join CommonType
       on Products.Product_type_id_fk = commontype.commontype_id
        join CommonType as iCommonType 
       on Products.Suppliers_id_fk = iCommonType.commontype_id
-        ${product_sql} LIMIT 
+        ${product_sql}${where} LIMIT 
        ${(page - 1) * perPage}, ${perPage}`;
 
     [rows] = await db.query(sql, [(page - 1) * perPage, perPage]);
@@ -90,6 +96,13 @@ router.get("/", async (req, res) => {
     }
   }
 });
+
+// router.get("/api/:product_id", async (req, res) => {
+//   const product_id = +req.params.product_id || 0;
+//   if (!product_id) {
+//     return res.redirect("/product");
+//   }
+// }); //商品細節
 
 router.get("/api", async (req, res) => {
   try {
