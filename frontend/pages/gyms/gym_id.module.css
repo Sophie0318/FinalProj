@@ -137,25 +137,35 @@
     align-items: center;
     justify-content: flex-start;
     overflow-x: auto;
-    padding-left: 16px;
+    padding-left: 0px;
     gap: 13px;
-    scrollbar-width: none;
+
     margin: 32px 80px;
+    width: 455px;
   }
 
   .coverImg {
     height: 300px;
-    width: 45dvh;
-
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
   }
 
   .imgGroup {
     display: flex;
-
     flex-direction: row;
+    flex-wrap: wrap;
     align-items: center;
-    padding-right: 16px;
-    gap: 13px;
+    padding-right: 0px;
+    gap: 8px;
+  }
+
+  .otherImg {
+    height: 50px;
+    width: calc(100%/6 - 8px);
+    border-radius: 10px;
+    object-fit: cover;
+    object-position: center;
   }
 
   .btn {
