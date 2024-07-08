@@ -1,10 +1,12 @@
 import React from 'react'
 import LayoutUser from '@/components/layout/user-layout2'
+import Select from '@/components/common/select/select'
 import LessonCard from '@/components/lessons/lessonCard'
 import styles from '@/styles/user-lessonsorders.module.css'
 
 // 測試用資料，連到資料庫後要刪掉
 import lessons from '@/data/FavLessons.json'
+import options from '@/data/FakeOptions.json'
 
 export default function LessonsOrders() {
   // 產出卡片的函式, 參數 data=Array.map的v
@@ -27,12 +29,7 @@ export default function LessonsOrders() {
             <h4>我的課程</h4>
           </div>
           <div className={styles.user_select}>
-            <select id="" name="">
-              <option value="0">下拉選擇類別</option>
-              <option value="1">已預約的場館</option>
-              <option value="2">已預約的課程</option>
-              {/* <!-- 青菜加加 --> */}
-            </select>
+            <Select options={options} />
           </div>
           <div className={styles.lessons_orders_search}>
             {lessons.map((v, i) => {

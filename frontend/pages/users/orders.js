@@ -1,6 +1,6 @@
 import React from 'react'
 import LayoutUser from '@/components/layout/user-layout2'
-import UserSelect from '@/components/users/user-select'
+import Select from '@/components/common/select/select'
 import OrderRow from '@/components/users/order-row'
 import styles from '@/styles/user-orders.module.css'
 
@@ -32,7 +32,7 @@ export default function LessonsOrders() {
             <h4>我的訂單</h4>
           </div>
           <div className={styles.user_select}>
-            <UserSelect options={options} />
+            <Select options={options} />
           </div>
           <div>
             {orders.map((v, i) => {

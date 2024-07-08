@@ -23,7 +23,9 @@ export default function Navbar() {
     <>
       <header className={`${styles.navbarPC}`}>
         <div className="logo">
-          <img src="/logo.png" alt="" className={`${styles.logoPhoto}`} />
+          <Link href="/">
+            <img src="/logo.png" alt="" className={`${styles.logoPhoto}`} />
+          </Link>
         </div>
         <ul className={`${styles.list} h6-font`}>
           <li>

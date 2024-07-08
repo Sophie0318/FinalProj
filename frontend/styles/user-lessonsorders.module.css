@@ -13,32 +13,10 @@
   padding: 20px 0;
 }
 
-.userinfo_lessonsorders select {
-  border-radius: 40px;
-  padding: 10px;
-  max-width: 420px;
-  width: 120px;
-  text-align: center;
-}
-.userinfo_lessonsorders input {
-  border-radius: 40px;
-  padding: 8px 10px;
-  width: 240px;
-}
-.userinfo_lessonsorders input:focus,
-.userinfo_lessonsorders select:focus {
-  border: 3px solid var(--color-midnight-green);
-}
-
 .user_select {
   margin: 22px 0;
   display: flex;
   justify-content: flex-end;
-}
-.user_select select {
-  width: 327px;
-  height: 80px;
-  padding: 0;
 }
 
 .lessons_orders_search {

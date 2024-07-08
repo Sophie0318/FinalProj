@@ -1,6 +1,6 @@
 import React from 'react'
 import LayoutUser from '@/components/layout/user-layout2'
-import UserSelect from '@/components/users/user-select'
+import Select from '@/components/common/select/select'
 import styles from '@/styles/user-bookings.module.css'
 
 // 測試用資料，連到資料庫後要刪掉
@@ -15,7 +15,7 @@ export default function LessonsOrders() {
             <h4>我的預約</h4>
           </div>
           <div className={styles.user_select}>
-            <UserSelect options={options} />
+            <Select options={options} />
           </div>
           <div className={styles.year_num}>2024年</div>
           <div className={styles.month}>

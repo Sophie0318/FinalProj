@@ -3,6 +3,7 @@ import SwiperCarousel from '@/components/swiperCarousel'
 import dataList from '@/data/Product.json'
 import LessonCard from '@/components/lessons/lessonCard'
 import CoachCard from '@/components/coaches/coacgCard'
+import Select from '@/components/common/select/select'
 
 export default function SwiperTest() {
   const [data, setData] = useState([])
@@ -48,6 +49,14 @@ export default function SwiperTest() {
           </div>
           <div className="col-9">
             <SwiperCarousel data={data} renderItem={renderCoachCard} />
+          </div>
+        </div>
+      </div>
+
+      <div className="container py-5">
+        <div className="row">
+          <div className="col-12 d-flex justify-content-end align-items-center">
+            <Select />
           </div>
         </div>
       </div>
