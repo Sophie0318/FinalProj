@@ -204,15 +204,15 @@ export default function Home() {
             </section>
 
             <section className={`${styles.popular}`}>
-              <div className="row px-0 mx-0">
-                <div className="col-md-3 px-0 d-flex justify-content-end align-items-center">
+              <div className="row px-0 mx-0 g-0">
+                <div className="col-md-3 d-flex justify-content-md-end justify-content-center align-items-center">
                   <h3 className="my-0">熱門課程</h3>
                 </div>
-                <div className="col-md-9 px-0 ">
+                <div className="col-md-9 ps-3">
                   <SwiperCarousel />
                 </div>
               </div>
-              <div className="row px-0 mx-0">
+              <div className="row px-0 mx-0 g-0">
                 <div className={`${styles.carouselBtnPC}`}>
                   <Link
                     href="/"
@@ -235,15 +235,15 @@ export default function Home() {
             </section>
 
             <section className={`${styles.popular}`}>
-              <div className="row px-0 mx-0">
-                <div className="col-md-3 d-flex justify-content-end align-items-center">
+              <div className="row px-0 mx-0 g-0">
+                <div className="col-md-3 d-flex justify-content-md-end justify-content-center align-items-center">
                   <h3 className="my-0">熱門教練</h3>
                 </div>
-                <div className="col-md-9">
+                <div className="col-md-9 ps-3">
                   <SwiperCarousel />
                 </div>
               </div>
-              <div className="row px-0 mx-0">
+              <div className="row px-0 mx-0 g-0">
                 <div className={`${styles.carouselBtnPC}`}>
                   <Link
                     href="/"
@@ -266,16 +266,16 @@ export default function Home() {
             </section>
 
             <section className={`${styles.popular}`}>
-              <div className="row px-0 mx-0">
-                <div className="col-md-3 d-flex justify-content-end align-items-center">
+              <div className="row px-0 mx-0 g-0">
+                <div className="col-md-3 d-flex justify-content-md-end justify-content-center align-items-center">
                   <h3 className="my-0">熱門文章</h3>
                 </div>
-                <div className="col-md-9">
+                <div className="col-md-9 ps-3">
                   <SwiperCarousel />
                 </div>
               </div>
 
-              <div className="row px-0 mx-0">
+              <div className="row px-0 mx-0 g-0">
                 <div className={`${styles.carouselBtnPC}`}>
                   <Link
                     href="/"

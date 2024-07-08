@@ -25,13 +25,14 @@
 .typeGrid {
   background-color: var(--color-gray-50);
   background-blend-mode: multiply;
-  background-size: 100%;
+  background-repeat: no-repeat;
+  background-size: cover;
   background-position: center;
   transition: background-size 0.1s ease-in;
 }
 
 .typeGrid:hover {
-  background-size: 110%;
+  /* background-size: 110%; */
 }
 
 .typeGrid:nth-child(1) {
@@ -67,14 +68,15 @@
 }
 
 .typeGrid:nth-child(5) {
-  background-image: url('/articles-img/priscilla-du-preez-aPa843frIzI-unsplash.jpg');
+  background-image: url('/articles-img/iStock-1040323860.jpg');
   grid-column-start: 5;
   grid-column-end: 7;
   grid-row-start: 2;
   grid-row-end: 2;
 }
 
-.latest, .popular {
+.latest,
+.popular {
   margin-bottom: 100px;
 }
 
@@ -87,9 +89,19 @@
   margin-bottom: 50px;
 }
 
-
 .cardImg {
   height: 150px;
   width: 150px;
   object-fit: cover;
+}
+
+@media (max-width: 768px) {
+  .articleTypes {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .typeGrid {
+    height: 339px;
+  }
 }

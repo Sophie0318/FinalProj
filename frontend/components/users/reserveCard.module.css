@@ -1,13 +1,9 @@
 .p_font {
-  font-family: 'Huninn', sans-serif;
-  font-size: 18x;
-  line-height: 160%;
-  letter-spacing: 1px;
   margin-bottom: 0;
 }
 .num {
   font-family: 'Otomanopee', sans-serif;
-  font-size: 18x;
+  font-size: 18px;
   line-height: 160%;
   letter-spacing: 1px;
   margin-bottom: 0;
@@ -21,7 +17,6 @@
 .card_body {
   display: flex;
   gap: 10px;
-  flex: 1 1 auto;
   flex-direction: column;
   padding: 16px 16px 30px 16px;
 }
@@ -33,8 +28,8 @@
   padding: 25px 0;
 }
 .card_icons {
-  height: 70px;
-  width: 70px;
+  height: 73px;
+  width: 87.5px;
   color: var(--color-yellow);
 }
 .flexbox {

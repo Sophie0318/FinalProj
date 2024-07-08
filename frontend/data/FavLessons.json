@@ -1,0 +1,44 @@
+[
+  {
+    "title": "測試用課程名稱1",
+    "price": "多少錢",
+    "gym": "哪個場館",
+    "category": "什麼類別",
+    "imgSrc": "/defaultImg.png"
+  },
+  {
+    "title": "測試用課程名稱2",
+    "price": "多少錢",
+    "gym": "哪個場館",
+    "category": "什麼類別",
+    "imgSrc": "/defaultImg.png"
+  },
+  {
+    "title": "測試用課程名稱3",
+    "price": "多少錢",
+    "gym": "哪個場館",
+    "category": "什麼類別",
+    "imgSrc": "/defaultImg.png"
+  },
+  {
+    "title": "測試用課程名稱4",
+    "price": "多少錢",
+    "gym": "哪個場館",
+    "category": "什麼類別",
+    "imgSrc": "/defaultImg.png"
+  },
+  {
+    "title": "測試用課程名稱5",
+    "price": "多少錢",
+    "gym": "哪個場館",
+    "category": "什麼類別",
+    "imgSrc": "/defaultImg.png"
+  },
+  {
+    "title": "測試用課程名稱6",
+    "price": "多少錢",
+    "gym": "哪個場館",
+    "category": "什麼類別",
+    "imgSrc": "/defaultImg.png"
+  }
+]
