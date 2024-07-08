@@ -7,11 +7,11 @@ export default function MyCheckBox() {
         <div className={styles.checkboxes}>
           <input
             type="checkbox"
-            id="aerobic"
-            name="aerobic"
+            id="rememberMe"
+            name="rememberMe"
             className={styles.checkbox}
           />
-          <label htmlFor="aerobic">記住我</label>
+          <label htmlFor="rememberMe">記住我</label>
         </div>
       </div>
     </div>

@@ -53,20 +53,9 @@ export default function SignIn() {
 
           <div className={styles.flex}>
             <div className={styles.form_check}>
-              <input
-                type="checkbox"
-                id="flexCheckDefault"
-                checked={rememberMe}
-                onChange={(e) => setRememberMe(e.target.checked)}
-              />
-              <label
-                className={styles.form_check_label}
-                htmlFor="flexCheckDefault"
-              >
-                <p className={styles.p}>記住我</p>
-              </label>
+              <MyCheckBox />
             </div>
-            <MyCheckBox />
+
             <MyBtn buttonText="立即登入" />
           </div>
         </form>
