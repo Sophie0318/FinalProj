@@ -2,3 +2,5 @@
 
 
 寫程式的筆記: https://docs.google.com/document/d/10yM2EvnQdDyGpmBn4jl33UAJuJ91_4qBAgzpavGx3aA/edit?usp=sharing
+
+專題簡介: https://docs.google.com/document/d/1TzaWAX5m8Jnr_zXxNnm_hqGUumY0mSRYpydgFn1D-ao/edit?usp=sharing
