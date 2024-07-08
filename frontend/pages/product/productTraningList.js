@@ -8,6 +8,7 @@ import BS5Pagination from '@/components/product/Pagination/bs5-pagination'
 import CardList from '@/components/product/card-list/card-list'
 import SideBar from '@/components/product/side-bar/side-bar'
 import { useRouter } from 'next/router'
+import Link from 'next/link'
 export default function ProductList() {
   const router = useRouter()
   const [data, setData] = useState({
@@ -33,6 +34,7 @@ export default function ProductList() {
   }, [])
   */
 
+  //將後端的資料塞進updateProductData的function裡，在下面再用useEffect去抓(fetch)後端的資料
   function updateProductData() {
     const pathname = router.pathname
     const pathParts = pathname.split('/')
@@ -94,11 +96,13 @@ export default function ProductList() {
                       key={v.Product_id}
                       className="col-12 col-md-8 col-lg-4 mb-3 "
                     >
-                      <CardList
-                        id={v.Product_id}
-                        name={v.Product_name}
-                        price={v.Product_price}
-                      />
+                      <Link href={`/product/${v.Product_id}`}>
+                        <CardList
+                          id={v.Product_id}
+                          name={v.Product_name}
+                          price={v.Product_price}
+                        />
+                      </Link>
                     </div>
                   )
                 })}

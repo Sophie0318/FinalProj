@@ -97,6 +97,13 @@ router.get("/", async (req, res) => {
   }
 });
 
+// router.get("/api/:product_id", async (req, res) => {
+//   const product_id = +req.params.product_id || 0;
+//   if (!product_id) {
+//     return res.redirect("/product");
+//   }
+// }); //商品細節
+
 router.get("/api", async (req, res) => {
   try {
     const data = await getListData(req);

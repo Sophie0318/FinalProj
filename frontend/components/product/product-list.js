@@ -10,22 +10,6 @@ export default function ProductList({
   updateProductData,
 }) {
   function searchKeyword() {
-    /* console.log(
-      `User input: ${nameLike}, and send searching keyword to backend api.`
-    )
-    const queryParams = new URLSearchParams({
-      category: query,
-      page: page,
-      keyword: nameLike,
-    })
-    const url = `http://localhost:3001/product/api?${queryParams.toString()}`
-
-    fetch(url)
-      .then((r) => r.json())
-      .then((myData) => {
-        console.log(`search result: ${myData}`)
-        setData(myData)
-      }) */
     updateProductData()
   }
 
