@@ -36,10 +36,10 @@ const getListData = async (req) => {
   if (keyword) {
     where = ` AND \`Product_name\` LIKE '%${keyword}%' `;
   }
-  let product_id = req.query.product || "";
-  if (product_id) {
-    where = ` AND \`Product_id\` = '%${product_id}%' `;
-  }
+  // let product_id = req.query.product || "";
+  // if (product_id) {
+  //   where = ` AND \`Product_id\` = '%${product_id}%' `;
+  // }
 
   const t_sql = `SELECT COUNT(1) AS totalRows FROM products join CommonType on Products.Product_type_id_fk = CommonType.commontype_id ${product_sql}${where}`;
   const [[{ totalRows }]] = await db.query(t_sql);
@@ -102,23 +102,47 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.get("/api/:product_id", async (req, res) => {
-  const product_id = +req.params.product_id || 0;
+router.get("/api/:pid", async (req, res) => {
+  let success = false;
+  const product_id = +req.params.pid || 0;
+
   if (!product_id) {
     return res.redirect("/product");
   }
-  const data = await getListData(req);
-  if (data.redirect) {
-    return res.redirect(data.redirect);
-  }
-  if (data.success) {
+  // const data = await getListData(req);
+  // if (data.redirect) {
+  //   return res.redirect(data.redirect);
+  // }
+
+  const sql = `select   
+      Product_id,
+      Product_name,
+      Product_photo,
+      Product_desc,
+      Product_price,
+       commontype.code_desc AS 'product_type'
+		from Products 
+      join CommonType
+      on Products.Product_type_id_fk = commontype.commontype_id
+       join CommonType as iCommonType 
+      on Products.Suppliers_id_fk = iCommonType.commontype_id
+      WHERE Product_id = ${product_id}`;
+  const [data] = await db.query(sql);
+  // console.log(data);
+  success = true;
+  if (data) {
     // 這裡應該使用模板渲染，否則使用 JSON 渲染
-    try {
-      res.render("product/list", data); // 確保你已經配置了模板引擎，並有相應的模板
-    } catch (error) {
-      console.error("模板渲染錯誤:", error);
-      res.json(data); // 在未配置模板引擎的情況下，先使用 JSON 返回數據
-    }
+    return res.json({
+      success,
+      data,
+    });
+
+    // try {
+    //   res.json(data); // 確保你已經配置了模板引擎，並有相應的模板
+    // } catch (error) {
+    //   console.error("模板渲染錯誤:", error);
+    //   res.json(data); // 在未配置模板引擎的情況下，先使用 JSON 返回數據
+    // }
   }
 }); //商品細節
 

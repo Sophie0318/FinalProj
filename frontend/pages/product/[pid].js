@@ -13,7 +13,7 @@ import { useRouter } from 'next/router'
 export default function ProductDetail() {
   const router = useRouter()
 
-  const [data, setData] = useState({
+  const [product, setProduct] = useState({
     Product_id: 0,
     Product_name: '',
     Product_price: 0,
@@ -21,23 +21,20 @@ export default function ProductDetail() {
     Product_image: '',
   })
 
-  const getProduct = async (product_id) => {
-    const url = 'http://localhost:3001/product/api?product=' + product_id
+  const getProduct = async (pid) => {
+    const url = `http://localhost:3001/product/api/${pid}`
+
     try {
       const res = await fetch(url)
       // product資料在data.data.product
       const resData = await res.json()
-
-      if (resData.status === 'success') {
+      // const resData = await res.json()(resData, 'resData')
+      if (resData.success === true) {
         // 檢查是否為物件資料類型(基本保護)
-        if (resData.data.product.id) {
+        if (resData.data.length > 0) {
           // 設定到狀態中 ===> 進入update階段，觸發重新渲染(re-render)
-          setData(resData.data.product)
-
-          // 關閉載入動畫，撥放1.5秒
-          setTimeout(() => {
-            setData(false)
-          }, 1500)
+          console.log(resData.data[0])
+          setProduct(resData.data[0])
         }
       }
     } catch (e) {
@@ -48,19 +45,13 @@ export default function ProductDetail() {
   //   console.log(router.pathname.split('/')[2])
 
   useEffect(() => {
+    // console.count('[useEffect] getProduct')
     if (router.isReady) {
-      // 這裡可以得到router.query(pid屬性)值
-      // 動態路由得到的pid屬性值都是字串值(比對時要小心)
-      console.log(router.query)
-      // 解構出pid屬性值
-      const { product_id } = router.query
+      const pid = router.query.pid
       // 呼叫getProduct
-      getProduct(product_id)
+      getProduct(pid)
     }
-    // 註解: 讓eslint略過一行檢查
-    // eslint-disable-next-line
-  }, [router.isReady, data])
-  console.log(data)
+  }, [router.isReady])
 
   return (
     <Layout3>
@@ -71,15 +62,17 @@ export default function ProductDetail() {
             <ProductCarousel />
             <ProductImage />
           </div>
-          {data && data.rows && router.query.product_id ? (
-            data.rows.map((v, i) => (
-              <div key={v.Product_id}>
-                <DetailText price={v.Product_price} desc={v.Product_desc} />
-              </div>
-            ))
-          ) : (
-            <p>Loading...</p>
-          )}
+          <div>
+            <DetailText
+              price={product.Product_price}
+              desc={product.Product_desc}
+            />
+          </div>
+          {/* {product?.map((v) => {
+            ;<div key={v.Product_id}>
+              <DetailText price={v.Product_price} desc={v.Product_desc} />
+            </div>
+          })} */}
         </div>
         <PhotoText />
         <div className="row  text-center align-items-center d-flex">
