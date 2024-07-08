@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import 'bootstrap/dist/css/bootstrap.min.css'
+// import 'bootstrap/dist/css/bootstrap.min.css'
 import styles from '../../styles/sign-in.module.css'
 import {
   FaAngleRight,
@@ -13,6 +13,7 @@ import UserSignin from '../../components/layout/user-layout1'
 import MyEmailInput from '@/components/users/MyEmailInput'
 import MyPasswordInput from '@/components/users/MyPasswordInput'
 import MyBtn from '@/components/users/MyBtn'
+import MyCheckBox from '@/components/users/MyCheckBox'
 import Link from 'next/link'
 
 export default function SignIn() {
@@ -65,6 +66,7 @@ export default function SignIn() {
                 <p className={styles.p}>記住我</p>
               </label>
             </div>
+            <MyCheckBox />
             <MyBtn buttonText="立即登入" />
           </div>
         </form>
