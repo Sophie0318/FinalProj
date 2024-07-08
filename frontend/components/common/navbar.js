@@ -35,13 +35,13 @@ export default function Navbar() {
             </Link>
           </li>
           <li>
-            <Link href="./products">
+            <Link href="/product">
               <FaArrowRight className={styles.linkArrow} />
               找商城
             </Link>
           </li>
           <li>
-            <Link href="./lessons">
+            <Link href="/lessons">
               <FaArrowRight className={styles.linkArrow} />
               找課程
             </Link>
@@ -53,7 +53,7 @@ export default function Navbar() {
             </Link>
           </li>
           <li>
-            <Link href="./articles">
+            <Link href="/articles">
               <FaArrowRight className={styles.linkArrow} />
               找知識
             </Link>

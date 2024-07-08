@@ -6,40 +6,86 @@
   padding: 0 16px;
 }
 
-.searchAndSwitch {
-  /* 寫得很開心 結果用boostrap沒套 */
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
 
-/* 地圖樣式 */
-
-
-.mapContainerStyle {
-  margin: 0;
-  height: 55vh;
-  border-radius: 50px 50px 0 0;
-  overflow: hidden;
-  margin-top: -50px;
-  /* box-shadow: 0px -4px 50px 0px rgba(0, 0, 0, 0.10); */
-}
-
-
-
-.indexContainer {
-  position: relative
-}
-
-.zIndex {
-  margin-top: 50px;
-  position: absolute;
-  z-index: 1;
-  width: 100%
-}
 
 /* gym_id 詳細頁 新增樣式從此開始*/
+.imgContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  overflow-x: auto;
+  padding-left: 16px;
+  gap: 13px;
+}
 
+.coverImg {
+  width: 85dvw;
+  border-radius: 40px;
+}
+
+.imgGroup {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding-right: 16px;
+  gap: 13px;
+}
+
+.otherImg {
+  width: 85dvw;
+  border-radius: 40px;
+}
+
+.btn {
+  display: flex;
+  max-width: 500px;
+  gap: 40px;
+}
+
+.btnLike {
+  display: flex;
+  width: 150px;
+  height: 60px;
+  padding: 18px 20px;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 18px;
+  border-radius: 40px;
+  background: var(--midnight-green, #1a394a);
+  font-family: 'Gensen', sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: 5px;
+  color: var(--color-old-lace);
+  /* 保留文本颜色 */
+}
+
+.btnReserve {
+  display: flex;
+  width: 150px;
+  height: 60px;
+  padding: 18px 20px;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 18px;
+  color: var(--color-old-lace);
+  border-radius: 40px;
+  background: var(--midnight-green, #1a394a);
+  font-family: 'Gensen', sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: 5px;
+}
+
+.icon {
+  display: flex;
+  align-items: center;
+}
+
+/* gym_id 詳細頁 新增樣式從此結束*/
 
 @media (width >=768px) {
   .container {
@@ -96,7 +142,7 @@
     max-width: 500px;
     gap: 40px;
   }
-  
+
   .btnLike {
     display: flex;
     width: 150px;
@@ -112,9 +158,10 @@
     font-size: 24px;
     font-weight: 700;
     letter-spacing: 5px;
-    color: var(--color-old-lace); /* 保留文本颜色 */
+    color: var(--color-old-lace);
+    /* 保留文本颜色 */
   }
-  
+
   .btnReserve {
     display: flex;
     width: 150px;
@@ -132,17 +179,18 @@
     font-weight: 700;
     letter-spacing: 5px;
   }
-  
+
   .icon {
     display: flex;
     align-items: center;
   }
-  
+
   .clicked {
     animation: 0.5s ease-in-out;
-    color: var(--color-tomato); /* 最终的颜色 */
+    color: var(--color-tomato);
+    /* 最终的颜色 */
   }
-  
+
 
 }
 
