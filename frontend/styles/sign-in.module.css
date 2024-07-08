@@ -159,5 +159,11 @@
   .user_container{
     padding:0;
   }
+  .btn_md{
+  width: 100%;
+} 
+.form_group_center{
+  width: 100%;
+}
 
 } 

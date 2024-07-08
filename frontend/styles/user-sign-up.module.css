@@ -74,8 +74,12 @@
     }
   }
   @media screen and (max-width: 500px) {
+ .form_group_row{
+    width: 100%;
+       flex-wrap: wrap;
+    }
     .btn_md_back{
-        display: none;
+        width: 100%;
     }
   }
 
