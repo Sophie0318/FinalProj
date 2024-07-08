@@ -10,11 +10,6 @@ const StepThree = ({
   setConfirmPassword,
 }) => (
   <>
-    <div className={styles.title_describe}>
-      <p className={styles.p}>
-        運動是保持健康的關鍵，請填寫以下資訊以創建您的帳號，讓健康和活力成為生活常態！
-      </p>
-    </div>
     <div className={styles.form_group_flex}>
       <div className={styles.form_group}>
         <div className={styles2.flex_row}>

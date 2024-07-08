@@ -29,31 +29,31 @@ export default function Navbar() {
         </div>
         <ul className={`${styles.list} h6-font`}>
           <li>
-            <Link href="./gyms">
+            <Link href="/gyms">
               <FaArrowRight className={styles.linkArrow} />
               找場館
             </Link>
           </li>
           <li>
-            <Link href="./products">
+            <Link href="/products">
               <FaArrowRight className={styles.linkArrow} />
               找商城
             </Link>
           </li>
           <li>
-            <Link href="./lessons">
+            <Link href="/lessons">
               <FaArrowRight className={styles.linkArrow} />
               找課程
             </Link>
           </li>
           <li>
-            <Link href="./coaches">
+            <Link href="/coaches">
               <FaArrowRight className={styles.linkArrow} />
               找教練
             </Link>
           </li>
           <li>
-            <Link href="./articles">
+            <Link href="/articles">
               <FaArrowRight className={styles.linkArrow} />
               找知識
             </Link>
