@@ -1,5 +1,5 @@
 import React from 'react'
-import LayoutUser from '@/components/layout/user-layout2'
+import LayoutUser from '@/components/layout/user-layout3'
 import BranchCard from '@/components/users/branchCard'
 // 待 import 進文章&場館卡片
 import CoachCard from '@/components/coaches/coacgCard'

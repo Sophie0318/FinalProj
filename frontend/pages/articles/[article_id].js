@@ -1,14 +1,9 @@
 import React from 'react'
 import Link from 'next/link'
-import Btn from '@/components/articles/buttons_test'
 import Layout3 from '@/components/layout/layout3'
-import Carousel from '@/components/carousel'
-import {
-  IoHeart,
-  IoSearch,
-  IoChatbubbleEllipses,
-  IoShareSocialSharp,
-} from 'react-icons/io5'
+import Btn from '@/components/articles/buttons_test'
+import ArticleSidebar from '@/components/articles/article-sidebar'
+import SwiperCarousel from '@/components/swiperCarousel'
 import styles from './articleId.module.css'
 
 export default function ArticlePage() {
@@ -17,23 +12,7 @@ export default function ArticlePage() {
       <Layout3 title="文章頁面" pageName="articles">
         <main className={`${styles.article} container`}>
           <aside className={styles.sidebarTrack}>
-            <div className={styles.sidebar}>
-              <button className={styles.sidebarBtn}>
-                <img src="/articles-img/font-size.svg" />
-              </button>
-              <button className={styles.sidebarBtn}>
-                <IoHeart />
-              </button>
-              <button className={styles.sidebarBtn}>
-                <IoChatbubbleEllipses />
-              </button>
-              <button className={styles.sidebarBtn}>
-                <IoShareSocialSharp />
-              </button>
-              <button className={styles.sidebarBtn}>
-                <IoSearch />
-              </button>
-            </div>
+            <ArticleSidebar />
           </aside>
           <article className="row mx-0">
             <div className="d-flex flex-column mx-0">
@@ -125,8 +104,15 @@ export default function ArticlePage() {
           </div>
         </section>
 
-        <section>
-          <Carousel carouselTitle="延伸閱讀" />
+        <section className={styles.moreArticles}>
+          <div className="row px-0 mx-0 g-0">
+            <div className="col-md-3 d-flex justify-content-md-end justify-content-center align-items-center">
+              <h3 className="my-0">延伸閱讀</h3>
+            </div>
+            <div className="col-md-9 ps-3">
+              <SwiperCarousel />
+            </div>
+          </div>
         </section>
 
         <section>

@@ -1,5 +1,5 @@
 import React from 'react'
-import LayoutUser from '@/components/layout/user-layout2'
+import LayoutUser from '@/components/layout/user-layout3'
 import Select from '@/components/common/select/select'
 import styles from '@/styles/user-bookings.module.css'
 
