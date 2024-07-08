@@ -22,7 +22,7 @@ export default function ProductDetail() {
   })
 
   const getProduct = async (product_id) => {
-    const url = 'http://localhost:3001/product/api?product-test/' + product_id
+    const url = 'http://localhost:3001/product/api?product/' + product_id
     try {
       const res = await fetch(url)
       // product資料在data.data.product
