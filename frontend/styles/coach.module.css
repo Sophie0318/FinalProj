@@ -62,10 +62,16 @@
   letter-spacing: 0.18px;
 }
 
+.checkboxWrapper {
+  display: flex;
+  align-items: center;
+  gap: 15px; /* 根据需要调整 */
+}
+
 .checkboxes {
   display: flex;
   align-items: center;
-  gap: 5px; /* 根据需要调整 */
+  gap: 5px;
 }
 
 .checkbox {

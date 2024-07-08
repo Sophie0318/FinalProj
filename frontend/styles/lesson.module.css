@@ -57,20 +57,18 @@
   padding-top: 15px;
   line-height: 100%; /* 18px */
   letter-spacing: 0.18px;
-  width: 10%;
 }
 
 .checkboxWrapper {
   display: flex;
-  /* flex-wrap: wrap; */
-  gap: 15px;
-  width: 90%;
+  align-items: center;
+  gap: 15px; /* 根据需要调整 */
 }
 
 .checkboxes {
   display: flex;
   align-items: center;
-  gap: 5px; /* 根据需要调整 */
+  gap: 5px;
 }
 
 .checkbox {
