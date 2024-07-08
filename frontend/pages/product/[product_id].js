@@ -22,7 +22,7 @@ export default function ProductDetail() {
   })
 
   const getProduct = async (product_id) => {
-    const url = 'http://localhost:3001/product/api?product/' + product_id
+    const url = 'http://localhost:3001/product/api?product=' + product_id
     try {
       const res = await fetch(url)
       // product資料在data.data.product
@@ -44,6 +44,8 @@ export default function ProductDetail() {
       console.error(e)
     }
   }
+  // /product/1
+  //   console.log(router.pathname.split('/')[2])
 
   useEffect(() => {
     if (router.isReady) {
@@ -52,13 +54,13 @@ export default function ProductDetail() {
       console.log(router.query)
       // 解構出pid屬性值
       const { product_id } = router.query
-
       // 呼叫getProduct
       getProduct(product_id)
     }
     // 註解: 讓eslint略過一行檢查
     // eslint-disable-next-line
-  }, [router.isReady])
+  }, [router.isReady, data])
+  console.log(data)
 
   return (
     <Layout3>
@@ -69,7 +71,15 @@ export default function ProductDetail() {
             <ProductCarousel />
             <ProductImage />
           </div>
-          <DetailText />
+          {data && data.rows && router.query.product_id ? (
+            data.rows.map((v, i) => (
+              <div key={v.Product_id}>
+                <DetailText price={v.Product_price} desc={v.Product_desc} />
+              </div>
+            ))
+          ) : (
+            <p>Loading...</p>
+          )}
         </div>
         <PhotoText />
         <div className="row  text-center align-items-center d-flex">

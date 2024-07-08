@@ -36,9 +36,14 @@ const getListData = async (req) => {
   if (keyword) {
     where = ` AND \`Product_name\` LIKE '%${keyword}%' `;
   }
+  let product_id = req.query.product || "";
+  if (product_id) {
+    where = ` AND \`Product_id\` = '%${product_id}%' `;
+  }
 
   const t_sql = `SELECT COUNT(1) AS totalRows FROM products join CommonType on Products.Product_type_id_fk = CommonType.commontype_id ${product_sql}${where}`;
   const [[{ totalRows }]] = await db.query(t_sql);
+
   let totalPages = 0; //總頁數，預設值
   let rows = []; //分頁資料
   if (totalRows) {
@@ -97,12 +102,25 @@ router.get("/", async (req, res) => {
   }
 });
 
-// router.get("/api/:product_id", async (req, res) => {
-//   const product_id = +req.params.product_id || 0;
-//   if (!product_id) {
-//     return res.redirect("/product");
-//   }
-// }); //商品細節
+router.get("/api/:product_id", async (req, res) => {
+  const product_id = +req.params.product_id || 0;
+  if (!product_id) {
+    return res.redirect("/product");
+  }
+  const data = await getListData(req);
+  if (data.redirect) {
+    return res.redirect(data.redirect);
+  }
+  if (data.success) {
+    // 這裡應該使用模板渲染，否則使用 JSON 渲染
+    try {
+      res.render("product/list", data); // 確保你已經配置了模板引擎，並有相應的模板
+    } catch (error) {
+      console.error("模板渲染錯誤:", error);
+      res.json(data); // 在未配置模板引擎的情況下，先使用 JSON 返回數據
+    }
+  }
+}); //商品細節
 
 router.get("/api", async (req, res) => {
   try {
