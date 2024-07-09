@@ -3,6 +3,7 @@ import { FaSearch } from 'react-icons/fa'
 import styles from '@/components/product/product-list.module.css'
 import Image from 'next/image'
 import { useState } from 'react'
+import { useRouter } from 'next/router'
 
 export default function ProductList({
   nameLike,
@@ -13,9 +14,11 @@ export default function ProductList({
     updateProductData()
   }
 
+  // const [proTect, setProTect] = useState('') //細分類
+
   return (
     <>
-      <div className="accordion" id="accordionExample">
+      {/* <div className="accordion" id="accordionExample">
         <div className="accordion-item">
           <h2 className="accordion-header" id="headingOne">
             <button
@@ -38,29 +41,26 @@ export default function ProductList({
             <div className="accordion-body">
               <div>
                 <label>
-                  <input type="checkbox" />
+                  <input type="radio" name="protect" value="" />
                   護腰
                 </label>
-                <br />
                 <label>
-                  <input type="checkbox" />
+                  <input type="radio" name="protect" value="" />
                   護膝
                 </label>
-                <br />
                 <label>
-                  <input type="checkbox" />
+                  <input type="radio" name="protect" value="" />
                   護腿
                 </label>
-                <br />
                 <label>
-                  <input type="checkbox" />
+                  <input type="radio" name="protect" value="" />
                   護踝
                 </label>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      </div>  搬家到sideBar*/}
       <div className="wrap">
         <div className={styles.search}>
           <input
