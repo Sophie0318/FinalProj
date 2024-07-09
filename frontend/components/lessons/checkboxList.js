@@ -3,7 +3,7 @@ import axios from 'axios'
 import Checkbox from './checckbox'
 import styles from '@/styles/lesson.module.css'
 
-const CheckboxList = ({ onCategoryChange }) => {
+const CheckboxList = ({ checked, onCategoryChange }) => {
   const [categories, setCategories] = useState([])
 
   useEffect(() => {
@@ -25,22 +25,41 @@ const CheckboxList = ({ onCategoryChange }) => {
   }, [])
 
   // 處理複選框變化的函數
-  const handleCheckboxChange = (code_desc, isChecked) => {
-    console.log('Checkbox changed:', code_desc, isChecked)
-    onCategoryChange(code_desc, isChecked)
+  const handleCheckboxChange = (event) => {
+    const { value, checked } = event.target
+    console.log('Checkbox changed:', value, checked)
+    onCategoryChange(value, checked)
   }
 
   return (
     <div className={styles.checkboxWrapper}>
-      {categories.map((category, index) => (
+      {/* {categories.map((category, index) => (
         <Checkbox
           key={index}
           id={category.commontype_id}
           // categoryId={category.commontype_id}
           name={category.code_desc}
           label={category.code_desc}
+          checked={checked.includes(category.code_desc)}
           onChange={handleCheckboxChange}
         />
+      ))} */}
+
+      {categories.map((category, index) => (
+        <div key={index} className={styles.checkboxes}>
+          <input
+            type="checkbox"
+            id={category.code_desc}
+            value={category.code_desc}
+            name={category.code_desc}
+            checked={checked.includes(category.code_desc)}
+            className={styles.checkbox}
+            onChange={handleCheckboxChange}
+          />
+          <label htmlFor={category.code_desc} className={styles.checkboxLabel}>
+            {category.code_desc}
+          </label>
+        </div>
       ))}
     </div>
   )

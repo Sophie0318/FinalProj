@@ -16,34 +16,36 @@ export default function Index() {
   const [selectedCategories, setSelectedCategories] = useState([])
 
   // 處理類別選擇變化的函數
-  const handleCategoryChange = (categoryId, isChecked) => {
-    console.log('handleCategoryChange called:', categoryId, isChecked)
-    let newSelectedCategories
-    if (isChecked) {
-      newSelectedCategories = [...selectedCategories, categoryId]
-    } else {
-      newSelectedCategories = selectedCategories.filter(
-        (id) => id !== categoryId
-      )
-    }
-    console.log('New selected categories:', newSelectedCategories)
-    setSelectedCategories(newSelectedCategories)
+  const handleCategoryChange = (code_desc, isChecked) => {
+    console.log('handleCategoryChange called:', code_desc, isChecked)
+    setSelectedCategories((prev) => {
+      const newSelectedCategories = isChecked
+        ? [...prev, code_desc]
+        : prev.filter((cat) => cat !== code_desc)
 
-    // 根据选中的类别筛选课程
-    const newFilteredLessons = allLessons.filter(
-      (lesson) =>
-        newSelectedCategories.length === 0 ||
-        newSelectedCategories.includes(lesson.commontype_id)
-    )
-    console.log('Filtered lessons:', newFilteredLessons)
-    setFilteredLessons(newFilteredLessons)
+      console.log('New selected categories:', newSelectedCategories)
+
+      // Filter lessons based on selected categories
+      const newFilteredLessons = allLessons.filter(
+        (lesson) =>
+          newSelectedCategories.length === 0 ||
+          newSelectedCategories.includes(lesson.categories)
+      )
+      console.log('Filtered lessons:', newFilteredLessons)
+      setFilteredLessons(newFilteredLessons)
+
+      return newSelectedCategories
+    })
   }
 
   // 在組件加載時獲取所有課程
   useEffect(() => {
     const fetchLessons = async () => {
+      const str = selectedCategories.join('-')
       try {
-        const response = await axios.get('http://localhost:3001/lessons/api')
+        const response = await axios.get(
+          `http://localhost:3001/lessons/api?code_desc=${str}`
+        )
         if (response.data.success) {
           setAllLessons(response.data.rows)
           setFilteredLessons(response.data.rows) // 初始時顯示所有課程
@@ -54,7 +56,7 @@ export default function Index() {
     }
 
     fetchLessons()
-  }, [])
+  }, [selectedCategories])
 
   return (
     <>
@@ -88,7 +90,10 @@ export default function Index() {
           <div className={styles.filter}>
             <p className={styles.select}>請選擇類別 ｜</p>
             <div className={styles.checkboxWrapper}>
-              <CheckboxList onCategoryChange={handleCategoryChange} />
+              <CheckboxList
+                checked={selectedCategories}
+                onCategoryChange={handleCategoryChange}
+              />
             </div>
           </div>
           <div className={styles.result}>
