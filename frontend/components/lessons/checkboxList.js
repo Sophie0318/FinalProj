@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import Checkbox from './checckbox' // 確保文件名大小寫正確
+import Checkbox from './checckbox'
 import styles from '@/styles/lesson.module.css'
 
-const CheckboxList = () => {
+const CheckboxList = ({ onCategoryChange }) => {
   const [categories, setCategories] = useState([])
 
   useEffect(() => {
@@ -11,7 +11,7 @@ const CheckboxList = () => {
       try {
         const response = await axios.get(
           'http://localhost:3001/lessons/categories'
-        ) // 修改 API 路徑
+        )
         if (response.data.success) {
           setCategories(response.data.categories)
         }
@@ -21,20 +21,28 @@ const CheckboxList = () => {
     }
 
     fetchCategories()
+    console.log(categories)
   }, [])
+
+  // 處理複選框變化的函數
+  const handleCheckboxChange = (code_desc, isChecked) => {
+    console.log('Checkbox changed:', code_desc, isChecked)
+    onCategoryChange(code_desc, isChecked)
+  }
 
   return (
     <div className={styles.checkboxWrapper}>
       {categories.map((category, index) => (
         <Checkbox
           key={index}
-          id={`category-${index}`}
+          id={category.commontype_id}
+          // categoryId={category.commontype_id}
           name={category.code_desc}
           label={category.code_desc}
+          onChange={handleCheckboxChange}
         />
       ))}
     </div>
   )
 }
-
 export default CheckboxList

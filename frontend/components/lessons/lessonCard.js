@@ -5,13 +5,7 @@ const LessonCard = ({ title, price, category, gym, imgSrc }) => {
   return (
     <div className={styles.lessonCard}>
       <div className={styles.imageWrapper}>
-        <Image
-          src={imgSrc}
-          alt={title}
-          layout="fill"
-          objectFit="cover"
-          className={styles.img}
-        />
+        <Image src={imgSrc} alt={title} className={styles.img} fill />
       </div>
       <div className={styles.lessonName}>
         <div className={styles.lessonTitle}>{title}</div>
