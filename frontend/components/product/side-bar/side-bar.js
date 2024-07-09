@@ -3,7 +3,7 @@ import Link from 'next/link'
 
 export default function SideBar({ proTect, setProTect, updateProductData }) {
   const handleRadioChange = (e) => {
-    setProTect(e.target.value)
+    setProTect(e.target.value) //因為 setProTect會比updateProductData()來得慢，不如在
     updateProductData(e.target.value)
   }
   console.log('setProTect:', setProTect)

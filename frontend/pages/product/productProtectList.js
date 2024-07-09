@@ -11,7 +11,7 @@ import { useRouter } from 'next/router'
 import Link from 'next/link'
 export default function ProductList() {
   const router = useRouter()
-  const [proTect, setProTect] = useState('')
+
   const [data, setData] = useState({
     //呈現資料內容要用狀態
     success: false,
@@ -21,7 +21,7 @@ export default function ProductList() {
   const [page, setPage] = useState(1) // 目前第幾頁
   const [perpage, setPerpage] = useState(10) // 每頁幾筆資料
   const [nameLike, setNameLike] = useState('') // 搜尋關鍵字
-
+  const [proTect, setProTect] = useState('') //健身護具子分類
   /*
   useEffect(() => {
     // 剛進入頁面時，依據網址 url path 解析出 query value ，給分類使用
@@ -35,8 +35,8 @@ export default function ProductList() {
   }, [])
   */
 
-  //將後端的資料塞進updateProductData的function裡，在下面再用useEffect去抓(fetch)後端的資料
-  function updateProductData(test = '') {
+  //updateProductData的function裡，在下面再用useEffect去抓(fetch)後端的資料
+  function updateProductData(protect = '') {
     //只有Protect才有這個參數
     const pathname = router.pathname
     const pathParts = pathname.split('/')
@@ -49,7 +49,7 @@ export default function ProductList() {
         category: query,
         page: page,
         keyword: nameLike,
-        type: test, //只有Protect才有這個參數
+        type: protect, //只有Protect才有這個參數 ，後端let subCategory = req.query.type || ""; //健身護具的分類， type: protect 後端:前端
       }
 
       // const existingParams = new URLSearchParams(router.query)

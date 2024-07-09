@@ -15,6 +15,7 @@ const getListData = async (req) => {
     return { success, redirect }; //res.redirect("?page=1"); //跳轉頁面。排除0以下的
   }
   let category = req.query.category || ""; //網頁的分類
+
   let subCategory = req.query.type || ""; //健身護具的分類
 
   let product_sql = " WHERE 1 ";
@@ -31,6 +32,7 @@ const getListData = async (req) => {
     product_sql += " AND CommonType.commontype_id = 52"; //健身護具
   }
   if (subCategory === "") {
+    //指的是radio button
   } else {
     // console.log(subCategory, "subcate");
     // console.log(req.query.type, "req.query.type");
