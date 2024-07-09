@@ -27,16 +27,18 @@ export default function SideBar({ proTect, setProTect, updateProductData }) {
       <div className="accordion" id="accordionExample">
         <div className="accordion-item">
           <h2 className="accordion-header" id="headingOne">
-            <button
-              className="accordion-button"
-              type="button"
-              data-bs-toggle="collapse"
-              data-bs-target="#collapseOne"
-              aria-expanded="true"
-              aria-controls="collapseOne"
-            >
-              健身護具
-            </button>
+            <Link href="../product/productProtectList">
+              <button
+                className="accordion-button"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#collapseOne"
+                aria-expanded="true"
+                aria-controls="collapseOne"
+              >
+                健身護具
+              </button>
+            </Link>
           </h2>
           <div
             id="collapseOne"
