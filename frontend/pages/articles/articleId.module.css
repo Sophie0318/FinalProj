@@ -26,6 +26,10 @@
   margin-bottom: 25px;
 }
 
+.articleInfo {
+  display: flex;
+}
+
 .articleAuthor,
 .articleUpdateAt {
   font-family: 'Gensen', sans-serif;
@@ -42,6 +46,7 @@
 .articleUpdateAt {
   text-align: right;
   padding-right: 15px;
+  padding: 0 15px 0 0;
 }
 
 .articleDesc {
@@ -107,7 +112,7 @@
 }
 
 .articleImgText {
-  height: 78px;
+  height: 100%;
   padding: 20px 20px 20px 40px;
   font-family: 'Gensen', sans-serif;
   font-size: 18px;
@@ -118,8 +123,7 @@
 /* 關於作者卡片 */
 .author {
   margin-top: 146px;
-  padding-top: 57px;
-  padding-bottom: 110px;
+  padding: 57px 0;
 }
 
 .author h3 {
@@ -144,6 +148,10 @@
   object-fit: cover;
   border-radius: 50px;
   box-shadow: 0px 5px 30px 0px rgba(0, 0, 0, 0.15);
+}
+
+.authorBtnSP {
+  display: none;
 }
 
 /* 留言區樣式 */
@@ -177,8 +185,73 @@
   line-height: 42px;
 }
 
-@media (max-width: 696px) {
-  /* author section mobile */
+.ctaBtnSP {
+  display: none;
+}
+
+.ctaBtnPC {
+  display: flex;
+  gap: 10px;
+}
+
+@media (max-width: 900px) {
+  .sidebarTrack {
+    min-width: 0;
+    margin: 0;
+  }
+
+  .article article {
+    max-width: 960px;
+  }
+}
+
+@media (max-width: 767.2px) {
+  /* 文章資訊欄位RWD */
+  .article {
+    padding: 0 16px;
+  }
+
+  .articleInfo {
+    flex-direction: column;
+    height: 70px;
+  }
+
+  .articleAuthor,
+  .articleUpdateAt {
+    height: 100%;
+  }
+
+  .articleUpdateAt {
+    text-align: left;
+    padding: 0 0 0 15px;
+  }
+
+  .articleDesc {
+    border-radius: 25px;
+  }
+
+  .articleImg {
+    border-radius: 25px;
+  }
+
+  .articleImg img{
+    border-radius: 25px 25px 0 25px;
+  }
+
+  /* author卡片RWD */
+  .author {
+    margin-top: 246px;
+  }
+  .authorImg img {
+    bottom: 57px;
+    left: -16px;
+    display: block;
+    width: 100vw;
+    height: 181px;
+    object-fit: none;
+    border-radius: 0;
+    box-shadow: none;
+  }
 }
 
 @media (max-width: 576px) {
@@ -189,5 +262,20 @@
 
   .ctaCard {
     padding: 40px 24px 24px 24px;
+  }
+  .ctaBtnSP {
+    display: flex;
+    gap: 27px;
+  }
+
+  .ctaBtnPC {
+    display: none;
+  }
+
+  .authorBtnPC {
+    display: none;
+  }
+  .authorBtnSP {
+    display: block;
   }
 }

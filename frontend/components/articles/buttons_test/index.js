@@ -45,6 +45,7 @@ export default function Btn({
   hrefURL = '/', // 只有在 btnOrLink = link 的時候有作用
   shadow = false, // 決定要不要加預設陰影
   onClick = () => {},
+  className = '',
   ...props
 }) {
   // size, bgColor 偵測輸入的值 & 防呆
@@ -59,6 +60,7 @@ export default function Btn({
     sizeClass,
     bgColorClass,
     shadow ? shadow : '',
+    className,
   ]
     .filter(Boolean)
     .join(' ')
@@ -76,7 +78,7 @@ export default function Btn({
         </Link>
       ) : (
         <button className={classNames} onClick={onClick} {...props}>
-          {children}
+          <div>{children}</div>
         </button>
       )}
     </>
