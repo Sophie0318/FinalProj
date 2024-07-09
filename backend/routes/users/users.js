@@ -59,27 +59,66 @@ router.get("/jwt2", (req, res) => {
         //token解碼失敗
         payload = { ex };
     }
-    res.send({ payload });
 })
+// jwt 登入 1
+router.post("/login-jwt", async (req, res) => {
+    const output = {
+        success: false,
+        code: 0,
+        body: req.body,
+        data: {
+            sid: 0,
+            email: "",
+            name: "",
+            token: "",
+        },
+    };
+
+    try {
+        // 修改 SQL 查詢以使用 member_email
+        const sql = "SELECT * FROM members WHERE member_email=?";
+        const [rows] = await db.query(sql, [req.body.member_email]);
+
+        if (!rows.length) {
+            // 帳號是錯的
+            output.code = 400;
+            return res.json(output);
+        }
+
+        // 使用 bcrypt 比較密碼
+        const result = await bcrypt.compare(req.body.member_password, rows[0].member_password);
+        if (!result) {
+            // 密碼是錯的
+            output.code = 420;
+            return res.json(output);
+        }
+
+        // 登入成功
+        output.success = true;
+        const payload = {
+            id: rows[0].member_id,
+            email: rows[0].member_email,
+        };
+
+        const token = jwt.sign(payload, process.env.JWT_KEY);
+        output.data = {
+            id: rows[0].member_id,
+            email: rows[0].member_email,
+            name: rows[0].member_name,
+            token,
+        };
+
+        res.json(output);
+    } catch (error) {
+        console.error("登入過程中發生錯誤:", error);
+        output.code = 500;
+        output.error = "伺服器內部錯誤";
+        res.status(500).json(output);
+    }
+});
+
 
 
 
 
 export default router;
-
-
-// //手機號碼
-// app.get(/^\/m\/09\d{2}-?\d{3}-?\d{3}$/i, (req, res) => {
-//     let u = req.url.slice(3);
-//     u = u.split('?')[0];
-//     u = u.split('-').join('');
-//     res.json({ u });
-// });
-/*
-說明
-^、$為起始符號及結束符號
-d{2} 2位數
--? -為選擇性輸入
-i case insensitive 不區分大小寫
-為避免資料有-及無-被視為為不同資料，所以幫他去掉-
-*/
