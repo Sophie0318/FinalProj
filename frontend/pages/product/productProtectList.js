@@ -37,6 +37,7 @@ export default function ProductList() {
 
   //將後端的資料塞進updateProductData的function裡，在下面再用useEffect去抓(fetch)後端的資料
   function updateProductData(test = '') {
+    //只有Protect才有這個參數
     const pathname = router.pathname
     const pathParts = pathname.split('/')
     const query = pathParts[pathParts.length - 1].split('?')[0]
@@ -48,7 +49,7 @@ export default function ProductList() {
         category: query,
         page: page,
         keyword: nameLike,
-        type: test,
+        type: test, //只有Protect才有這個參數
       }
 
       // const existingParams = new URLSearchParams(router.query)

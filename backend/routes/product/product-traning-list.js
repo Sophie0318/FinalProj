@@ -32,8 +32,8 @@ const getListData = async (req) => {
   }
   if (subCategory === "") {
   } else {
-    console.log(subCategory, "subcate");
-    console.log(req.query.type, "req.query.type");
+    // console.log(subCategory, "subcate");
+    // console.log(req.query.type, "req.query.type");
     product_sql = " WHERE 1 ";
     if (subCategory === "knee") {
       product_sql += " AND CommonType.commontype_id = 54"; // 護膝
