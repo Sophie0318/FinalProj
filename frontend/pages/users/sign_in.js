@@ -15,16 +15,37 @@ import MyPasswordInput from '@/components/users/MyPasswordInput'
 import MyBtn from '@/components/users/MyBtn'
 import MyCheckBox from '@/components/users/MyCheckBox'
 import Link from 'next/link'
+import { useAuth } from '../../context/auth-context'
 
 export default function SignIn() {
+  const { login } = useAuth()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [rememberMe, setRememberMe] = useState(false)
+  const [error, setError] = useState('')
 
-  const handleSubmit = (e) => {
+  // const handleSubmit = (e) => {
+  //   e.preventDefault()
+  //   // 處理表單提交邏輯
+  //   console.log('Form submitted', { email, password, rememberMe })
+  // }
+
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    // 處理表單提交邏輯
-    console.log('Form submitted', { email, password, rememberMe })
+    setError('') // 清除之前的錯誤信息
+
+    try {
+      const { success, message } = await login(email, password)
+      if (success) {
+        console.log('登入成功')
+        // router.push('/dashboard')
+      } else {
+        setError(message || '登入失敗，請檢查您的電子郵件和密碼')
+      }
+    } catch (error) {
+      console.error('登入過程中發生錯誤:', error)
+      setError('登入過程中發生錯誤，請稍後再試')
+    }
   }
 
   return (

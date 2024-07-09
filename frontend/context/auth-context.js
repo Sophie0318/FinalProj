@@ -28,7 +28,10 @@ export function AuthContextProvider({ children }) {
     try {
       const r = await fetch(JWT_LOGIN_POST, {
         method: 'POST',
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({
+          member_email: email,
+          member_password: password,
+        }),
         headers: {
           'Content-Type': 'application/json',
         },
