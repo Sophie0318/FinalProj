@@ -4,6 +4,7 @@ import Carousel from '@/components/carousel'
 import LessonCard from '@/components/lessons/lessonCard'
 import styles from '@/styles/lesson.module.css'
 import { IoSearch } from 'react-icons/io5'
+import LessonList from '@/components/lessons/lessonList'
 
 export default function Index() {
   const lessons = [
@@ -149,18 +150,7 @@ export default function Index() {
           </div>
           <div className={styles.result}>
             <p className={styles.result_title}>篩選結果</p>
-            <div className={styles.cards}>
-              {lessons.map((lesson, index) => (
-                <LessonCard
-                  key={index}
-                  title={lesson.title}
-                  price={lesson.price}
-                  category={lesson.category}
-                  gym={lesson.gym}
-                  imgSrc={lesson.imgSrc}
-                />
-              ))}
-            </div>
+            <LessonList />
           </div>
         </div>
       </Layout3>
