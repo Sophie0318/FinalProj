@@ -105,6 +105,7 @@ router.post("/login-jwt", async (req, res) => {
             id: rows[0].member_id,
             email: rows[0].member_email,
             name: rows[0].member_name,
+            // nickname: rows[0].member_nickname,  資料庫待添加會員的暱稱
             token,
         };
 
@@ -122,3 +123,8 @@ router.post("/login-jwt", async (req, res) => {
 
 
 export default router;
+
+
+// postman:
+// "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjAsImVtYWlsIjoibmV3bmV3QG5ld25ldy5jb20iLCJpYXQiOjE3MjA0OTkwMjZ9.Rhb5L3mbry6-MxXIW8cKV_nDbGQYGdVF8HWsu_qTfQE"
+// "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjAsImVtYWlsIjoibmV3bmV3QG5ld25ldy5jb20iLCJpYXQiOjE3MjA0OTkwMjZ9.Rhb5L3mbry6-MxXIW8cKV_nDbGQYGdVF8HWsu_qTfQE"

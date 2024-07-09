@@ -3,6 +3,7 @@ import session from "express-session";
 import db from "./utils/connect-mysql.js";
 import cors from "cors";
 import mysql_session from "express-mysql-session";
+import jwt from "jsonwebtoken";
 
 // import 各分支的 router
 import aRouter from "./routes/articles/article-book.js";
@@ -45,6 +46,17 @@ app.use(
 app.use((req, res, next) => {
   res.locals.title = "Express Practice";
   res.locals.session = req.session;
+
+  //後端驗證token
+  //在top-level middleware處理jwt token
+  const auth = req.get("Authorization"); // 先拿到檔頭的 Authorization 項目值
+  if (auth && auth.indexOf("Bearer ") === 0) {
+    const token = auth.slice(7);//去掉"Bearer "
+    try {
+      req.my_jwt = jwt.verify(token, process.env.JWT_KEY);
+    } catch (ex) { }
+  }
+
   next();
 });
 
@@ -58,6 +70,11 @@ app.use("/users", usersRouter);
 app.get("/", (req, res) => {
   res.locals.title = "首頁 | " + res.locals.title;
   res.render("home", { name: "homepage" });
+});
+
+//後端驗證的token測試路由
+app.get("/jwt-data", (req, res) => {
+  res.json(req.my_jwt);
 });
 
 app.use(express.static("public"));
