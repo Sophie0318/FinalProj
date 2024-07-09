@@ -45,32 +45,34 @@ const getLesson = async (req) => {
         }
 
         const sql = `SELECT 
-            l.lesson_id,
-            l.lesson_name,
-            l.lesson_state,
-            l.lesson_price,
-            l.lesson_desc,
-            l.lesson_date,
-            GROUP_CONCAT(ct.code_desc ORDER BY ct.code_desc SEPARATOR '、') AS categories,
-            li.lesson_img,
-            c.coach_name
-        FROM 
-            Lessons l
-        JOIN 
-            LessonCategories lc ON l.lesson_id = lc.lesson_id
-        JOIN 
-            CommonType ct ON lc.commontype_id = ct.commontype_id
-        JOIN 
-            LessonImgs li ON l.LessonImgs_id = li.LessonImgs_id
-        JOIN 
-            Coaches c ON l.coach_id = c.coach_id
-        GROUP BY 
-            l.lesson_id 
-        ORDER BY 
-            l.lesson_id DESC 
-        LIMIT ${(page - 1) * perPage}, ${perPage};`;
+    l.lesson_id,
+    l.lesson_name,
+    l.lesson_state,
+    l.lesson_price,
+    l.lesson_desc,
+    l.lesson_date,
+    GROUP_CONCAT(DISTINCT ct.code_desc ORDER BY ct.code_desc SEPARATOR '/') AS categories,
+    li.lesson_img,
+    c.coach_name,
+    g.gym_name
+FROM 
+    Lessons l
+JOIN 
+    LessonCategories lc ON l.lesson_id = lc.lesson_id
+JOIN 
+    CommonType ct ON lc.commontype_id = ct.commontype_id
+JOIN 
+    LessonImgs li ON l.LessonImgs_id = li.LessonImgs_id
+JOIN 
+    Coaches c ON l.coach_id = c.coach_id
+JOIN 
+    Gyms g ON l.gym_id = g.gym_id
+GROUP BY 
+    l.lesson_id
+ORDER BY 
+    l.lesson_id DESC;`;
 
-        [rows] = await db.query(sql);
+    [rows] = await db.query(sql);
         rows.forEach((el) => {
             const m1 = moment(el.lesson_date);
             el.lesson_date = m1.isValid() ? m1.format('YYYY-MM-DD hh:mm:ss') : '';
