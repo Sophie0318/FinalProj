@@ -2,6 +2,8 @@ import express from 'express';
 const router = express.Router();
 import db from "../../utils/connect-mysql.js";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
+
 
 // router.get('/', (req, res) => {
 //     // 假設這裡有一個用戶資料庫
@@ -33,6 +35,35 @@ router.post('/add', async (req, res) => {
         res.status(500).json({ success: false, message: 'Database error' });
     }
 });
+//jwt編碼
+router.get("/jwt1", (req, res) => {
+    const data = {
+        id: 20,
+        account: "hahaha"
+    }
+    //把dev.env中的JWT_KEY加密
+    const token = jwt.sign(data, process.env.JWT_KEY);
+    console.log({ token });
+    res.send(token);
+    //加密的jwt的編碼 eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjAsImFjY291bnQiOiJoYWhhaGEiLCJpYXQiOjE3MjA0OTIyNTl9.4adY7ysms-CqkYNGqUpIwQhl7BaXDo2xGQrTWbPOy90
+})
+//jwt解碼
+router.get("/jwt2", (req, res) => {
+    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjAsImFjY291bnQiOiJoYWhhaGEiLCJpYXQiOjE3MjA0OTIyNTl9.4adY7ysms-CqkYNGqUpIwQhl7BaXDo2xGQrTWbPOy90';
+    let payload = {};
+    try {
+        payload = jwt.verify(token, process.env.JWT_KEY);
+        console.log({ payload });
+        res.send({ payload });
+    } catch (ex) {
+        //token解碼失敗
+        payload = { ex };
+    }
+    res.send({ payload });
+})
+
+
+
 
 export default router;
 
