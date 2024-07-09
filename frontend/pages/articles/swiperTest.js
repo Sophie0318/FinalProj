@@ -4,6 +4,7 @@ import dataList from '@/data/Product.json'
 import LessonCard from '@/components/lessons/lessonCard'
 import CoachCard from '@/components/coaches/coacgCard'
 import Select from '@/components/common/select/select'
+import Btn from '@/components/articles/buttons_test'
 
 export default function SwiperTest() {
   const [data, setData] = useState([])
@@ -32,6 +33,19 @@ export default function SwiperTest() {
   return (
     <>
       <div className="container py-5">
+        <div className="row">
+          <div className="col-3">
+            <Btn
+              size="slim"
+              bgColor="yellow"
+              btnOrLink="btn"
+              style={{ maxWidth: '250px' }}
+            >
+              加入會員
+            </Btn>
+          </div>
+        </div>
+
         <div className="row">
           <div className="col-3 d-flex justify-content-end align-items-center">
             <h3 className="m-0">Latest Post</h3>

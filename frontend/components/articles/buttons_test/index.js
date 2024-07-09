@@ -56,6 +56,7 @@ export default function Btn({
   const btnOrLinkResult = btnOrLinkMap[btnOrLink] || 'button'
 
   const classNames = [
+    'btn',
     'rounded-pill',
     sizeClass,
     bgColorClass,
@@ -74,7 +75,7 @@ export default function Btn({
           href={hrefURL}
           {...props}
         >
-          {children}
+          <span>{children}</span>
         </Link>
       ) : (
         <button className={classNames} onClick={onClick} {...props}>

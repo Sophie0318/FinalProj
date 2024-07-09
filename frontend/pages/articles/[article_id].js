@@ -7,15 +7,53 @@ import Link from 'next/link'
 import Layout3 from '@/components/layout/layout3'
 import Btn from '@/components/articles/buttons_test'
 import ArticleSidebar from '@/components/articles/article-sidebar'
+import ArticleCard from '@/components/articles/article-card'
 import SwiperCarousel from '@/components/swiperCarousel'
 import styles from './articleId.module.css'
 
 export default function ArticlePage() {
   const router = useRouter()
   const [showSidebar, setShowSidebar] = useState(false)
+  const [articles, setArticles] = useState([])
   const articleRef = useRef(null)
 
+  const renderCard = (item) => {
+    return (
+      <ArticleCard
+        title="枯木逢春訓練法是什麼？大豬教練與你分享銀髮族..."
+        category="體能鍛鍊"
+        update_at="2024.05.16"
+        imgSrc="/articles-img/240117_voice03.png"
+      />
+      // <ArticleCard
+      //   title={item.article_title}
+      //   category={item.article_subtype}
+      //   update_at={item.update_at}
+      //   imgSrc={item.article_cover}
+      // />
+    )
+  }
+
+  const getArticleList = async () => {
+    try {
+      console.log(router.query)
+      const res = await fetch(
+        `http://localhost:3001/articles/api?${new URLSearchParams(
+          router.query
+        )}`
+      )
+      const resData = await res.json()
+      setArticles(resData)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   useEffect(() => {
+    if (router.isReady) {
+      getArticleList()
+    }
+
     // 設定手機sidebar, 讓他可以依照視窗滑到哪就顯示或隱藏
     const options = {
       root: null,
@@ -34,7 +72,7 @@ export default function ArticlePage() {
         observer.unobserve(articleRef.current)
       }
     }
-  }, [])
+  }, [router.isReady, articles])
   return (
     <>
       <Layout3 title="文章頁面" pageName="articles">
@@ -151,7 +189,7 @@ export default function ArticlePage() {
               <h3 className="my-0">延伸閱讀</h3>
             </div>
             <div className="col-md-9 ps-3">
-              <SwiperCarousel />
+              <SwiperCarousel data={articles} renderItem={renderCard} />
             </div>
           </div>
         </section>
