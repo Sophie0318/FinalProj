@@ -26,9 +26,7 @@ export default function ProductDetail() {
 
     try {
       const res = await fetch(url)
-      // product資料在data.data.product
       const resData = await res.json()
-      // const resData = await res.json()(resData, 'resData')
       if (resData.success === true) {
         // 檢查是否為物件資料類型(基本保護)
         if (resData.data.length > 0) {
@@ -41,17 +39,16 @@ export default function ProductDetail() {
       console.error(e)
     }
   }
-  // /product/1
-  //   console.log(router.pathname.split('/')[2])
 
   useEffect(() => {
     // console.count('[useEffect] getProduct')
     if (router.isReady) {
-      const pid = router.query.pid
+      //檢查路由是否準備好。只有當路由準備好後，才執行接下來的邏輯。
+      const pid = router.query.pid //從路由查詢參數中獲取商品 ID (pid)。
       // 呼叫getProduct
       getProduct(pid)
     }
-  }, [router.isReady])
+  }, [router.isReady]) //這部分設置了 useEffect 的依賴項。當 router.isReady 的值改變時，useEffect 會被重新調用。
 
   return (
     <Layout3>
