@@ -4,6 +4,22 @@ import moment from "moment-timezone";
 import upload from "./../../utils/upload-imgs.js";
 const router = express.Router();
 
+
+const getLessonCategories = async () => {
+    let success = false;
+    let categories = [];
+  
+    try {
+      const sql = `SELECT code_desc FROM CommonType WHERE code_type = 4;`;
+      [categories] = await db.query(sql);
+      success = true;
+    } catch (error) {
+      console.error('Error fetching lesson categories:', error);
+    }
+  
+    return { success, categories };
+  };
+
 const getLessonType = async (req) => {
     let success = false;
     let categories = [];
@@ -96,6 +112,20 @@ router.get('/lessons', async (req, res) => {
         res.status(500).json({ success: false, error: 'Internal Server Error' });
     }
 });
+
+router.get('/categories', async (req, res) => {
+    try {
+      const data = await getLessonCategories();
+      if (data.success) {
+        res.json(data);
+      } else {
+        res.status(404).json({ success: false, message: 'No categories found' });
+      }
+    } catch (error) {
+      console.error('Route error:', error);
+      res.status(500).json({ success: false, error: 'Internal Server Error' });
+    }
+  });
 
 router.get("/api", async (req, res) => {
     try {
