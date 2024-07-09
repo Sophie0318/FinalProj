@@ -42,8 +42,23 @@ const getLesson = async (req) => {
     let totalPages = 0;
     let page = parseInt(req.query.page) || 1;
     
-    const q_sql = ' WHERE 1 ';
-    const t_sql = `SELECT COUNT(1) totalRows FROM Lessons ${q_sql}`;
+    let q_sql = ' WHERE 1 ';
+    let code_desc = req.query.code_desc || "";
+
+    if(!code_desc){
+        const arr = code_desc.split('-');
+        for (let i = 0; i < arr.length; i++) {
+            q_sql += ' OR code_desc LIKE "%' + arr[i] + '%"';
+        }   
+    }
+
+    // let whereSql='code_desc LIKE "%' + code_desc + '%"';
+    // q_sql += ' AND ' + whereSql;
+    const t_sql = `SELECT COUNT(1) totalRows FROM Lessons JOIN 
+    LessonCategories lc ON Lessons.lesson_id = lc.lesson_id
+JOIN 
+    CommonType ct ON lc.commontype_id = ct.commontype_id
+${q_sql}`;
     const [[{ totalRows }]] = await db.query(t_sql);
 
     if (totalRows) {
@@ -83,6 +98,7 @@ JOIN
     Coaches c ON l.coach_id = c.coach_id
 JOIN 
     Gyms g ON l.gym_id = g.gym_id
+${q_sql}
 GROUP BY 
     l.lesson_id
 ORDER BY 
