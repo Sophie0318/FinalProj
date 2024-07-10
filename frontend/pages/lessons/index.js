@@ -38,17 +38,32 @@ export default function Index() {
     })
   }
 
+  // const handleCategoryChange = (code_desc, isChecked) => {
+  //   setSelectedCategories((prev) => {
+  //     if (isChecked) {
+  //       return [...prev, code_desc]
+  //     } else {
+  //       return prev.filter((cat) => cat !== code_desc)
+  //     }
+  //   })
+  // }
+
   // 在組件加載時獲取所有課程
+
   useEffect(() => {
     const fetchLessons = async () => {
-      const str = selectedCategories.join('-')
       try {
         const response = await axios.get(
-          `http://localhost:3001/lessons/api?code_desc=${str}`
+          `http://localhost:3001/lessons/api${
+            selectedCategories.length > 0
+              ? `?code_desc=${selectedCategories.join('-')}`
+              : ''
+          }`
         )
+        console.log('API response:', response.data)
         if (response.data.success) {
           setAllLessons(response.data.rows)
-          setFilteredLessons(response.data.rows) // 初始時顯示所有課程
+          setFilteredLessons(response.data.rows)
         }
       } catch (error) {
         console.error('Error fetching lessons:', error)
