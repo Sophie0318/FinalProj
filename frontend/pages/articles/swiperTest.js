@@ -34,16 +34,9 @@ export default function SwiperTest() {
     <>
       <div className="container py-5">
         <div className="row">
-          <div className="col-3">
-            <Btn
-              size="slim"
-              bgColor="yellow"
-              btnOrLink="btn"
-              style={{ maxWidth: '250px' }}
-            >
-              加入會員
-            </Btn>
-          </div>
+          <Btn size="sm" bgColor="yellow" btnOrLink="btn" maxWidth="250px">
+            加入會員
+          </Btn>
         </div>
 
         <div className="row">
@@ -54,6 +47,9 @@ export default function SwiperTest() {
             <SwiperCarousel data={data} renderItem={renderCard} />
           </div>
         </div>
+        <Btn size="lg" bgColor="outlineLight" btnOrLink="link" maxWidth="250px">
+          加入會員
+        </Btn>
       </div>
 
       <div className="container py-5">

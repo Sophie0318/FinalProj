@@ -78,8 +78,7 @@
   }
 
   .joinMember {
-    padding: 0 24px;
-    margin-bottom: 55px;
+    padding: 0 24px 55px 24px;
   }
 
   .joinMemberCard {

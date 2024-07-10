@@ -119,7 +119,7 @@ html,
 body {
   height: 100vh;
   max-width: 100vw;
-  overflow-x: hidden;
+  // overflow-x: hidden; 不要加這個,會讓 fixed button & offcanvas跳出時跑版
 }
 
 a {

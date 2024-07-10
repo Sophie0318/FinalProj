@@ -162,7 +162,8 @@ export default function ArticlePage() {
                     className={styles.authorBtnPC}
                     size="lg"
                     bgColor="midnightgreen"
-                    style={{ width: '100%', maxWidth: '312px' }}
+                    width="100%"
+                    maxWidth="312px"
                   >
                     了解更多
                   </Btn>
@@ -170,10 +171,8 @@ export default function ArticlePage() {
                     className={styles.authorBtnSP}
                     size="thin"
                     bgColor="midnightgreen"
-                    style={{
-                      width: '100%',
-                      maxWidth: '173px',
-                    }}
+                    width="100%"
+                    maxWidth="173px"
                   >
                     了解更多
                   </Btn>
@@ -219,8 +218,9 @@ export default function ArticlePage() {
                     size="lg"
                     bgColor="midnightgreen"
                     btnOrLink="link"
-                    hrefURL="/"
-                    style={{ width: '100%', maxWidth: '270px' }}
+                    hrefURL="/articles"
+                    width="100%"
+                    maxWidth="270px"
                   >
                     前往地圖
                   </Btn>
@@ -228,8 +228,9 @@ export default function ArticlePage() {
                     size="lg"
                     bgColor="midnightgreen"
                     btnOrLink="link"
-                    hrefURL="/"
-                    style={{ width: '100%', maxWidth: '270px' }}
+                    hrefURL="/articles"
+                    width="100%"
+                    maxWidth="270px"
                   >
                     文章首頁
                   </Btn>
@@ -241,8 +242,9 @@ export default function ArticlePage() {
                     size="thin"
                     bgColor="midnightgreen"
                     btnOrLink="link"
-                    hrefURL="/"
-                    style={{ width: '100%', maxWidth: '100%' }}
+                    hrefURL="/gyms"
+                    width="100%"
+                    maxWidth="100%"
                   >
                     前往地圖
                   </Btn>
@@ -250,8 +252,9 @@ export default function ArticlePage() {
                     size="thin"
                     bgColor="midnightgreen"
                     btnOrLink="link"
-                    hrefURL="/"
-                    style={{ width: '100%', maxWidth: '100%' }}
+                    hrefURL="/gyms"
+                    width="100%"
+                    maxWidth="100%"
                   >
                     文章首頁
                   </Btn>

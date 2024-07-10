@@ -5,6 +5,7 @@ import Link from 'next/link'
 
 // 樣式 or 元件類
 import Layout1 from '@/components/layout/layout1'
+import Btn from '@/components/articles/buttons_test'
 import JoinMember from '@/components/joinMember'
 import SwiperCarousel from '@/components/swiperCarousel'
 import LessonCard from '@/components/lessons/lessonCard'
@@ -82,13 +83,15 @@ export default function Home() {
                       <br />
                       讓我們活到老，動到老！
                     </p>
-                    <Link
-                      href="/"
-                      className={`${styles.link} ${styles.lg} ${styles.midnightgreen} rounded-pill`}
-                      style={{ maxWidth: '312px' }}
+                    <Btn
+                      size="lg"
+                      bgColor="midnightgreen"
+                      btnOrLink="link"
+                      hrefURL="/gyms"
+                      maxWidth="312px"
                     >
                       找場館
-                    </Link>
+                    </Btn>
                   </div>
                 </div>
               </div>
@@ -139,13 +142,16 @@ export default function Home() {
                 </div>
                 <div className={`${styles.cta2Btn} row`}>
                   <div className="col d-flex justify-content-center">
-                    <Link
-                      href="/"
-                      className={`${styles.link} ${styles.thin2} ${styles.midnightgreen} rounded-pill`}
-                      style={{ width: '100%', maxWidth: '210px' }}
+                    <Btn
+                      size="thin2"
+                      bgColor="midnightgreen"
+                      btnOrLink="link"
+                      hrefURL="/gyms"
+                      width="100%"
+                      maxWidth="210px"
                     >
                       找場館
-                    </Link>
+                    </Btn>
                   </div>
                 </div>
               </div>
@@ -204,22 +210,26 @@ export default function Home() {
                 </div>
                 <div className={`row`}>
                   <div className={`${styles.cta2BtnPC}`}>
-                    <Link
-                      href="/"
-                      className={`${styles.link} ${styles.lg} ${styles.midnightgreen} rounded-pill`}
-                      style={{ width: '100%', maxWidth: '312px' }}
+                    <Btn
+                      size="lg"
+                      bgColor="midnightgreen"
+                      btnOrLink="link"
+                      hrefURL="/gyms"
+                      maxWidth="312px"
                     >
                       找解答
-                    </Link>
+                    </Btn>
                   </div>
                   <div className={`${styles.cta2BtnSP}`}>
-                    <Link
-                      href="/"
-                      className={`${styles.link} ${styles.thin2} ${styles.midnightgreen} rounded-pill`}
-                      style={{ width: '100%', maxWidth: '210px' }}
+                    <Btn
+                      size="thin2"
+                      bgColor="midnightgreen"
+                      btnOrLink="link"
+                      hrefURL="/gyms"
+                      maxWidth="210px"
                     >
                       找解答
-                    </Link>
+                    </Btn>
                   </div>
                 </div>
               </div>
@@ -236,22 +246,26 @@ export default function Home() {
               </div>
               <div className="row px-0 mx-0 g-0">
                 <div className={`${styles.carouselBtnPC}`}>
-                  <Link
-                    href="/"
-                    className={`${styles.link} ${styles.lg} ${styles.midnightgreen} rounded-pill`}
-                    style={{ width: '100%', maxWidth: '312px' }}
+                  <Btn
+                    size="lg"
+                    bgColor="midnightgreen"
+                    btnOrLink="link"
+                    hrefURL="/lessons"
+                    maxWidth="312px"
                   >
                     找課程
-                  </Link>
+                  </Btn>
                 </div>
                 <div className={`${styles.carouselBtnSP}`}>
-                  <Link
-                    href="/"
-                    className={`${styles.link} ${styles.thin2} ${styles.midnightgreen} rounded-pill`}
-                    style={{ width: '100%', maxWidth: '210px' }}
+                  <Btn
+                    size="thin2"
+                    bgColor="midnightgreen"
+                    btnOrLink="link"
+                    hrefURL="/lessons"
+                    maxWidth="210px"
                   >
                     找課程
-                  </Link>
+                  </Btn>
                 </div>
               </div>
             </section>
@@ -267,22 +281,26 @@ export default function Home() {
               </div>
               <div className="row px-0 mx-0 g-0">
                 <div className={`${styles.carouselBtnPC}`}>
-                  <Link
-                    href="/"
-                    className={`${styles.link} ${styles.lg} ${styles.midnightgreen} rounded-pill`}
-                    style={{ width: '100%', maxWidth: '312px' }}
+                  <Btn
+                    size="lg"
+                    bgColor="midnightgreen"
+                    btnOrLink="link"
+                    hrefURL="/coaches"
+                    maxWidth="312px"
                   >
                     找教練
-                  </Link>
+                  </Btn>
                 </div>
                 <div className={`${styles.carouselBtnSP}`}>
-                  <Link
-                    href="/"
-                    className={`${styles.link} ${styles.thin2} ${styles.midnightgreen} rounded-pill`}
-                    style={{ width: '100%', maxWidth: '210px' }}
+                  <Btn
+                    size="thin2"
+                    bgColor="midnightgreen"
+                    btnOrLink="link"
+                    hrefURL="/coaches"
+                    maxWidth="210px"
                   >
                     找教練
-                  </Link>
+                  </Btn>
                 </div>
               </div>
             </section>
@@ -299,22 +317,26 @@ export default function Home() {
 
               <div className="row px-0 mx-0 g-0">
                 <div className={`${styles.carouselBtnPC}`}>
-                  <Link
-                    href="/"
-                    className={`${styles.link} ${styles.lg} ${styles.midnightgreen} rounded-pill`}
-                    style={{ width: '100%', maxWidth: '312px' }}
+                  <Btn
+                    size="lg"
+                    bgColor="midnightgreen"
+                    btnOrLink="link"
+                    hrefURL="/articles"
+                    maxWidth="312px"
                   >
                     找文章
-                  </Link>
+                  </Btn>
                 </div>
                 <div className={`${styles.carouselBtnSP}`}>
-                  <Link
-                    href="/"
-                    className={`${styles.link} ${styles.thin2} ${styles.midnightgreen} rounded-pill`}
-                    style={{ width: '100%', maxWidth: '210px' }}
+                  <Btn
+                    size="thin2"
+                    bgColor="midnightgreen"
+                    btnOrLink="link"
+                    hrefURL="/articles"
+                    maxWidth="210px"
                   >
                     找文章
-                  </Link>
+                  </Btn>
                 </div>
               </div>
             </section>
