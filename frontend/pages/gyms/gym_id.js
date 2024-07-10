@@ -45,69 +45,92 @@ export default function GymDetail({ gymId }) {
   return (
     <div>
       <Layout3>
-        <div title="title-box" className={styles.container}>
-          <h3> {gym.name} </h3>
-          <h6>{gym.subtitle}</h6>
-        </div>
-
-        <div className={styles.imgContainer}>
-          {/* 預設第一張 或 點選下方縮圖切換照片*/}
-          <img src="/gym1.jpg" alt="場館內部" className={styles.coverImg} />
-
-          <div className={styles.imgGroup}>
-            {gym.images.map((image, i) => (
+        <div className={`container ${styles.container}`}>
+          <div className="row">
+            <div className={`col-md-6 ${styles.imgContainerPC}`}>
+              {/* 預設第一張 或 點選下方縮圖切換照片*/}
               <img
-                key={i}
-                src={image}
+                src={gym.images[1]}
                 alt="場館內部"
-                className={styles.otherImg}
+                className={styles.coverImg}
               />
-            ))}
-           
-           
-          </div>
-        </div>
 
-        <div className="container">
-          <div className={styles.px8}>
-            <h6>{gym.address}</h6>
-            <h6>{gym.phoneNumber}</h6>
-            <Badges />
-          </div>
-
-          <div className={styles.btn}>
-            <button className={`${styles.btnLike}`}>
-              <span className={`${styles.icon} `}>
-                <IoHeart />
-              </span>
-              <span>收藏</span>
-            </button>
-            <button className={styles.btnReserve}>
-              <IoCall /> 預約
-            </button>
-          </div>
-
-          <div className={styles.details}>
-            <div>
-              <h5 className={styles.h5}>場館介紹｜</h5>
-              <p>{gym.information}</p>
-            </div>
-            <div>
-              <h5 className={styles.h5}>收費｜</h5>
-              <ul className="p-font">
-                {gym.price.map((price, i) => (
-                  <li key={i}>{price}</li>
+              <div className={styles.imgGroup}>
+                {gym.images.map((image, i) => (
+                  <img
+                    key={i}
+                    src={image}
+                    alt="場館內部"
+                    className={styles.otherImg}
+                  />
                 ))}
-              </ul>
+              </div>
             </div>
-            <div>
-              <h5 className={styles.h5}>場館設備｜</h5>
-              <ol className="p-font">
-                {gym.equipment.map((equipment, i) => (
-                  <li key={i}>{equipment}</li>
-                ))}
-              </ol>
-            </div>
+            <div className="col-md-6 ps-md-5">
+              <div title="title-box" className={styles.px8}>
+                <h3> {gym.name} </h3>
+                <h6>{gym.subtitle}</h6>
+              </div>{' '}
+              <div className={styles.imgContainer}>
+                {/* 預設第一張 或 點選下方縮圖切換照片*/}
+                <img
+                  src={gym.images[1]}
+                  alt="場館內部"
+                  className={styles.coverImg}
+                />
+
+                <div className={styles.imgGroup}>
+                  {gym.images.map((image, i) => (
+                    <img
+                      key={i}
+                      src={image}
+                      alt="場館內部"
+                      className={styles.otherImg}
+                    />
+                  ))}
+                </div>
+              </div>
+              <div title="information-details">
+                <div className={styles.basicInfo}>
+                  <h6>{gym.address}</h6>
+                  <h6>{gym.phoneNumber}</h6>
+                  <Badges />
+                </div>
+                <div className={styles.btn}>
+                  <button className={`${styles.btnLike}`}>
+                    <span className={`${styles.icon} `}>
+                      <IoHeart />
+                    </span>
+                    <span>收藏</span>
+                  </button>
+                  <button className={styles.btnReserve}>
+                    <IoCall /> 預約
+                  </button>
+                </div>
+                <div className={styles.details}>
+                  <div>
+                    <h5 className={styles.h5}>場館介紹｜</h5>
+                    <p>{gym.information}</p>
+                  </div>
+                  <div>
+                    <h5 className={styles.h5}>收費方式｜</h5>
+                    <ul className="p-font">
+                      {gym.price.map((price, i) => (
+                        <li key={i}>{price}</li>
+                      ))}
+                    </ul>
+                  </div>
+                  <div>
+                    <h5 className={styles.h5}>場館設備｜</h5>
+                    <ol className="p-font">
+                      {gym.equipment.map((equipment, i) => (
+                        <li key={i}>{equipment}</li>
+                      ))}
+                    </ol>
+                  </div>
+                </div>{' '}
+              </div>
+            </div>{' '}
           </div>
         </div>
       </Layout3>
