@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Layout3 from '@/components/layout/layout3'
-import SearchBar from '@/components/common/searchbar/searchbar'
+import SearchSection from '@/components/articles/search-section'
 import SwiperCarousel from '@/components/swiperCarousel'
 import Link from 'next/link'
 import styles from './articles.module.css'
@@ -76,14 +76,7 @@ export default function Articles() {
           </div>
         </section>
 
-        <section className={`${styles.search}`}>
-          <div className="container fixed-960 px-3">
-            <div className="row flex-column justify-content-center align-items-center px-0 mx-0 g-0">
-              <h4>找其他文章</h4>
-              <SearchBar maxWidth="960px" />
-            </div>
-          </div>
-        </section>
+        <SearchSection />
       </Layout3>
     </>
   )

@@ -4,7 +4,11 @@ import styles from './article-card.module.css'
 const ArticleCard = ({ title, category, update_at, imgSrc }) => {
   return (
     <div className={styles.articleCard}>
-      <img src={imgSrc} alt="描述圖片內容" className={styles.cardImg} />
+      <img
+        src={`/articles-img/${imgSrc}`}
+        alt="描述圖片內容"
+        className={styles.cardImg}
+      />
       <div className={styles.cardInfo1}>
         <div className={styles.cardTitle}>{title}</div>
       </div>

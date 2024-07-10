@@ -1,3 +1,7 @@
+.searchbarSP {
+  display: none;
+}
+
 .card {
   margin-bottom: 25px;
 }
@@ -18,6 +22,15 @@
 /* RWD 需要再調 */
 
 @media (max-width: 768px) {
+  .searchbarPC {
+    display: none;
+  }
+  .searchbarSP {
+    display: block;
+    /* display: flex;
+    justify-content: center;
+    align-items: center; */
+  }
   .padding80 {
     padding: 0 16px;
   }
