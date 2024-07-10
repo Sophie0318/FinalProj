@@ -14,13 +14,19 @@ import styles from './layout3.module.css'
 // articles -> 文章
 // users -> 會員
 
-export default function Layout3({ children, title = '', pageName = 'index' }) {
+export default function Layout3({
+  children,
+  title = '',
+  pageName = 'index',
+  product,
+  item,
+}) {
   return (
     <>
       <Head>
         <title>{title ? title : ''}</title>
       </Head>
-      <Navbar />
+      <Navbar product={product} item={item} />
       <div className={`d-flex flex-column`}>
         <PageTitle pageName={pageName} height="255px" />
         <section className={styles.whiteSection}>{children}</section>

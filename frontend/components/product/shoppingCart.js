@@ -1,8 +1,10 @@
 import React from 'react'
 import { IoCloseSharp, IoAddSharp, IoRemove, IoCart } from 'react-icons/io5'
 import styles from '../common/layout.module.css'
+import { useState } from 'react'
 
-export default function shoppingCart() {
+export default function ShoppingCart({ item }) {
+  console.log(item)
   return (
     <>
       <li>
@@ -36,16 +38,28 @@ export default function shoppingCart() {
               style={{ backgroundColor: '#FFF7E9' }}
             >
               <div style={{ display: 'flex', gap: '17px' }}>
-                <img
-                  src="/product-img/大豆.webp"
-                  alt=""
-                  style={{ width: '30%', borderRadius: '25px' }}
-                />
-                <ul>
-                  <li style={{ paddingBottom: '20px' }}>商品:大豆蛋白</li>
-                  <li style={{ paddingBottom: '20px' }}>特色:快速補充蛋白質</li>
-                  <li>價格:2200</li>
-                </ul>
+                {item &&
+                  item.map((v, i) => {
+                    return (
+                      <div key={i}>
+                        <img
+                          src="/product-img/大豆.webp"
+                          alt=""
+                          style={{ width: '30%', borderRadius: '25px' }}
+                        />
+                        <ul>
+                          <li style={{ paddingBottom: '20px' }}>
+                            商品:{v.Product_name}
+                          </li>
+                          <li style={{ paddingBottom: '20px' }}>
+                            特色: {v.Product_desc}
+                          </li>
+                          <li>價格: {v.Product_price}</li>
+                        </ul>
+                      </div>
+                    )
+                  })}
+
                 <div>
                   <IoCloseSharp
                     style={{

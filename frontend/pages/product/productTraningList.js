@@ -11,8 +11,9 @@ import { useRouter } from 'next/router'
 import Link from 'next/link'
 export default function ProductList() {
   const router = useRouter()
-  const [proTect, setProTect] = useState('')
+  const [proTect, setProTect] = useState('') //健身護具子分類
   const [data, setData] = useState({
+    //產品
     //呈現資料內容要用狀態
     success: false,
     rows: [],
@@ -21,6 +22,11 @@ export default function ProductList() {
   const [page, setPage] = useState(1) // 目前第幾頁
   const [perpage, setPerpage] = useState(10) // 每頁幾筆資料
   const [nameLike, setNameLike] = useState('') // 搜尋關鍵字
+  // const addData = (product) => {
+  //   const newData = { ...product, qty: 1 }
+  //   const nextData = [newData, ...data.rows]
+  //   setData(nextData)
+  // }
 
   /*
   useEffect(() => {

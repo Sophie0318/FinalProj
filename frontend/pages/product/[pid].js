@@ -9,6 +9,7 @@ import DetailText from '@/components/product/product-detail/detail-text'
 import CardDetail from '@/components/product/card-detail/card-detail'
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
+import styles from '@/components/product/product-detail/detail-text.module.css'
 
 export default function ProductDetail() {
   const router = useRouter()
@@ -19,7 +20,15 @@ export default function ProductDetail() {
     Product_price: 0,
     Product_desc: '',
     Product_image: '',
+    Product_qty: 1,
   })
+  const [item, setItem] = useState([]) //要加進購物車的狀態(加入購物車的資料需是物件陣列)
+  const addItem = (product) => {
+    const newItem = { ...product, qty: 1 }
+    const nextItem = [newItem, ...item]
+    setItem(nextItem)
+    console.log('button clicked', item)
+  }
 
   const getProduct = async (pid) => {
     const url = `http://localhost:3001/product/api/${pid}`
@@ -33,6 +42,7 @@ export default function ProductDetail() {
           // 設定到狀態中 ===> 進入update階段，觸發重新渲染(re-render)
           console.log(resData.data[0])
           setProduct(resData.data[0])
+          console.log(product)
         }
       }
     } catch (e) {
@@ -51,7 +61,7 @@ export default function ProductDetail() {
   }, [router.isReady]) //這部分設置了 useEffect 的依賴項。當 router.isReady 的值改變時，useEffect 會被重新調用。
 
   return (
-    <Layout3>
+    <Layout3 product={product} item={item}>
       {/* 卡片輪播 */}
       <div className="container mt-4 ">
         <div className="row">
@@ -63,13 +73,12 @@ export default function ProductDetail() {
             <DetailText
               price={product.Product_price}
               desc={product.Product_desc}
+              name={product.Product_name}
             />
+            <button className={styles.btnCart} onClick={() => addItem(product)}>
+              加入購物車
+            </button>
           </div>
-          {/* {product?.map((v) => {
-            ;<div key={v.Product_id}>
-              <DetailText price={v.Product_price} desc={v.Product_desc} />
-            </div>
-          })} */}
         </div>
         <PhotoText />
         <div className="row  text-center align-items-center d-flex">
