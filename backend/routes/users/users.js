@@ -105,10 +105,11 @@ router.post("/login-jwt", async (req, res) => {
             id: rows[0].member_id,
             email: rows[0].member_email,
             name: rows[0].member_name,
-            // nickname: rows[0].member_nickname,  資料庫待添加會員的暱稱
+            nick_name: rows[0].nick_name,
+            avatar: rows[0].avatar,
             token,
         };
-
+        console.log("Login successful, output.data:", output.data);
         res.json(output);
     } catch (error) {
         console.error("登入過程中發生錯誤:", error);
