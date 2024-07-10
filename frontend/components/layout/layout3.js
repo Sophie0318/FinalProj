@@ -1,8 +1,9 @@
-// import './default_layout.css'
+import React from 'react'
 import Navbar from '../common/navbar'
 import Footer from '../common/footer'
 import PageTitle from '../common/page-title'
 import Head from 'next/head'
+import BackToTop from '../common/buttons/back-to-top'
 import styles from './layout3.module.css'
 
 // 副標題要依照每個分支改的話可以輸入pageName
@@ -26,6 +27,7 @@ export default function Layout3({ children, title = '', pageName = 'index' }) {
         <section className={styles.whiteSection}>{children}</section>
       </div>
       <Footer />
+      <BackToTop />
     </>
   )
 }

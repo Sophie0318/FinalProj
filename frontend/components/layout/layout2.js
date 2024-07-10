@@ -1,5 +1,4 @@
-import { useState, useEffect } from 'react'
-import { useRouter } from 'next/router'
+import React from 'react'
 import Navbar from '../common/navbar'
 import Footer from '../common/footer'
 import PageTitle from '../common/page-title'
@@ -21,33 +20,6 @@ export default function Layout2({
   pageName = 'index',
   height = '',
 }) {
-  // 給 BackToTop 按鈕用的
-  const router = useRouter()
-  const [showBtn, setShowBtn] = useState(false)
-  const [hasScrolled, setHasScrolled] = useState(false)
-
-  // 監聽頁面滾動, 距離top>100px就顯示BacktoTop
-  useEffect(() => {
-    if (router.isReady) {
-      const handleScroll = () => {
-        if (!hasScrolled) {
-          setHasScrolled(true)
-        }
-        if (window.scrollY > 100) {
-          setShowBtn(true)
-        } else {
-          setShowBtn(false)
-        }
-      }
-
-      window.addEventListener('scroll', handleScroll)
-
-      return () => {
-        window.removeEventListener('scroll', handleScroll)
-      }
-    }
-  }, [router.isReady, hasScrolled])
-
   return (
     <>
       <Head>
@@ -57,7 +29,7 @@ export default function Layout2({
       <PageTitle pageName={pageName} height={height} />
       {children}
       <Footer />
-      <BackToTop showBtn={showBtn} hasScrolled={hasScrolled} />
+      <BackToTop />
     </>
   )
 }

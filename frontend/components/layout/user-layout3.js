@@ -5,6 +5,7 @@ import Link from 'next/link'
 import Breadcrumb from '../common/breadcrumb'
 import Navbar from '../common/navbar'
 import Footer from '../common/footer'
+import BackToTop from '../common/buttons/back-to-top'
 import styles from '@/styles/user-layout3.module.css'
 import { FaUser } from 'react-icons/fa6'
 
@@ -66,6 +67,7 @@ export default function LayoutUser({ children, title = 'myProfile' }) {
         </div>
       </div>
       <Footer />
+      <BackToTop />
     </>
   )
 }
