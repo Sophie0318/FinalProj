@@ -1,7 +1,7 @@
 import React from 'react'
 import Link from 'next/link'
 import { IoLogoFacebook, IoLogoInstagram } from 'react-icons/io5'
-import { FaLine, FaArrowUpLong } from 'react-icons/fa6'
+import { FaLine } from 'react-icons/fa6'
 import styles from './footer.module.css'
 
 export default function Footer() {
@@ -98,12 +98,6 @@ export default function Footer() {
           </div>
         </div>
       </footer>
-
-      {/* TODO: onClick={scrolltotop()} 要再去SRC拿 */}
-      <button className={styles.backto_top}>
-        <FaArrowUpLong className={styles.backto_top_icon} />
-        Top
-      </button>
     </>
   )
 }
