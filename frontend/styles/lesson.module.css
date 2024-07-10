@@ -140,7 +140,7 @@
 .cards {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between; /* 在行內平均分配空間 */
+  justify-content: flex-start; /* 在行內平均分配空間 */
   gap: 25px;
   width: 100%; /* 確保容器佔滿整個寬度 */
 }

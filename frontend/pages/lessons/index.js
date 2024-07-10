@@ -6,6 +6,7 @@ import styles from '@/styles/lesson.module.css'
 import { IoSearch } from 'react-icons/io5'
 import LessonList from '@/components/lessons/lessonList'
 import axios from 'axios'
+import { useCallback } from 'react'
 
 export default function Index() {
   // 用於存儲所有課程的狀態
@@ -14,6 +15,8 @@ export default function Index() {
   const [filteredLessons, setFilteredLessons] = useState([])
   // 用於存儲選中的類別的狀態
   const [selectedCategories, setSelectedCategories] = useState([])
+  //用來儲存關鍵字的狀態
+  const [searchKeyword, setSearchKeyword] = useState('')
 
   // 處理類別選擇變化的函數
   const handleCategoryChange = (code_desc, isChecked) => {
@@ -36,6 +39,33 @@ export default function Index() {
 
       return newSelectedCategories
     })
+  }
+
+  const fetchLessons = useCallback(async () => {
+    try {
+      const response = await axios.get(`http://localhost:3001/lessons/api`, {
+        params: {
+          code_desc: selectedCategories.join('-'),
+          keyword: searchKeyword,
+        },
+      })
+      console.log('API response:', response.data)
+      if (response.data.success) {
+        setAllLessons(response.data.rows)
+        setFilteredLessons(response.data.rows)
+      }
+    } catch (error) {
+      console.error('Error fetching lessons:', error)
+    }
+  }, [selectedCategories, searchKeyword])
+
+  const handleSearchInputChange = (e) => {
+    setSearchKeyword(e.target.value)
+  }
+
+  const handleSearchSubmit = (e) => {
+    e.preventDefault()
+    fetchLessons()
   }
 
   // const handleCategoryChange = (code_desc, isChecked) => {
@@ -71,7 +101,7 @@ export default function Index() {
     }
 
     fetchLessons()
-  }, [selectedCategories])
+  }, [selectedCategories, fetchLessons])
 
   return (
     <>
@@ -91,17 +121,22 @@ export default function Index() {
               </div>
             </section>
           </div>
-          <div className={styles.search}>
-            <div className={styles.searchIcon}>
-              <IoSearch />
+          <form onSubmit={handleSearchSubmit}>
+            <div className={styles.search}>
+              <div className={styles.searchIcon}>
+                <IoSearch />
+              </div>
+              <input
+                type="text"
+                name="search_input"
+                className={styles.search_input}
+                placeholder="請輸入地址搜尋..."
+                value={searchKeyword}
+                onChange={handleSearchInputChange}
+              />
+              <button type="submit" style={{ display: 'none' }}></button>
             </div>
-            <input
-              type="text"
-              name="search_input"
-              className={styles.search_input}
-              placeholder="請輸入地址搜尋..."
-            />
-          </div>
+          </form>
           <div className={styles.filter}>
             <p className={styles.select}>請選擇類別 ｜</p>
             <div className={styles.checkboxWrapper}>
