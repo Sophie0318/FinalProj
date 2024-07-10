@@ -4,7 +4,7 @@ import styles from './gym-reservation.module.css'
 import AutofillCheckbox from '@/components/gyms/auto-fill-checkbox'
 import CoachCard from '@/components/coaches/coacgCard'
 import FormField from '@/components/common/form-field/form-field'
-import { GymCard } from '@/components/gyms/gym-card'
+import GymCardSpot from '@/components/gyms/gymCard-spot'
 
 // 假資料
 const gymData = {
@@ -91,7 +91,7 @@ export default function GymReservation() {
                 />
               </div>
               <h4 className="">預約場館｜</h4>
-              <GymCard data={gymData} />
+              <GymCardSpot data={gymData} />
               <div className={styles.inputsContainer}>
                 <FormField
                   label="選擇時段"
