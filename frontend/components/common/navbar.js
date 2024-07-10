@@ -272,68 +272,91 @@ export default function Navbar() {
                 <IoCloseOutline className={`${styles.closeBtnIcon}`} />
               </button>
             </div>
-
+            {/* 判斷是否登入 */}
+            {/* 若是有登入就顯示會員大頭貼與nick_name或是name*/}
             <div className="row p-0 m-0 flex-column justify-content-between h-100">
               <ul className={`${styles.icons} col-12`}>
                 <li>
-                  {/* 判斷是否登入 */}
-                  <Link
-                    className={`h3-font`}
-                    href="#"
-                    role="button"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                  >
-                    <img
-                      className={`${styles.memberAvatar}`}
-                      src="/test_avatar.png"
-                    />
-                    <div className={styles.navbarSPLink}>你阿罵</div>
-                    <IoChevronDown />
-                  </Link>
-                  {/* 判斷是否登入 */}
-                  <ul className="dropdown-menu">
-                    <li>
+                  {auth.id ? (
+                    <>
                       <Link
-                        className="dropdown-item"
-                        href="/users/profile/edit"
+                        className={`h3-font`}
+                        href="#"
+                        role="button"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
                       >
-                        我的檔案
+                        <img
+                          className={`${styles.memberAvatar}`}
+                          src={`${defaultAvatar}${auth.avatar}`}
+                        />
+                        {/* 登入的會員若沒有暱稱則顯示姓名 */}
+                        <div className={styles.navbarSPLink}>
+                          {' '}
+                          {auth.nick_name ? auth.nick_name : auth.name}
+                        </div>
+                        <IoChevronDown />
                       </Link>
-                    </li>
-                    <li>
-                      <Link className="dropdown-item" href="/users/bookings">
-                        我的預約
-                      </Link>
-                    </li>
-                    <li>
-                      <Link
-                        className="dropdown-item"
-                        href="/users/lessons_orders"
-                      >
-                        我的課程
-                      </Link>
-                    </li>
-                    <li>
-                      <Link className="dropdown-item" href="/users/orders">
-                        歷史訂單
-                      </Link>
-                    </li>
-                    <li>
-                      <Link className="dropdown-item" href="/users/favorites">
-                        我的收藏
-                      </Link>
-                    </li>
-                    <li>
-                      <Link
-                        className="dropdown-item"
-                        href="/"
-                        onClick={() => logout()}
-                      >
-                        登出
-                      </Link>
-                    </li>
-                  </ul>
+                      <ul className="dropdown-menu">
+                        <li>
+                          <Link
+                            className="dropdown-item"
+                            href="/users/profile/edit"
+                          >
+                            我的檔案
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            className="dropdown-item"
+                            href="/users/bookings"
+                          >
+                            我的預約
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            className="dropdown-item"
+                            href="/users/lessons_orders"
+                          >
+                            我的課程
+                          </Link>
+                        </li>
+                        <li>
+                          <Link className="dropdown-item" href="/users/orders">
+                            歷史訂單
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            className="dropdown-item"
+                            href="/users/favorites"
+                          >
+                            我的收藏
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            className="dropdown-item"
+                            href="/"
+                            onClick={() => logout()}
+                          >
+                            登出
+                          </Link>
+                        </li>
+                      </ul>
+                    </>
+                  ) : (
+                    <Link
+                      className={`h3-font`}
+                      href="/users/sign_in"
+                      role="button"
+                      // data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    >
+                      <div className={styles.navbarSPLink}>還沒有登入哦</div>
+                    </Link>
+                  )}
                 </li>
                 <li>
                   <IoCart
