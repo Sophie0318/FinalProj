@@ -1,15 +1,28 @@
-import React from 'react'
+'use client'
+import React, { useEffect, useRef } from 'react'
 import { IoCloseSharp, IoAddSharp, IoRemove, IoCart } from 'react-icons/io5'
 import styles from '../common/layout.module.css'
 import { useState } from 'react'
 
 export default function ShoppingCart({ item }) {
-  if (typeof window !== 'undefined') {
-    const saveItems = localStorage.getItem('shoppingCart')
-    item = saveItems ? JSON.parse(saveItems) : item
-  }
+  // if (typeof window !== 'undefined') {
+  //   const saveItems = localStorage.getItem('shoppingCart')
+  //   item = saveItems ? JSON.parse(saveItems) : item
+  //   console.log(`Shopping Cart saveItems: ${saveItems}`)
+  //   console.log(`Shopping Cart Item: ${JSON.stringify(item)}`)
+  // }
+  const [shoppingList, setShoppingList] = useState([])
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const saveItems = localStorage.getItem('shoppingCart')
+      setShoppingList(saveItems ? JSON.parse(saveItems) : item)
+      console.log(`Shopping Cart saveItems: ${saveItems}`)
+      console.log(`Shopping Cart Item: ${JSON.stringify(item)}`)
+      console.log(`shoppingList: ${JSON.stringify(shoppingList)}`)
+    }
+  }, [item])
 
-  console.log(item)
+  console.log(`shoppingList: ${shoppingList}`)
   return (
     <>
       <li>
@@ -43,8 +56,8 @@ export default function ShoppingCart({ item }) {
               style={{ backgroundColor: '#FFF7E9' }}
             >
               <div style={{ display: 'flex', gap: '17px' }}>
-                {item &&
-                  item.map((v, i) => {
+                {shoppingList &&
+                  shoppingList.map((v, i) => {
                     return (
                       <div key={i}>
                         <img

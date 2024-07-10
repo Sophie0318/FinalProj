@@ -22,14 +22,7 @@ export default function ProductDetail() {
     Product_image: '',
     Product_qty: 1,
   })
-  const [item, setItem] = useState(() => {
-    // 初始化時從本地存儲加載購物車
-    if (typeof window !== 'undefined') {
-      const savedItems = localStorage.getItem('shoppingCart')
-      return savedItems ? JSON.parse(savedItems) : []
-    }
-    return []
-  }) //要加進購物車的狀態(加入購物車的資料需是物件陣列)
+  const [item, setItem] = useState([]) // 購物車陣列)
   const addItem = (product) => {
     const newItem = { ...product, qty: 1 }
     const nextItem = [newItem, ...item]
