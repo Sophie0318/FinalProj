@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import Layout2 from '@/components/layout/layout2'
+import Layout3 from '@/components/layout/layout3'
 import SearchBar from '@/components/common/searchbar/searchbar'
 import SwiperCarousel from '@/components/swiperCarousel'
 import Link from 'next/link'
@@ -16,10 +16,14 @@ export default function Articles() {
   //     })
   // }, [])
 
-  // TODO: 找熟齡學習的圖片
   return (
     <>
-      <Layout2 title="文章列表" pageName="articles">
+      <Layout3
+        title="文章列表"
+        pageName="articles"
+        height="179px"
+        section="flatSection"
+      >
         <section>
           <div className={`${styles.articleTypes}`}>
             <div className={`${styles.typeGrid}`}>
@@ -80,7 +84,7 @@ export default function Articles() {
             </div>
           </div>
         </section>
-      </Layout2>
+      </Layout3>
     </>
   )
 }

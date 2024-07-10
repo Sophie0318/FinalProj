@@ -8,7 +8,7 @@ const articleList = Array(12).fill(1)
 export default function ArticleType() {
   return (
     <>
-      <Layout3 title="體能鍛鍊" pageName="articles">
+      <Layout3 title="體能鍛鍊" pageName="articles" section="whiteSection">
         <section className={styles.padding80}>
           <div className="container-fluid p-0">
             <div className="row px-0 mx-0">

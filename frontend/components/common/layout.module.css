@@ -125,18 +125,20 @@
 .title {
   padding-top: 15px;
   text-align: center;
-  font-size: 32px;
   color: #1a394a;
-  font-weight: bold;
-  font-family: 'Gensen';
+  line-height: 100%;
 }
 
 .subTitle {
-  padding-top: 15px;
+  padding-top: 10px;
+  padding-left: 1px;
   text-align: center;
+  font-family: 'Gensen', sans-serif;
   font-size: 24px;
+  font-weight: 700;
+  line-height: 100%;
+  letter-spacing: 1px;
   color: #1a394a;
-  font-family: 'Gensen';
 }
 /* section 相關樣式結束 */
 

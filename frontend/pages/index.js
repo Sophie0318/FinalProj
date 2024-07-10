@@ -156,8 +156,8 @@ export default function Home() {
                 </div>
               </div>
 
-              <div className={`container-fluid p-0`}>
-                <div className={`row p-0 m-0 justify-content-center`}>
+              <div className={`container-fluid px-0 mx-0`}>
+                <div className={`row m-0 justify-content-center`}>
                   <h3 className={`${styles.cta2ListTitlePC}`}>
                     你是不是有這些困擾呢？
                   </h3>

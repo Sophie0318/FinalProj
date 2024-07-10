@@ -235,6 +235,7 @@ p,
 
 .container-fluid {
   padding: 0 120px;
+  overflow-x: hidden; // 解決 container-fluid 在一些情況下會讓頁面寬度超出vw的問題
 }
 
 // 暫存, 之後需要整理的
