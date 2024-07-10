@@ -1,14 +1,8 @@
-import React, { useState } from 'react'
-// import 'bootstrap/dist/css/bootstrap.min.css'
-import styles from '../../styles/sign-in.module.css'
-import {
-  FaAngleRight,
-  FaEye,
-  FaEyeSlash,
-  FaCheckCircle,
-  FaExclamationCircle,
-} from 'react-icons/fa'
+// SignIn.js
 
+import React, { useState } from 'react'
+import styles from '../../styles/sign-in.module.css'
+import { FaAngleRight } from 'react-icons/fa'
 import UserSignin from '../../components/layout/user-layout1'
 import MyEmailInput from '@/components/users/MyEmailInput'
 import MyPasswordInput from '@/components/users/MyPasswordInput'
@@ -16,31 +10,26 @@ import MyBtn from '@/components/users/MyBtn'
 import MyCheckBox from '@/components/users/MyCheckBox'
 import Link from 'next/link'
 import { useAuth } from '../../context/auth-context'
+import { useRouter } from 'next/router'
 
 export default function SignIn() {
   const { login } = useAuth()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [rememberMe, setRememberMe] = useState(false)
   const [error, setError] = useState('')
-
-  // const handleSubmit = (e) => {
-  //   e.preventDefault()
-  //   // 處理表單提交邏輯
-  //   console.log('Form submitted', { email, password, rememberMe })
-  // }
+  const router = useRouter()
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     setError('') // 清除之前的錯誤信息
 
     try {
-      const { success, message } = await login(email, password)
+      const success = await login(email, password) // 假設 login 函數直接返回成功或失敗的布爾值
       if (success) {
         console.log('登入成功')
-        // router.push('/dashboard')
+        router.push('/')
       } else {
-        setError(message || '登入失敗，請檢查您的電子郵件和密碼')
+        setError('登入失敗，請檢查您的電子郵件和密碼')
       }
     } catch (error) {
       console.error('登入過程中發生錯誤:', error)
