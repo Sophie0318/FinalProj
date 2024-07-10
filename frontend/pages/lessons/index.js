@@ -120,23 +120,26 @@ export default function Index() {
                 </div>
               </div>
             </section>
-          </div>
-          <form onSubmit={handleSearchSubmit}>
-            <div className={styles.search}>
-              <div className={styles.searchIcon}>
-                <IoSearch />
-              </div>
-              <input
-                type="text"
-                name="search_input"
-                className={styles.search_input}
-                placeholder="請輸入地址搜尋..."
-                value={searchKeyword}
-                onChange={handleSearchInputChange}
-              />
-              <button type="submit" style={{ display: 'none' }}></button>
+          </div>{' '}
+          <div className={styles.search}>
+            <div className={styles.searchIcon}>
+              <IoSearch />
             </div>
-          </form>
+            <input
+              type="text"
+              name="search_input"
+              className={styles.search_input}
+              placeholder="請輸入地址搜尋..."
+              value={searchKeyword}
+              onChange={handleSearchInputChange}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  e.preventDefault()
+                  handleSearchSubmit(e)
+                }
+              }}
+            />
+          </div>
           <div className={styles.filter}>
             <p className={styles.select}>請選擇類別 ｜</p>
             <div className={styles.checkboxWrapper}>
