@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useState } from 'react'
 import { JWT_LOGIN_POST } from '../configs/api-path'
+import { useRouter } from 'next/router'
 
 const AuthContext = createContext()
 // 保有狀態 usestate
@@ -20,6 +21,7 @@ const emptyAuth = {
 }
 
 export function AuthContextProvider({ children }) {
+  const router = useRouter()
   // 狀態 沒登入
   const [auth, setAuth] = useState(emptyAuth)
 
@@ -54,8 +56,12 @@ export function AuthContextProvider({ children }) {
   //登出
   //清除狀態
   const logout = () => {
+    console.log('登出中...')
     localStorage.removeItem(storageKey)
+    console.log('清掉 localStorage的auth, 重新導航...')
     setAuth(emptyAuth)
+    router.push('/')
+    console.log('導回首頁...')
   }
 
   //前端 getAuthHeader

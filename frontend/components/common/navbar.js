@@ -11,10 +11,11 @@ import {
   IoChevronDown,
 } from 'react-icons/io5'
 import { PiMapPinFill, PiLightbulbFilamentFill } from 'react-icons/pi'
-import { FaArrowRight } from 'react-icons/fa6'
+import { FaArrowRight, FaPersonRunning } from 'react-icons/fa6'
 import styles from './layout.module.css'
 import { IoAddSharp, IoRemove, IoCloseSharp } from 'react-icons/io5'
 import { useAuth } from '../../context/auth-context'
+const defaultAvatar = 'http://localhost:3001/users/' // 用來做預設頭像的位置
 
 // TODO: header logo offsets when toggle offcanvas, 可以參考kacco
 // TODO: toggle button 會蓋住scrollbar, 也參考kacco
@@ -61,40 +62,7 @@ export default function Navbar() {
             </Link>
           </li>
         </ul>
-
         <ul className={`${styles.icons}`}>
-          {auth.id && auth.avator ? (
-            <>
-              {/*若是有登入就顯示 會員大頭貼，並且點擊後導向profile頁 */}
-              <li>
-                <Link href="/users/profile">
-                  <a className={`${styles.member}`}>
-                    <img
-                      src={auth.avator}
-                      alt=""
-                      className={`${styles.memberPhoto}`}
-                    />
-                  </a>
-                  <a className="nav-link">{auth.nickname}</a>
-                </Link>
-              </li>
-              {/* <li className="nav-item">
-                <a className="nav-link" href="#/" onClick={() => logout()}>
-                  登出
-                </a>
-              </li> */}
-            </>
-          ) : (
-            <>
-              {/*若是沒有登入就顯示 person add圖示，並且點擊後導向登入頁 */}
-              <li>
-                <Link href="/users/sign_in">
-                  <IoPersonAdd className={`${styles.member}`} />
-                </Link>
-              </li>
-            </>
-          )}
-
           <li>
             <a href="#">
               <IoCart
@@ -228,6 +196,33 @@ export default function Navbar() {
               </div>
             </a>
           </li>
+
+          {/* 若是有登入就顯示會員大頭貼，並且點擊後導向profile頁 */}
+          {auth.id ? (
+            <>
+              <Link href="/users/profile">
+                <img
+                  src={`${defaultAvatar}${auth.avatar}`}
+                  alt="會員頭像"
+                  className={`${styles.member}`}
+                />
+              </Link>
+              <li>
+                <Link href="" onClick={() => logout()}>
+                  <FaPersonRunning className={`${styles.member}`} />
+                </Link>
+              </li>
+            </>
+          ) : (
+            <>
+              {/* 若是沒有登入就顯示 person add 圖示，並且點擊後導向登入頁 */}
+              <li>
+                <Link href="/users/sign_in">
+                  <IoPersonAdd className={`${styles.member}`} />
+                </Link>
+              </li>
+            </>
+          )}
         </ul>
       </header>
 
@@ -281,6 +276,7 @@ export default function Navbar() {
             <div className="row p-0 m-0 flex-column justify-content-between h-100">
               <ul className={`${styles.icons} col-12`}>
                 <li>
+                  {/* 判斷是否登入 */}
                   <Link
                     className={`h3-font`}
                     href="#"
@@ -295,6 +291,7 @@ export default function Navbar() {
                     <div className={styles.navbarSPLink}>你阿罵</div>
                     <IoChevronDown />
                   </Link>
+                  {/* 判斷是否登入 */}
                   <ul className="dropdown-menu">
                     <li>
                       <Link
