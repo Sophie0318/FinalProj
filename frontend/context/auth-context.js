@@ -59,6 +59,7 @@ export function AuthContextProvider({ children }) {
   }
 
   //前端 getAuthHeader
+  //確認會員是否取得了 token，並根據結果返回相應的授權標頭（authorization header）
   const getAuthHeader = () => {
     if (auth.token) {
       return {
