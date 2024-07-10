@@ -4,6 +4,51 @@ import moment from "moment-timezone";
 import upload from "./../../utils/upload-imgs.js";
 const router = express.Router();
 
+const getLessonById = async (req) => {
+    let success = false;
+    let lesson = null;
+    const lessonId = req.params.id;
+
+    const sql = `SELECT 
+        l.lesson_id,
+        l.lesson_name,
+        l.lesson_state,
+        l.lesson_price,
+        l.lesson_desc,
+        l.lesson_date,
+        GROUP_CONCAT(DISTINCT ct.code_desc ORDER BY ct.code_desc SEPARATOR '/') AS categories,
+        li.lesson_img,
+        c.coach_name,
+        g.gym_name
+    FROM 
+        Lessons l
+    JOIN 
+        LessonCategories lc ON l.lesson_id = lc.lesson_id
+    JOIN 
+        CommonType ct ON lc.commontype_id = ct.commontype_id
+    JOIN 
+        LessonImgs li ON l.LessonImgs_id = li.LessonImgs_id
+    JOIN 
+        Coaches c ON l.coach_id = c.coach_id
+    JOIN 
+        Gyms g ON l.gym_id = g.gym_id
+    WHERE 
+        l.lesson_id = ?
+    GROUP BY 
+        l.lesson_id`;
+
+        try {
+            const [rows] = await db.query(sql, [lessonId]);
+            if (rows.length > 0) {
+                lesson = rows[0];
+                success = true;
+            }
+        } catch (error) {
+            console.error('Error fetching lesson by id:', error);
+        }
+    
+        return { success, lesson };
+};
 
 const getLessonCategories = async () => {
     let success = false;
@@ -140,5 +185,50 @@ router.get("/api", async (req, res) => {
         res.status(500).json({ success: false, error: 'Internal Server Error' });
     }
 });
+
+router.get("/api/:id", async (req, res) => {
+    const { id } = req.params;
+    try {
+        const sql = `
+        SELECT 
+          l.lesson_id,
+          l.lesson_name,
+          l.lesson_state,
+          l.lesson_price,
+          l.lesson_desc,
+          DATE_FORMAT(l.lesson_date, '%Y-%m-%d %H:%i') AS lesson_date,
+          GROUP_CONCAT(DISTINCT ct.code_desc ORDER BY ct.code_desc SEPARATOR '/') AS categories,
+          li.lesson_img,
+          c.coach_name,
+          g.gym_name
+        FROM 
+          Lessons l
+        JOIN 
+          LessonCategories lc ON l.lesson_id = lc.lesson_id
+        JOIN 
+          CommonType ct ON lc.commontype_id = ct.commontype_id
+        JOIN 
+          LessonImgs li ON l.LessonImgs_id = li.LessonImgs_id
+        JOIN 
+          Coaches c ON l.coach_id = c.coach_id
+        JOIN 
+          Gyms g ON l.gym_id = g.gym_id
+        WHERE 
+          l.lesson_id = ?
+        GROUP BY 
+          l.lesson_id
+      `;
+  
+      const [rows] = await db.query(sql, [id]);
+      if (rows.length > 0) {
+        res.json({ success: true, lesson: rows[0] });
+      } else {
+        res.status(404).json({ success: false, message: 'Lesson not found' });
+      }
+    } catch (error) {
+      console.error('Error fetching lesson:', error);
+      res.status(500).json({ success: false, message: 'Server error' });
+    }
+  });
 
 export default router;
