@@ -14,11 +14,13 @@ import { PiMapPinFill, PiLightbulbFilamentFill } from 'react-icons/pi'
 import { FaArrowRight } from 'react-icons/fa6'
 import styles from './layout.module.css'
 import { IoAddSharp, IoRemove, IoCloseSharp } from 'react-icons/io5'
+import { useAuth } from '../../context/auth-context'
 
 // TODO: header logo offsets when toggle offcanvas, 可以參考kacco
 // TODO: toggle button 會蓋住scrollbar, 也參考kacco
 // 也可以用看看 bootstrap offcanvas body scrollable
 export default function Navbar() {
+  const { auth, logout } = useAuth()
   return (
     <>
       <header className={`${styles.navbarPC}`}>
@@ -61,11 +63,38 @@ export default function Navbar() {
         </ul>
 
         <ul className={`${styles.icons}`}>
-          <li>
-            <Link href="/users/profile">
-              <IoPersonAdd className={`${styles.member}`} />
-            </Link>
-          </li>
+          {auth.id && auth.avator ? (
+            <>
+              {/*若是有登入就顯示 會員大頭貼，並且點擊後導向profile頁 */}
+              <li>
+                <Link href="/users/profile">
+                  <a className={`${styles.member}`}>
+                    <img
+                      src={auth.avator}
+                      alt=""
+                      className={`${styles.memberPhoto}`}
+                    />
+                  </a>
+                  <a className="nav-link">{auth.nickname}</a>
+                </Link>
+              </li>
+              {/* <li className="nav-item">
+                <a className="nav-link" href="#/" onClick={() => logout()}>
+                  登出
+                </a>
+              </li> */}
+            </>
+          ) : (
+            <>
+              {/*若是沒有登入就顯示 person add圖示，並且點擊後導向登入頁 */}
+              <li>
+                <Link href="/users/sign_in">
+                  <IoPersonAdd className={`${styles.member}`} />
+                </Link>
+              </li>
+            </>
+          )}
+
           <li>
             <a href="#">
               <IoCart
@@ -296,6 +325,15 @@ export default function Navbar() {
                     <li>
                       <Link className="dropdown-item" href="/users/favorites">
                         我的收藏
+                      </Link>
+                    </li>
+                    <li>
+                      <Link
+                        className="dropdown-item"
+                        href="/"
+                        onClick={() => logout()}
+                      >
+                        登出
                       </Link>
                     </li>
                   </ul>
