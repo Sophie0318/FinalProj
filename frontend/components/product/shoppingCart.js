@@ -4,6 +4,11 @@ import styles from '../common/layout.module.css'
 import { useState } from 'react'
 
 export default function ShoppingCart({ item }) {
+  if (typeof window !== 'undefined') {
+    const saveItems = localStorage.getItem('shoppingCart')
+    item = saveItems ? JSON.parse(saveItems) : item
+  }
+
   console.log(item)
   return (
     <>
