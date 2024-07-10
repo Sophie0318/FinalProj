@@ -41,6 +41,8 @@ const getLesson = async (req) => {
     let rows = [];
     
     let code_desc = req.query.code_desc || "";
+    //  關鍵字的參數
+    let keyword = req.query.keyword || "";
     let q_sql = ' WHERE 1 ';
 
     if(code_desc){
@@ -54,6 +56,8 @@ const getLesson = async (req) => {
             )`;
         }
     }
+
+    if (keyword) {q_sql += ` AND l.lesson_name LIKE '%${keyword}%'`; }
 
     const sql = `SELECT 
         l.lesson_id,
@@ -92,6 +96,7 @@ const getLesson = async (req) => {
     }
 
     console.log('Received code_desc:', req.query.code_desc);
+    console.log('Received keyword:', req.query.keyword);
     console.log('Generated SQL:', sql);
 
     return { success, rows };
