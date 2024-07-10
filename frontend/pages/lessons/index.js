@@ -129,7 +129,7 @@ export default function Index() {
               type="text"
               name="search_input"
               className={styles.search_input}
-              placeholder="請輸入地址搜尋..."
+              placeholder="請輸入關鍵字搜尋..."
               value={searchKeyword}
               onChange={handleSearchInputChange}
               onKeyDown={(e) => {
