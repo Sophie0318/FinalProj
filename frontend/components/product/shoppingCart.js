@@ -16,7 +16,7 @@ export default function ShoppingCart({
     if (item.length < 0) return '' //預防裡面沒東西
     for (let i = 0; i < item.length; i++) {
       nextTotal += item[i].qty * item[i].Product_price
-      console.log(nextTotal)
+      // console.log(nextTotal)
     }
     setTotal(nextTotal)
   }
@@ -36,12 +36,12 @@ export default function ShoppingCart({
       // console.log(`Shopping Cart Item: ${JSON.stringify(item)}`)
       // console.log(`shoppingList: ${JSON.stringify(shoppingList)}`)
       calcTotalPrice(item)
-      console.log(total)
+      // console.log(total)
     }
   }, [item]) //每當購物車裡面東西更新，價錢也會更新
-  console.log(calcTotalPrice)
+  // console.log(calcTotalPrice)
 
-  console.log(`shoppingList: ${shoppingList}`)
+  // console.log(`shoppingList: ${shoppingList}`)
   return (
     <>
       <li>

@@ -22,6 +22,7 @@ export default function ProductList() {
   const [page, setPage] = useState(1) // 目前第幾頁
   const [perpage, setPerpage] = useState(10) // 每頁幾筆資料
   const [nameLike, setNameLike] = useState('') // 搜尋關鍵字
+
   // const addData = (product) => {
   //   const newData = { ...product, qty: 1 }
   //   const nextData = [newData, ...data.rows]

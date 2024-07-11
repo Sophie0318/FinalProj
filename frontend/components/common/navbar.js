@@ -83,13 +83,16 @@ export default function Navbar({
               <IoPersonAdd className={`${styles.member}`} />
             </Link>
           </li>
-          <ShoppingCart
-            item={item}
-            increaseItem={increaseItem}
-            decreaseItem={decreaseItem}
-            removeItem={removeItem}
-            // calcTotalPrice={calcTotalPrice}
-          />
+          <div className={`${styles.cartContainer}`}>
+            <ShoppingCart
+              item={item}
+              increaseItem={increaseItem}
+              decreaseItem={decreaseItem}
+              removeItem={removeItem}
+              // calcTotalPrice={calcTotalPrice}
+            />
+            <span className={`${styles.badge}`}>99+</span>
+          </div>
         </ul>
       </header>
 

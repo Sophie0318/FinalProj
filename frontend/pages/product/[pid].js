@@ -60,6 +60,7 @@ export default function ProductDetail() {
     localStorage.setItem('shoppingCart', JSON.stringify(nextItem))
     console.log('button clicked', nextItem)
   }
+
   //遞增
   const increaseItem = (id) => {
     const nextItem = item.map((v) => {
@@ -87,7 +88,6 @@ export default function ProductDetail() {
     setItem(nextItem)
     localStorage.setItem('shoppingCart', JSON.stringify(nextItem))
   }
-  //計算總金額
 
   const getProduct = async (pid) => {
     const url = `http://localhost:3001/product/api/${pid}`
