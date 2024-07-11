@@ -44,7 +44,7 @@ export default function ForgetPassword() {
 
       if (response.ok) {
         alert('密碼已成功更改')
-        router.push('/login') // 重定向到登錄頁面
+        router.push('/users/login') // 重定向到登錄頁面
       } else {
         const data = await response.json()
         alert(`更改密碼失敗: ${data.message}`)
