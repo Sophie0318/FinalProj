@@ -148,6 +148,7 @@
 .cardWrapper {
   width: calc(25% - 18.75px);
   margin-bottom: 25px;
+  flex-grow: 1;
 }
 
 .cardWrapper a {
@@ -165,11 +166,12 @@
   display: flex;
   flex-direction: column;
   transition: transform 0.5s ease-out;
+  white-space: nowrap; /* Prevent line breaks within the card */
+  width: 100%; /* Ensure all cards have the same width */
 }
 
 .lessonCard:hover {
   transform: scale(1.1, 1.1);
-  /* transition: all 0.5s ease-out; */
 }
 
 .imageWrapper {
@@ -180,6 +182,8 @@
 
 .img {
   object-fit: cover;
+  width: 100%; /* Ensure image fits the card's width */
+  height: 100%; /* Ensure image fits the card's height */
   border-radius: 0px 0px 0px 50px;
 }
 
@@ -195,6 +199,8 @@
   font-weight: 700;
   letter-spacing: 3px;
   color: var(--color-black);
+  overflow: hidden; /* Prevent text overflow */
+  text-overflow: ellipsis; /* Add ellipsis if text overflows */
 }
 
 .lessonPrice {
@@ -203,6 +209,8 @@
   font-weight: 700;
   letter-spacing: 3px;
   color: var(--color-black);
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .lessonInfo {
@@ -213,6 +221,32 @@
   letter-spacing: 1.6px;
   line-height: 130%;
   color: var(--color-gray-50);
+  white-space: nowrap; /* Prevent line breaks */
+  overflow: hidden; /* Prevent text overflow */
+  text-overflow: ellipsis; /* Add ellipsis if text overflows */
+}
+
+/* Responsive design */
+@media (max-width: 1024px) {
+  .cardWrapper {
+    width: calc(50% - 12.5px);
+  }
+}
+
+@media (max-width: 768px) {
+  .cardWrapper {
+    width: calc(50% - 12.5px);
+  }
+}
+
+@media (max-width: 375px) {
+  .cardWrapper {
+    width: 100%;
+  }
+
+  .lessonCard {
+    width: 100%;
+  }
 }
 
 @media (max-width: 900px) {
