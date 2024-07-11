@@ -140,24 +140,19 @@
 .cards {
   display: flex;
   flex-wrap: wrap;
-  justify-content: flex-start;
   gap: 25px;
-  width: 100%;
+  justify-content: flex-start;
 }
 
 .cardWrapper {
-  width: calc(25% - 18.75px);
+  width: 280px; /* 固定卡片宽度 */
   margin-bottom: 25px;
-  flex-grow: 1;
-}
-
-.cardWrapper a {
-  text-decoration: none;
-  color: inherit;
-  display: block;
+  flex-grow: 0; /* 防止卡片自动填充空间 */
+  flex-shrink: 0; /* 防止卡片缩小 */
 }
 
 .lessonCard {
+  width: 100%;
   height: 374px;
   border-radius: 40px;
   background-color: var(--color-white);
@@ -166,9 +161,25 @@
   display: flex;
   flex-direction: column;
   transition: transform 0.5s ease-out;
-  white-space: nowrap; /* Prevent line breaks within the card */
-  width: 100%; /* Ensure all cards have the same width */
 }
+.cardWrapper a {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+/* .lessonCard {
+  height: 374px;
+  border-radius: 40px;
+  background-color: var(--color-white);
+  box-shadow: 0px 5px 30px 0px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.5s ease-out;
+  white-space: nowrap; 
+  width: 100%; 
+} */
 
 .lessonCard:hover {
   transform: scale(1.1, 1.1);
