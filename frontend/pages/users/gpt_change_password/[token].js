@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
-import styles from '../../styles/forgot-password.module.css'
-import styles from '../../../'
+import styles from '../../../styles/forgot-password.module.css'
 import UserSignin from '../../../components/layout/user-layout1'
 import TestMyPasswordInput from '@/components/users/test_MyPasswordInput'
 import TestMyBtn from '@/components/users/test_MyBtn'
@@ -34,8 +33,8 @@ export default function ForgetPassword() {
     }
 
     try {
-      // 這裡應該發送 API 請求來更改密碼
-      const response = await fetch('/api/change-password', {
+      // 這裡應該發送請求來更改密碼
+      const response = await fetch('??????????', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
