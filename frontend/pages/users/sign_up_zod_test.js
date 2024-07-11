@@ -44,20 +44,6 @@ const formSchema = z.object({
   stepThree: stepThreeSchema,
 })
 
-const handleSubmit = (e) => {
-  e.preventDefault()
-  const result = formSchema.safeParse(formData)
-  if (result.success) {
-    // 表單驗證成功
-    console.log('註冊成功:', formData)
-    // todo: 註冊成功的madule
-    router.push('sign_in') // 跳到登入頁面
-  } else {
-    // 表單驗證失敗
-    console.log('註冊失敗:', result.error.errors)
-  }
-}
-
 export default function SignUp() {
   const router = useRouter()
   const [step, setStep] = useState(1)
@@ -73,6 +59,16 @@ export default function SignUp() {
     //   alert('密碼不一致，請重新輸入')
     //   return
     // }
+    const result = formSchema.safeParse(formData)
+    if (result.success) {
+      // 表單驗證成功
+      console.log('註冊成功:', formData)
+      // todo: 註冊成功的madule
+      router.push('sign_in') // 跳到登入頁面
+    } else {
+      // 表單驗證失敗
+      console.log('註冊失敗:', result.error.errors)
+    }
 
     console.log('送出', name, email, password)
 

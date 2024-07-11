@@ -71,12 +71,12 @@ export default function SignIn() {
         </form>
 
         <div className={styles.forget_password}>
-          <Link className={styles.a} href="#">
+          <Link className={styles.a} href="forget_password">
             <FaAngleRight />
             <span className={styles.p}>我忘記密碼了</span>
           </Link>
         </div>
-        <a className={styles.a} href="#">
+        <a className={styles.a} href="sign_up">
           <p className={styles.p}>還不是會員?那快點加入我們開始運動吧</p>
         </a>
         <div className={styles.warp2}>
