@@ -1,10 +1,5 @@
 import { useEffect } from 'react'
-import dynamic from 'next/dynamic'
 import '@/styles/globals.scss'
-
-const BootstrapClient = dynamic(() => import('@/components/bootstrap-client'), {
-  ssr: false,
-})
 
 export default function MyApp({ Component, pageProps }) {
   useEffect(() => {
@@ -15,10 +10,5 @@ export default function MyApp({ Component, pageProps }) {
   // 使用自訂在頁面層級的版面(layout)
   const getLayout = Component.getLayout || ((page) => page)
 
-  return getLayout(
-    <>
-      <BootstrapClient />
-      <Component {...pageProps} />
-    </>
-  )
+  return getLayout(<Component {...pageProps} />)
 }
