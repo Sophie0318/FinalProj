@@ -351,7 +351,6 @@ export default function Navbar() {
                       className={`h3-font`}
                       href="/users/sign_in"
                       role="button"
-                      // data-bs-toggle="dropdown"
                       aria-expanded="false"
                     >
                       <div className={styles.navbarSPLink}>還沒有登入哦</div>
