@@ -22,10 +22,11 @@ import { useState, useEffect } from 'react'
 // 也可以用看看 bootstrap offcanvas body scrollable
 export default function Navbar({
   product,
-  item,
+  item = [],
   increaseItem,
   decreaseItem,
   removeItem,
+  // calcTotalPrice,
 }) {
   console.log(product)
 
@@ -87,6 +88,7 @@ export default function Navbar({
             increaseItem={increaseItem}
             decreaseItem={decreaseItem}
             removeItem={removeItem}
+            // calcTotalPrice={calcTotalPrice}
           />
         </ul>
       </header>

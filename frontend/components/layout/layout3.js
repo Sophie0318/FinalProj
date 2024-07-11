@@ -19,10 +19,11 @@ export default function Layout3({
   title = '',
   pageName = 'index',
   product,
-  item,
+  item = [],
   increaseItem,
   decreaseItem,
   removeItem,
+  // calcTotalPrice,
 }) {
   return (
     <>
@@ -35,6 +36,7 @@ export default function Layout3({
         increaseItem={increaseItem}
         decreaseItem={decreaseItem}
         removeItem={removeItem}
+        // calcTotalPrice={calcTotalPrice}
       />
       <div className={`d-flex flex-column`}>
         <PageTitle pageName={pageName} height="255px" />

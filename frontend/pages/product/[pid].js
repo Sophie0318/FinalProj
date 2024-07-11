@@ -87,6 +87,7 @@ export default function ProductDetail() {
     setItem(nextItem)
     localStorage.setItem('shoppingCart', JSON.stringify(nextItem))
   }
+  //計算總金額
 
   const getProduct = async (pid) => {
     const url = `http://localhost:3001/product/api/${pid}`
@@ -125,6 +126,7 @@ export default function ProductDetail() {
       increaseItem={increaseItem}
       decreaseItem={decreaseItem}
       removeItem={removeItem}
+      // calcTotalPrice={calcTotalPrice}
     >
       {/* 卡片輪播 */}
       <div className="container mt-4 ">
@@ -139,6 +141,7 @@ export default function ProductDetail() {
               desc={product.Product_desc}
               name={product.Product_name}
             />
+
             <button className={styles.btnCart} onClick={() => addItem(product)}>
               加入購物車
             </button>

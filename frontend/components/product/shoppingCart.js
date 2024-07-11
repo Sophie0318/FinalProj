@@ -5,11 +5,22 @@ import styles from '../common/layout.module.css'
 import { useState } from 'react'
 
 export default function ShoppingCart({
-  item,
+  item = [],
   increaseItem,
   decreaseItem,
   removeItem,
 }) {
+  const [total, setTotal] = useState(0)
+  const calcTotalPrice = (item) => {
+    let nextTotal = 0
+    if (item.length < 0) return ''
+    for (let i = 0; i < item.length; i++) {
+      nextTotal += item[i].qty * item[i].Product_price
+      console.log(nextTotal)
+    }
+    setTotal(nextTotal)
+  }
+  console.log()
   // if (typeof window !== 'undefined') {
   //   const saveItems = localStorage.getItem('shoppingCart')
   //   item = saveItems ? JSON.parse(saveItems) : item
@@ -24,8 +35,11 @@ export default function ShoppingCart({
       // console.log(`Shopping Cart saveItems: ${saveItems}`)
       // console.log(`Shopping Cart Item: ${JSON.stringify(item)}`)
       // console.log(`shoppingList: ${JSON.stringify(shoppingList)}`)
+      calcTotalPrice(item)
+      console.log(total)
     }
   }, [item])
+  console.log(calcTotalPrice)
 
   console.log(`shoppingList: ${shoppingList}`)
   return (
@@ -125,7 +139,16 @@ export default function ShoppingCart({
                             }}
                           >
                             <IoRemove
-                              onClick={() => decreaseItem(v.Product_id)}
+                              onClick={() => {
+                                const nextQty = v.qty - 1
+                                if (nextQty === 0) {
+                                  if (confirm('這樣會整個刪掉喔!確定嗎?')) {
+                                    removeItem(v.Product_id)
+                                  }
+                                } else {
+                                  decreaseItem(v.Product_id)
+                                }
+                              }}
                             />
                           </div>
                         </div>
@@ -134,7 +157,11 @@ export default function ShoppingCart({
                             style={{
                               marginLeft: '50px',
                             }}
-                            onClick={() => removeItem(v.Product_id)}
+                            onClick={() => {
+                              if (confirm('要刪除嗎?')) {
+                                removeItem(v.Product_id)
+                              }
+                            }}
                           />
                         </div>
                       </div>
@@ -150,7 +177,7 @@ export default function ShoppingCart({
                 }}
               >
                 <p>小計</p>
-                <p>NT$FFFF</p>
+                <p>NT${total}</p>
               </div>
               <div
                 style={{
