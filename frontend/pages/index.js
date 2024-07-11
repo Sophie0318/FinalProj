@@ -8,7 +8,7 @@ import Layout1 from '@/components/layout/layout1'
 import JoinMember from '@/components/joinMember'
 import SwiperCarousel from '@/components/swiperCarousel'
 import LessonCard from '@/components/lessons/lessonCard'
-import CoachCard from '@/components/coaches/coacgCard'
+import CoachCard from '@/components/coaches/coachCard'
 import styles from '@/styles/home.module.css'
 
 // 測試用data

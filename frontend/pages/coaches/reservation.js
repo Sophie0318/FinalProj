@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Layout3 from '@/components/layout/layout3'
 import Carousel from '@/components/carousel'
 import styles from '@/styles/coachReservation.module.css'
-import CoachCard from '@/components/coaches/coacgCard'
+import CoachCard from '@/components/coaches/coachCard'
 import ReserveModal from '@/components/coaches/reserve-modal'
 
 export default function Reservation() {

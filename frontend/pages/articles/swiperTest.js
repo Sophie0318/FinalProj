@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import SwiperCarousel from '@/components/swiperCarousel'
 import dataList from '@/data/Product.json'
 import LessonCard from '@/components/lessons/lessonCard'
-import CoachCard from '@/components/coaches/coacgCard'
+import CoachCard from '@/components/coaches/coachCard'
 import Select from '@/components/common/select/select'
 
 export default function SwiperTest() {

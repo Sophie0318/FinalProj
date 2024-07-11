@@ -3,7 +3,7 @@ import Layout3 from '@/components/layout/layout3'
 import styles from '@/styles/coach.module.css'
 import Carousel from '@/components/carousel'
 import { IoSearch, IoHeart } from 'react-icons/io5'
-import CoachCard from '@/components/coaches/coacgCard'
+import CoachCard from '@/components/coaches/coachCard'
 
 export default function Index() {
   const coaches = [
@@ -26,7 +26,7 @@ export default function Index() {
               type="text"
               name="search_input"
               className={styles.search_input}
-              placeholder="請輸入地址搜尋..."
+              placeholder="請輸入關鍵字搜尋..."
             />
           </div>
           <div className={styles.filter}>

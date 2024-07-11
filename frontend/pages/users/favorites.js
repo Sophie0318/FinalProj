@@ -2,7 +2,7 @@ import React from 'react'
 import LayoutUser from '@/components/layout/user-layout3'
 import BranchCard from '@/components/users/branchCard'
 // 待 import 進文章&場館卡片
-import CoachCard from '@/components/coaches/coacgCard'
+import CoachCard from '@/components/coaches/coachCard'
 import LessonCard from '@/components/lessons/lessonCard'
 import styles from '@/styles/user-profile.module.css'
 
