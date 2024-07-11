@@ -140,19 +140,28 @@
 .cards {
   display: flex;
   flex-wrap: wrap;
-  justify-content: flex-start; /* 在行內平均分配空間 */
+  justify-content: flex-start;
   gap: 25px;
-  width: 100%; /* 確保容器佔滿整個寬度 */
+  width: 100%;
+}
+
+.cardWrapper {
+  width: calc(25% - 18.75px);
+  margin-bottom: 25px;
+}
+
+.cardWrapper a {
+  text-decoration: none;
+  color: inherit;
+  display: block;
 }
 
 .lessonCard {
-  width: calc(25% - 18.75px);
   height: 374px;
   border-radius: 40px;
   background-color: var(--color-white);
   box-shadow: 0px 5px 30px 0px rgba(0, 0, 0, 0.15);
   overflow: hidden;
-  margin-bottom: 25px;
   display: flex;
   flex-direction: column;
 }

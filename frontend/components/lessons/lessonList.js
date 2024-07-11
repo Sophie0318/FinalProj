@@ -1,6 +1,7 @@
 import React from 'react'
 import LessonCard from './lessonCard'
 import styles from '@/styles/lesson.module.css'
+import Link from 'next/link'
 
 const LessonList = ({ lessons }) => {
   console.log('Lessons in LessonList:', lessons)
@@ -8,14 +9,17 @@ const LessonList = ({ lessons }) => {
     <div className={styles.cards}>
       {lessons.length > 0 ? (
         lessons.map((lesson) => (
-          <LessonCard
-            key={lesson.lesson_id}
-            title={lesson.lesson_name}
-            price={`NT$ ${lesson.lesson_price}`}
-            category={lesson.categories}
-            gym={lesson.gym_name}
-            imgSrc={`/${lesson.lesson_img}`}
-          />
+          <div key={lesson.lesson_id} className={styles.cardWrapper}>
+            <Link href={`/lessons/${lesson.lesson_id}`}>
+              <LessonCard
+                title={lesson.lesson_name}
+                price={`NT$ ${lesson.lesson_price}`}
+                category={lesson.categories}
+                gym={lesson.gym_name}
+                imgSrc={`/${lesson.lesson_img}`}
+              />
+            </Link>
+          </div>
         ))
       ) : (
         <p>沒有符合的課程</p>
@@ -23,4 +27,5 @@ const LessonList = ({ lessons }) => {
     </div>
   )
 }
+
 export default LessonList

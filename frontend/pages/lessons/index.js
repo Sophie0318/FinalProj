@@ -7,6 +7,7 @@ import { IoSearch } from 'react-icons/io5'
 import LessonList from '@/components/lessons/lessonList'
 import axios from 'axios'
 import { useCallback } from 'react'
+import Link from 'next/link'
 
 export default function Index() {
   // 用於存儲所有課程的狀態
@@ -18,17 +19,18 @@ export default function Index() {
   //用來儲存關鍵字的狀態
   const [searchKeyword, setSearchKeyword] = useState('')
 
-  // 處理類別選擇變化的函數
+  // 處理類別選擇變化的函數(使用checkbox進行篩選)
   const handleCategoryChange = (code_desc, isChecked) => {
     console.log('handleCategoryChange called:', code_desc, isChecked)
     setSelectedCategories((prev) => {
+      // 如果有選擇類別，就加入陣就加入陣列，沒有就移除
       const newSelectedCategories = isChecked
         ? [...prev, code_desc]
         : prev.filter((cat) => cat !== code_desc)
 
       console.log('New selected categories:', newSelectedCategories)
 
-      // Filter lessons based on selected categories
+      // 只顯示選擇類別的課程
       const newFilteredLessons = allLessons.filter(
         (lesson) =>
           newSelectedCategories.length === 0 ||
