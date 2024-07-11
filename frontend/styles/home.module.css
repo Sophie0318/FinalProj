@@ -354,8 +354,9 @@
   .keyVisualSP {
     display: block;
     position: relative;
-    height: calc(100vh - 70px);
-    width: 100vw;
+    height: calc(100dvh);
+    /* height: calc(100vh - 70px); */
+    /* width: 100vw; */
   }
 
   .heroImage img {
@@ -364,33 +365,37 @@
     top: calc(80px + 10px);
     left: 50%;
     transform: translateX(-50%);
-    z-index: -3;
+    z-index: -5;
   }
 
-  .cta1SP {
+  .cta1 {
     position: absolute;
-    bottom: 0;
-    /* bottom: calc(30px + 50px); */
+    /* bottom: 0; */
+    bottom: calc(30px + 50px);
     left: 0;
     z-index: -1;
-    width: 100vw;
+    /* width: 100vw; */
     margin: 0;
     padding: 0;
+    
   }
 
   /* TODO: solve text stroke issue */
-  .cta1SP h1 {
+  .cta1 h1 {
     text-shadow: 0px 0px 8px var(--color-white);
     -webkit-text-stroke-width: 1;
     -webkit-text-stroke-color: var(--color-old-lace);
+    color: var(--color-midnight-green);
+    font-family: 'Gensen', sans-serif;
+    letter-spacing: 8px;
   }
 
-  .cta1SP li {
+  .cta1 li {
     text-shadow: -1px -1px 0 #fff7e9, 1px -1px 0 #fff7e9, -1px 1px 0 #fff7e9,
       1px 1px 0 #fff7e9;
   }
 
-  .cta1ImgSP > img {
+  .cta1Img > img {
     z-index: -1;
     right: 0;
     bottom: 5px;
@@ -400,13 +405,14 @@
     box-shadow: 0px 5px 30px 0px rgba(0, 0, 0, 0.2);
   }
 
-  .cta1MaskSP {
+  .cta1Mask {
     position: relative;
   }
-  .cta1MaskSP img {
+  .cta1Mask img {
     position: absolute;
     right: 0;
-    top: 0;
+    bottom: calc(-25px - 170px);
     z-index: -2;
   }
+
 }

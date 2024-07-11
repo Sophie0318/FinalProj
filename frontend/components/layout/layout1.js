@@ -11,7 +11,7 @@ export default function Layout1({ children, title = '' }) {
         <title>{title ? title : ''}</title>
       </Head>
       <Navbar />
-      {children}
+      <div className={`d-flex flex-column`}>{children}</div>
       <Footer />
       <BackToTop />
     </>

@@ -103,14 +103,11 @@ export default function Home() {
               <img src="/hero-img-mobile.svg" />
             </div>
 
-            <div
-              className={`${styles.cta1SP}`}
-              style={{ backgroundColor: '#bbb' }}
-            >
+            <div className={`${styles.cta1}`}>
               <div className="container">
                 <div className="row g-0 p-0 m-0">
-                  <h1 className="text-primary">
-                    {`[ 健康 ]`}
+                  <h1>
+                    {`[健康]`}
                     <br />
                     人生第一財富
                   </h1>
@@ -119,10 +116,10 @@ export default function Home() {
                     <li className="h5-font me-2">永續生活 |</li>
                     <li className="h5-font me-2">幸福起點 |</li>
                   </ul>
-                  <div className={`${styles.cta1ImgSP} col-lg-4`}>
+                  <div className={`${styles.cta1Img} col-lg-4`}>
                     <img src="/marisa-howenstine-nFsOlSE9Mn8-unsplash.jpg" />
                   </div>
-                  <div className={`${styles.cta1MaskSP} col-lg-4`}>
+                  <div className={`${styles.cta1Mask} col-lg-4`}>
                     <img src="/hero-mobile-mask.svg" />
                   </div>
                 </div>
