@@ -20,13 +20,22 @@ export default function Layout3({
   pageName = 'index',
   product,
   item,
+  increaseItem,
+  decreaseItem,
+  removeItem,
 }) {
   return (
     <>
       <Head>
         <title>{title ? title : ''}</title>
       </Head>
-      <Navbar product={product} item={item} />
+      <Navbar
+        product={product}
+        item={item}
+        increaseItem={increaseItem}
+        decreaseItem={decreaseItem}
+        removeItem={removeItem}
+      />
       <div className={`d-flex flex-column`}>
         <PageTitle pageName={pageName} height="255px" />
         <section className={styles.whiteSection}>{children}</section>

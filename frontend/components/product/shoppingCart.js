@@ -4,7 +4,12 @@ import { IoCloseSharp, IoAddSharp, IoRemove, IoCart } from 'react-icons/io5'
 import styles from '../common/layout.module.css'
 import { useState } from 'react'
 
-export default function ShoppingCart({ item }) {
+export default function ShoppingCart({
+  item,
+  increaseItem,
+  decreaseItem,
+  removeItem,
+}) {
   // if (typeof window !== 'undefined') {
   //   const saveItems = localStorage.getItem('shoppingCart')
   //   item = saveItems ? JSON.parse(saveItems) : item
@@ -16,9 +21,9 @@ export default function ShoppingCart({ item }) {
     if (typeof window !== 'undefined') {
       const saveItems = localStorage.getItem('shoppingCart')
       setShoppingList(saveItems ? JSON.parse(saveItems) : item)
-      console.log(`Shopping Cart saveItems: ${saveItems}`)
-      console.log(`Shopping Cart Item: ${JSON.stringify(item)}`)
-      console.log(`shoppingList: ${JSON.stringify(shoppingList)}`)
+      // console.log(`Shopping Cart saveItems: ${saveItems}`)
+      // console.log(`Shopping Cart Item: ${JSON.stringify(item)}`)
+      // console.log(`shoppingList: ${JSON.stringify(shoppingList)}`)
     }
   }, [item])
 
@@ -74,62 +79,65 @@ export default function ShoppingCart({ item }) {
                           </li>
                           <li>價格: {v.Product_price}</li>
                         </ul>
+                        <div
+                          className="d-flex"
+                          style={{ height: '30px', marginTop: '70px' }}
+                        >
+                          <div
+                            style={{
+                              border: '1px solid black',
+                              backgroundColor: '#1A394A',
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyItems: 'center',
+                              color: 'white',
+                              fontSize: '30px',
+                            }}
+                          >
+                            <IoAddSharp
+                              onClick={() => increaseItem(v.Product_id)}
+                            />
+                          </div>
+                          <div
+                            style={{
+                              backgroundColor: 'white',
+                              color: '#1a394a',
+                              width: '30px',
+                              border: '1px solid black',
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyItems: 'center',
+                              paddingLeft: '8px',
+                              fontSize: '25px',
+                            }}
+                          >
+                            {v.qty}
+                          </div>
+                          <div
+                            style={{
+                              backgroundColor: '#1A394A',
+                              border: '1px solid black',
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyItems: 'center',
+                              color: 'white',
+                              fontSize: '30px',
+                            }}
+                          >
+                            <IoRemove
+                              onClick={() => decreaseItem(v.Product_id)}
+                            />
+                          </div>
+                        </div>
                       </div>
                     )
                   })}
-
                 <div>
                   <IoCloseSharp
                     style={{
                       marginLeft: '50px',
                     }}
                   />
-                  <div
-                    className="d-flex"
-                    style={{ height: '30px', marginTop: '70px' }}
-                  >
-                    <div
-                      style={{
-                        border: '1px solid black',
-                        backgroundColor: '#1A394A',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyItems: 'center',
-                        color: 'white',
-                        fontSize: '30px',
-                      }}
-                    >
-                      <IoAddSharp />
-                    </div>
-                    <div
-                      style={{
-                        backgroundColor: 'white',
-                        color: '#1a394a',
-                        width: '30px',
-                        border: '1px solid black',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyItems: 'center',
-                        paddingLeft: '8px',
-                        fontSize: '25px',
-                      }}
-                    >
-                      4
-                    </div>
-                    <div
-                      style={{
-                        backgroundColor: '#1A394A',
-                        border: '1px solid black',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyItems: 'center',
-                        color: 'white',
-                        fontSize: '30px',
-                      }}
-                    >
-                      <IoRemove />
-                    </div>
-                  </div>
                 </div>
               </div>
               <div

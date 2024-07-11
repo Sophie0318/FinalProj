@@ -22,13 +22,69 @@ export default function ProductDetail() {
     Product_image: '',
     Product_qty: 1,
   })
-  const [item, setItem] = useState([]) // 購物車陣列)
+  // const [item, setItem] = useState([]) // 購物車陣列)
+  // const addItem = (product) => {
+  //   const newItem = { ...product, qty: 1 }
+  //   const nextItem = [newItem, ...item]
+  //   setItem(nextItem)
+  //   localStorage.setItem('shoppingCart', JSON.stringify(nextItem))
+  //   console.log('button clicked', item)
+  // }
+  const [item, setItem] = useState(() => {
+    if (typeof window !== 'undefined') {
+      const savedItems = localStorage.getItem('shoppingCart')
+      return savedItems ? JSON.parse(savedItems) : []
+    }
+    return []
+  }) // 購物車陣列  如果在客戶端環境中（即瀏覽器中），就從 localStorage 中讀取名為 'shoppingCart' 的資料。如果資料存在，則將其解析為 JSON 格式，作為初始的 item 狀態；如果資料不存在或者無法解析，則初始為空陣列 []
+
   const addItem = (product) => {
-    const newItem = { ...product, qty: 1 }
-    const nextItem = [newItem, ...item]
+    const existingItem = item.find(
+      (cartItem) => cartItem.Product_id === product.Product_id
+    )
+
+    let nextItem
+
+    if (existingItem) {
+      nextItem = item.map((cartItem) =>
+        cartItem.Product_id === product.Product_id
+          ? { ...cartItem, qty: cartItem.qty + 1 }
+          : cartItem
+      )
+    } else {
+      const newItem = { ...product, qty: 1 }
+      nextItem = [newItem, ...item]
+    }
+
     setItem(nextItem)
     localStorage.setItem('shoppingCart', JSON.stringify(nextItem))
-    console.log('button clicked', item)
+    console.log('button clicked', nextItem)
+  }
+  //遞增
+  const increaseItem = (id) => {
+    const nextItem = item.map((v) => {
+      if (v.Product_id === id) return { ...v, qty: v.qty + 1 }
+      else return v
+    })
+    setItem(nextItem)
+    localStorage.setItem('shoppingCart', JSON.stringify(nextItem))
+  }
+
+  //遞減
+  const decreaseItem = (id) => {
+    const nextItem = item.map((v) => {
+      if (v.Product_id === id && v.qty > 1) return { ...v, qty: v.qty - 1 }
+      else return v
+    })
+    setItem(nextItem)
+    localStorage.setItem('shoppingCart', JSON.stringify(nextItem))
+  }
+  //移除
+  const removeItem = (id) => {
+    const nextItem = item.filter((v) => {
+      return v.id !== id
+    })
+    setItem(nextItem)
   }
 
   const getProduct = async (pid) => {
@@ -62,7 +118,13 @@ export default function ProductDetail() {
   }, [router.isReady]) //這部分設置了 useEffect 的依賴項。當 router.isReady 的值改變時，useEffect 會被重新調用。
 
   return (
-    <Layout3 product={product} item={item}>
+    <Layout3
+      product={product}
+      item={item}
+      increaseItem={increaseItem}
+      decreaseItem={decreaseItem}
+      removeItem={removeItem}
+    >
       {/* 卡片輪播 */}
       <div className="container mt-4 ">
         <div className="row">
