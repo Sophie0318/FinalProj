@@ -174,9 +174,10 @@ router.get('/categories', async (req, res) => {
     }
   });
 
-router.get("/api", async (req, res) => {
+  router.get("/api", async (req, res) => {
     try {
         const data = await getCoach(req);
+        console.log("API response data:", data);  // 添加這行用於調試
         res.json(data);
     } catch (error) {
         console.error(error);
