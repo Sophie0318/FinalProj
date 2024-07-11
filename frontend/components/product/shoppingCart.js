@@ -129,16 +129,17 @@ export default function ShoppingCart({
                             />
                           </div>
                         </div>
+                        <div>
+                          <IoCloseSharp
+                            style={{
+                              marginLeft: '50px',
+                            }}
+                            onClick={() => removeItem(v.Product_id)}
+                          />
+                        </div>
                       </div>
                     )
                   })}
-                <div>
-                  <IoCloseSharp
-                    style={{
-                      marginLeft: '50px',
-                    }}
-                  />
-                </div>
               </div>
               <div
                 className="d-flex"

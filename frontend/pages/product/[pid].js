@@ -82,9 +82,10 @@ export default function ProductDetail() {
   //移除
   const removeItem = (id) => {
     const nextItem = item.filter((v) => {
-      return v.id !== id
+      return v.Product_id !== id
     })
     setItem(nextItem)
+    localStorage.setItem('shoppingCart', JSON.stringify(nextItem))
   }
 
   const getProduct = async (pid) => {
