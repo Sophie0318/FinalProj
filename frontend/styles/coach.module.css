@@ -132,12 +132,15 @@
 
 .coachCards {
   display: flex;
-  display: flex;
-  align-items: flex-start;
-  align-content: flex-start;
-  gap: 25px;
-  align-self: stretch;
   flex-wrap: wrap;
+  justify-content: flex-start; /* 改为 flex-start 以确保从左到右排列 */
+  gap: 25px;
+  width: 100%;
+}
+
+.cardWrapper {
+  width: 280px; /* 与 coachCard.module.css 中的宽度相同 */
+  margin-bottom: 25px; /* 添加底部边距，与 gap 相同 */
 }
 
 @media (max-width: 900px) {

@@ -1,12 +1,12 @@
 import React from 'react'
 import CoachCard from './coachCard'
-import styles from '@/styles/lesson.module.css'
+import styles from '@/styles/coach.module.css' // 更改为正确的 CSS 模块
 import Link from 'next/link'
 
 const CoachList = ({ coaches }) => {
   console.log('Coaches in CoachList:', coaches)
   return (
-    <div className={styles.cards}>
+    <div className={styles.coachCards}>
       {coaches && coaches.length > 0 ? (
         coaches.map((coach) => (
           <div key={coach.coach_id} className={styles.cardWrapper}>

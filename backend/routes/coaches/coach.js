@@ -176,14 +176,71 @@ router.get('/categories', async (req, res) => {
 
   router.get("/api", async (req, res) => {
     try {
-        const data = await getCoach(req);
-        console.log("API response data:", data);  // 添加這行用於調試
-        res.json(data);
+      const { code_desc, keyword } = req.query;
+  
+      let sql = `
+        SELECT 
+            c.coach_id,
+            c.coach_name,
+            c.coach_phone,
+            c.coach_gender,
+            c.coach_info,
+            c.coach_price,
+            c.create_date,
+            c.update_at,
+            GROUP_CONCAT(DISTINCT ct.code_desc ORDER BY ct.code_desc SEPARATOR '/') AS skills,
+            ci.coach_img,
+            g.gym_name AS gym
+        FROM 
+            Coaches c
+        JOIN 
+            CoachSkills cs ON c.coach_id = cs.coach_id
+        JOIN 
+            CommonType ct ON cs.commontype_id = ct.commontype_id
+        JOIN 
+            CoachImgs ci ON c.coachImgs_id = ci.coachImgs_id
+        JOIN 
+            Gyms g ON c.gym_id = g.gym_id
+      `;
+  
+      const whereConditions = [];
+      const params = [];
+  
+      if (code_desc) {
+        const categories = code_desc.split('-');
+        whereConditions.push(`c.coach_id IN (
+            SELECT DISTINCT cs2.coach_id 
+            FROM CoachSkills cs2 
+            JOIN CommonType ct2 ON cs2.commontype_id = ct2.commontype_id 
+            WHERE ct2.code_desc IN (${categories.map(() => '?').join(',')})
+        )`);
+        params.push(...categories);
+      }
+  
+      if (keyword) {
+        whereConditions.push(`(c.coach_name LIKE ? OR c.coach_info LIKE ?)`);
+        params.push(`%${keyword}%`, `%${keyword}%`);
+      }
+  
+      if (whereConditions.length > 0) {
+        sql += ` WHERE ${whereConditions.join(' AND ')}`;
+      }
+  
+      sql += `
+        GROUP BY 
+            c.coach_id, g.gym_name, ci.coach_img
+        ORDER BY 
+            c.coach_id DESC
+      `;
+  
+      const [rows] = await db.query(sql, params);
+  
+      res.json({ success: true, rows });
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ success: false, error: 'Internal Server Error' });
+      console.error(error);
+      res.status(500).json({ success: false, error: 'Internal Server Error' });
     }
-});
+  });
 
 router.get("/api/:id", async (req, res) => {
     const { id } = req.params;

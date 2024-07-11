@@ -18,11 +18,15 @@ export default function Index() {
         ? [...prev, code_desc]
         : prev.filter((cat) => cat !== code_desc)
 
+      console.log('New selected categories:', newSelectedCategories)
+
+      // 只顯示選擇類別的課程
       const newFilteredCoaches = allCoaches.filter(
         (coach) =>
           newSelectedCategories.length === 0 ||
-          newSelectedCategories.some((cat) => coach.skills.includes(cat))
+          newSelectedCategories.includes(coach.categories)
       )
+      console.log('Filtered lessons:', newFilteredCoaches)
       setFilteredCoaches(newFilteredCoaches)
 
       return newSelectedCategories
@@ -57,8 +61,27 @@ export default function Index() {
   }
 
   useEffect(() => {
+    const fetchCoaches = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:3001/coaches/api${
+            selectedCategories.length > 0
+              ? `?code_desc=${selectedCategories.join('-')}`
+              : ''
+          }`
+        )
+        console.log('API response:', response.data)
+        if (response.data.success) {
+          setAllCoaches(response.data.rows)
+          setFilteredCoaches(response.data.rows)
+        }
+      } catch (error) {
+        console.error('Error fetching lessons:', error)
+      }
+    }
+
     fetchCoaches()
-  }, [fetchCoaches])
+  }, [selectedCategories, fetchCoaches])
 
   return (
     <Layout3 title="教練列表" pageName="coaches">
