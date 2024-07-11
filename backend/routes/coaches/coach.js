@@ -4,20 +4,83 @@ import moment from "moment-timezone";
 import upload from "./../../utils/upload-imgs.js";
 const router = express.Router();
 
-const getCoachType = async (req) => {
+const getCoachById = async (req) => {
+    // 根據課程ID獲取單個教練的詳細信息，找到指定教練
+      let success = false;
+      let coach = null;
+      const coachId = req.params.id;
+  
+      const sql = `SELECT 
+    c.coach_id,
+    c.coach_name,
+    c.coach_phone,
+    c.coach_gender,
+    c.coach_info,
+    c.coach_price,
+    c.create_date,
+    c.update_at,
+    GROUP_CONCAT(DISTINCT ct.code_desc ORDER BY ct.code_desc SEPARATOR '、') AS skills,
+    ci.coach_img,
+    g.gym_name AS gym
+FROM 
+    Coaches c
+JOIN 
+    CoachSkills cs ON c.coach_id = cs.coach_id
+JOIN 
+    CommonType ct ON cs.commontype_id = ct.commontype_id
+JOIN 
+    CoachImgs ci ON c.coachImgs_id = ci.coachImgs_id
+JOIN 
+    Gyms g ON c.gym_id = g.gym_id
+WHERE 
+        c.coach_id = ?
+GROUP BY 
+    c.coach_id, g.gym_name, ci.coach_img`;
+  
+          try {
+              // 執行 SQL 查詢
+              const [rows] = await db.query(sql, [coachId]);
+              if (rows.length > 0) {
+                  coach = rows[0];
+                  success = true;
+              }
+          } catch (error) {
+              console.error('Error fetching lesson by id:', error);
+          }
+      
+          return { success, lesson };
+  };
+
+  const getCoachCategories = async () => {
+    // 搜尋教練技能類別
     let success = false;
     let categories = [];
   
-    const sql = `SELECT * FROM CommonType WHERE code_type = 4;`;
-    [categories] = await db.query(sql);
+    try {
+      const sql = `SELECT code_desc FROM CommonType WHERE code_type = 4;`;
+      [categories] = await db.query(sql);
+      success = true;
+    } catch (error) {
+      console.error('Error fetching coach categories:', error);
+    }
   
-    success = true;
-    return {
-        success,
-        categories,
-        qs: req.query
-    };
-};
+    return { success, categories };
+  };
+
+// const getCoachType = async (req) => {
+//     let success = false;
+//     let categories = [];
+  
+//     const sql = `SELECT * FROM CommonType WHERE code_type = 4;`;
+//     [categories] = await db.query(sql);
+  
+//     success = true;
+//     return {
+//         success,
+//         categories,
+//         qs: req.query
+//     };
+// };
 
 const getCoach = async (req) => {
     let success = false;
@@ -96,6 +159,21 @@ router.get('/coaches', async (req, res) => {
     }
 });
 
+// 得到課程類別
+router.get('/categories', async (req, res) => {
+    try {
+      const data = await getCoachCategories();  // 使用正確的函數名
+      if (data.success) {
+        res.json(data);
+      } else {
+        res.status(404).json({ success: false, message: 'No categories found' });
+      }
+    } catch (error) {
+      console.error('Route error:', error);
+      res.status(500).json({ success: false, error: 'Internal Server Error' });
+    }
+  });
+
 router.get("/api", async (req, res) => {
     try {
         const data = await getCoach(req);
@@ -105,5 +183,49 @@ router.get("/api", async (req, res) => {
         res.status(500).json({ success: false, error: 'Internal Server Error' });
     }
 });
+
+router.get("/api/:id", async (req, res) => {
+    const { id } = req.params;
+    try {
+        const sql = `
+        SELECT 
+    c.coach_id,
+    c.coach_name,
+    c.coach_phone,
+    c.coach_gender,
+    c.coach_info,
+    c.coach_price,
+    c.create_date,
+    c.update_at,
+    GROUP_CONCAT(DISTINCT ct.code_desc ORDER BY ct.code_desc SEPARATOR '、') AS skills,
+    ci.coach_img,
+    g.gym_name AS gym
+FROM 
+    Coaches c
+JOIN 
+    CoachSkills cs ON c.coach_id = cs.coach_id
+JOIN 
+    CommonType ct ON cs.commontype_id = ct.commontype_id
+JOIN 
+    CoachImgs ci ON c.coachImgs_id = ci.coachImgs_id
+JOIN 
+    Gyms g ON c.gym_id = g.gym_id
+WHERE 
+        c.coach_id = ?
+GROUP BY 
+    c.coach_id, g.gym_name, ci.coach_img
+      `;
+  
+      const [rows] = await db.query(sql, [id]);
+      if (rows.length > 0) {
+        res.json({ success: true, coach: rows[0] });
+      } else {
+        res.status(404).json({ success: false, message: 'Coach not found' });
+      }
+    } catch (error) {
+      console.error('Error fetching coach:', error);
+      res.status(500).json({ success: false, message: 'Server error' });
+    }
+  });
 
 export default router;
