@@ -10,10 +10,10 @@ export default function ShoppingCart({
   decreaseItem,
   removeItem,
 }) {
-  const [total, setTotal] = useState(0)
+  const [total, setTotal] = useState(0) //計算金錢，因金錢是變動的，所以用useState
   const calcTotalPrice = (item) => {
     let nextTotal = 0
-    if (item.length < 0) return ''
+    if (item.length < 0) return '' //預防裡面沒東西
     for (let i = 0; i < item.length; i++) {
       nextTotal += item[i].qty * item[i].Product_price
       console.log(nextTotal)
@@ -38,7 +38,7 @@ export default function ShoppingCart({
       calcTotalPrice(item)
       console.log(total)
     }
-  }, [item])
+  }, [item]) //每當購物車裡面東西更新，價錢也會更新
   console.log(calcTotalPrice)
 
   console.log(`shoppingList: ${shoppingList}`)
