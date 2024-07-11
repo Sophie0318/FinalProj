@@ -1,19 +1,9 @@
 import express from 'express';
 const router = express.Router();
 import db from "../../utils/connect-mysql.js";
+import userController from '../../controllers/userController.js';
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-
-
-// router.get('/', (req, res) => {
-//     // 假設這裡有一個用戶資料庫
-//     const users = [
-//         { id: 1, name: '小明' },
-//         { id: 2, name: '小王' },
-//     ];
-// });
-
-
 
 // 會員註冊 把會員在簽端填的資料寫入database
 router.post('/add', async (req, res) => {
@@ -118,14 +108,11 @@ router.post("/login-jwt", async (req, res) => {
         res.status(500).json(output);
     }
 });
+//忘記密碼的路由
+router.post("/test_forget_password", userController.forgotPassword);
 
 
 
 
 
 export default router;
-
-
-// postman:
-// "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjAsImVtYWlsIjoibmV3bmV3QG5ld25ldy5jb20iLCJpYXQiOjE3MjA0OTkwMjZ9.Rhb5L3mbry6-MxXIW8cKV_nDbGQYGdVF8HWsu_qTfQE"
-// "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjAsImVtYWlsIjoibmV3bmV3QG5ld25ldy5jb20iLCJpYXQiOjE3MjA0OTkwMjZ9.Rhb5L3mbry6-MxXIW8cKV_nDbGQYGdVF8HWsu_qTfQE"
