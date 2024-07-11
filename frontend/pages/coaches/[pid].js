@@ -3,32 +3,67 @@ import Layout3 from '@/components/layout/layout3'
 import Carousel from '@/components/carousel'
 import styles from '@/styles/coachDetail.module.css'
 import { IoCall, IoHeart } from 'react-icons/io5'
+import axios from 'axios'
+import { useRouter } from 'next/router'
 
 export default function Detail() {
   const [isClicked, setIsClicked] = useState(false)
+  const [coach, setCoach] = useState(null)
+  const router = useRouter()
+  const { pid } = router.query
+  const [isLoading, setIsLoading] = useState(true)
+
+  useEffect(() => {
+    const fetchCoach = async () => {
+      if (pid) {
+        setIsLoading(true)
+        try {
+          const response = await axios.get(
+            `http://localhost:3001/coaches/api/${pid}`
+          )
+          if (response.data.success) {
+            setCoach(response.data.coach)
+          } else {
+            console.error('API request was not successful:', response.data)
+          }
+        } catch (error) {
+          console.error('Error fetching coach:', error)
+        } finally {
+          setIsLoading(false)
+        }
+      }
+    }
+
+    fetchCoach()
+  }, [pid])
 
   const handleClick = () => {
     setIsClicked(!isClicked)
   }
 
+  if (isLoading) {
+    return <div>Loading...</div>
+  }
+
+  if (!coach) {
+    return <div>No coach found</div>
+  }
   return (
     <>
       <Layout3 title="教練列表" pageName="coaches">
         <div className={styles.content}>
           <div className={styles.coach}>
             <div className={styles.imgContainer}>
-              <img src="/coach4.jpg" className={styles.img} />
+              <img src={`/${coach?.coach_img}`} className={styles.img} />
             </div>
             <div className={styles.coachText}>
               <div className={styles.coachInfo}>
-                <div className={styles.coachName}> 李安妮 教練</div>
-                <div className={styles.coachGym}>地點：黑皮健身房</div>
+                <div className={styles.coachName}> {coach.coach_name} 教練</div>
+                <div className={styles.coachGym}>地點：{coach.gym}</div>
               </div>
               <div className={styles.desc}>
                 <div className={styles.descTitle}>教練描述</div>
-                <p className={styles.coachDesc}>
-                  我們的專業教練李安妮專精於心肺功能訓練和增肌運動，特別針對銀髮族設計課程。安妮教練擁有多年經驗，致力於幫助長者提升體能和增強肌肉力量。她溫柔細心，善於調整訓練計劃，確保每位長者都能在安全的環境中運動。加入我們，與安妮教練一起，享受健康活力的生活！
-                </p>
+                <p className={styles.coachDesc}>{coach.coach_info}</p>
               </div>
               <div className={styles.btn}>
                 <button className={`${styles.btnLike}`} onClick={handleClick}>

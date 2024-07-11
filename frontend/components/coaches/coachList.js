@@ -14,7 +14,7 @@ const CoachList = ({ coaches }) => {
               <CoachCard
                 name={coach.coach_name}
                 skill={coach.skills}
-                imgSrc={`${coach.coach_img}`}
+                imgSrc={`/${coach.coach_img}`}
               />
             </Link>
           </div>
