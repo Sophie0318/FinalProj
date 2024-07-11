@@ -5,6 +5,7 @@ import upload from "./../../utils/upload-imgs.js";
 const router = express.Router();
 
 const getLessonById = async (req) => {
+  // 根據課程ID獲取單個課程的詳細信息
     let success = false;
     let lesson = null;
     const lessonId = req.params.id;
@@ -38,6 +39,7 @@ const getLessonById = async (req) => {
         l.lesson_id`;
 
         try {
+            // 執行 SQL 查詢
             const [rows] = await db.query(sql, [lessonId]);
             if (rows.length > 0) {
                 lesson = rows[0];
@@ -51,6 +53,7 @@ const getLessonById = async (req) => {
 };
 
 const getLessonCategories = async () => {
+   // 獲取所有課程類別
     let success = false;
     let categories = [];
   
@@ -65,23 +68,23 @@ const getLessonCategories = async () => {
     return { success, categories };
   };
 
-//
-const getLessonType = async (req) => {
-    let success = false;
-    let categories = [];
+// const getLessonType = async (req) => {
+//     let success = false;
+//     let categories = [];
   
-    const sql = `SELECT * FROM CommonType WHERE code_type = 4;`;
-    [categories] = await db.query(sql);
+//     const sql = `SELECT * FROM CommonType WHERE code_type = 4;`;
+//     [categories] = await db.query(sql);
   
-    success = true;
-    return {
-        success,
-        categories,
-        qs: req.query
-    };
-};
+//     success = true;
+//     return {
+//         success,
+//         categories,
+//         qs: req.query
+//     };
+// };
 
 const getLesson = async (req) => {
+  // 獲取課程列表，支持按類別和關鍵字篩選
     let success = false;
     let rows = [];
     
@@ -90,6 +93,7 @@ const getLesson = async (req) => {
     let keyword = req.query.keyword || "";
     let q_sql = ' WHERE 1 ';
 
+    // 篩選類別
     if(code_desc){
         const categories = code_desc.split('-');
         if (categories.length > 0) {
@@ -102,6 +106,7 @@ const getLesson = async (req) => {
         }
     }
 
+    // 篩選關鍵字
     if (keyword) {q_sql += ` AND l.lesson_name LIKE '%${keyword}%'`; }
 
     const sql = `SELECT 
@@ -134,6 +139,7 @@ const getLesson = async (req) => {
         l.lesson_id DESC`;
 
     try {
+      // 執行數據庫查詢
         [rows] = await db.query(sql);
         success = true;
     } catch (error) {
@@ -147,6 +153,7 @@ const getLesson = async (req) => {
     return { success, rows };
 };
 
+// 獲取課程列表頁面
 router.get('/lessons', async (req, res) => {
     try {
         const data = await getLesson(req);
@@ -162,6 +169,7 @@ router.get('/lessons', async (req, res) => {
     }
 });
 
+// 得到課程類別
 router.get('/categories', async (req, res) => {
     try {
       const data = await getLessonCategories();
@@ -176,6 +184,7 @@ router.get('/categories', async (req, res) => {
     }
   });
 
+// 獲取課程列表 API
 router.get("/api", async (req, res) => {
     try {
         const data = await getLesson(req);
@@ -186,6 +195,7 @@ router.get("/api", async (req, res) => {
     }
 });
 
+// 獲取單個課程詳情 API
 router.get("/api/:id", async (req, res) => {
     const { id } = req.params;
     try {
