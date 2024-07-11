@@ -367,9 +367,10 @@
     z-index: -3;
   }
 
-  .cta1 {
+  .cta1SP {
     position: absolute;
-    bottom: calc(30px + 50px);
+    bottom: 0;
+    /* bottom: calc(30px + 50px); */
     left: 0;
     z-index: -1;
     width: 100vw;
@@ -378,18 +379,18 @@
   }
 
   /* TODO: solve text stroke issue */
-  .cta1 h1 {
+  .cta1SP h1 {
     text-shadow: 0px 0px 8px var(--color-white);
     -webkit-text-stroke-width: 1;
     -webkit-text-stroke-color: var(--color-old-lace);
   }
 
-  .cta1 li {
+  .cta1SP li {
     text-shadow: -1px -1px 0 #fff7e9, 1px -1px 0 #fff7e9, -1px 1px 0 #fff7e9,
       1px 1px 0 #fff7e9;
   }
 
-  .cta1Img > img {
+  .cta1ImgSP > img {
     z-index: -1;
     right: 0;
     bottom: 5px;
@@ -399,10 +400,13 @@
     box-shadow: 0px 5px 30px 0px rgba(0, 0, 0, 0.2);
   }
 
-  .cta1Mask img {
+  .cta1MaskSP {
+    position: relative;
+  }
+  .cta1MaskSP img {
     position: absolute;
-    right: -41px;
-    top: -94px;
+    right: 0;
+    top: 0;
     z-index: -2;
   }
 }

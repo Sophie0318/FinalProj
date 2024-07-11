@@ -8,7 +8,7 @@ export default function IndexPhoto() {
     <>
       <div
         className="container-fluid"
-        style={{ paddingLeft: '0px', paddingRight: '0px' }}
+        // style={{ paddingLeft: '0px', paddingRight: '0px' }}
       >
         <div className="row">
           <div className="col-12 col-md-6 position-relative p-0">

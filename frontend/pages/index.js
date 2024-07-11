@@ -103,7 +103,10 @@ export default function Home() {
               <img src="/hero-img-mobile.svg" />
             </div>
 
-            <div className={`${styles.cta1}`}>
+            <div
+              className={`${styles.cta1SP}`}
+              style={{ backgroundColor: '#bbb' }}
+            >
               <div className="container">
                 <div className="row g-0 p-0 m-0">
                   <h1 className="text-primary">
@@ -116,10 +119,10 @@ export default function Home() {
                     <li className="h5-font me-2">永續生活 |</li>
                     <li className="h5-font me-2">幸福起點 |</li>
                   </ul>
-                  <div className={`${styles.cta1Img} col-lg-4`}>
+                  <div className={`${styles.cta1ImgSP} col-lg-4`}>
                     <img src="/marisa-howenstine-nFsOlSE9Mn8-unsplash.jpg" />
                   </div>
-                  <div className={`${styles.cta1Mask} col-lg-4`}>
+                  <div className={`${styles.cta1MaskSP} col-lg-4`}>
                     <img src="/hero-mobile-mask.svg" />
                   </div>
                 </div>
@@ -156,7 +159,7 @@ export default function Home() {
                 </div>
               </div>
 
-              <div className={`container-fluid px-0 mx-0`}>
+              <div className={`container-fluid mx-0`}>
                 <div className={`row m-0 justify-content-center`}>
                   <h3 className={`${styles.cta2ListTitlePC}`}>
                     你是不是有這些困擾呢？
