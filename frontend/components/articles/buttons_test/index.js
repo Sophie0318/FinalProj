@@ -40,12 +40,15 @@ const btnOrLinkMap = {
 export default function Btn({
   children,
   size = 'lg',
+  width = '100%',
+  maxWidth = '250px',
   bgColor = 'midnightgreen',
   btnOrLink = 'button', // 按鈕要作為 <Link> 還是普通按鈕
   hrefURL = '/', // 只有在 btnOrLink = link 的時候有作用
   shadow = false, // 決定要不要加預設陰影
+  className = '', // 自定義className
   onClick = () => {},
-  ...props
+  ...props // 直接輸入像 height:"100px" 樣式語法, 作用跟style={{ }}一樣
 }) {
   // size, bgColor 偵測輸入的值 & 防呆
   const sizeClass = styles[sizeMap[size]] || styles.lg
@@ -59,6 +62,7 @@ export default function Btn({
     sizeClass,
     bgColorClass,
     shadow ? shadow : '',
+    className,
   ]
     .filter(Boolean)
     .join(' ')
@@ -70,12 +74,18 @@ export default function Btn({
         <Link
           className={`${classNames} ${styles.link}`}
           href={hrefURL}
-          {...props}
+          style={{ width: `${width}`, maxWidth: `${maxWidth}`, ...props }}
         >
           {children}
         </Link>
       ) : (
-        <button className={classNames} onClick={onClick} {...props}>
+        <button
+          className={`${classNames} ${styles.customBtn}`}
+          onClick={onClick}
+          {...props}
+          style={{ width: `${width}`, maxWidth: `${maxWidth}`, ...props }}
+        >
+          {/* <span>{children}</span> */}
           {children}
         </button>
       )}

@@ -1,7 +1,8 @@
-// import './default_layout.css'
+import React from 'react'
 import Navbar from '../common/navbar'
 import Footer from '../common/footer/'
 import Head from 'next/head'
+import BackToTop from '../common/buttons/back-to-top'
 
 export default function Layout1({ children, title = '' }) {
   return (
@@ -10,8 +11,9 @@ export default function Layout1({ children, title = '' }) {
         <title>{title ? title : ''}</title>
       </Head>
       <Navbar />
-      {children}
+      <div className={`d-flex flex-column`}>{children}</div>
       <Footer />
+      <BackToTop />
     </>
   )
 }

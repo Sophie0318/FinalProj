@@ -1,12 +1,11 @@
 import React from 'react'
 import Link from 'next/link'
-import { BtnLg } from '../common/buttons'
 import styles from './joinMember.module.css'
 
-export default function JoinMember() {
+export default function JoinMember({ className = '' }) {
   return (
     <>
-      <section className={`${styles.joinMember}`}>
+      <section className={`${className} ${styles.joinMember}`}>
         <div className="container fixed-960 py-0 px-3">
           <div className="row flex-column align-items-center p-0 m-0">
             <div

@@ -5,14 +5,18 @@ import Link from 'next/link'
 
 // 樣式 or 元件類
 import Layout1 from '@/components/layout/layout1'
+import Btn from '@/components/articles/buttons_test'
 import JoinMember from '@/components/joinMember'
-import SwiperCarousel from '@/components/swiperCarousel'
+import CardCarousel from '@/components/swiperCarousel/cardCarousel'
 import LessonCard from '@/components/lessons/lessonCard'
-import CoachCard from '@/components/coaches/coachCard'
+import CoachCard from '@/components/coaches/coacgCard'
+import ArticleCard from '@/components/articles/article-card'
 import styles from '@/styles/home.module.css'
 
 // 測試用data
-import dataList from '@/data/Product.json'
+import ArticleData from '@/data/FakeArticles.json'
+import LessonData from '@/data/FavLessons.json'
+import CoachData from '@/data/FavCoaches.json'
 
 // TODO: carousel 的 separater 的右邊緣要對其 joinMember card
 // TODO: 首頁keyVisual_SP滑動動畫優化, 參考 kacco
@@ -21,21 +25,43 @@ import dataList from '@/data/Product.json'
 // viewport height 參考 kacco
 
 export default function Home() {
-  const [data, setData] = useState([])
+  const [articleData, setArticleData] = useState([])
+  const [lessonData, setLessonData] = useState([])
+  const [coachData, setCoachData] = useState([])
 
-  const renderCard = (item) => {
+  const renderArticleCard = (data = {}) => {
     return (
-      <LessonCard
-        title={item.name}
-        price={item.price}
-        category={item.stock}
+      <ArticleCard
+        title={data.article_title}
+        update_at={data.update_at}
+        category={data.article_subtype}
         imgSrc="/defaultImg.png"
       />
     )
   }
 
+  const renderLessonCard = (data = {}) => {
+    return (
+      <LessonCard
+        title={data.title}
+        price={data.price}
+        gym={data.gym}
+        category={data.category}
+        imgSrc="/defaultImg.png"
+      />
+    )
+  }
+
+  const renderCoachCard = (data = {}) => {
+    return (
+      <CoachCard name={data.name} skill={data.skill} imgSrc="/defaultImg.png" />
+    )
+  }
+
   useEffect(() => {
-    setData(dataList)
+    setArticleData(ArticleData)
+    setLessonData(LessonData)
+    setCoachData(CoachData)
   }, [])
 
   return (
@@ -63,7 +89,7 @@ export default function Home() {
                   <div
                     className={`${styles.heroImage} col-12 d-flex justify-content-end`}
                   >
-                    <img src="/hero-img.svg" />
+                    <img src="/index-img/hero-img.svg" />
                   </div>
                 </div>
               </div>
@@ -73,7 +99,7 @@ export default function Home() {
               <div className="container fixed-960 p-0">
                 <div className="row g-0 justify-content-md-between justify-content-center mx-3">
                   <div className={`${styles.cta1Img} col-md-5 col-6`}>
-                    <img src="/marisa-howenstine-nFsOlSE9Mn8-unsplash.jpg" />
+                    <img src="/index-img/marisa-howenstine-nFsOlSE9Mn8-unsplash.jpg" />
                   </div>
                   <div className="col-md-7 col-5 ps-4">
                     <h3>活力無限，擁抱健康</h3>
@@ -82,13 +108,15 @@ export default function Home() {
                       <br />
                       讓我們活到老，動到老！
                     </p>
-                    <Link
-                      href="/"
-                      className={`${styles.link} ${styles.lg} ${styles.midnightgreen} rounded-pill`}
-                      style={{ maxWidth: '312px' }}
+                    <Btn
+                      size="lg"
+                      bgColor="midnightgreen"
+                      btnOrLink="link"
+                      hrefURL="/gyms"
+                      maxWidth="312px"
                     >
                       找場館
-                    </Link>
+                    </Btn>
                   </div>
                 </div>
               </div>
@@ -97,14 +125,14 @@ export default function Home() {
 
           <section className={`${styles.keyVisualSP}`}>
             <div className={`${styles.heroImage}`}>
-              <img src="/hero-img-mobile.svg" />
+              <img src="/index-img/hero-img-mobile.svg" />
             </div>
 
             <div className={`${styles.cta1}`}>
               <div className="container">
                 <div className="row g-0 p-0 m-0">
-                  <h1 className="text-primary">
-                    {`[ 健康 ]`}
+                  <h1>
+                    {`[健康]`}
                     <br />
                     人生第一財富
                   </h1>
@@ -114,10 +142,10 @@ export default function Home() {
                     <li className="h5-font me-2">幸福起點 |</li>
                   </ul>
                   <div className={`${styles.cta1Img} col-lg-4`}>
-                    <img src="/marisa-howenstine-nFsOlSE9Mn8-unsplash.jpg" />
+                    <img src="/index-img/marisa-howenstine-nFsOlSE9Mn8-unsplash.jpg" />
                   </div>
                   <div className={`${styles.cta1Mask} col-lg-4`}>
-                    <img src="/hero-mobile-mask.svg" />
+                    <img src="/index-img/hero-mobile-mask.svg" />
                   </div>
                 </div>
               </div>
@@ -139,19 +167,22 @@ export default function Home() {
                 </div>
                 <div className={`${styles.cta2Btn} row`}>
                   <div className="col d-flex justify-content-center">
-                    <Link
-                      href="/"
-                      className={`${styles.link} ${styles.thin2} ${styles.midnightgreen} rounded-pill`}
-                      style={{ width: '100%', maxWidth: '210px' }}
+                    <Btn
+                      size="thin2"
+                      bgColor="midnightgreen"
+                      btnOrLink="link"
+                      hrefURL="/gyms"
+                      width="100%"
+                      maxWidth="210px"
                     >
                       找場館
-                    </Link>
+                    </Btn>
                   </div>
                 </div>
               </div>
 
-              <div className={`container-fluid p-0`}>
-                <div className={`row p-0 m-0 justify-content-center`}>
+              <div className={`container-fluid mx-0`}>
+                <div className={`row m-0 justify-content-center`}>
                   <h3 className={`${styles.cta2ListTitlePC}`}>
                     你是不是有這些困擾呢？
                   </h3>
@@ -172,7 +203,7 @@ export default function Home() {
                       {'['}01{']'}
                     </h4>
                     <h5>你會膝蓋痛嗎？</h5>
-                    <img src="/knee.svg" className="d-block" />
+                    <img src="/index-img/knee.svg" className="d-block" />
                     <p>
                       膝蓋痛是否讓你很困擾？為何不試著透過運動來緩解呢？快快來加入我們吧！
                     </p>
@@ -184,7 +215,7 @@ export default function Home() {
                       {'['}02{']'}
                     </h4>
                     <h5>生活很無聊嗎？</h5>
-                    <img src="/bored.svg" className="d-block" />
+                    <img src="/index-img/bored.svg" className="d-block" />
                     <p>
                       運動是改善心情的最佳良方！從今天開始，每天花點時間運動，身心煥然一新。
                     </p>
@@ -196,7 +227,7 @@ export default function Home() {
                       {'['}03{']'}
                     </h4>
                     <h5>常常想睡嗎？</h5>
-                    <img src="/sleepy.svg" className="d-block" />
+                    <img src="/index-img/sleepy.svg" className="d-block" />
                     <p>
                       想開始運動卻不知道能去哪裡嗎？點選下方按鈕，輸入您的地址來尋找場館吧！
                     </p>
@@ -204,22 +235,26 @@ export default function Home() {
                 </div>
                 <div className={`row`}>
                   <div className={`${styles.cta2BtnPC}`}>
-                    <Link
-                      href="/"
-                      className={`${styles.link} ${styles.lg} ${styles.midnightgreen} rounded-pill`}
-                      style={{ width: '100%', maxWidth: '312px' }}
+                    <Btn
+                      size="lg"
+                      bgColor="midnightgreen"
+                      btnOrLink="link"
+                      hrefURL="/gyms"
+                      maxWidth="312px"
                     >
                       找解答
-                    </Link>
+                    </Btn>
                   </div>
                   <div className={`${styles.cta2BtnSP}`}>
-                    <Link
-                      href="/"
-                      className={`${styles.link} ${styles.thin2} ${styles.midnightgreen} rounded-pill`}
-                      style={{ width: '100%', maxWidth: '210px' }}
+                    <Btn
+                      size="thin2"
+                      bgColor="midnightgreen"
+                      btnOrLink="link"
+                      hrefURL="/gyms"
+                      maxWidth="210px"
                     >
                       找解答
-                    </Link>
+                    </Btn>
                   </div>
                 </div>
               </div>
@@ -230,28 +265,36 @@ export default function Home() {
                 <div className="col-md-3 d-flex justify-content-md-end justify-content-center align-items-center">
                   <h3 className="my-0">熱門課程</h3>
                 </div>
-                <div className="col-md-9 ps-3">
-                  <SwiperCarousel data={data} renderItem={renderCard} />
+                <div className="col-md-9 ps-3 py-5 overflow-hidden">
+                  <CardCarousel
+                    cardMaxWidth="fit-content"
+                    data={LessonData}
+                    renderItem={renderLessonCard}
+                  />
                 </div>
               </div>
               <div className="row px-0 mx-0 g-0">
                 <div className={`${styles.carouselBtnPC}`}>
-                  <Link
-                    href="/"
-                    className={`${styles.link} ${styles.lg} ${styles.midnightgreen} rounded-pill`}
-                    style={{ width: '100%', maxWidth: '312px' }}
+                  <Btn
+                    size="lg"
+                    bgColor="midnightgreen"
+                    btnOrLink="link"
+                    hrefURL="/lessons"
+                    maxWidth="312px"
                   >
                     找課程
-                  </Link>
+                  </Btn>
                 </div>
                 <div className={`${styles.carouselBtnSP}`}>
-                  <Link
-                    href="/"
-                    className={`${styles.link} ${styles.thin2} ${styles.midnightgreen} rounded-pill`}
-                    style={{ width: '100%', maxWidth: '210px' }}
+                  <Btn
+                    size="thin2"
+                    bgColor="midnightgreen"
+                    btnOrLink="link"
+                    hrefURL="/lessons"
+                    maxWidth="210px"
                   >
                     找課程
-                  </Link>
+                  </Btn>
                 </div>
               </div>
             </section>
@@ -261,28 +304,36 @@ export default function Home() {
                 <div className="col-md-3 d-flex justify-content-md-end justify-content-center align-items-center">
                   <h3 className="my-0">熱門教練</h3>
                 </div>
-                <div className="col-md-9 ps-3">
-                  <SwiperCarousel />
+                <div className="col-md-9 ps-3 py-5 overflow-hidden">
+                  <CardCarousel
+                    cardMaxWidth="fit-content"
+                    data={CoachData}
+                    renderItem={renderCoachCard}
+                  />
                 </div>
               </div>
               <div className="row px-0 mx-0 g-0">
                 <div className={`${styles.carouselBtnPC}`}>
-                  <Link
-                    href="/"
-                    className={`${styles.link} ${styles.lg} ${styles.midnightgreen} rounded-pill`}
-                    style={{ width: '100%', maxWidth: '312px' }}
+                  <Btn
+                    size="lg"
+                    bgColor="midnightgreen"
+                    btnOrLink="link"
+                    hrefURL="/lessons"
+                    maxWidth="312px"
                   >
                     找教練
-                  </Link>
+                  </Btn>
                 </div>
                 <div className={`${styles.carouselBtnSP}`}>
-                  <Link
-                    href="/"
-                    className={`${styles.link} ${styles.thin2} ${styles.midnightgreen} rounded-pill`}
-                    style={{ width: '100%', maxWidth: '210px' }}
+                  <Btn
+                    size="thin2"
+                    bgColor="midnightgreen"
+                    btnOrLink="link"
+                    hrefURL="/lessons"
+                    maxWidth="210px"
                   >
                     找教練
-                  </Link>
+                  </Btn>
                 </div>
               </div>
             </section>
@@ -292,29 +343,36 @@ export default function Home() {
                 <div className="col-md-3 d-flex justify-content-md-end justify-content-center align-items-center">
                   <h3 className="my-0">熱門文章</h3>
                 </div>
-                <div className="col-md-9 ps-3">
-                  <SwiperCarousel />
+                <div className="col-md-9 ps-3 py-5 overflow-hidden">
+                  <CardCarousel
+                    cardMaxWidth="350px"
+                    data={ArticleData}
+                    renderItem={renderArticleCard}
+                  />
                 </div>
               </div>
-
               <div className="row px-0 mx-0 g-0">
                 <div className={`${styles.carouselBtnPC}`}>
-                  <Link
-                    href="/"
-                    className={`${styles.link} ${styles.lg} ${styles.midnightgreen} rounded-pill`}
-                    style={{ width: '100%', maxWidth: '312px' }}
+                  <Btn
+                    size="lg"
+                    bgColor="midnightgreen"
+                    btnOrLink="link"
+                    hrefURL="/lessons"
+                    maxWidth="312px"
                   >
                     找文章
-                  </Link>
+                  </Btn>
                 </div>
                 <div className={`${styles.carouselBtnSP}`}>
-                  <Link
-                    href="/"
-                    className={`${styles.link} ${styles.thin2} ${styles.midnightgreen} rounded-pill`}
-                    style={{ width: '100%', maxWidth: '210px' }}
+                  <Btn
+                    size="thin2"
+                    bgColor="midnightgreen"
+                    btnOrLink="link"
+                    hrefURL="/lessons"
+                    maxWidth="210px"
                   >
                     找文章
-                  </Link>
+                  </Btn>
                 </div>
               </div>
             </section>

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import Layout2 from '@/components/layout/layout2'
-import SearchBar from '@/components/common/searchbar/searchbar'
-import SwiperCarousel from '@/components/swiperCarousel'
+import Layout3 from '@/components/layout/layout3'
+import SearchSection from '@/components/articles/search-section'
+// import SwiperCarousel from '@/components/swiperCarousel'
 import Link from 'next/link'
 import styles from './articles.module.css'
 
@@ -16,10 +16,14 @@ export default function Articles() {
   //     })
   // }, [])
 
-  // TODO: 找熟齡學習的圖片
   return (
     <>
-      <Layout2 title="文章列表" pageName="articles">
+      <Layout3
+        title="文章列表"
+        pageName="articles"
+        height="179px"
+        section="flatSection"
+      >
         <section>
           <div className={`${styles.articleTypes}`}>
             <div className={`${styles.typeGrid}`}>
@@ -55,9 +59,7 @@ export default function Articles() {
             <div className="col-md-3 d-flex justify-content-md-end justify-content-center align-items-center">
               <h3 className="my-0">最新文章</h3>
             </div>
-            <div className="col-md-9 ps-3">
-              <SwiperCarousel />
-            </div>
+            <div className="col-md-9 ps-3">{/* <SwiperCarousel /> */}</div>
           </div>
         </section>
 
@@ -66,21 +68,12 @@ export default function Articles() {
             <div className="col-md-3 d-flex justify-content-md-end justify-content-center align-items-center">
               <h3 className="my-0">熱門文章</h3>
             </div>
-            <div className="col-md-9 ps-3">
-              <SwiperCarousel />
-            </div>
+            <div className="col-md-9 ps-3">{/* <SwiperCarousel /> */}</div>
           </div>
         </section>
 
-        <section className={`${styles.search}`}>
-          <div className="container fixed-960 px-3">
-            <div className="row flex-column justify-content-center align-items-center px-0 mx-0 g-0">
-              <h4>找其他文章</h4>
-              <SearchBar maxWidth="960px" />
-            </div>
-          </div>
-        </section>
-      </Layout2>
+        <SearchSection />
+      </Layout3>
     </>
   )
 }

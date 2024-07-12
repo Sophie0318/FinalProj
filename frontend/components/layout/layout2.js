@@ -1,8 +1,9 @@
-// import './default_layout.css'
+import React from 'react'
 import Navbar from '../common/navbar'
 import Footer from '../common/footer'
 import PageTitle from '../common/page-title'
 import Head from 'next/head'
+import BackToTop from '../common/buttons/back-to-top'
 
 // 副標題要依照每個分支改的話可以輸入pageName
 // index -> 首頁(預設)
@@ -28,6 +29,7 @@ export default function Layout2({
       <PageTitle pageName={pageName} height={height} />
       {children}
       <Footer />
+      <BackToTop />
     </>
   )
 }

@@ -1,8 +1,9 @@
-// import './default_layout.css'
+import React from 'react'
 import Navbar from '../common/navbar'
 import Footer from '../common/footer'
 import PageTitle from '../common/page-title'
 import Head from 'next/head'
+import BackToTop from '../common/buttons/back-to-top'
 import styles from './layout3.module.css'
 
 // 副標題要依照每個分支改的話可以輸入pageName
@@ -18,13 +19,16 @@ export default function Layout3({
   children,
   title = '',
   pageName = 'index',
-  product,
-  item = [],
-  increaseItem,
-  decreaseItem,
-  removeItem,
-  // calcTotalPrice,
+  height = '229px',
+  section = 'whiteSection',
 }) {
+  const sectionMap = {
+    whiteSection: 'whiteSection',
+    flatSection: 'flatSection',
+  }
+
+  const sectionResult = styles[sectionMap[section]] || styles.whiteSection
+
   return (
     <>
       <Head>
@@ -39,10 +43,11 @@ export default function Layout3({
         // calcTotalPrice={calcTotalPrice}
       />
       <div className={`d-flex flex-column`}>
-        <PageTitle pageName={pageName} height="255px" />
-        <section className={styles.whiteSection}>{children}</section>
+        <PageTitle pageName={pageName} height={height} />
+        <section className={sectionResult}>{children}</section>
       </div>
       <Footer />
+      <BackToTop />
     </>
   )
 }

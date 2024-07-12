@@ -1,23 +1,40 @@
 import React from 'react'
+import ArticleCard from '@/components/articles/article-card'
 import Layout3 from '@/components/layout/layout3'
 import SearchBar from '@/components/common/searchbar/searchbar'
+import SearchSection from '@/components/articles/search-section'
 import styles from '../type.module.css'
 
-const articleList = Array(12).fill(1)
+// 測試用資料
+import data from '@/data/FakeArticles.json'
+
+const renderCard = (item) => {
+  return (
+    <ArticleCard
+      title={item.article_title}
+      category={item.article_subtype}
+      update_at={item.update_at}
+      imgSrc={item.articleImg_name}
+    />
+  )
+}
 
 export default function ArticleType() {
+  const articleList = data || Array(12).fill(1)
+
   return (
     <>
-      <Layout3 title="體能鍛鍊" pageName="articles">
+      <Layout3 title="體能鍛鍊" pageName="articles" section="whiteSection">
         <section className={styles.padding80}>
-          <div className="container-fluid p-0">
+          <div className="container-fluid p-0 overflow-visible">
             <div className="row px-0 mx-0">
               <div
                 className={`${styles.titleRow} col-12 d-flex justify-content-between align-items-center`}
               >
                 <h4 className="text-primary">體能鍛鍊</h4>
-                {/* TODO: NEXT searchbar RWD  */}
-                <SearchBar maxWidth="351px" className={styles.searchbarPC} />
+                <div className={styles.searchbarPC}>
+                  <SearchBar maxWidth="351px" />
+                </div>
               </div>
               {articleList.map((v, i) => {
                 return (
@@ -25,17 +42,7 @@ export default function ArticleType() {
                     className={`${styles.card} col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12`}
                     key={i}
                   >
-                    <div
-                      className="d-flex justify-content-center align-items-center"
-                      style={{
-                        backgroundColor: '#bbb',
-                        height: '392px',
-                        width: '100%',
-                        borderRadius: '40px',
-                      }}
-                    >
-                      <a href="/articles/1">{v}</a>
-                    </div>
+                    {renderCard(v)}
                   </div>
                 )
               })}
@@ -54,6 +61,10 @@ export default function ArticleType() {
               </div>
             </div>
           </div>
+        </section>
+
+        <section className={styles.searchbarSP}>
+          <SearchSection />
         </section>
       </Layout3>
     </>

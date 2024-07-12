@@ -207,6 +207,10 @@
   margin-bottom: 86px;
 }
 
+.joinMemberMargin {
+  margin-top: 110px
+}
+
 /* 為了解決困擾卡片在 1178px 會出現跑版的斷點 */
 @media (max-width: 1300px) {
   .knee {
@@ -350,8 +354,9 @@
   .keyVisualSP {
     display: block;
     position: relative;
-    height: calc(100vh - 70px);
-    width: 100vw;
+    height: calc(100dvh);
+    /* height: calc(100vh - 70px); */
+    /* width: 100vw; */
   }
 
   .heroImage img {
@@ -360,17 +365,19 @@
     top: calc(80px + 10px);
     left: 50%;
     transform: translateX(-50%);
-    z-index: -3;
+    z-index: -5;
   }
 
   .cta1 {
     position: absolute;
+    /* bottom: 0; */
     bottom: calc(30px + 50px);
     left: 0;
     z-index: -1;
-    width: 100vw;
+    /* width: 100vw; */
     margin: 0;
     padding: 0;
+    
   }
 
   /* TODO: solve text stroke issue */
@@ -378,6 +385,9 @@
     text-shadow: 0px 0px 8px var(--color-white);
     -webkit-text-stroke-width: 1;
     -webkit-text-stroke-color: var(--color-old-lace);
+    color: var(--color-midnight-green);
+    font-family: 'Gensen', sans-serif;
+    letter-spacing: 8px;
   }
 
   .cta1 li {
@@ -395,10 +405,14 @@
     box-shadow: 0px 5px 30px 0px rgba(0, 0, 0, 0.2);
   }
 
+  .cta1Mask {
+    position: relative;
+  }
   .cta1Mask img {
     position: absolute;
-    right: -41px;
-    top: -94px;
+    right: 0;
+    bottom: calc(-25px - 170px);
     z-index: -2;
   }
+
 }

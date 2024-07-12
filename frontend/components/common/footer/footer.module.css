@@ -48,54 +48,6 @@
   line-height: 160%;
 }
 
-.backto_top {
-  display: flex;
-  padding: 40px 0 30px 0;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 5px;
-  min-width: 72px;
-  min-height: 120px;
-  border-radius: 43px 0 0 0;
-  position: fixed;
-  bottom: 0px;
-  right: 0px;
-  /* display: none; */
-  /* Initially hidden */
-  background-color: #ffc800;
-  color: black;
-  border: none;
-  cursor: pointer;
-  font-family: 'Gensen', sans-serif;
-  font-size: 16px;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  transition: opacity 1s ease, bottom 1s ease;
-  animation: slideUp 1s forwards;
-}
-
-.backto_top_icon {
-  height: 18px;
-  width: 18px;
-}
-
-@keyframes slideUp {
-  0% {
-    bottom: -50px;
-
-    opacity: 0;
-  }
-
-  100% {
-    bottom: 0px;
-    opacity: 1;
-  }
-}
-
-.backto_top:hover {
-  background-color: #d1a402;
-}
-
 .copyRight {
   font-family: 'Huninn', sans-serif;
   font-size: 16px;

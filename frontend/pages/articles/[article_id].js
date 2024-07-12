@@ -1,29 +1,98 @@
-import React from 'react'
+// 功能類
+import { useEffect, useState, useRef } from 'react'
+import { useRouter } from 'next/router'
 import Link from 'next/link'
+
+// 元件 + 樣式
 import Layout3 from '@/components/layout/layout3'
 import Btn from '@/components/articles/buttons_test'
 import ArticleSidebar from '@/components/articles/article-sidebar'
-import SwiperCarousel from '@/components/swiperCarousel'
+import ArticleCard from '@/components/articles/article-card'
+// import SwiperCarousel from '@/components/swiperCarousel'
 import styles from './articleId.module.css'
 
 export default function ArticlePage() {
+  const router = useRouter()
+  const [showSidebar, setShowSidebar] = useState(false)
+  const [articles, setArticles] = useState([])
+  const articleRef = useRef(null)
+
+  const renderCard = (item) => {
+    return (
+      <ArticleCard
+        title="枯木逢春訓練法是什麼？大豬教練與你分享銀髮族..."
+        category="體能鍛鍊"
+        update_at="2024.05.16"
+        imgSrc="/articles-img/240117_voice03.png"
+      />
+      // <ArticleCard
+      //   title={item.article_title}
+      //   category={item.article_subtype}
+      //   update_at={item.update_at}
+      //   imgSrc={item.article_cover}
+      // />
+    )
+  }
+
+  const getArticleList = async () => {
+    try {
+      console.log(router.query)
+      const res = await fetch(
+        `http://localhost:3001/articles/api?${new URLSearchParams(
+          router.query
+        )}`
+      )
+      const resData = await res.json()
+      setArticles(resData)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  useEffect(() => {
+    if (router.isReady) {
+      getArticleList()
+    }
+
+    // 設定手機sidebar, 讓他可以依照視窗滑到哪就顯示或隱藏
+    const options = {
+      root: null,
+      threshold: 0,
+      rootMargin: '-650px 0px 0px 0px',
+    }
+    const observer = new IntersectionObserver(([entry]) => {
+      console.log(entry)
+      setShowSidebar(entry.isIntersecting)
+    }, options)
+    if (articleRef.current) {
+      observer.observe(articleRef.current)
+    }
+    return () => {
+      if (articleRef.current) {
+        observer.unobserve(articleRef.current)
+      }
+    }
+  }, [router.isReady, articles])
   return (
     <>
       <Layout3 title="文章頁面" pageName="articles">
-        <main className={`${styles.article} container`}>
+        <main ref={articleRef} className={`${styles.article} container`}>
           <aside className={styles.sidebarTrack}>
-            <ArticleSidebar />
+            <ArticleSidebar
+              showSidebar={showSidebar}
+              pageLoaded={router.isReady}
+            />
           </aside>
           <article className="row mx-0">
             <div className="d-flex flex-column mx-0">
               <h3 className={`${styles.articleTitle} text-primary`}>
                 49歲騎單車減18公斤！台大醫師：健康中年生活享受無比
               </h3>
-              <div className="d-flex">
-                <div className={`${styles.articleAuthor} w-50`}>
+              <div className={styles.articleInfo}>
+                <div className={`${styles.articleAuthor} w-md-50 w-100`}>
                   作者：林芳如
                 </div>
-                <div className={`${styles.articleUpdateAt} w-50`}>
+                <div className={`${styles.articleUpdateAt} w-md-50 w-100`}>
                   最後更新：2024.03.08
                 </div>
               </div>
@@ -79,25 +148,34 @@ export default function ArticlePage() {
 
         <section className={`${styles.author} bg-secondary`}>
           <div className="container fixed-960 p-0">
-            <div className="row g-0 justify-content-between mx-3">
-              <div className={`${styles.authorImg} col-lg-5 col-5`}>
-                <img src="/marisa-howenstine-nFsOlSE9Mn8-unsplash.jpg" />
+            <div className="row g-0 justify-content-md-between justify-content-center mx-3">
+              <div className={`${styles.authorImg} col-md-5 col-12`}>
+                <img src="/articles-img/bruce-mars-WGN6ZEFEZbs-unsplash.jpg" />
               </div>
-              <div className="col-lg-7 col-6">
-                <div className="row px-0">
-                  <h3>關於作者 - Ola 喬教練</h3>
-                  <p>
-                    小時候成績最爛科目是體育，現在卻成為健身教練。服務的客群多是想要減重塑身的女性，也透過肌力訓練、功能性訓練，幫助了不少人解決身體長期疼痛的問題。
-                  </p>
-                  <div className="col">
-                    <Btn
-                      size="lg"
-                      bgColor="midnightgreen"
-                      style={{ width: '100%', maxWidth: '312px' }}
-                    >
-                      了解更多
-                    </Btn>
-                  </div>
+              <div className="col-md-7 col-12 ps-4">
+                <h3>關於作者 - Ola 喬教練</h3>
+                <p>
+                  小時候成績最爛科目是體育，現在卻成為健身教練。服務的客群多是想要減重塑身的女性，也透過肌力訓練、功能性訓練，幫助了不少人解決身體長期疼痛的問題。
+                </p>
+                <div className="row g-0 justify-content-md-start justify-content-center">
+                  <Btn
+                    className={styles.authorBtnPC}
+                    size="lg"
+                    bgColor="midnightgreen"
+                    width="100%"
+                    maxWidth="312px"
+                  >
+                    了解更多
+                  </Btn>
+                  <Btn
+                    className={styles.authorBtnSP}
+                    size="thin"
+                    bgColor="midnightgreen"
+                    width="100%"
+                    maxWidth="173px"
+                  >
+                    了解更多
+                  </Btn>
                 </div>
               </div>
             </div>
@@ -110,7 +188,7 @@ export default function ArticlePage() {
               <h3 className="my-0">延伸閱讀</h3>
             </div>
             <div className="col-md-9 ps-3">
-              <SwiperCarousel />
+              {/* <SwiperCarousel data={articles} renderItem={renderCard} /> */}
             </div>
           </div>
         </section>
@@ -133,13 +211,16 @@ export default function ArticlePage() {
                 <p>
                   保持活力，永不嫌晚！閱讀完文章後，立即找到附近的健身房，開始您的健身之旅吧！
                 </p>
-                <div className="d-flex justify-content-between w-100">
+                <div
+                  className={`${styles.ctaBtnPC} justify-content-between w-100`}
+                >
                   <Btn
                     size="lg"
                     bgColor="midnightgreen"
                     btnOrLink="link"
-                    hrefURL="/"
-                    style={{ width: '100%', maxWidth: '278px' }}
+                    hrefURL="/articles"
+                    width="100%"
+                    maxWidth="270px"
                   >
                     前往地圖
                   </Btn>
@@ -147,8 +228,33 @@ export default function ArticlePage() {
                     size="lg"
                     bgColor="midnightgreen"
                     btnOrLink="link"
-                    hrefURL="/"
-                    style={{ width: '100%', maxWidth: '278px' }}
+                    hrefURL="/articles"
+                    width="100%"
+                    maxWidth="270px"
+                  >
+                    文章首頁
+                  </Btn>
+                </div>
+                <div
+                  className={`${styles.ctaBtnSP} justify-content-between w-100`}
+                >
+                  <Btn
+                    size="thin"
+                    bgColor="midnightgreen"
+                    btnOrLink="link"
+                    hrefURL="/gyms"
+                    width="100%"
+                    maxWidth="100%"
+                  >
+                    前往地圖
+                  </Btn>
+                  <Btn
+                    size="thin"
+                    bgColor="midnightgreen"
+                    btnOrLink="link"
+                    hrefURL="/gyms"
+                    width="100%"
+                    maxWidth="100%"
                   >
                     文章首頁
                   </Btn>
