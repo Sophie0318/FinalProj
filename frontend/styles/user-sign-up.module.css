@@ -60,6 +60,7 @@
 }
 .form{
     width: 100%;
+    max-width: 420px;
 }
 
 @media screen and (max-width: 800px) {
@@ -80,6 +81,9 @@
     }
     .btn_md_back{
         width: 100%;
+    }
+    .form{
+      width: 100%;
     }
   }
 

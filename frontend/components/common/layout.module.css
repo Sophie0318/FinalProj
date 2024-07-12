@@ -90,8 +90,8 @@
   margin-right: 10px;
   height: 32px;
   width: 32px;
+  border-radius: 50%;
 }
-
 .icons .cart {
   color: black;
   margin-right: 10px;

@@ -11,9 +11,11 @@ import {
   IoChevronDown,
 } from 'react-icons/io5'
 import { PiMapPinFill, PiLightbulbFilamentFill } from 'react-icons/pi'
-import { FaArrowRight } from 'react-icons/fa6'
+import { FaArrowRight, FaPersonRunning } from 'react-icons/fa6'
 import styles from './layout.module.css'
 import { IoAddSharp, IoRemove, IoCloseSharp } from 'react-icons/io5'
+import { useAuth } from '../../context/auth-context'
+const defaultAvatar = 'http://localhost:3001/users/' // 用來做預設頭像的位置
 import ShoppingCart from '../product/shoppingCart'
 import { useState, useEffect } from 'react'
 import { useCart } from '@/hooks/product/use-cart'
@@ -22,6 +24,7 @@ import { useCart } from '@/hooks/product/use-cart'
 // TODO: toggle button 會蓋住scrollbar, 也參考kacco
 // 也可以用看看 bootstrap offcanvas body scrollable
 export default function Navbar() {
+  const { auth, logout } = useAuth()
   const {
     product,
     item,
@@ -85,7 +88,6 @@ export default function Navbar() {
             </Link>
           </li>
         </ul>
-
         <ul className={`${styles.icons}`}>
           <li>
             <Link href="/users/profile">
@@ -152,57 +154,90 @@ export default function Navbar() {
                 <IoCloseOutline className={`${styles.closeBtnIcon}`} />
               </button>
             </div>
-
+            {/* 判斷是否登入 */}
+            {/* 若是有登入就顯示會員大頭貼與nick_name或是name*/}
             <div className="row p-0 m-0 flex-column justify-content-between h-100">
               <ul className={`${styles.icons} col-12`}>
                 <li>
-                  <Link
-                    className={`h3-font`}
-                    href="#"
-                    role="button"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                  >
-                    <img
-                      className={`${styles.memberAvatar}`}
-                      src="/test_avatar.png"
-                    />
-                    <div className={styles.navbarSPLink}>你阿罵</div>
-                    <IoChevronDown />
-                  </Link>
-                  <ul className="dropdown-menu">
-                    <li>
+                  {auth.id ? (
+                    <>
                       <Link
-                        className="dropdown-item"
-                        href="/users/profile/edit"
+                        className={`h3-font`}
+                        href="#"
+                        role="button"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
                       >
-                        我的檔案
+                        <img
+                          className={`${styles.memberAvatar}`}
+                          src={`${defaultAvatar}${auth.avatar}`}
+                        />
+                        {/* 登入的會員若沒有暱稱則顯示姓名 */}
+                        <div className={styles.navbarSPLink}>
+                          {' '}
+                          {auth.nick_name ? auth.nick_name : auth.name}
+                        </div>
+                        <IoChevronDown />
                       </Link>
-                    </li>
-                    <li>
-                      <Link className="dropdown-item" href="/users/bookings">
-                        我的預約
-                      </Link>
-                    </li>
-                    <li>
-                      <Link
-                        className="dropdown-item"
-                        href="/users/lessons_orders"
-                      >
-                        我的課程
-                      </Link>
-                    </li>
-                    <li>
-                      <Link className="dropdown-item" href="/users/orders">
-                        歷史訂單
-                      </Link>
-                    </li>
-                    <li>
-                      <Link className="dropdown-item" href="/users/favorites">
-                        我的收藏
-                      </Link>
-                    </li>
-                  </ul>
+                      <ul className="dropdown-menu">
+                        <li>
+                          <Link
+                            className="dropdown-item"
+                            href="/users/profile/edit"
+                          >
+                            我的檔案
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            className="dropdown-item"
+                            href="/users/bookings"
+                          >
+                            我的預約
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            className="dropdown-item"
+                            href="/users/lessons_orders"
+                          >
+                            我的課程
+                          </Link>
+                        </li>
+                        <li>
+                          <Link className="dropdown-item" href="/users/orders">
+                            歷史訂單
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            className="dropdown-item"
+                            href="/users/favorites"
+                          >
+                            我的收藏
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            className="dropdown-item"
+                            href="/"
+                            onClick={() => logout()}
+                          >
+                            登出
+                          </Link>
+                        </li>
+                      </ul>
+                    </>
+                  ) : (
+                    <Link
+                      className={`h3-font`}
+                      href="/users/sign_in"
+                      role="button"
+                      aria-expanded="false"
+                    >
+                      <div className={styles.navbarSPLink}>還沒有登入哦</div>
+                    </Link>
+                  )}
                 </li>
                 <li>
                   <IoCart
