@@ -1,12 +1,38 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import styles from '@/styles/lessonCheckout.module.css'
 import { IoCard } from 'react-icons/io5'
 import SuccessModal from '@/components/lessons/success-modal'
 import FailureModal from '@/components/lessons/fail-modal'
+import { useRouter } from 'next/router'
+import axios from 'axios'
 
 export default function Checkout() {
   const [showSuccessModal, setShowSuccessModal] = useState(false)
-  const [showFailModalm, setShowFailModal] = useState(false)
+  const [showFailModal, setShowFailModal] = useState(false)
+  const [lesson, setLesson] = useState(null)
+  const router = useRouter()
+  const { lessonId } = router.query
+
+  useEffect(() => {
+    const fetchLesson = async () => {
+      if (lessonId) {
+        try {
+          const response = await axios.get(
+            `http://localhost:3001/lessons/api/${lessonId}`
+          )
+          if (response.data.success) {
+            setLesson(response.data.lesson)
+          } else {
+            console.error('API request was not successful:', response.data)
+          }
+        } catch (error) {
+          console.error('Error fetching lesson:', error)
+        }
+      }
+    }
+
+    fetchLesson()
+  }, [lessonId])
 
   const handlePayment = () => {
     setShowSuccessModal(true)
@@ -24,23 +50,27 @@ export default function Checkout() {
     setShowFailModal(false)
   }
 
+  if (!lesson) {
+    return <div>Loading...</div>
+  }
+
   return (
     <>
       <div className={styles.contain}>
         <div className={styles.title}>1、檢視您的訂單</div>
         <div className={styles.check}>
           <div className={styles.imgContain}>
-            <img src="/course1.jpg" />
+            <img src={`/${lesson.lesson_img}`} />
           </div>
           <div className={styles.infos}>
-            <div className={styles.infoN}>活力瑜珈</div>
-            <div className={styles.infoT}>時間：5/29 09:00</div>
-            <div className={styles.infoT}>地點：黑皮健身房</div>
+            <div className={styles.infoN}>{lesson.lesson_name}</div>
+            <div className={styles.infoT}>時間：{lesson.lesson_date}</div>
+            <div className={styles.infoT}>地點：{lesson.gym_name}</div>
           </div>
         </div>
         <div className={styles.total}>
           <div className={styles.sum}>結帳金額</div>
-          <div className={styles.num}>NT.900</div>
+          <div className={styles.num}>NT.{lesson.lesson_price}</div>
         </div>
       </div>
 
@@ -97,15 +127,15 @@ export default function Checkout() {
       {showSuccessModal && (
         <SuccessModal
           orderNumber="6VF2NC"
-          lessonName="活力瑜珈"
-          lessonTime="05/29 09:00"
-          lessonPlace="黑皮健身房"
-          totalAmount="900"
+          lessonName={lesson.lesson_name}
+          lessonTime={lesson.lesson_date}
+          lessonPlace={lesson.gym_name}
+          totalAmount={lesson.lesson_price}
           onClose={handleCloseModal}
         />
       )}
 
-      {showFailModalm && <FailureModal onClose={handleCloseFailModal} />}
+      {showFailModal && <FailureModal onClose={handleCloseFailModal} />}
     </>
   )
 }

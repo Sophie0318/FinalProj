@@ -35,12 +35,12 @@ export default function Layout3({
         <title>{title ? title : ''}</title>
       </Head>
       <Navbar
-        product={product}
-        item={item}
-        increaseItem={increaseItem}
-        decreaseItem={decreaseItem}
-        removeItem={removeItem}
-        // calcTotalPrice={calcTotalPrice}
+      // product={product}
+      // item={item}
+      // increaseItem={increaseItem}
+      // decreaseItem={decreaseItem}
+      // removeItem={removeItem}
+      // calcTotalPrice={calcTotalPrice}
       />
       <div className={`d-flex flex-column`}>
         <PageTitle pageName={pageName} height={height} />
