@@ -7,13 +7,16 @@ import Link from 'next/link'
 import Layout1 from '@/components/layout/layout1'
 import Btn from '@/components/articles/buttons_test'
 import JoinMember from '@/components/joinMember'
-import SwiperCarousel from '@/components/swiperCarousel'
+import CardCarousel from '@/components/swiperCarousel/cardCarousel'
 import LessonCard from '@/components/lessons/lessonCard'
 import CoachCard from '@/components/coaches/coacgCard'
+import ArticleCard from '@/components/articles/article-card'
 import styles from '@/styles/home.module.css'
 
 // 測試用data
-import dataList from '@/data/Product.json'
+import ArticleData from '@/data/FakeArticles.json'
+import LessonData from '@/data/FavLessons.json'
+import CoachData from '@/data/FavCoaches.json'
 
 // TODO: carousel 的 separater 的右邊緣要對其 joinMember card
 // TODO: 首頁keyVisual_SP滑動動畫優化, 參考 kacco
@@ -22,21 +25,43 @@ import dataList from '@/data/Product.json'
 // viewport height 參考 kacco
 
 export default function Home() {
-  const [data, setData] = useState([])
+  const [articleData, setArticleData] = useState([])
+  const [lessonData, setLessonData] = useState([])
+  const [coachData, setCoachData] = useState([])
 
-  const renderCard = (item) => {
+  const renderArticleCard = (data = {}) => {
     return (
-      <LessonCard
-        title={item.name}
-        price={item.price}
-        category={item.stock}
+      <ArticleCard
+        title={data.article_title}
+        update_at={data.update_at}
+        category={data.article_subtype}
         imgSrc="/defaultImg.png"
       />
     )
   }
 
+  const renderLessonCard = (data = {}) => {
+    return (
+      <LessonCard
+        title={data.title}
+        price={data.price}
+        gym={data.gym}
+        category={data.category}
+        imgSrc="/defaultImg.png"
+      />
+    )
+  }
+
+  const renderCoachCard = (data = {}) => {
+    return (
+      <CoachCard name={data.name} skill={data.skill} imgSrc="/defaultImg.png" />
+    )
+  }
+
   useEffect(() => {
-    setData(dataList)
+    setArticleData(ArticleData)
+    setLessonData(LessonData)
+    setCoachData(CoachData)
   }, [])
 
   return (
@@ -240,8 +265,12 @@ export default function Home() {
                 <div className="col-md-3 d-flex justify-content-md-end justify-content-center align-items-center">
                   <h3 className="my-0">熱門課程</h3>
                 </div>
-                <div className="col-md-9 ps-3">
-                  <SwiperCarousel data={data} renderItem={renderCard} />
+                <div className="col-md-9 ps-3 py-5 overflow-hidden">
+                  <CardCarousel
+                    cardMaxWidth="fit-content"
+                    data={LessonData}
+                    renderItem={renderLessonCard}
+                  />
                 </div>
               </div>
               <div className="row px-0 mx-0 g-0">
@@ -275,8 +304,12 @@ export default function Home() {
                 <div className="col-md-3 d-flex justify-content-md-end justify-content-center align-items-center">
                   <h3 className="my-0">熱門教練</h3>
                 </div>
-                <div className="col-md-9 ps-3">
-                  <SwiperCarousel />
+                <div className="col-md-9 ps-3 py-5 overflow-hidden">
+                  <CardCarousel
+                    cardMaxWidth="fit-content"
+                    data={CoachData}
+                    renderItem={renderCoachCard}
+                  />
                 </div>
               </div>
               <div className="row px-0 mx-0 g-0">
@@ -285,7 +318,7 @@ export default function Home() {
                     size="lg"
                     bgColor="midnightgreen"
                     btnOrLink="link"
-                    hrefURL="/coaches"
+                    hrefURL="/lessons"
                     maxWidth="312px"
                   >
                     找教練
@@ -296,7 +329,7 @@ export default function Home() {
                     size="thin2"
                     bgColor="midnightgreen"
                     btnOrLink="link"
-                    hrefURL="/coaches"
+                    hrefURL="/lessons"
                     maxWidth="210px"
                   >
                     找教練
@@ -310,18 +343,21 @@ export default function Home() {
                 <div className="col-md-3 d-flex justify-content-md-end justify-content-center align-items-center">
                   <h3 className="my-0">熱門文章</h3>
                 </div>
-                <div className="col-md-9 ps-3">
-                  <SwiperCarousel />
+                <div className="col-md-9 ps-3 py-5 overflow-hidden">
+                  <CardCarousel
+                    cardMaxWidth="350px"
+                    data={ArticleData}
+                    renderItem={renderArticleCard}
+                  />
                 </div>
               </div>
-
               <div className="row px-0 mx-0 g-0">
                 <div className={`${styles.carouselBtnPC}`}>
                   <Btn
                     size="lg"
                     bgColor="midnightgreen"
                     btnOrLink="link"
-                    hrefURL="/articles"
+                    hrefURL="/lessons"
                     maxWidth="312px"
                   >
                     找文章
@@ -332,7 +368,7 @@ export default function Home() {
                     size="thin2"
                     bgColor="midnightgreen"
                     btnOrLink="link"
-                    hrefURL="/articles"
+                    hrefURL="/lessons"
                     maxWidth="210px"
                   >
                     找文章

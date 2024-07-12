@@ -8,7 +8,7 @@ import Layout3 from '@/components/layout/layout3'
 import Btn from '@/components/articles/buttons_test'
 import ArticleSidebar from '@/components/articles/article-sidebar'
 import ArticleCard from '@/components/articles/article-card'
-import SwiperCarousel from '@/components/swiperCarousel'
+// import SwiperCarousel from '@/components/swiperCarousel'
 import styles from './articleId.module.css'
 
 export default function ArticlePage() {
@@ -188,7 +188,7 @@ export default function ArticlePage() {
               <h3 className="my-0">延伸閱讀</h3>
             </div>
             <div className="col-md-9 ps-3">
-              <SwiperCarousel data={articles} renderItem={renderCard} />
+              {/* <SwiperCarousel data={articles} renderItem={renderCard} /> */}
             </div>
           </div>
         </section>

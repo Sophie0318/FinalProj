@@ -18,7 +18,6 @@ export default function CardCarousel({
 }) {
   const swiperRef = useRef(null)
   const [activeIndex, setActiveIndex] = useState(-1)
-  // const [hideCard, setHideCard] = useState(false)
 
   const handleNext = () => {
     if (!swiperRef.current) return

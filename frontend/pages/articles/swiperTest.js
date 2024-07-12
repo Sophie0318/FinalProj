@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import SwiperCarousel from '@/components/swiperCarousel'
+// import SwiperCarousel from '@/components/swiperCarousel'
 import dataList from '@/data/Product.json'
 import dataList2 from '@/data/FakeArticles.json'
 import ArticleCard from '@/components/articles/article-card'
@@ -62,7 +62,7 @@ export default function SwiperTest() {
             <h3 className="m-0">Latest Post</h3>
           </div>
           <div className="col-9">
-            <SwiperCarousel arrow={false} data={data} renderItem={renderCard} />
+            {/* <SwiperCarousel arrow={false} data={data} renderItem={renderCard} /> */}
           </div>
         </div>
         <Btn size="lg" bgColor="outlineLight" btnOrLink="link" maxWidth="250px">
@@ -76,7 +76,7 @@ export default function SwiperTest() {
             <h3 className="m-0">Latest Post</h3>
           </div>
           <div className="col-9">
-            <SwiperCarousel data={data} renderItem={renderCoachCard} />
+            {/* <SwiperCarousel data={data} renderItem={renderCoachCard} /> */}
           </div>
         </div>
       </div>
