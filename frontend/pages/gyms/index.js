@@ -5,7 +5,7 @@ import SearchBar from '@/components/common/searchbar/searchbar'
 import Switch from '@/components/common/switch/switch'
 import MapErea from '@/components/gyms/map-erea'
 import GymFilters from './gymfilter'
-import ResultCards from '@/components/gyms/gym-card'
+import ResultCards from '@/components/gyms/gymCard'
 
 export default function Gyms() {
   // 功能寫在這
@@ -100,4 +100,3 @@ export default function Gyms() {
     </Layout3>
   )
 }
-     

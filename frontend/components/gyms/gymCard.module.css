@@ -103,15 +103,140 @@
 @media (width >=768px) {
 
   .resultCards {
-    border-radius: 0;
+    border-radius: 3px;
     padding-top: 0px;
+    /* padding-right: 20px; */
     box-shadow: none;
     position: relative;
-    overflow: auto;
+    overflow-y: scroll;
     scroll-behavior: smooth;
     max-height: 80vh;
     width: 500px;
+    mask-image: linear-gradient(to top, transparent, black),
+      linear-gradient(to left, transparent 17px, black 17px);
+    mask-size: 100% 20000px;
+    mask-position: left bottom;
+    -webkit-mask-image: linear-gradient(to top, transparent, black),
+      linear-gradient(to left, transparent 17px, black 17px);
+    -webkit-mask-size: 100% 20000px;
+    -webkit-mask-position: left bottom;
+    transition: mask-position 0.3s, -webkit-mask-position 0.3s;
+  }
+
+  .resultCards::-webkit-scrollbar {
+    width: 10px;
+    height: 0px;
+    padding: 0 10px;
+  }
+
+  .resultCards::-webkit-scrollbar-thumb {
+    background: var(--color-gray-25);
+    border-radius: 10px;
+  }
+
+  .resultCards::-webkit-scrollbar-thumb:hover {
+    background: var(--color-gray-50);
+    border-radius: 10px;
+  }
+
+  .resultCards::-webkit-scrollbar-track {
+    background-color: var(--color-light-gray);
+    border: 1px solid var(--color-gray-25);
+    border-radius: 10px;
+    margin: 0px;
+  }
+
+  /* .resultCards::-webkit-scrollbar-button {
+    background-color: #4d7fff;
+    border-radius: 5px;
+  } */
+
+  /* .resultCards::-webkit-scrollbar-button:hover {
+    background-color: #ef4040;
+  } */
+
+  .resultCards:hover {
+    -webkit-mask-position: left top;
+    mask-position: left top;
+  }
+
+  /* 頂部漸變效果 */
+  .resultCards::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 20px;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
+    pointer-events: none;
+    z-index: 3;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  /* 控制頂部漸變的顯示 */
+  .resultCards.scrolled::before,
+  .resultCards:hover::before,
+  .resultCards:focus-within::before {
+    opacity: 1;
   }
 
 
+  /* 底部漸變效果 */
+  .resultCards::after {
+    content: '';
+    display: block;
+    height: 20px;
+    width: 100%;
+    position: sticky;
+    bottom: 0;
+    background: linear-gradient(to top, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
+    pointer-events: none;
+    z-index: 3;
+  }
+
+  .card {
+    /* max-width: 576px; */
+    /* width: 100%; */
+    /* margin: 0 auto; */
+    padding: 12px 0px 21px 0;
+    /* border-radius: 0px; */
+    /* overflow: hidden; */
+    /* box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); */
+    /* background-color: white; */
+    border-bottom: 2px solid var(--color-gray-25);
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    transition: 0.3s ease-in-out;
+
+  }
+
+  /*
+  .card:hover {
+     transform: scale(1.01);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23); 
+  }*/
+
+  .content {
+    margin-top: 0px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+  }
+
+  .imageContainer {
+    display: flex;
+    overflow-x: hidden;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    gap: 8px;
+    width: 200px;
+  }
+
+  .bookButton {
+    display: none;
+  }
 }
