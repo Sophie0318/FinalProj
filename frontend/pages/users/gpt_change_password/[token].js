@@ -15,7 +15,7 @@ export default function ForgetPassword() {
 
   useEffect(() => {
     if (token) {
-      fetch(`/verify_reset_token?token=${token}`)
+      fetch(`http://localhost:3001/users/verify_reset_token?token=${token}`)
         .then((response) => {
           if (!response.ok) {
             throw new Error('Token verification failed')
@@ -39,13 +39,16 @@ export default function ForgetPassword() {
     }
 
     try {
-      const response = await fetch('/reset_password', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ token, newPassword }),
-      })
+      const response = await fetch(
+        'http://localhost:3001/users/changePassword ',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ token, newPassword }),
+        }
+      )
 
       if (!response.ok) {
         throw new Error('Network response was not ok')

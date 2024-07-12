@@ -1,4 +1,4 @@
-// import bcrypt from 'bcrypt';
+import bcrypt from 'bcrypt';
 import nodemailer from 'nodemailer';
 import db from "../utils/connect-mysql.js";
 
@@ -58,6 +58,9 @@ const userController = {
     //處理驗證resetToken是否過期
     verifyResetToken: async (req, res) => {
         const { token } = req.query;
+        if (!token) {
+            return res.status(400).json({ message: 'Token is required' });
+        }
 
         try {
             const [user] = await db.query('SELECT * FROM members WHERE resetToken = ?', [token]);

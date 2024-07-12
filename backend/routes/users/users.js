@@ -113,7 +113,7 @@ router.post("/test_forget_password", userController.forgotPassword);
 //驗證重設密碼的路由
 router.get("/verify_reset_token", userController.verifyResetToken);
 //重設密碼的路由
-router.post("/reset_password", userController.changePassword);
+router.post("/changePassword", userController.changePassword);
 
 
 
