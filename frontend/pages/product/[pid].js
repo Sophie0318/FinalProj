@@ -11,18 +11,31 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import styles from '@/components/product/product-detail/detail-text.module.css'
 import toast, { Toaster } from 'react-hot-toast'
+import { useCart } from '@/hooks/product/use-cart'
 
 export default function ProductDetail() {
   const router = useRouter()
+  const {
+    shoppingList,
+    total,
+    product,
+    calcTotalQty,
+    increaseItem,
+    decreaseItem,
+    removeItem,
+    addItem,
+    item,
+    setProduct,
+  } = useCart()
 
-  const [product, setProduct] = useState({
-    Product_id: 0,
-    Product_name: '',
-    Product_price: 0,
-    Product_desc: '',
-    Product_image: '',
-    Product_qty: 1,
-  })
+  // const [product, setProduct] = useState({
+  //   Product_id: 0,
+  //   Product_name: '',
+  //   Product_price: 0,
+  //   Product_desc: '',
+  //   Product_image: '',
+  //   Product_qty: 1,
+  // })
   // const [item, setItem] = useState([]) // 購物車陣列)
   // const addItem = (product) => {
   //   const newItem = { ...product, qty: 1 }
@@ -31,66 +44,66 @@ export default function ProductDetail() {
   //   localStorage.setItem('shoppingCart', JSON.stringify(nextItem))
   //   console.log('button clicked', item)
   // }
-  const [item, setItem] = useState([])
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const savedItems = localStorage.getItem('shoppingCart')
-      if (savedItems) {
-        setItem(JSON.parse(savedItems))
-      }
-    }
-  }, []) // 只在客戶端渲染時運行一次 // 購物車陣列  如果在客戶端環境中（即瀏覽器中），就從 localStorage 中讀取名為 'shoppingCart' 的資料。如果資料存在，則將其解析為 JSON 格式，作為初始的 item 狀態；如果資料不存在或者無法解析，則初始為空陣列 []
+  // const [item, setItem] = useState([])
+  // useEffect(() => {
+  //   if (typeof window !== 'undefined') {
+  //     const savedItems = localStorage.getItem('shoppingCart')
+  //     if (savedItems) {
+  //       setItem(JSON.parse(savedItems))
+  //     }
+  //   }
+  // }, []) // 只在客戶端渲染時運行一次 // 購物車陣列  如果在客戶端環境中（即瀏覽器中），就從 localStorage 中讀取名為 'shoppingCart' 的資料。如果資料存在，則將其解析為 JSON 格式，作為初始的 item 狀態；如果資料不存在或者無法解析，則初始為空陣列 []
 
-  const addItem = (product) => {
-    const existingItem = item.find(
-      (cartItem) => cartItem.Product_id === product.Product_id
-    )
+  // const addItem = (product) => {
+  //   const existingItem = item.find(
+  //     (cartItem) => cartItem.Product_id === product.Product_id
+  //   )
 
-    let nextItem
+  //   let nextItem
 
-    if (existingItem) {
-      nextItem = item.map((cartItem) =>
-        cartItem.Product_id === product.Product_id
-          ? { ...cartItem, qty: cartItem.qty + 1 }
-          : cartItem
-      )
-    } else {
-      const newItem = { ...product, qty: 1 }
-      nextItem = [newItem, ...item]
-    }
+  //   if (existingItem) {
+  //     nextItem = item.map((cartItem) =>
+  //       cartItem.Product_id === product.Product_id
+  //         ? { ...cartItem, qty: cartItem.qty + 1 }
+  //         : cartItem
+  //     )
+  //   } else {
+  //     const newItem = { ...product, qty: 1 }
+  //     nextItem = [newItem, ...item]
+  //   }
 
-    setItem(nextItem)
-    localStorage.setItem('shoppingCart', JSON.stringify(nextItem))
-    console.log('button clicked', nextItem)
-  }
+  //   setItem(nextItem)
+  //   localStorage.setItem('shoppingCart', JSON.stringify(nextItem))
+  //   console.log('button clicked', nextItem)
+  // }
 
-  //遞增
-  const increaseItem = (id) => {
-    const nextItem = item.map((v) => {
-      if (v.Product_id === id) return { ...v, qty: v.qty + 1 }
-      else return v
-    })
-    setItem(nextItem)
-    localStorage.setItem('shoppingCart', JSON.stringify(nextItem))
-  }
+  // //遞增
+  // const increaseItem = (id) => {
+  //   const nextItem = item.map((v) => {
+  //     if (v.Product_id === id) return { ...v, qty: v.qty + 1 }
+  //     else return v
+  //   })
+  //   setItem(nextItem)
+  //   localStorage.setItem('shoppingCart', JSON.stringify(nextItem))
+  // }
 
-  //遞減
-  const decreaseItem = (id) => {
-    const nextItem = item.map((v) => {
-      if (v.Product_id === id && v.qty > 1) return { ...v, qty: v.qty - 1 }
-      else return v
-    })
-    setItem(nextItem)
-    localStorage.setItem('shoppingCart', JSON.stringify(nextItem))
-  }
-  //移除
-  const removeItem = (id) => {
-    const nextItem = item.filter((v) => {
-      return v.Product_id !== id
-    })
-    setItem(nextItem)
-    localStorage.setItem('shoppingCart', JSON.stringify(nextItem))
-  }
+  // //遞減
+  // const decreaseItem = (id) => {
+  //   const nextItem = item.map((v) => {
+  //     if (v.Product_id === id && v.qty > 1) return { ...v, qty: v.qty - 1 }
+  //     else return v
+  //   })
+  //   setItem(nextItem)
+  //   localStorage.setItem('shoppingCart', JSON.stringify(nextItem))
+  // }
+  // //移除
+  // const removeItem = (id) => {
+  //   const nextItem = item.filter((v) => {
+  //     return v.Product_id !== id
+  //   })
+  //   setItem(nextItem)
+  //   localStorage.setItem('shoppingCart', JSON.stringify(nextItem))
+  // }
 
   const getProduct = async (pid) => {
     const url = `http://localhost:3001/product/api/${pid}`

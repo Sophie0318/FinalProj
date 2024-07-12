@@ -3,43 +3,41 @@ import React, { useEffect, useRef } from 'react'
 import { IoCloseSharp, IoAddSharp, IoRemove, IoCart } from 'react-icons/io5'
 import styles from '../common/layout.module.css'
 import { useState } from 'react'
+import { useCart } from '@/hooks/product/use-cart'
 
-export default function ShoppingCart({
-  item = [],
-  increaseItem,
-  decreaseItem,
-  removeItem,
-}) {
-  const [total, setTotal] = useState(0) //計算金錢，因金錢是變動的，所以用useState
-  const calcTotalPrice = (item) => {
-    let nextTotal = 0
-    if (item.length < 0) return '' //預防裡面沒東西
-    for (let i = 0; i < item.length; i++) {
-      nextTotal += item[i].qty * item[i].Product_price
-      // console.log(nextTotal)
-    }
-    setTotal(nextTotal)
-  }
-  console.log()
+export default function ShoppingCart() {
+  // const [total, setTotal] = useState(0) //計算金錢，因金錢是變動的，所以用useState
+  // const calcTotalPrice = (item) => {
+  //   let nextTotal = 0
+  //   if (item.length < 0) return '' //預防裡面沒東西
+  //   for (let i = 0; i < item.length; i++) {
+  //     nextTotal += item[i].qty * item[i].Product_price
+  //     // console.log(nextTotal)
+  //   }
+  //   setTotal(nextTotal)
+  // }
+  // console.log()
   // if (typeof window !== 'undefined') {
   //   const saveItems = localStorage.getItem('shoppingCart')
   //   item = saveItems ? JSON.parse(saveItems) : item
   //   console.log(`Shopping Cart saveItems: ${saveItems}`)
   //   console.log(`Shopping Cart Item: ${JSON.stringify(item)}`)
   // }
-  const [shoppingList, setShoppingList] = useState([])
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const saveItems = localStorage.getItem('shoppingCart')
-      setShoppingList(saveItems ? JSON.parse(saveItems) : item)
+  // const [shoppingList, setShoppingList] = useState([])
+  // useEffect(() => {
+  //   if (typeof window !== 'undefined') {
+  //     const saveItems = localStorage.getItem('shoppingCart')
+  //     setShoppingList(saveItems ? JSON.parse(saveItems) : item)
 
-      calcTotalPrice(item)
-      // console.log(total)
-    }
-  }, [item]) //每當購物車裡面東西更新，價錢也會更新
+  //     calcTotalPrice(item)
+  //     // console.log(total)
+  //   }
+  // }, [item]) //每當購物車裡面東西更新，價錢也會更新
   // console.log(calcTotalPrice)
 
   // console.log(`shoppingList: ${shoppingList}`)
+  const { item, increaseItem, decreaseItem, removeItem, shoppingList, total } =
+    useCart()
 
   return (
     <>

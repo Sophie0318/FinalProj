@@ -16,19 +16,20 @@ import styles from './layout.module.css'
 import { IoAddSharp, IoRemove, IoCloseSharp } from 'react-icons/io5'
 import ShoppingCart from '../product/shoppingCart'
 import { useState, useEffect } from 'react'
+import { useCart } from '@/hooks/product/use-cart'
 
 // TODO: header logo offsets when toggle offcanvas, 可以參考kacco
 // TODO: toggle button 會蓋住scrollbar, 也參考kacco
 // 也可以用看看 bootstrap offcanvas body scrollable
-export default function Navbar({
-  product,
-  item = [],
-  increaseItem,
-  decreaseItem,
-  removeItem,
-  // calcTotalPrice,
-}) {
-  console.log(product)
+export default function Navbar() {
+  const {
+    product,
+    item,
+    increaseItem,
+    decreaseItem,
+    removeItem,
+    calcTotalQty,
+  } = useCart()
 
   // useEffect(() => {
   //   if (product && product.Product_name) {
@@ -36,13 +37,13 @@ export default function Navbar({
   //   }
   // }, [product])
 
-  const calcTotalQty = () => {
-    let total = 0
-    for (let i = 0; i < item.length; i++) {
-      total += item[i].qty
-    }
-    return total
-  }
+  // const calcTotalQty = () => {
+  //   let total = 0
+  //   for (let i = 0; i < item.length; i++) {
+  //     total += item[i].qty
+  //   }
+  //   return total
+  // }
 
   return (
     <>
