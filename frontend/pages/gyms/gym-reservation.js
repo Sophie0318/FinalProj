@@ -2,10 +2,8 @@ import React, { useEffect, useState } from 'react'
 import Layout3 from '@/components/layout/layout3'
 import styles from './gym-reservation.module.css'
 import AutofillCheckbox from '@/components/gyms/auto-fill-checkbox'
-import CoachCard from '@/components/coaches/coacgCard'
 import FormField from '@/components/common/form-field/form-field'
 import GymCardSpot from '@/components/gyms/gymCard-spot'
-import ReserveModal from '@/components/coaches/reserve-modal'
 import GymReservationModal from '@/components/gyms/gym-reservation-modal'
 
 // 假資料

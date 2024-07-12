@@ -19,7 +19,7 @@ const defaultAvatar = 'http://localhost:3001/users/' // 用來做預設頭像的
 import ShoppingCart from '../product/shoppingCart'
 import { useState, useEffect } from 'react'
 import { useCart } from '@/hooks/product/use-cart'
-import styles from './layout.module.css'
+
 
 // TODO: header logo offsets when toggle offcanvas, 可以參考kacco
 // TODO: toggle button 會蓋住scrollbar, 也參考kacco
