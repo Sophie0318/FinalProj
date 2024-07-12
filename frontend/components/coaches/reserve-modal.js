@@ -2,13 +2,14 @@ import React from 'react'
 import styles from '@/styles/reserveModal.module.css'
 import { useRouter } from 'next/router'
 
-function ReserveModal({ onClose }) {
+function ReserveModal({ onClose, formData, selectedCoach }) {
   const router = useRouter()
 
   const handleReturnToCoaches = () => {
     onClose()
     router.push('/coaches')
   }
+
   return (
     <div className={styles.modalOverlay}>
       <div className={styles.modal}>
@@ -17,26 +18,25 @@ function ReserveModal({ onClose }) {
           <div className={styles.infoRow}>
             <div className={styles.label}>預 約 人 |</div>
             <div className={styles.details}>
-              <div className={styles.name}>林千惠</div>
+              <div className={styles.name}>{formData.name}</div>
               <div className={styles.contact}>
-                <div>getstart@mail.com</div>
-                <div>0968-777-545</div>
+                <div>{formData.email}</div>
+                <div>{formData.phone}</div>
               </div>
             </div>
           </div>
           <div className={styles.infoRow}>
             <div className={styles.label}>預約教練 |</div>
             <div className={styles.coachInfo}>
-              <div>李安妮 教練</div>
-              <div>活力健身房</div>
-              <div>台北市中正區杭州南路308號</div>
+              <div>{selectedCoach?.coach_name} 教練</div>
+              <div>{selectedCoach?.gym}</div>
+              <div>{selectedCoach?.address}</div>
             </div>
           </div>
           <div className={styles.infoRow}>
             <div className={styles.label}>預約時間 |</div>
             <div className={styles.reserveTime}>
-              <div>2014-08-12 星期三</div>
-              <div>下午 02:15</div>
+              <div>{formData.timeSlot}</div>
             </div>
           </div>
         </div>
@@ -53,7 +53,7 @@ function ReserveModal({ onClose }) {
         </div>
         <div className={styles.btns}>
           <button className={styles.btnBack} onClick={onClose}>
-            取消預約
+            關閉視窗
           </button>
           <button className={styles.btnFin} onClick={handleReturnToCoaches}>
             繼續搜尋

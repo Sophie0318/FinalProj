@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import Layout3 from '@/components/layout/layout3'
-import Carousel from '@/components/carousel'
 import styles from '@/styles/coachReservation.module.css'
 import CoachCard from '@/components/coaches/coachCard'
 import ReserveModal from '@/components/coaches/reserve-modal'
@@ -8,22 +7,15 @@ import { useRouter } from 'next/router'
 import axios from 'axios'
 
 export default function Reservation() {
+  const [formData, setFormData] = useState({
+    name: '',
+    phone: '',
+    email: '',
+    timeSlot: '',
+  })
   const [selectedCoach, setSelectedCoach] = useState(null)
-  const router = useRouter()
   const [showModal, setShowModal] = useState(false)
-
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    setShowModal(true)
-  }
-
-  const handleCloseModal = () => {
-    setShowModal(false)
-  }
-  // const coaches = [
-  //   { name: '李安妮', skill: '心肺/有氧', imgSrc: '/coach4.jpg' },
-  //   // 添加更多教练数据
-  // ]
+  const router = useRouter()
 
   useEffect(() => {
     const fetchCoach = async () => {
@@ -44,6 +36,24 @@ export default function Reservation() {
 
     fetchCoach()
   }, [router.query])
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }))
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    setShowModal(true)
+  }
+
+  const handleCloseModal = () => {
+    setShowModal(false)
+  }
+
   return (
     <>
       <Layout3 title="教練預約" pageName="coaches">
@@ -51,7 +61,7 @@ export default function Reservation() {
           <div className={styles.reserveForm}>
             <div className={styles.formHead}>
               <p className={styles.formTitle}>預約人資訊 ｜</p>
-              <div class={styles.checkboxes}>
+              <div className={styles.checkboxes}>
                 <input
                   type="checkbox"
                   id="member"
@@ -64,20 +74,44 @@ export default function Reservation() {
             <div className={styles.formContainer}>
               <form className={styles.form} onSubmit={handleSubmit}>
                 <div className={styles.formLabel}>姓名</div>
-                <input type="text" name="name" id="name" />
+                <input
+                  type="text"
+                  name="name"
+                  id="name"
+                  value={formData.name}
+                  onChange={handleInputChange}
+                />
 
                 <div className={styles.formLabel}>手機</div>
-                <input type="text" name="phone" id="phone" />
+                <input
+                  type="text"
+                  name="phone"
+                  id="phone"
+                  value={formData.phone}
+                  onChange={handleInputChange}
+                />
 
                 <div className={styles.formLabel}>聯絡信箱</div>
-                <input type="text" name="email" id="email" />
+                <input
+                  type="text"
+                  name="email"
+                  id="email"
+                  value={formData.email}
+                  onChange={handleInputChange}
+                />
 
                 <div className={styles.formLabel}>選擇時段</div>
-                <select className={styles.timeSelect}>
-                  <option>1</option>
-                  <option>1</option>
-                  <option>1</option>
-                  <option>1</option>
+                <select
+                  className={styles.timeSelect}
+                  name="timeSlot"
+                  value={formData.timeSlot}
+                  onChange={handleInputChange}
+                >
+                  <option value="">請選擇時段</option>
+                  <option value="1">時段1</option>
+                  <option value="2">時段2</option>
+                  <option value="3">時段3</option>
+                  <option value="4">時段4</option>
                 </select>
 
                 <div className={styles.formLabel}>預約教練</div>
@@ -101,7 +135,13 @@ export default function Reservation() {
           </div>
         </div>
       </Layout3>
-      {showModal && <ReserveModal onClose={handleCloseModal} />}
+      {showModal && (
+        <ReserveModal
+          onClose={handleCloseModal}
+          formData={formData}
+          selectedCoach={selectedCoach}
+        />
+      )}
     </>
   )
 }
