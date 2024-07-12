@@ -8,20 +8,17 @@ import TestMyBtn from '@/components/users/test_MyBtn'
 export default function ForgetPassword() {
   const [newPassword, setNewPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
-  const [token, setToken] = useState('')
   const [error, setError] = useState('')
   const [message, setMessage] = useState('')
   const router = useRouter()
+  const { token } = router.query
 
   useEffect(() => {
-    const { token } = router.query
-    setToken(token)
-
     if (token) {
-      fetch(`/users/verify_reset_token/${token}`)
+      fetch(`/gpt_change_password/${token}`)
         .then((response) => {
           if (!response.ok) {
-            throw new Error('Network response was not ok')
+            throw new Error('Token verification failed')
           }
           return response.json()
         })
@@ -32,7 +29,7 @@ export default function ForgetPassword() {
           setError(error.message)
         })
     }
-  }, [router.query.token])
+  }, [token])
 
   const handleSubmit = async (e) => {
     e.preventDefault()
