@@ -1,16 +1,10 @@
-// import { createContext, useContext, useState } from 'react'
+// import React, { createContext, useContext, useState, useEffect } from 'react'
 
-// const CartContext = createContext(null)
-
-// export function CarProvider({ children }) {
-
-//   const calcTotalQty = ()=>{
-//     let total =0
-//     for (let i = 0; i < item.length; i++) {
-//       total += cart[i].qty
-//   }
-//   return <CartContext.Provider value={{}}>{children}</CartContext.Provider>
-// }
-// }
+// const CartContext = createContext()
 
 // export const useCart = () => useContext(CartContext)
+
+// export const CartProvider = ({ children }) => {
+
+//   return <CartContext.Provider value={{ i }}>{children}</CartContext.Provider>
+// }

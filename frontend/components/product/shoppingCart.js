@@ -32,9 +32,7 @@ export default function ShoppingCart({
     if (typeof window !== 'undefined') {
       const saveItems = localStorage.getItem('shoppingCart')
       setShoppingList(saveItems ? JSON.parse(saveItems) : item)
-      // console.log(`Shopping Cart saveItems: ${saveItems}`)
-      // console.log(`Shopping Cart Item: ${JSON.stringify(item)}`)
-      // console.log(`shoppingList: ${JSON.stringify(shoppingList)}`)
+
       calcTotalPrice(item)
       // console.log(total)
     }

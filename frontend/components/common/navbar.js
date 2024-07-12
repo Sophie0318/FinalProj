@@ -97,6 +97,7 @@ export default function Navbar({
               increaseItem={increaseItem}
               decreaseItem={decreaseItem}
               removeItem={removeItem}
+
               // calcTotalPrice={calcTotalPrice}
             />
             <span className={`${styles.badge}`}>{calcTotalQty()}</span>

@@ -31,13 +31,15 @@ export default function ProductDetail() {
   //   localStorage.setItem('shoppingCart', JSON.stringify(nextItem))
   //   console.log('button clicked', item)
   // }
-  const [item, setItem] = useState(() => {
+  const [item, setItem] = useState([])
+  useEffect(() => {
     if (typeof window !== 'undefined') {
       const savedItems = localStorage.getItem('shoppingCart')
-      return savedItems ? JSON.parse(savedItems) : []
+      if (savedItems) {
+        setItem(JSON.parse(savedItems))
+      }
     }
-    return []
-  }) // 購物車陣列  如果在客戶端環境中（即瀏覽器中），就從 localStorage 中讀取名為 'shoppingCart' 的資料。如果資料存在，則將其解析為 JSON 格式，作為初始的 item 狀態；如果資料不存在或者無法解析，則初始為空陣列 []
+  }, []) // 只在客戶端渲染時運行一次 // 購物車陣列  如果在客戶端環境中（即瀏覽器中），就從 localStorage 中讀取名為 'shoppingCart' 的資料。如果資料存在，則將其解析為 JSON 格式，作為初始的 item 狀態；如果資料不存在或者無法解析，則初始為空陣列 []
 
   const addItem = (product) => {
     const existingItem = item.find(
