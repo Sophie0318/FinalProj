@@ -13,7 +13,7 @@ const userController = {
         try {
             const [user] = await db.query('SELECT * FROM members WHERE member_email = ?', [email]);
 
-            if (!user) {
+            if (!user || user.length === 0) {
                 return res.status(404).json({ message: '此電子信箱尚未被註冊' });
             }
 
@@ -37,14 +37,16 @@ const userController = {
                 html: `<p>${user[0].member_name} 您好</p><p>請點以下連結重新設定密碼：</p><a href="http://localhost:3000/users/gpt_change_password/${token}">重設密碼連結</a><br/><br/><p>連結會在 3分鐘 後或重設密碼後失效</p>`
             });
             //resetExpiration是一個時間戳記，用來判斷token是否過期
-            await db.query('UPDATE members SET resetToken = ?, resetExpiration = ? WHERE member_id = ?', [token, Date.now() + 180000, user.member_id]);
-
+            const resetExpiration = new Date(Date.now() + 180000).toISOString().slice(0, 19).replace('T', ' ');//YYYY-MM-DD HH:mm:ss
+            await db.query('UPDATE members SET resetToken = ?, resetExpiration = ? WHERE member_id = ?', [token, resetExpiration, user[0].member_id])
             res.json({ message: '申請成功！請確認電子郵件' });
         } catch (err) {
             console.warn(err);
             res.status(500).json({ message: '伺服器內部錯誤' });
         }
     },
+    //處理驗證resetToken是否過期
+    //處理會員重設密碼的function
 };
 
 export default userController;
