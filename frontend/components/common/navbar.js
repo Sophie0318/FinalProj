@@ -19,7 +19,7 @@ const defaultAvatar = 'http://localhost:3001/users/' // 用來做預設頭像的
 import ShoppingCart from '../product/shoppingCart'
 import { useState, useEffect } from 'react'
 import { useCart } from '@/hooks/product/use-cart'
-
+import styles from './layout.module.css'
 
 // TODO: header logo offsets when toggle offcanvas, 可以參考kacco
 // TODO: toggle button 會蓋住scrollbar, 也參考kacco
@@ -90,11 +90,6 @@ export default function Navbar() {
           </li>
         </ul>
         <ul className={`${styles.icons}`}>
-          <li>
-            <Link href="/users/profile">
-              <IoPersonAdd className={`${styles.member}`} />
-            </Link>
-          </li>
           <div className={`${styles.cartContainer}`}>
             <ShoppingCart
             // item={item}
@@ -106,6 +101,32 @@ export default function Navbar() {
             />
             <span className={`${styles.badge}`}>{calcTotalQty()}</span>
           </div>
+          {/* 若是有登入就顯示會員大頭貼，並且點擊後導向profile頁 */}
+          {auth.id ? (
+            <>
+              <Link href="/users/profile">
+                <img
+                  src={`${defaultAvatar}${auth.avatar}`}
+                  alt="會員頭像"
+                  className={`${styles.member}`}
+                />
+              </Link>
+              <li>
+                <Link href="" onClick={() => logout()}>
+                  <FaPersonRunning className={`${styles.member}`} />
+                </Link>
+              </li>
+            </>
+          ) : (
+            <>
+              {/* 若是沒有登入就顯示 person add 圖示，並且點擊後導向登入頁 */}
+              <li>
+                <Link href="/users/sign_in">
+                  <IoPersonAdd className={`${styles.member}`} />
+                </Link>
+              </li>
+            </>
+          )}
         </ul>
       </header>
 
