@@ -64,7 +64,7 @@ export default function Home() {
                   <div
                     className={`${styles.heroImage} col-12 d-flex justify-content-end`}
                   >
-                    <img src="/hero-img.svg" />
+                    <img src="/index-img/hero-img.svg" />
                   </div>
                 </div>
               </div>
@@ -74,7 +74,7 @@ export default function Home() {
               <div className="container fixed-960 p-0">
                 <div className="row g-0 justify-content-md-between justify-content-center mx-3">
                   <div className={`${styles.cta1Img} col-md-5 col-6`}>
-                    <img src="/marisa-howenstine-nFsOlSE9Mn8-unsplash.jpg" />
+                    <img src="/index-img/marisa-howenstine-nFsOlSE9Mn8-unsplash.jpg" />
                   </div>
                   <div className="col-md-7 col-5 ps-4">
                     <h3>活力無限，擁抱健康</h3>
@@ -100,7 +100,7 @@ export default function Home() {
 
           <section className={`${styles.keyVisualSP}`}>
             <div className={`${styles.heroImage}`}>
-              <img src="/hero-img-mobile.svg" />
+              <img src="/index-img/hero-img-mobile.svg" />
             </div>
 
             <div className={`${styles.cta1}`}>
@@ -117,10 +117,10 @@ export default function Home() {
                     <li className="h5-font me-2">幸福起點 |</li>
                   </ul>
                   <div className={`${styles.cta1Img} col-lg-4`}>
-                    <img src="/marisa-howenstine-nFsOlSE9Mn8-unsplash.jpg" />
+                    <img src="/index-img/marisa-howenstine-nFsOlSE9Mn8-unsplash.jpg" />
                   </div>
                   <div className={`${styles.cta1Mask} col-lg-4`}>
-                    <img src="/hero-mobile-mask.svg" />
+                    <img src="/index-img/hero-mobile-mask.svg" />
                   </div>
                 </div>
               </div>
@@ -178,7 +178,7 @@ export default function Home() {
                       {'['}01{']'}
                     </h4>
                     <h5>你會膝蓋痛嗎？</h5>
-                    <img src="/knee.svg" className="d-block" />
+                    <img src="/index-img/knee.svg" className="d-block" />
                     <p>
                       膝蓋痛是否讓你很困擾？為何不試著透過運動來緩解呢？快快來加入我們吧！
                     </p>
@@ -190,7 +190,7 @@ export default function Home() {
                       {'['}02{']'}
                     </h4>
                     <h5>生活很無聊嗎？</h5>
-                    <img src="/bored.svg" className="d-block" />
+                    <img src="/index-img/bored.svg" className="d-block" />
                     <p>
                       運動是改善心情的最佳良方！從今天開始，每天花點時間運動，身心煥然一新。
                     </p>
@@ -202,7 +202,7 @@ export default function Home() {
                       {'['}03{']'}
                     </h4>
                     <h5>常常想睡嗎？</h5>
-                    <img src="/sleepy.svg" className="d-block" />
+                    <img src="/index-img/sleepy.svg" className="d-block" />
                     <p>
                       想開始運動卻不知道能去哪裡嗎？點選下方按鈕，輸入您的地址來尋找場館吧！
                     </p>

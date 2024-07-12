@@ -11,7 +11,10 @@
 
 .swiperCarousel swiper-slide {
   width: fit-content;
-  /* padding: 30px; */
+  /* transition: display 0.3s ease;
+  display: block; */
+  transition: opacity 0.3s ease;
+  opacity: 1;
 }
 
 .navBtn {
@@ -41,4 +44,9 @@
 
 .nextBtn {
   right: 20px;
+}
+
+.fadeOut {
+  opacity: 0;
+  transition: opacity 0.5s ease-out;
 }

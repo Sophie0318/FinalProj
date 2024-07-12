@@ -1,48 +1,56 @@
-import { useRef } from 'react'
+import { useRef, useEffect, useState } from 'react'
 import { register } from 'swiper/element/bundle'
 
 import { FaArrowLeftLong, FaArrowRightLong } from 'react-icons/fa6'
-import styles from './swiperCarousel.module.css'
-
-// register Swiper custom elements
-register()
+import styles from './card-carousel.module.css'
 
 // initial data list
 const initlist = Array(12).fill(1)
 
-export default function SwiperCarousel({
+export default function CardCarousel({
   arrow = true,
   data = initlist,
   width = '100%',
-  gap = '20',
+  cardMaxWidth = '350px',
+  cardWidth = '100%',
+  gap = '20px',
   renderItem,
 }) {
-  const sliderRef = useRef(null)
+  const swiperRef = useRef(null)
+  const [activeIndex, setActiveIndex] = useState(-1)
+  // const [hideCard, setHideCard] = useState(false)
 
   const handleNext = () => {
-    if (!sliderRef.current) return
-    sliderRef.current.swiper.slideNext()
+    if (!swiperRef.current) return
+    swiperRef.current.swiper.slideNext()
   }
 
   const handlePrev = () => {
-    if (!sliderRef.current) return
-    sliderRef.current.swiper.slidePrev()
+    if (!swiperRef.current) return
+    swiperRef.current.swiper.slidePrev()
   }
 
   let showArrow = 'block'
   let maxWidth = 'calc(100vw - 16px)'
   let paddingLeft = 'calc(48px)'
-  let freeMode = 'false'
+  let freeMode = false
+  let on = {}
   if (!arrow) {
     showArrow = 'none'
     maxWidth = 'calc(100vw)'
-    paddingLeft = '0px'
-    freeMode = 'true'
+    paddingLeft = '26px'
+    freeMode = true
+    on = {}
   } else {
     showArrow = 'block'
     maxWidth = 'calc(100vw - 16px)'
-    paddingLeft = 'calc(48px)'
-    freeMode = 'false'
+    paddingLeft = 'calc(48px + 16px)'
+    freeMode = false
+    on = {
+      slideChange: (swiper) => {
+        setActiveIndex(swiper.activeIndex)
+      },
+    }
   }
 
   // 加上抓 database 除錯訊息
@@ -50,6 +58,34 @@ export default function SwiperCarousel({
     data = initlist
     console.log('data 沒抓到')
   }
+
+  useEffect(() => {
+    register()
+
+    if (!swiperRef.current) return
+    const params = {
+      // centeredSlides: true,
+      // centeredSlidesBounds: true,
+      slidesPerView: 'auto',
+      freeMode: { freeMode },
+      spaceBetween: `${gap}`,
+      speed: '500',
+      observer: true,
+      injectStyles: [
+        `
+      .swiper {
+        overflow: visible;
+      }
+      `,
+      ],
+      on: { ...on },
+    }
+
+    console.log(activeIndex, 'activeIndex')
+
+    Object.assign(swiperRef.current, params)
+    swiperRef.current.initialize()
+  }, [])
 
   return (
     <>
@@ -61,23 +97,18 @@ export default function SwiperCarousel({
           paddingLeft: `${paddingLeft}`,
         }}
       >
-        <swiper-container
-          ref={sliderRef}
-          free-mode={freeMode}
-          slides-per-view="auto"
-          space-between={gap}
-          speed="500"
-          injectStyles={[
-            `
-        .swiper {
-          overflow: visible;
-        }
-        `,
-          ]}
-        >
+        <swiper-container init="false" ref={swiperRef}>
           {data.map((v, i) => {
             return (
-              <swiper-slide key={i}>
+              <swiper-slide
+                key={i}
+                style={{
+                  width: `${cardWidth}`,
+                  maxWidth: `${cardMaxWidth}`,
+                  // display: `${activeIndex > i ? 'none' : 'block'}`,
+                  opacity: `${activeIndex > i ? '0' : '1'}`,
+                }}
+              >
                 {renderItem ? (
                   renderItem(v)
                 ) : (

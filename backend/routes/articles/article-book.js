@@ -25,7 +25,6 @@ const getArticleType = async (req) => {
 
 const getFullListData = async (req) => {
   let success = false;
-  let redirect = "";
 
   let keyword = req.query.keyword || "";
   let update_begin = req.query.update_begin || "";
@@ -68,7 +67,7 @@ const getFullListData = async (req) => {
     }
     if (page > totalPages) {
       redirect = `?page=${totalPages}`;
-      return { success, redirect };
+      return { success };
     }
 
     const sql = `SELECT A.article_id, A.article_title, AImgs.articleimg_name, CT1.code_desc AS subtype, A.update_at FROM Articles AS A JOIN CommonType AS CT1 ON CT1.code_type = 10 AND A.article_subtype = CT1.code_id JOIN ArticleImgs AImgs ON A.article_id = AImgs.article_id_fk AND AImgs.articleimg_cover = 1 ${q_sql} GROUP BY A.article_id, A.article_title, subtype, articleimg_name, A.update_at ORDER BY article_id DESC LIMIT ${
