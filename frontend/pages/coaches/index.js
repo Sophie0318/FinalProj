@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react'
+import React, { useEffect, useState } from 'react'
 import Layout3 from '@/components/layout/layout3'
 import styles from '@/styles/coach.module.css'
 import { IoSearch } from 'react-icons/io5'
@@ -33,7 +33,7 @@ export default function Index() {
     })
   }
 
-  const fetchCoaches = useCallback(async () => {
+  const fetchCoaches = async () => {
     try {
       const response = await axios.get(`http://localhost:3001/coaches/api`, {
         params: {
@@ -49,7 +49,7 @@ export default function Index() {
     } catch (error) {
       console.error('Error fetching coaches:', error)
     }
-  }, [selectedCategories, searchKeyword])
+  }
 
   const handleSearchInputChange = (e) => {
     setSearchKeyword(e.target.value)
@@ -61,27 +61,8 @@ export default function Index() {
   }
 
   useEffect(() => {
-    const fetchCoaches = async () => {
-      try {
-        const response = await axios.get(
-          `http://localhost:3001/coaches/api${
-            selectedCategories.length > 0
-              ? `?code_desc=${selectedCategories.join('-')}`
-              : ''
-          }`
-        )
-        console.log('API response:', response.data)
-        if (response.data.success) {
-          setAllCoaches(response.data.rows)
-          setFilteredCoaches(response.data.rows)
-        }
-      } catch (error) {
-        console.error('Error fetching lessons:', error)
-      }
-    }
-
     fetchCoaches()
-  }, [selectedCategories, fetchCoaches])
+  }, [selectedCategories]) // 只在選擇的類別變更時重新獲取數據
 
   return (
     <Layout3 title="教練列表" pageName="coaches">
@@ -94,7 +75,7 @@ export default function Index() {
             type="text"
             name="search_input"
             className={styles.search_input}
-            placeholder="請輸入關鍵字搜尋..."
+            placeholder="請輸入教練姓名搜尋..."
             value={searchKeyword}
             onChange={handleSearchInputChange}
             onKeyDown={(e) => {

@@ -43,7 +43,7 @@ export default function Index() {
     })
   }
 
-  const fetchLessons = useCallback(async () => {
+  const fetchLessons = async () => {
     try {
       const response = await axios.get(`http://localhost:3001/lessons/api`, {
         params: {
@@ -57,9 +57,27 @@ export default function Index() {
         setFilteredLessons(response.data.rows)
       }
     } catch (error) {
-      console.error('Error fetching lessons:', error)
+      console.error('Error fetching coaches:', error)
     }
-  }, [selectedCategories, searchKeyword])
+  }
+
+  // const fetchLessons = useCallback(async () => {
+  //   try {
+  //     const response = await axios.get(`http://localhost:3001/lessons/api`, {
+  //       params: {
+  //         code_desc: selectedCategories.join('-'),
+  //         keyword: searchKeyword,
+  //       },
+  //     })
+  //     console.log('API response:', response.data)
+  //     if (response.data.success) {
+  //       setAllLessons(response.data.rows)
+  //       setFilteredLessons(response.data.rows)
+  //     }
+  //   } catch (error) {
+  //     console.error('Error fetching lessons:', error)
+  //   }
+  // }, [selectedCategories, searchKeyword])
 
   const handleSearchInputChange = (e) => {
     setSearchKeyword(e.target.value)
@@ -82,28 +100,32 @@ export default function Index() {
 
   // 在組件加載時獲取所有課程
 
-  useEffect(() => {
-    const fetchLessons = async () => {
-      try {
-        const response = await axios.get(
-          `http://localhost:3001/lessons/api${
-            selectedCategories.length > 0
-              ? `?code_desc=${selectedCategories.join('-')}`
-              : ''
-          }`
-        )
-        console.log('API response:', response.data)
-        if (response.data.success) {
-          setAllLessons(response.data.rows)
-          setFilteredLessons(response.data.rows)
-        }
-      } catch (error) {
-        console.error('Error fetching lessons:', error)
-      }
-    }
+  // useEffect(() => {
+  //   const fetchLessons = async () => {
+  //     try {
+  //       const response = await axios.get(
+  //         `http://localhost:3001/lessons/api${
+  //           selectedCategories.length > 0
+  //             ? `?code_desc=${selectedCategories.join('-')}`
+  //             : ''
+  //         }`
+  //       )
+  //       console.log('API response:', response.data)
+  //       if (response.data.success) {
+  //         setAllLessons(response.data.rows)
+  //         setFilteredLessons(response.data.rows)
+  //       }
+  //     } catch (error) {
+  //       console.error('Error fetching lessons:', error)
+  //     }
+  //   }
 
+  //   fetchLessons()
+  // }, [selectedCategories, fetchLessons])
+
+  useEffect(() => {
     fetchLessons()
-  }, [selectedCategories, fetchLessons])
+  }, [selectedCategories]) // 只在選擇的類別變更時重新獲取數據
 
   return (
     <>
