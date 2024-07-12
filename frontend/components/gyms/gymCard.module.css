@@ -176,11 +176,11 @@
   }
 
   /* 控制頂部漸變的顯示 */
-.resultCards.scrolled::before,
-.resultCards:hover::before,
-.resultCards:focus-within::before {
-  opacity: 1;
-}
+  .resultCards.scrolled::before,
+  .resultCards:hover::before,
+  .resultCards:focus-within::before {
+    opacity: 1;
+  }
 
 
   /* 底部漸變效果 */
@@ -213,10 +213,11 @@
 
   }
 
+  /*
   .card:hover {
-    /* transform: scale(1.01);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23); */
-  }
+     transform: scale(1.01);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23); 
+  }*/
 
   .content {
     margin-top: 0px;
