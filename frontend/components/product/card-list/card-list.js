@@ -24,3 +24,4 @@ export default function CardList({ id, name, price }) {
     </>
   )
 }
+//在上面傳進img  img src="/product-img/{img}"

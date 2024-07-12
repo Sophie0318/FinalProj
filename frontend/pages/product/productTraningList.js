@@ -114,6 +114,7 @@ export default function ProductList() {
                           id={v.Product_id}
                           name={v.Product_name}
                           price={v.Product_price}
+                          // img={v.Product_img}
                         />
                       </Link>
                     </div>
@@ -125,7 +126,9 @@ export default function ProductList() {
               forcePage={page - 1}
               onPageChange={(e) => {
                 setPage(e.selected + 1)
-                router.push(`?page=${e.selected + 1}`)
+                router.push(`?page=${e.selected + 1}`, undefined, {
+                  scroll: false,
+                })
               }}
               totalPages={data.totalPages}
             />

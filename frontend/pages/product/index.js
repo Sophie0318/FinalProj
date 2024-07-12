@@ -1,15 +1,18 @@
 import React from 'react'
-import Layout2 from '@/components/layout/layout2'
+import Layout3 from '@/components/layout/layout3'
 import Index from '@/components/joinMember'
 import IndexPhoto from '@/components/product/index-photo'
+import styles from './index.module.css'
 
 export default function ProductTest() {
   return (
-    <Layout2 pageName="products">
+    <Layout3 pageName="products" title="" height="179px" section="flatSection">
       <main>
         <IndexPhoto />
-        <Index />
+        <div className={styles.ss}>
+          <Index />
+        </div>
       </main>
-    </Layout2>
+    </Layout3>
   )
 }
