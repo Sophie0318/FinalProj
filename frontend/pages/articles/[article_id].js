@@ -61,7 +61,6 @@ export default function ArticlePage() {
       rootMargin: '-650px 0px 0px 0px',
     }
     const observer = new IntersectionObserver(([entry]) => {
-      console.log(entry)
       setShowSidebar(entry.isIntersecting)
     }, options)
     if (articleRef.current) {

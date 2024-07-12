@@ -1,8 +1,7 @@
-import { FaArrowUpLong } from 'react-icons/fa6'
-import styles from './back-to-top.module.css'
-
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
+import { FaArrowUpLong } from 'react-icons/fa6'
+import styles from './back-to-top.module.css'
 
 export default function BackToTop() {
   const scrollToTop = () => {

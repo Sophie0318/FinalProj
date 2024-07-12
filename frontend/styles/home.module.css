@@ -355,17 +355,43 @@
     display: block;
     position: relative;
     height: calc(100dvh);
+    overflow: hidden;
     /* height: calc(100vh - 70px); */
     /* width: 100vw; */
   }
 
-  .heroImage img {
-    position: fixed;
-    width: 120vw;
-    top: calc(80px + 10px);
+  .logo {
+    margin-right: 0;
+  }
+  .logoPhoto {
+    width: 162px;
+  }
+
+  .hideHero {
+    /* opacity: 0; */
+  }
+  .heroImage {
+    position: absolute;
+    top: calc(10px);
     left: 50%;
     transform: translateX(-50%);
     z-index: -5;
+    overflow: hidden;
+    /* opacity: 1; */
+    transition: opacity 0.5s ease;
+    display: block;
+    margin: 10px 0;
+  }
+
+  .heroImage img {
+    /* position: absolute; */
+    width: 120vw;
+    bottom: 0;
+    /* top: 0; */
+    /* top: calc(10px); */
+    /* left: 50%; */
+    /* transform: translateX(-50%); */
+    /* z-index: -5; */
   }
 
   .cta1 {
@@ -374,6 +400,7 @@
     bottom: calc(30px + 50px);
     left: 0;
     z-index: -1;
+    width: 100%;
     /* width: 100vw; */
     margin: 0;
     padding: 0;
@@ -410,9 +437,14 @@
   }
   .cta1Mask img {
     position: absolute;
-    right: 0;
-    bottom: calc(-25px - 170px);
+    right: -150px;
+    bottom: calc(-115px);
+    /* bottom: calc(-25px - 170px); */
     z-index: -2;
+  }
+
+  .pageWrap {
+    margin-top: 25px;
   }
 
 }
