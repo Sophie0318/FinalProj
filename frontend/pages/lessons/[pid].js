@@ -40,6 +40,15 @@ export default function Detail() {
     setIsClicked(!isClicked)
   }
 
+  const handlePurchase = () => {
+    if (lesson) {
+      router.push({
+        pathname: '/lessons/checkout',
+        query: { lessonId: lesson.lesson_id },
+      })
+    }
+  }
+
   if (isLoading) {
     return <div>Loading...</div>
   }
@@ -84,7 +93,7 @@ export default function Detail() {
                   </span>
                   <span>收藏</span>
                 </button>
-                <button className={styles.btnReserve}>
+                <button className={styles.btnReserve} onClick={handlePurchase}>
                   <IoCart /> 購買
                 </button>
               </div>

@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react'
 import Layout3 from '@/components/layout/layout3'
-import Carousel from '@/components/carousel'
+import CardCarousel from '@/components/swiperCarousel/cardCarousel'
 import CheckboxList from '@/components/lessons/checkboxList'
 import styles from '@/styles/lesson.module.css'
 import { IoSearch } from 'react-icons/io5'
+import LessonCard from '@/components/lessons/lessonCard'
 import LessonList from '@/components/lessons/lessonList'
 import axios from 'axios'
-import { useCallback } from 'react'
 import Link from 'next/link'
 
-export default function Index() {
+export default function Index({ lessons }) {
   // 用於存儲所有課程的狀態
   const [allLessons, setAllLessons] = useState([])
   // 用於存儲篩選後的課程的狀態
@@ -18,6 +18,18 @@ export default function Index() {
   const [selectedCategories, setSelectedCategories] = useState([])
   //用來儲存關鍵字的狀態
   const [searchKeyword, setSearchKeyword] = useState('')
+
+  const renderLessonCard = (data) => {
+    return (
+      <LessonCard
+        title={data.lesson_name}
+        price={data.lesson_price}
+        gym={data.gym_name}
+        category={data.categories}
+        imgSrc="/defaultImg.png"
+      />
+    )
+  }
 
   // 處理類別選擇變化的函數(使用checkbox進行篩選)
   const handleCategoryChange = (code_desc, isChecked) => {
@@ -131,20 +143,20 @@ export default function Index() {
     <>
       <Layout3 title="課程列表" pageName="lessons">
         <div className={styles.content}>
-          <div className={styles.popularCard}>
-            <section className="popular lessons">
-              <div className="row">
-                <Carousel carouselTitle="熱門課程" />
+          <section className={`${styles.popular}`}>
+            <div className="row px-0 mx-0 g-0">
+              <div className="col-md-3 d-flex justify-content-md-end justify-content-center align-items-center">
+                <h3 className="my-0">熱門課程</h3>
               </div>
-              <div className="row">
-                <div className="col d-flex justify-content-center">
-                  <button className="btn btn-lg btn-primary text-white h4-font rounded-pill">
-                    找課程
-                  </button>
-                </div>
+              <div className="col-md-9 ps-3 py-5 overflow-hidden">
+                <CardCarousel
+                  cardMaxWidth="fit-content"
+                  data={allLessons}
+                  renderItem={renderLessonCard}
+                />
               </div>
-            </section>
-          </div>{' '}
+            </div>
+          </section>
           <div className={styles.search}>
             <div className={styles.searchIcon}>
               <IoSearch />
