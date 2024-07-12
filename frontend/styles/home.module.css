@@ -360,38 +360,42 @@
     /* width: 100vw; */
   }
 
-  .logo {
-    margin-right: 0;
-  }
-  .logoPhoto {
-    width: 162px;
+  .hideHero {
+    opacity: 0;
   }
 
-  .hideHero {
-    /* opacity: 0; */
+  .logoSP {
+    position: fixed;
+    top: calc(-10px - 70px);
+    /* top: 10px; */
+    left: 50%;
+    transform: translateX(-50%);
   }
-  .heroImage {
-    position: absolute;
-    top: calc(10px);
+
+  .logoSP img{
+    width: 138px;
+  }
+  .heroImageContainer {
+    position: fixed;
+    top: calc(10px + 70px);
     left: 50%;
     transform: translateX(-50%);
     z-index: -5;
-    overflow: hidden;
     /* opacity: 1; */
+    /* overflow: hidden; */
     transition: opacity 0.5s ease;
-    display: block;
     margin: 10px 0;
   }
 
-  .heroImage img {
-    /* position: absolute; */
-    width: 120vw;
-    bottom: 0;
-    /* top: 0; */
+  .heroImage {
+    /* position: fixed; */
+    /* bottom: 0; */
+    /* top: calc(10px + 70px); */
     /* top: calc(10px); */
     /* left: 50%; */
     /* transform: translateX(-50%); */
     /* z-index: -5; */
+    width: 120vw;
   }
 
   .cta1 {
