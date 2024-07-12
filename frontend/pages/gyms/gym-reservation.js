@@ -1,10 +1,12 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Layout3 from '@/components/layout/layout3'
 import styles from './gym-reservation.module.css'
 import AutofillCheckbox from '@/components/gyms/auto-fill-checkbox'
 import CoachCard from '@/components/coaches/coacgCard'
 import FormField from '@/components/common/form-field/form-field'
 import GymCardSpot from '@/components/gyms/gymCard-spot'
+import ReserveModal from '@/components/coaches/reserve-modal'
+import GymReservationModal from '@/components/gyms/gym-reservation-modal'
 
 // 假資料
 const gymData = {
@@ -39,27 +41,27 @@ const gymData = {
     '更衣室和淋浴設施：提供舒適的更衣和盥洗空間',
   ],
 }
+const memberData = {
+  name: '張三',
+  email: 'zhangsan@example.com',
+  phone: '0912345678',
+  // ... 其他會員資料
+}
 export default function GymReservation() {
-  const memberData = {
-    name: '張三',
-    email: 'zhangsan@example.com',
-    phone: '0912345678',
-    // ... 其他會員資料
-  }
-
-  const coaches = [
-    { name: '李安妮', skill: '心肺/有氧', imgSrc: '/coach4.jpg' },
-    // 添加更多教练数据
-  ]
-
   const handleAutofill = (data) => {
     console.log('Autofilled data:', data)
     // 在這裡處理自動填充的資料，例如更新表單狀態等
   }
 
+  const [showModal, setShowModal] = useState(false)
+
   const handleSubmit = (e) => {
     e.preventDefault()
     setShowModal(true)
+  }
+
+  const handleCloseModal = () => {
+    setShowModal(false)
   }
 
   return (
@@ -67,7 +69,7 @@ export default function GymReservation() {
       <Layout3>
         <div className={styles.container}>
           <div>
-            <form>
+            <form onSubmit={handleSubmit}>
               <div className={styles.formTitle}>
                 <h4 className="">預約人資訊｜</h4>
                 <AutofillCheckbox
@@ -91,7 +93,9 @@ export default function GymReservation() {
                 />
               </div>
               <h4 className="">預約場館｜</h4>
-              <GymCardSpot data={gymData} />
+              <div style={{ display: 'flex', justifyContent: 'center' }}>
+                <GymCardSpot data={gymData} style={{ margin: 'auto' }} />
+              </div>
               <div className={styles.inputsContainer}>
                 <FormField
                   label="選擇時段"
@@ -110,9 +114,8 @@ export default function GymReservation() {
             </form>
           </div>
         </div>
-
-        <form></form>
       </Layout3>
+      {showModal && <GymReservationModal onClose={handleCloseModal} />}
     </div>
   )
 }
