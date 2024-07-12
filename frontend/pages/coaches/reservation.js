@@ -4,8 +4,12 @@ import Carousel from '@/components/carousel'
 import styles from '@/styles/coachReservation.module.css'
 import CoachCard from '@/components/coaches/coachCard'
 import ReserveModal from '@/components/coaches/reserve-modal'
+import { useRouter } from 'next/router'
+import axios from 'axios'
 
 export default function Reservation() {
+  const [selectedCoach, setSelectedCoach] = useState(null)
+  const router = useRouter()
   const [showModal, setShowModal] = useState(false)
 
   const handleSubmit = (e) => {
@@ -16,10 +20,30 @@ export default function Reservation() {
   const handleCloseModal = () => {
     setShowModal(false)
   }
-  const coaches = [
-    { name: '李安妮', skill: '心肺/有氧', imgSrc: '/coach4.jpg' },
-    // 添加更多教练数据
-  ]
+  // const coaches = [
+  //   { name: '李安妮', skill: '心肺/有氧', imgSrc: '/coach4.jpg' },
+  //   // 添加更多教练数据
+  // ]
+
+  useEffect(() => {
+    const fetchCoach = async () => {
+      const { coachId } = router.query
+      if (coachId) {
+        try {
+          const response = await axios.get(
+            `http://localhost:3001/coaches/api/${coachId}`
+          )
+          if (response.data.success) {
+            setSelectedCoach(response.data.coach)
+          }
+        } catch (error) {
+          console.error('Error fetching coach:', error)
+        }
+      }
+    }
+
+    fetchCoach()
+  }, [router.query])
   return (
     <>
       <Layout3 title="教練預約" pageName="coaches">
@@ -59,15 +83,13 @@ export default function Reservation() {
                 <div className={styles.formLabel}>預約教練</div>
                 <div className={styles.cardContainer}>
                   <div className={styles.resCoach}>
-                    {' '}
-                    {coaches.map((coach, index) => (
+                    {selectedCoach && (
                       <CoachCard
-                        key={index}
-                        name={coach.name}
-                        skill={coach.skill}
-                        imgSrc={coach.imgSrc}
+                        name={selectedCoach.coach_name}
+                        skill={selectedCoach.skills}
+                        imgSrc={`/${selectedCoach.coach_img}`}
                       />
-                    ))}
+                    )}
                   </div>
                 </div>
 

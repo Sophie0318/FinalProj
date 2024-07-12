@@ -12,6 +12,9 @@ export default function Detail() {
   const router = useRouter()
   const { pid } = router.query
   const [isLoading, setIsLoading] = useState(true)
+  const handleReservation = () => {
+    router.push(`/coaches/reservation?coachId=${pid}`)
+  }
 
   useEffect(() => {
     const fetchCoach = async () => {
@@ -76,7 +79,10 @@ export default function Detail() {
                   </span>
                   <span>收藏</span>
                 </button>
-                <button className={styles.btnReserve}>
+                <button
+                  className={styles.btnReserve}
+                  onClick={handleReservation}
+                >
                   <IoCall /> 預約
                 </button>
               </div>
