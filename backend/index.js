@@ -2,7 +2,6 @@ import express from "express";
 import session from "express-session";
 import db from "./utils/connect-mysql.js";
 import cors from "cors";
-import mysql_session from "express-mysql-session";
 import jwt from "jsonwebtoken";
 
 // import 各分支的 router
@@ -27,15 +26,12 @@ const corsOption = {
 };
 app.use(cors(corsOption));
 
-const MysqlStore = mysql_session(session);
-const sessionStore = new MysqlStore({}, db);
 
 app.use(
   session({
     saveUninitialized: false,
     resave: false,
     secret: "加密用的字串",
-    store: sessionStore,
     // cookie:{
     //   maxAge: 1800_000,
     // }
@@ -67,18 +63,12 @@ app.use("/coaches", coachRouter);
 app.use("/product", productRouter);
 app.use("/users", usersRouter);
 
-app.get("/", (req, res) => {
-  res.locals.title = "首頁 | " + res.locals.title;
-  res.render("home", { name: "homepage" });
-});
-
 //後端驗證的token測試路由
 app.get("/jwt-data", (req, res) => {
   res.json(req.my_jwt);
 });
 
 app.use(express.static("public"));
-app.use("/bootstrap", express.static("node_modules/bootstrap/dist"));
 
 app.use((req, res) => {
   res.type("text/plain");

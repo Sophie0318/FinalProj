@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Layout3 from '@/components/layout/layout3'
-import Carousel from '@/components/carousel'
+// import Carousel from '@/components/carousel'
 import styles from '@/styles/coachDetail.module.css'
 import { IoCall, IoHeart } from 'react-icons/io5'
 import axios from 'axios'
