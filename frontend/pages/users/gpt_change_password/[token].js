@@ -12,49 +12,8 @@ export default function ForgetPassword() {
   const router = useRouter()
 
   useEffect(() => {
-    // 從 URL 中獲取 token
-    const { token } = router.query
-    if (token) {
-      setToken(token)
-    }
-  }, [router.query])
-
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-
-    if (newPassword !== confirmPassword) {
-      alert('密碼不一致')
-      return
-    }
-
-    if (!token) {
-      alert('無效的 token')
-      return
-    }
-
-    try {
-      // 這裡應該發送請求來更改密碼
-      const response = await fetch('??????????', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ newPassword, token }),
-      })
-
-      if (response.ok) {
-        alert('密碼已成功更改')
-        router.push('/users/login') // 重定向到登錄頁面
-      } else {
-        const data = await response.json()
-        alert(`更改密碼失敗: ${data.message}`)
-      }
-    } catch (error) {
-      console.error('Error:', error)
-      alert('更改密碼時發生錯誤')
-    }
-  }
-
+    setToken(router.query.token)
+  }, [router.query.token])
   return (
     <>
       <UserSignin title="更改密碼" description="請在下方輸入您的新密碼">

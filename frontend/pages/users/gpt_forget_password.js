@@ -38,7 +38,7 @@ export default function ForgetPassword() {
         <div className={styles.userContainer}>
           <form
             className={styles.userForm}
-            action="/forget_password"
+            action="/gpt_forget_password"
             method="post"
             onSubmit={handleSubmit}
           >
