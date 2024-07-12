@@ -11,7 +11,9 @@ import { useRouter } from 'next/router'
 import Link from 'next/link'
 export default function ProductList() {
   const router = useRouter()
+  const [proTect, setProTect] = useState('') //健身護具子分類
   const [data, setData] = useState({
+    //產品
     //呈現資料內容要用狀態
     success: false,
     rows: [],
@@ -20,7 +22,13 @@ export default function ProductList() {
   const [page, setPage] = useState(1) // 目前第幾頁
   const [perpage, setPerpage] = useState(10) // 每頁幾筆資料
   const [nameLike, setNameLike] = useState('') // 搜尋關鍵字
-  // const [query, setQuery] = useState('') //
+
+  // const addData = (product) => {
+  //   const newData = { ...product, qty: 1 }
+  //   const nextData = [newData, ...data.rows]
+  //   setData(nextData)
+  // }
+
   /*
   useEffect(() => {
     // 剛進入頁面時，依據網址 url path 解析出 query value ，給分類使用
@@ -39,7 +47,7 @@ export default function ProductList() {
     const pathname = router.pathname
     const pathParts = pathname.split('/')
     const query = pathParts[pathParts.length - 1].split('?')[0]
-
+    console.log(query, 'query')
     //URLSearchParams這是一個 Web API，用於處理 URL 的查詢字符串。它提供了一種簡單的方式來創建、修改和解析 URL 參數。
 
     const queryParams = new URLSearchParams(
@@ -47,6 +55,7 @@ export default function ProductList() {
         category: query,
         page: page,
         keyword: nameLike,
+        // type: test,
       }
 
       // const existingParams = new URLSearchParams(router.query)
@@ -74,14 +83,18 @@ export default function ProductList() {
   useEffect(() => {
     updateProductData()
   }, [router, page, perpage])
-
   return (
     <Layout3 pageName="products">
       <main className={styles.mainWithMargin}>
         <div className={styles.container}>
           <div className="row">
             <div className="col-12 col-md-3 ">
-              <SideBar />
+              <SideBar
+                proTect={proTect}
+                setProTect={setProTect}
+                updateProductData={updateProductData}
+              />
+
               <MyProductList
                 nameLike={nameLike} // 將 nameLike 傳到下層給 search 使用
                 setNameLike={setNameLike} // 將 setNameLike 傳到下層給 search 使用

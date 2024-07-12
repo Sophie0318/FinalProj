@@ -233,9 +233,9 @@ p,
   max-width: 960px;
 }
 
-.container-fluid {
-  padding: 0 120px;
-}
+// .container-fluid {
+//   padding: 0 120px;
+// }
 
 // 暫存, 之後需要整理的
 
@@ -321,9 +321,9 @@ p,
     letter-spacing: 1px;
   }
 
-  .container-fluid {
-    padding: 0 16px;
-  }
+  // .container-fluid {
+  //   padding: 0 16px;
+  // }
 }
 
 // 試著調整switch/toggle 的大小 用覆蓋scss的方式
