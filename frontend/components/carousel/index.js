@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { FaArrowLeftLong, FaArrowRightLong } from 'react-icons/fa6'
-import styles from './carousel.module.css'
+// import styles from './carousel.module.css'
 
 export default function Carousel({ carouselTitle = '熱門選項', data = [] }) {
   const list = ['card1', 'card2', 'card3']
