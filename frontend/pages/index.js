@@ -9,7 +9,7 @@ import Btn from '@/components/articles/buttons_test'
 import JoinMember from '@/components/joinMember'
 import CardCarousel from '@/components/swiperCarousel/cardCarousel'
 import LessonCard from '@/components/lessons/lessonCard'
-import CoachCard from '@/components/coaches/coacgCard'
+import CoachCard from '@/components/coaches/coachCard'
 import ArticleCard from '@/components/articles/article-card'
 import styles from '@/styles/home.module.css'
 
