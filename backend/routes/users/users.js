@@ -110,7 +110,10 @@ router.post("/login-jwt", async (req, res) => {
 });
 //忘記密碼的路由
 router.post("/test_forget_password", userController.forgotPassword);
-
+//驗證重設密碼的路由
+router.get("/verify_reset_token/:token", userController.verifyResetToken);
+//重設密碼的路由
+router.post("/reset_password", userController.changePassword);
 
 
 
