@@ -15,7 +15,7 @@ export default function ForgetPassword() {
 
   useEffect(() => {
     if (token) {
-      fetch(`/gpt_change_password/${token}`)
+      fetch(`/verify_reset_token?token=${token}`)
         .then((response) => {
           if (!response.ok) {
             throw new Error('Token verification failed')
@@ -39,7 +39,7 @@ export default function ForgetPassword() {
     }
 
     try {
-      const response = await fetch('/users/reset_password', {
+      const response = await fetch('/reset_password', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

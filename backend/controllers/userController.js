@@ -57,7 +57,7 @@ const userController = {
     },
     //處理驗證resetToken是否過期
     verifyResetToken: async (req, res) => {
-        const { token } = req.params;
+        const { token } = req.query;
 
         try {
             const [user] = await db.query('SELECT * FROM members WHERE resetToken = ?', [token]);
