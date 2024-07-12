@@ -1,12 +1,13 @@
-import React from 'react'
+import React, { useReducer } from 'react'
 import Layout3 from '@/components/layout/layout3'
 import styles from './gym_id.module.css'
 import { IoCall, IoHeart } from 'react-icons/io5'
 import Badges from '@/components/gyms/badges'
+import { useRouter } from 'next/router'
 
 const gymsData = [
   {
-    id: 1,
+    gym_id: 1,
     name: '原力覺醒健身房',
     subtitle: '友善的設備，專業的教練',
     address: '台北市中正區杭州南路二段308號',
@@ -41,6 +42,12 @@ const gymsData = [
 export default function GymDetail({ gymId }) {
   // 假設 gymId 是從 1 開始的，我們需要減 1 來獲取正確的索引
   const gym = gymsData[gymId - 1] || gymsData[0]
+const router = useRouter()
+const {gym_id} = router.query
+
+  const handleReservation = () => {
+    router.push(`/gyms/gym-reservation?Id=${gym_id}`) 
+  }
 
   return (
     <div>
@@ -103,7 +110,9 @@ export default function GymDetail({ gymId }) {
                     </span>
                     <span>收藏</span>
                   </button>
-                  <button className={styles.btnReserve}>
+                  <button 
+                  onClick={handleReservation}
+                  className={styles.btnReserve}>
                     <IoCall /> 預約
                   </button>
                 </div>

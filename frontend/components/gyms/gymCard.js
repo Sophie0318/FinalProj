@@ -47,7 +47,7 @@ const GymCard = ({ data }) => {
       </div>
       <div className={styles.textBtn}>
         <div className={styles.content}>
-          <Link href="/gyms/[id]" as={`/gyms/${data.id}`}>
+          <Link href="/gyms/[gym_id]" as={`/gyms/${data.id}`}>
             <h5 className={styles.title}>{data.name}</h5>
           </Link>
           <div className="cardInfo">
@@ -64,10 +64,10 @@ const GymCard = ({ data }) => {
             </div>
           </div>
         </div>
-        <a href="#" className={styles.bookButton}>
+        <Link href="/gyms/[gym_id]/gym-reservation" as={`/gyms/${data.id}/gym-reservation`} className={styles.bookButton}>
           <IoCall />
           預約
-        </a>
+        </Link>
       </div>
     </div>
   )
