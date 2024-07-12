@@ -9,11 +9,58 @@ export default function ForgetPassword() {
   const [newPassword, setNewPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const [token, setToken] = useState('')
+  const [error, setError] = useState('')
+  const [message, setMessage] = useState('')
   const router = useRouter()
 
   useEffect(() => {
-    setToken(router.query.token)
+    const { token } = router.query
+    setToken(token)
+
+    if (token) {
+      fetch(`/users/verify_reset_token/${token}`)
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok')
+          }
+          return response.json()
+        })
+        .then((data) => {
+          setMessage(data.message)
+        })
+        .catch((error) => {
+          setError(error.message)
+        })
+    }
   }, [router.query.token])
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    if (newPassword !== confirmPassword) {
+      setError('密碼不匹配')
+      return
+    }
+
+    try {
+      const response = await fetch('/users/reset_password', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ token, newPassword }),
+      })
+
+      if (!response.ok) {
+        throw new Error('Network response was not ok')
+      }
+
+      const data = await response.json()
+      setMessage(data.message)
+    } catch (error) {
+      setError(error.message)
+    }
+  }
+
   return (
     <>
       <UserSignin title="更改密碼" description="請在下方輸入您的新密碼">
