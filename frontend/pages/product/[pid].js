@@ -10,6 +10,7 @@ import CardDetail from '@/components/product/card-detail/card-detail'
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import styles from '@/components/product/product-detail/detail-text.module.css'
+import toast, { Toaster } from 'react-hot-toast'
 
 export default function ProductDetail() {
   const router = useRouter()
@@ -118,6 +119,9 @@ export default function ProductDetail() {
       getProduct(pid)
     }
   }, [router.isReady]) //這部分設置了 useEffect 的依賴項。當 router.isReady 的值改變時，useEffect 會被重新調用。
+  const notify = (productName) => {
+    toast.success(productName + '已成功加入購物車')
+  }
 
   return (
     <Layout3
@@ -142,7 +146,13 @@ export default function ProductDetail() {
               name={product.Product_name}
             />
 
-            <button className={styles.btnCart} onClick={() => addItem(product)}>
+            <button
+              className={styles.btnCart}
+              onClick={() => {
+                addItem(product)
+                notify(product.Product_name)
+              }}
+            >
               加入購物車
             </button>
           </div>
@@ -164,6 +174,7 @@ export default function ProductDetail() {
           </div>
         </div>
       </div>
+      <Toaster />
     </Layout3>
   )
 }
