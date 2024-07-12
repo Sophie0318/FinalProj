@@ -36,6 +36,14 @@ export default function Navbar({
   //   }
   // }, [product])
 
+  const calcTotalQty = () => {
+    let total = 0
+    for (let i = 0; i < item.length; i++) {
+      total += item[i].qty
+    }
+    return total
+  }
+
   return (
     <>
       <header className={`${styles.navbarPC}`}>
@@ -91,7 +99,7 @@ export default function Navbar({
               removeItem={removeItem}
               // calcTotalPrice={calcTotalPrice}
             />
-            <span className={`${styles.badge}`}>99+</span>
+            <span className={`${styles.badge}`}>{calcTotalQty()}</span>
           </div>
         </ul>
       </header>

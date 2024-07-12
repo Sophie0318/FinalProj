@@ -42,6 +42,7 @@ export default function ShoppingCart({
   // console.log(calcTotalPrice)
 
   // console.log(`shoppingList: ${shoppingList}`)
+
   return (
     <>
       <li>
