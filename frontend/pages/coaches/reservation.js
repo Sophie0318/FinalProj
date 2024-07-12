@@ -26,7 +26,7 @@ export default function Reservation() {
         <div className={styles.content}>
           <div className={styles.reserveForm}>
             <div className={styles.formHead}>
-              <p className={styles.formTitle}>請選擇類別 ｜</p>
+              <p className={styles.formTitle}>預約人資訊 ｜</p>
               <div class={styles.checkboxes}>
                 <input
                   type="checkbox"

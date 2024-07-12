@@ -12,7 +12,7 @@
 .formHead {
   display: flex;
   align-items: center;
-  gap: 30px;
+  gap: 18px;
 }
 
 .formTitle {
@@ -88,6 +88,7 @@
   gap: 9px;
   align-self: stretch;
   padding: 50px 0 0 80px;
+  position: relative;
 }
 
 .formLabel {
@@ -99,19 +100,23 @@
 }
 
 .form input {
+  border-radius: 40px;
+  padding: 0px 30px;
+  width: 100%;
   height: 60px;
-  padding-left: 30px; /* 確保文本不會重疊到圖標 */
   margin-bottom: 45px;
   border: 3px solid var(--color-midnight-green);
-  border-radius: 50px;
+  /* border-radius: 50px; */
   box-sizing: border-box; /* 包括內邊距和邊框在內的寬度 */
-  width: 450px;
+  width: 60%;
   background-color: var(--color-old-lace);
+  font-size: 18px; /* 調整字體大小 */
+  line-height: 1.5; /* 調整行高 */
 }
 
 .timeSelect {
   height: 60px;
-  width: 450px;
+  width: 60%;
   background-color: var(--color-old-lace);
   border: 3px solid var(--color-midnight-green);
   border-radius: 50px;
@@ -165,6 +170,14 @@
     padding-right: 16px;
   }
 
+  .formTitle {
+    font-family: 'Gensen', sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: 2.4px;
+    margin: 0; /* 去除默认的段落边距 */
+  }
+
   .reserveForm {
     margin-top: 50px;
   }
@@ -173,7 +186,22 @@
     padding: 30px;
   }
 
+  .form input {
+    width: 100%;
+  }
+
   .formHead {
     padding-left: 30px;
+  }
+
+  .timeSelect {
+    width: 100%;
+  }
+
+  .btnSend {
+    font-family: 'Gensen', sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: 2.4px;
   }
 }
