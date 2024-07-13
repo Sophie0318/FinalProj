@@ -13,6 +13,7 @@
   color: #1a394a;
   font-size: 40px;
   padding-bottom: 60px;
+ 
 }
 .fountTitle {
   font-size: 24px;
@@ -25,4 +26,12 @@
   height: 10%;
   color: white;
   
+}
+@media screen and (max-width: 390px) {
+  .fountTitle{
+     display: flex;
+  justify-content: center;
+  }
+
+ 
 }

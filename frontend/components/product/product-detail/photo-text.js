@@ -8,9 +8,11 @@ export default function PhotoText() {
         {/* 第一組 - 彈性表面 */}
         <div
           className="row text-center align-items-center"
-          style={{
-            marginTop: '50px',
-          }}
+          style={
+            {
+              // marginTop: '50px',
+            }
+          }
         >
           <h2 className="col-12 text-center my-5">產品特性</h2>
           <div className="col-md-6 mt-5">

@@ -71,28 +71,105 @@ export default function ShoppingCart() {
               className="offcanvas-body"
               style={{ backgroundColor: '#FFF7E9' }}
             >
-              <div style={{ display: 'flex', gap: '17px' }}>
-                {shoppingList &&
-                  shoppingList.map((v, i) => {
-                    return (
-                      <div key={i}>
-                        <img
-                          src="/product-img/大豆.webp"
-                          alt=""
-                          style={{ width: '30%', borderRadius: '25px' }}
+              {/* <div style={{ display: 'flex', gap: '17px' }}> */}
+              {shoppingList &&
+                shoppingList.map((v, i) => {
+                  return (
+                    <div
+                      key={i}
+                      style={{
+                        display: 'flex',
+                        gap: '17px',
+                        marginBottom: `50px`,
+                      }}
+                    >
+                      <img
+                        src="/product-img/大豆.webp"
+                        alt=""
+                        style={{ width: '30%', borderRadius: '25px' }}
+                      />
+                      <ul>
+                        <li style={{ paddingBottom: '20px' }}>
+                          商品:{v.Product_name}
+                        </li>
+                        <li style={{ paddingBottom: '20px' }}>
+                          特色: {v.Product_desc}
+                        </li>
+                        <li>價格: {v.Product_price}</li>
+                      </ul>
+                      {/* <div
+                        className="d-flex"
+                        style={{ height: '30px', marginTop: '70px' }}
+                      >
+                        <div
+                          style={{
+                            border: '1px solid black',
+                            backgroundColor: '#1A394A',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyItems: 'center',
+                            color: 'white',
+                            fontSize: '30px',
+                          }}
+                        >
+                          <IoAddSharp
+                            onClick={() => increaseItem(v.Product_id)}
+                          />
+                        </div>
+                        <div
+                          style={{
+                            backgroundColor: 'white',
+                            color: '#1a394a',
+                            width: '30px',
+                            border: '1px solid black',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyItems: 'center',
+                            paddingLeft: '8px',
+                            fontSize: '25px',
+                          }}
+                        >
+                          {v.qty}
+                        </div>
+                        <div
+                          style={{
+                            backgroundColor: '#1A394A',
+                            border: '1px solid black',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyItems: 'center',
+                            color: 'white',
+                            fontSize: '30px',
+                          }}
+                        >
+                          <IoRemove
+                            onClick={() => {
+                              const nextQty = v.qty - 1
+                              if (nextQty === 0) {
+                                if (confirm('這樣會整個刪掉喔!確定嗎?')) {
+                                  removeItem(v.Product_id)
+                                }
+                              } else {
+                                decreaseItem(v.Product_id)
+                              }
+                            }}
+                          />
+                        </div>
+                      </div> */}
+                      <div>
+                        <IoCloseSharp
+                          style={{
+                            marginLeft: '50px',
+                          }}
+                          onClick={() => {
+                            if (confirm('要刪除嗎?')) {
+                              removeItem(v.Product_id)
+                            }
+                          }}
                         />
-                        <ul>
-                          <li style={{ paddingBottom: '20px' }}>
-                            商品:{v.Product_name}
-                          </li>
-                          <li style={{ paddingBottom: '20px' }}>
-                            特色: {v.Product_desc}
-                          </li>
-                          <li>價格: {v.Product_price}</li>
-                        </ul>
                         <div
                           className="d-flex"
-                          style={{ height: '30px', marginTop: '70px' }}
+                          style={{ height: '30px', marginTop: '100px' }}
                         >
                           <div
                             style={{
@@ -149,56 +226,45 @@ export default function ShoppingCart() {
                             />
                           </div>
                         </div>
-                        <div>
-                          <IoCloseSharp
-                            style={{
-                              marginLeft: '50px',
-                            }}
-                            onClick={() => {
-                              if (confirm('要刪除嗎?')) {
-                                removeItem(v.Product_id)
-                              }
-                            }}
-                          />
-                        </div>
                       </div>
-                    )
-                  })}
-              </div>
-              <div
-                className="d-flex"
+                    </div>
+                  )
+                })}
+            </div>
+            <div
+              className="d-flex"
+              style={{
+                justifyContent: 'space-between',
+                padding: '0 0 20px 20px',
+                marginTop: '50px',
+              }}
+            >
+              <p>小計</p>
+              <p>NT${total}</p>
+            </div>
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                marginTop: '50px',
+              }}
+            >
+              <button
                 style={{
-                  justifyContent: 'space-between',
-                  padding: '0 0 20px 20px',
-                  marginTop: '50px',
+                  backgroundColor: '#1a394a',
+                  borderRadius: '50px',
+                  fontSize: '18px',
+                  width: '265px',
+                  height: '65px',
+                  color: 'white',
                 }}
               >
-                <p>小計</p>
-                <p>NT${total}</p>
-              </div>
-              <div
-                style={{
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  marginTop: '50px',
-                }}
-              >
-                <button
-                  style={{
-                    backgroundColor: '#1a394a',
-                    borderRadius: '50px',
-                    fontSize: '18px',
-                    width: '265px',
-                    height: '65px',
-                    color: 'white',
-                  }}
-                >
-                  前往付款
-                </button>
-              </div>
+                前往付款
+              </button>
             </div>
           </div>
+          {/* </div> */}
         </a>
       </li>
     </>
