@@ -401,7 +401,7 @@
   .cta1 {
     position: absolute;
     /* bottom: 0; */
-    bottom: calc(30px + 50px);
+    bottom: calc(50px);
     left: 0;
     z-index: 3;
     width: 100%;
