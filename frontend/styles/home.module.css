@@ -38,6 +38,9 @@
 .keyVisualSP {
   display: none;
 }
+.logoPC {
+  display: none;
+}
 
 .ctaMobile {
   display: none;
@@ -247,6 +250,19 @@
   }
 }
 
+@media (max-width: 900px) {
+  .logoPC {
+    display: block;
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  .logoPC img {
+    width: 138px;
+  }
+}
+
 @media (max-width: 888px) {
   .carouselBtnPC {
     display: none;
@@ -347,6 +363,10 @@
 
 @media (max-width: 697px) {
   .keyVisualPC {
+    display: none;
+  }
+
+  .logoPC {
     display: none;
   }
 

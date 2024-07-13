@@ -114,6 +114,11 @@ export default function Home() {
 
         <main>
           <section className={`${styles.keyVisualPC}`}>
+            <div className={styles.logoPC}>
+              <Link href="/">
+                <img src="/logo.png" />
+              </Link>
+            </div>
             <div className={`${styles.hero}`}>
               <div className={`${styles.heroContainer} container-fluid p-0`}>
                 <div className="row g-0 position-relative">
