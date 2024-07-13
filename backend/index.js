@@ -40,9 +40,6 @@ app.use(
 
 // define top level middleware
 app.use((req, res, next) => {
-  res.locals.title = "Express Practice";
-  res.locals.session = req.session;
-
   //後端驗證token
   //在top-level middleware處理jwt token
   const auth = req.get("Authorization"); // 先拿到檔頭的 Authorization 項目值
