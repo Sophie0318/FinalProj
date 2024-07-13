@@ -553,6 +553,7 @@ CREATE TABLE Members (
     address VARCHAR(300),
     resetToken VARCHAR(300) NULL,  -- 重置密碼時使用的隨機生成的token，用以核對用戶身分
     resetExpiration DATETIME NULL, -- 這是一個時間戳記，用來判斷token是否過期
+    lastRequestTime DATETIME NULL,-- 這是一個時間戳記，用來紀錄用戶上次發送驗證信申請的時間，發送時間與當前時間相差需在1分鐘以上
     created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     update_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
