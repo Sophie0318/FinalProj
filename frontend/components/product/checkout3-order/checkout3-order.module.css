@@ -1,9 +1,17 @@
 .box1 {
-  height: 640px;
+  height: 540px;
   background-color: #fff7e9;
   /* border-radius: 50px; */
   font-size: 18px;
   color: #1a394a;
+  /* display: flex;
+  flex-direction: column;
+  justify-content: space-between; */
+  position: relative;
+ 
+}
+.content {
+  flex-grow: 1;
 }
 .place {
   display: flex;
@@ -12,12 +20,24 @@
   color: #1a394a;
 }
 
-.box2 {
-  background-color: #d8d2cb;
+
+.subtotal{
   display: flex;
-  height: 40px;
   justify-content: space-between;
-  margin-top: 464px;
-  /* border-radius: 0px 0px 50px 50px; */
-  width: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 10px;
+  background-color: #D8D2CB;
+  
+
+}
+
+
+@media screen and (max-width: 390px) {
+  .box1 {
+  height: 25vh;  
+  }
+  
 }

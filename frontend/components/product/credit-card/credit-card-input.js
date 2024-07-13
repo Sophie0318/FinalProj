@@ -22,15 +22,23 @@ export default function CreditCardInput() {
               marginLeft: '30px',
             }}
           >
-            <option>選擇付款方式</option>
-            <option value="">信用卡/金融卡 </option>
-            <option value="">Apple Pay</option>
-            <option value="">line Pay</option>
-            <option value="">貨到付款</option>
-            <option value=""></option>
+            <option className="text-center">請選擇</option>
+            <option value="" className="text-center">
+              信用卡/金融卡{' '}
+            </option>
+            <option value="" className="text-center">
+              Apple Pay
+            </option>
+            <option value="" className="text-center">
+              line Pay
+            </option>
+            <option value="" className="text-center">
+              貨到付款
+            </option>
+            <option value="" className="text-center"></option>
           </select>
         </div>
-        <div className={`col-12 col-md-12 text-center ${styles.eee}`}>
+        {/* <div className={`col-12 col-md-12 text-center ${styles.eee}`}>
           <span className={styles.must}>必填</span>
           <span
             style={{
@@ -71,7 +79,7 @@ export default function CreditCardInput() {
         </div>
         <div className={`col-12 col-md-12 ${styles.ccc}`}>
           <input type="text" className={styles.inputSize} />
-        </div>
+        </div> */}
         <CreditCardCtn />
       </div>
     </>

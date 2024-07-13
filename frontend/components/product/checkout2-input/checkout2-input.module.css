@@ -19,3 +19,8 @@
   letter-spacing: 0.18px;
   align-items: center;
 }
+@media screen and (max-width: 390px) {
+  .outside{
+    width: 100%;
+  }
+}

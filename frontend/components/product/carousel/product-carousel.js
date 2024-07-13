@@ -1,36 +1,34 @@
 import React from 'react'
+import styles from './product-carousel.module.css' // 假設我們創建了一個CSS模塊文件
 
 export default function ProductCarousel() {
   return (
-    <>
+    <div className={styles.carouselContainer}>
       <div
         id="carouselExampleControls"
-        className="carousel slide"
+        className={`carousel slide ${styles.carousel}`}
         data-bs-ride="carousel"
       >
         <div className="carousel-inner">
-          <div className="carousel-item active ">
+          <div className="carousel-item active">
             <img
               src="/product-img/cloth.jpg"
-              // className=" w-75"
-              style={{ height: '636px' }}
-              alt="..."
+              className={styles.carouselImage}
+              alt="Product"
             />
           </div>
           <div className="carousel-item">
             <img
               src="/product-img/cloth.jpg"
-              // className=" w-75"
-              style={{ height: '636px' }}
-              alt="..."
+              className={styles.carouselImage}
+              alt="Product"
             />
           </div>
           <div className="carousel-item">
             <img
               src="/product-img/cloth.jpg"
-              // className=" w-75"
-              style={{ height: '636px' }}
-              alt="..."
+              className={styles.carouselImage}
+              alt="Product"
             />
           </div>
         </div>
@@ -59,6 +57,6 @@ export default function ProductCarousel() {
           <span className="visually-hidden">Next</span>
         </button>
       </div>
-    </>
+    </div>
   )
 }

@@ -141,6 +141,7 @@ router.get("/api/:pid", async (req, res) => {
   const product_id = +req.params.pid || 0;
 
   if (!product_id) {
+    //這裡指的是db的product_id
     return res.redirect("/product");
   }
   // const data = await getListData(req);

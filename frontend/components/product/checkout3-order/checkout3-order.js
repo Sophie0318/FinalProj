@@ -17,10 +17,14 @@ export default function Checkout3Order() {
           <span>商品:</span>
           <span>價錢:</span>
         </div>
-        <div className={styles.box2}>
+        <div className={styles.subtotal}>
           <span>小計:</span>
           <span>總金額</span>
         </div>
+        {/* <div className={styles.box2}> */}
+        {/* <span>小計:</span>
+          <span>總金額</span> */}
+        {/* </div> */}
       </div>
     </>
   )

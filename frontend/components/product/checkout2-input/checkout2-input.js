@@ -14,6 +14,7 @@ export default function Checkout2Input() {
       </div>
       <div className={`col-12 col-md-12 text-center mb-5 ${styles.inside}`}>
         <div className="col-6 col-md-6">手機</div>
+
         <input
           type="mobile"
           className={styles.outside}

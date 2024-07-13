@@ -2,6 +2,7 @@
   color: #1a394a;
   font-size: 40px;
   padding-bottom: 20px;
+  display: flex;
 }
 .fountP {
   color: black;

@@ -54,7 +54,7 @@ export default function ProductList() {
       {
         category: query,
         page: page,
-        keyword: nameLike,
+        keyword: nameLike, //後端:前端
         // type: test,
       }
 

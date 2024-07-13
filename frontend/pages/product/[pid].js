@@ -154,7 +154,7 @@ export default function ProductDetail() {
             <ProductCarousel />
             <ProductImage />
           </div>
-          <div>
+          <div className="col-12 col-md-6">
             <DetailText
               price={product.Product_price}
               desc={product.Product_desc}

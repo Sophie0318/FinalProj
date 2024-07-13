@@ -9,7 +9,7 @@ export default function PhotoText() {
         <div
           className="row text-center align-items-center"
           style={{
-            marginTop: '120px',
+            marginTop: '50px',
           }}
         >
           <h2 className="col-12 text-center my-5">產品特性</h2>
