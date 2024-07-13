@@ -2,7 +2,6 @@ import bcrypt from 'bcrypt';
 import nodemailer from 'nodemailer';
 import db from "../utils/connect-mysql.js";
 
-
 const userController = {
     forgotPassword: async (req, res) => {
         const { email } = req.body;
@@ -14,14 +13,25 @@ const userController = {
             const [user] = await db.query('SELECT * FROM members WHERE member_email = ?', [email]);
 
             if (!user || user.length === 0) {
-                return res.status(404).json({ message: '此電子信箱尚未被註冊' });
+                return res.status(404).json({ message: '資料錯誤' });
             }
-
-            // 用戶信息以檢查是否正確獲取
+            // 檢查是否正確獲取
             console.log('User found:', user);
 
+            // 檢查最近一次重置密碼請求的時間
+            const lastRequestTime = new Date(user[0].lastRequestTime || 0);
+            const sendMailNow = new Date();
+            const MIN_INTERVAL = 60000; // 最小間隔時間，單位毫秒，這裡設置為1分鐘
+
+            if (sendMailNow - lastRequestTime < MIN_INTERVAL) {
+                return res.status(429).json({ message: '請求太頻繁，請稍後再試' });
+            }
+
+            // 更新用戶的最近請求時間
+            await db.query('UPDATE members SET lastRequestTime = ? WHERE member_id = ?', [sendMailNow, user[0].member_id]);
+
             // resetToken 生成重置token，發送重置密碼的電子郵件，並將token存在database
-            const token = Math.random().toString(16).slice(3);
+            const token = Math.random().toString(16).slice(2);
             const transporter = nodemailer.createTransport({
                 service: 'gmail',
                 auth: {
@@ -34,8 +44,9 @@ const userController = {
                 from: process.env.MY_EMAIL,
                 to: user[0].member_email,//你要寄給誰
                 subject: '重設密碼',//信件主旨
-                html: `<p>${user[0].member_name} 您好</p><p>請點以下連結重新設定密碼：</p><a href="http://localhost:3000/users/gpt_change_password/${token}">重設密碼連結</a><br/><br/><p>連結會在 3分鐘 後或重設密碼後失效</p>`
+                html: `<p>${user[0].member_name} 您好</p><p>請點以下連結重新設定密碼：</p><a href="http://localhost:3000/users/change_password/${token}">重設密碼連結</a><br/><br/><p>連結會在 3分鐘 後或重設密碼後失效</p>`
             });
+
             //resetExpiration是一個時間戳記，用來判斷token是否過期
             const now = new Date();//現在時間
             const valid = new Date(now.getTime() + 180000);//有效期為從現在的時間起3分鐘後
@@ -49,13 +60,15 @@ const userController = {
             resetExpirationToUTC8.setHours(resetExpirationToUTC8.getHours());
 
             await db.query('UPDATE members SET resetToken = ?, resetExpiration = ? WHERE member_id = ?', [token, resetExpirationToUTC8, user[0].member_id])
+
             res.json({ message: '申請成功！請確認電子郵件' });
         } catch (ex) {
             console.log(ex);
             res.status(500).json({ message: '伺服器內部錯誤' });
         }
     },
-    //處理驗證resetToken是否過期
+
+    // 處理驗證resetToken是否過期
     verifyResetToken: async (req, res) => {
         const { token } = req.query;
         if (!token) {
@@ -68,10 +81,10 @@ const userController = {
             if (!user || user.length === 0) {
                 return res.status(400).json({ message: '重置連結已過期，請重新申請' });
             }
-            //現在的時間
+ //現在的時間
             const resetExpiration = new Date(user[0].resetExpiration);
             const currentTime = new Date();
-            //如果resetExpiration小於現在時間戳記，代表token已過期
+//如果resetExpiration小於現在時間戳記，代表token已過期
             if (resetExpiration < currentTime) {
                 await db.query('UPDATE members SET resetToken = NULL, resetExpiration = NULL WHERE member_id = ?', [user[0].member_id]);
                 return res.status(400).json({ message: '重置連結已過期，請重新申請' });
@@ -83,9 +96,14 @@ const userController = {
             res.status(500).json({ message: '伺服器內部錯誤' });
         }
     },
-    //處理會員重設密碼的function
+
+    // 處理會員重設密碼的function
     changePassword: async (req, res) => {
         const { token, newPassword } = req.body;
+
+        if (!token || !newPassword) {
+            return res.status(400).json({ message: 'Token 和新密碼是必填的' });
+        }
 
         try {
             const [user] = await db.query('SELECT * FROM members WHERE resetToken = ?', [token]);
@@ -93,7 +111,7 @@ const userController = {
             if (!user || user.length === 0) {
                 return res.status(400).json({ message: '無效的或已過期的重置連結' });
             }
-            //現在的時間
+//現在的時間
             const currentTime = new Date().toISOString().slice(0, 19).replace('T', ' ');
             //如果resetExpiration小於現在時間戳記，代表token已過期，並清除resetToken與resetExpiration
             if (user[0].resetExpiration < currentTime) {
