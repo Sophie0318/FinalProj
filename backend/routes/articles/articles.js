@@ -1,19 +1,18 @@
 import express from "express";
-import db from "./../../utils/connect-mysql.js";
+import db from "../../utils/connect-mysql.js";
 import moment from "moment-timezone";
-import upload from "./../../utils/upload-imgs.js";
+import upload from "../../utils/upload-imgs.js";
 
 const router = express.Router();
 
 const dateFormat = "YYYY-MM-DD";
 
-const getArticleType = async (req) => {
+const getArticleCategory = async (req) => {
   let success = false;
-  let redirect = "";
-  let subtypes = [];
+  let categories = [];
 
-  const sql = `SELECT * FROM CommonType WHERE code_type = 10;`;
-  [subtypes] = await db.query(sql);
+  const sql = `SELECT * FROM CommonType WHERE code_type = 9;`;
+  [categories] = await db.query(sql);
 
   success = true;
   return {

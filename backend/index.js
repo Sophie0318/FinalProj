@@ -5,7 +5,7 @@ import cors from "cors";
 import jwt from "jsonwebtoken";
 
 // import 各分支的 router
-import aRouter from "./routes/articles/article-book.js";
+import aRouter from "./routes/articles/articles.js";
 import lessonRouter from "./routes/lessons/lesson.js";
 import coachRouter from "./routes/coaches/coach.js";
 import productRouter from "./routes/product/product-traning-list.js";
@@ -57,7 +57,7 @@ app.use((req, res, next) => {
 });
 
 // set routes
-// app.use('/articles', aRouter);
+app.use('/articles', aRouter);
 app.use("/lessons", lessonRouter);
 app.use("/coaches", coachRouter);
 app.use("/product", productRouter);
