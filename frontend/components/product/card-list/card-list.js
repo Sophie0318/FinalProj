@@ -12,13 +12,13 @@ export default function CardList({ id, name, price }) {
         />
         <div className={styles.cardbody}>
           <h6 className={styles.cardText}>{name}</h6>
-          <h6 className={styles.cardText}>{price}</h6>
-          <div className="d-flex flex-row bd-highlight mb-1 mx-2">
+          <h6 className={styles.cardText}>售價:{price}</h6>
+          {/* <div className="d-flex flex-row bd-highlight mb-1 mx-2">
             <div className={styles.color1}></div>
             <div className={styles.color2}></div>
             <div className={styles.color3}></div>
             <div className={styles.color4}></div>
-          </div>
+          </div> */}
         </div>
       </div>
     </>

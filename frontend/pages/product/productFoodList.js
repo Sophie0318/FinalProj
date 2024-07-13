@@ -100,7 +100,7 @@ export default function ProductList() {
                   return (
                     <div
                       key={v.Product_id}
-                      className="col-12 col-md-8 col-lg-4 mb-3 "
+                      className={`col-12 col-md-8 col-lg-4 mb-3 ${styles.move}`}
                     >
                       <Link href={`/product/${v.Product_id}`}>
                         <CardList
