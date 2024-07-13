@@ -200,7 +200,6 @@
 
 .popular {
   padding-top: 110px;
-  /* padding-bottom: 56px; */
 }
 
 .popular > div:nth-child(odd) {
@@ -356,8 +355,6 @@
     position: relative;
     height: calc(100dvh);
     overflow: hidden;
-    /* height: calc(100vh - 70px); */
-    /* width: 100vw; */
   }
 
   .hideHero {
@@ -367,7 +364,6 @@
   .logoSP {
     position: fixed;
     top: calc(-10px - 70px);
-    /* top: 10px; */
     left: 50%;
     transform: translateX(-50%);
   }
@@ -381,31 +377,20 @@
     left: 50%;
     transform: translateX(-50%);
     z-index: -5;
-    /* opacity: 1; */
-    /* overflow: hidden; */
     transition: opacity 0.5s ease;
     margin: 10px 0;
   }
 
   .heroImage {
-    /* position: fixed; */
-    /* bottom: 0; */
-    /* top: calc(10px + 70px); */
-    /* top: calc(10px); */
-    /* left: 50%; */
-    /* transform: translateX(-50%); */
-    /* z-index: -5; */
     width: 120vw;
   }
 
   .cta1 {
     position: absolute;
-    /* bottom: 0; */
     bottom: calc(50px);
     left: 0;
     z-index: 3;
     width: 100%;
-    /* width: 100vw; */
     margin: 0;
     padding: 0;
     
@@ -442,7 +427,6 @@
     position: absolute;
     right: -150px;
     bottom: calc(-115px);
-    /* bottom: calc(-25px - 170px); */
     z-index: -2;
   }
 
