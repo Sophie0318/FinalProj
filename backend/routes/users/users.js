@@ -50,7 +50,7 @@ router.get("/jwt2", (req, res) => {
         payload = { ex };
     }
 })
-// jwt 登入 1
+// jwt 登入
 router.post("/login-jwt", async (req, res) => {
     const output = {
         success: false,
