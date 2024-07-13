@@ -403,7 +403,7 @@
     /* bottom: 0; */
     bottom: calc(30px + 50px);
     left: 0;
-    z-index: -1;
+    z-index: 3;
     width: 100%;
     /* width: 100vw; */
     margin: 0;
@@ -429,7 +429,6 @@
   .cta1Img > img {
     z-index: -1;
     right: 0;
-    bottom: 5px;
     border-radius: 25px;
     height: 244px;
     width: 181px;

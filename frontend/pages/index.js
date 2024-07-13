@@ -28,8 +28,8 @@ export default function Home() {
   const [coachData, setCoachData] = useState([])
   const [hasScrolled, setHasScrolled] = useState(false)
   const [hideHero, setHideHero] = useState(false)
-  const [slideUpOne, setSlideUpOne] = useState(0)
-  const [slideUpTwo, setSlideUpTwo] = useState(0)
+  const [slideOne, setSlideOne] = useState('0')
+  const [slideTwo, setSlideTwo] = useState('0')
 
   const pageWrapRef = useRef(null)
 
@@ -83,12 +83,14 @@ export default function Home() {
     const handleScroll = () => {
       if (!hasScrolled) {
         setHasScrolled(true)
-      }
-      if (window.scrollY > 100) {
-        setSlideUpOne(0)
-      } else {
-        setSlideUpOne(0)
-      }
+      } else return
+
+      const userScroll = window.scrollY
+      const slideParamOne = -0.08
+      const slideParamTwo = 0.03
+
+      setSlideOne(String(Math.ceil(slideParamOne * userScroll)))
+      setSlideTwo(String(Math.ceil(slideParamTwo * userScroll)))
     }
 
     window.addEventListener('scroll', handleScroll)
@@ -179,19 +181,24 @@ export default function Home() {
 
             <div className={`${styles.cta1}`}>
               <div className="container">
-                <div className="row g-0 p-0 m-0">
-                  <h1>
-                    {`[健康]`}
-                    <br />
-                    人生第一財富
-                  </h1>
-                  <ul className="d-flex flex-wrap">
-                    <li className="h5-font me-2">啟動活力 |</li>
-                    <li className="h5-font me-2">永續生活 |</li>
-                    <li className="h5-font me-2">幸福起點 |</li>
-                  </ul>
+                <div className="row g-0 px-0 mx-0">
+                  <div style={{ marginBottom: `${slideOne}px` }}>
+                    <h1>
+                      {`[健康]`}
+                      <br />
+                      人生第一財富
+                    </h1>
+                    <ul className="d-flex flex-wrap">
+                      <li className="h5-font me-2">啟動活力 |</li>
+                      <li className="h5-font me-2">永續生活 |</li>
+                      <li className="h5-font me-2">幸福起點 |</li>
+                    </ul>
+                  </div>
                   <div className={`${styles.cta1Img} col-lg-4`}>
-                    <img src="/index-img/marisa-howenstine-nFsOlSE9Mn8-unsplash.jpg" />
+                    <img
+                      style={{ bottom: `${slideTwo}px` }}
+                      src="/index-img/marisa-howenstine-nFsOlSE9Mn8-unsplash.jpg"
+                    />
                   </div>
                   <div className={`${styles.cta1Mask} col-lg-4`}>
                     <img src="/index-img/hero-mobile-mask.svg" />

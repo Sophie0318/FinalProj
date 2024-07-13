@@ -522,6 +522,21 @@ INSERT INTO CommonType (code_type, code_type_desc, code_id, code_desc, code_rema
 (2, '地區別', 3, '莒光鄉', 22),
 (2, '地區別', 4, '東引鄉', 22);
 
+-- 員工
+create table Employees(
+employee_id int not null primary key auto_increment,
+employee_name varchar(10),
+employee_email varchar(100) not null unique,-- 註冊用的email不可重複
+employee_password varchar(70)
+);
+create table EmployeeDetail(
+employeedetail_id_fk int not null primary key auto_increment,
+employeedetail_imgurl varchar(50)not null default '../images/default_avatar.jpg',-- 可以不放大頭貼，若不放會顯示一個預設圖示
+employeedetail_created_date timestamp default current_timestamp,
+employeedetail_update_at timestamp default current_timestamp on update current_timestamp,
+foreign key(employeedetail_id_fk) references Employees(employee_id) on delete cascade-- 基本表被刪,細節表內同筆id也被刪
+);
+
 -- 會員部分
 -- 會員基本表
 CREATE TABLE Members (
@@ -541,6 +556,19 @@ CREATE TABLE Members (
     created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     update_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
+insert into Employees(employee_name,employee_email,employee_password)
+values 
+('快速登入','quicklogin@quick.com','user1'),
+('陳彥寧','yan@mail.com','$2y$10$5NoKPGQWJqJGnDlJHWrDQ.wkq7bSLHhBuNU3A36wrGdi0MnpstW/6'),
+('陳延汝','lulu@mail.com','$2y$10$5NoKPGQWJqJGnDlJHWrDQ.wkq7bSLHhBuNU3A36wrGdi0MnpstW/6'),
+('潘牙牙','yap@mail.com','$2y$10$xsYD/hEF9HkVhx32CfSaJuV2Q3Na9CMwfLbB.f1UHeqYNuGXm7oC6'),
+('sofi','sophie@mail.com','$2y$10$CUogBGQLwD1flFwkby5o8eEPGO3aeqtEQYYUppmrMY4QB8M2zEbZW'),
+('suan','suan@mail.com','$2y$10$v2qRZiUgT8XuGGijVBLrLeLrMGXu0CIXpHvt.g8W1msjWR3aNLlEq'),
+('李俊翰','randomuser1@gmail.com','$2y$10$5NoKPGQWJqJGnDlJHWrDQ.wkq7bSLHhBuNU3A36wrGdi0MnpstW/6'),
+('蔡欣怡','testmail4321@gmail.com','$2y$10$5NoKPGQWJqJGnDlJHWrDQ.wkq7bSLHhBuNU3A36wrGdi0MnpstW/6'),
+('林志宇','emailgenie89@gmail.com','$2y$10$5NoKPGQWJqJGnDlJHWrDQ.wkq7bSLHhBuNU3A36wrGdi0MnpstW/6'),
+('鄭婷婷','examplemail567@gmail.com','$2y$10$5NoKPGQWJqJGnDlJHWrDQ.wkq7bSLHhBuNU3A36wrGdi0MnpstW/6'),
+('楊子翔','quickmail1234@gmail.com','$2y$10$5NoKPGQWJqJGnDlJHWrDQ.wkq7bSLHhBuNU3A36wrGdi0MnpstW/6');
 
 -- 填入資料 members 密碼為00000
 INSERT INTO Members (
@@ -849,3 +877,93 @@ INSERT INTO LessonCategories (lesson_id, commontype_id) VALUES
 (14, 41), (14, 95),
 (15, 41), (15, 42),
 (16, 44), (16, 95);
+-- ---------------------------suppliers---------------------------
+
+
+-- ---------------------------ProductTypes----------------------
+create table ProductTypes(
+ProductTypes_Id    int auto_increment primary key,
+ProductTypes_name  varchar(50),
+ProductTypes_parenti_id  int
+
+);
+insert into ProductTypes(ProductTypes_name,ProductTypes_parenti_id)
+value 
+('居家訓練', '0'),('運動服飾','0'),('健身護具','0'),('健康食品','0');
+insert into ProductTypes (ProductTypes_name,ProductTypes_parenti_id)
+value 
+('護膝', '3'),('護腿','3'),('護踝','3'),('護腰','3');
+select * from ProductTypes;
+-- -----------------------------Products----------------------------------
+create table  Products(
+Product_id int auto_increment primary key,
+Product_name varchar(50),
+Product_photo varchar(50),
+Product_desc varchar(500),
+Product_price int,
+Product_inventory int ,
+Product_type_id_fk int,
+Suppliers_id_fk int,
+Product_list_update  timestamp not null default now(),
+Product_change_update timestamp,
+Product_employee_id_fk int,
+Product_state int,
+foreign key (Suppliers_id_fk) references commontype(commontype_id),
+foreign key (Product_type_id_fk) references commontype(commontype_id),
+foreign key (Product_employee_id_fk) references Employees(employee_id),
+foreign key  (Product_state) references commontype(commontype_id)
+);
+
+insert into products (Product_name,Product_photo,Product_desc,Product_price,Product_inventory,Product_type_Id_fk,suppliers_id_fk,Product_employee_id_fk,Product_state )
+value 
+('烤漆多巴胺啞鈴','/products/14','外觀療癒好用','1000','100','50','45','2','98'),
+('可攜帶式啞鈴','/products/15','隨處都可健身','250','11','50','46','2','98'),
+('按摩球','/products/16','肌肉放鬆','320','22','50','48','2','98'),
+('運動內衣','/products/19','好伸展、透氣','1200','23','51','47','3','99'),
+('乳清蛋白','/products/20','蛋白質快速補充','2000','40','53','46','5','99'),
+('小腿護套','/products/21','保護小腿','650','40','55','47','5','99'),
+('女版運動短褲','/products/7','舒適透風','300','100','51','47','4','99'),
+('能量蛋白飲','/products/9','快速補充蛋白質','300','200','53','48','3','99'),
+('伸展滾筒','products/10','運動後放鬆肌肉','1000','2','50','49','2','99'),
+('小腿護套','products/11','保護小腿','2500','100','51','47','5','98'),
+('阿基里斯護踝','/products/12','保護腳踝','1200','100','56','46','2','99'),
+('瑜珈墊','/products/13','優良止滑效果','1400','100','50','46','4','99'),
+('男版跑外部外套','products/1488','透氣保暖','3000','24','51','46','4','99');
+-- ----------------------------------------------ProductOrders----------------
+create table  ProductOrders (
+Productorders_orders_id int auto_increment primary key,
+ProductOrders_orders_date  timestamp not null default now(),
+ProductOrders_m_id_fk int,
+ProductOrders_payment_method  varchar(50),
+ProductOrders_delivery_method  varchar(50),
+ProductOrders_recipient_address    varchar(50), 
+ProductOrders_recipient_name varchar(50),
+ProductOrders_recipient_phone varchar(50),
+foreign key (ProductOrders_m_id_fk) references members(member_id)
+);
+insert into ProductOrders (ProductOrders_m_id_fk , ProductOrders_payment_method, 
+ProductOrders_delivery_method,ProductOrders_recipient_address,ProductOrders_recipient_name,ProductOrders_recipient_phone)
+value
+( 1,'現金','宅配','台北市信義區','陳美美','0912345678'),
+( 1,'刷卡','宅配','台北市松山區','陳可可','0912343678'),
+( 1,'刷卡','宅配','台北市新店區','張倩倩','0912342678'),
+( 1,'現金','超商取貨','新北市新莊區','李愛愛','0914342678'),
+( 1,'現金','超商取貨','新北勢三重區','吳小明','0914342638');
+-- ----------------------------OrdersDetail---------------------------------
+create table OrdersDetail(
+OrdersDetail_id  int auto_increment primary key,
+OrdersDetail_product_id_fk   int,
+OrdersDetail_product_quantity int,
+OrdersDetail_order_id_fk int,
+OrdersDetail_unit_price_at_time int
+-- foreign key (OrdersDetail_order_id_fk) references ProductOrders(ProductOrders_orders_id),
+-- foreign key (OrdersDetail_product_id_fk) references Products(Product_id )
+
+);
+insert into OrdersDetail 
+(OrdersDetail_product_id_fk , OrdersDetail_product_quantity,OrdersDetail_order_id_fk,OrdersDetail_unit_price_at_time)
+value (1,'3',1,90);
+-- ---------------------------- 
+-- ########################## 文章管理系統 ##########################
+
+

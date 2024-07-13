@@ -80,8 +80,6 @@ export default function CardCarousel({
       on: { ...on },
     }
 
-    console.log(activeIndex, 'activeIndex')
-
     Object.assign(swiperRef.current, params)
     swiperRef.current.initialize()
   }, [])
