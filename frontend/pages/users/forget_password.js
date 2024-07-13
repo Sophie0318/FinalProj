@@ -1,16 +1,59 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import styles from '../../styles/forgot-password.module.css'
 import UserSignin from '../../components/layout/user-layout1'
 import MyEmailInput from '@/components/users/MyEmailInput'
 import MyBtn from '@/components/users/MyBtn'
+import UserModal from '../../components/users/UserModal'
 
 export default function ForgetPassword() {
   const [email, setEmail] = useState('')
+  const [message, setMessage] = useState('')
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [alertMessage, setAlertMessage] = useState('')
+  const [userMessage, setUserMessage] = useState('')
 
-  const handleSubmit = (e) => {
+  const lastRequestTime = useRef(0) //上次發送驗證信的時間
+  const MIN_INTERVAL = 60000 //現在設定1分鐘內不得重複發送驗證信
+
+  const handleSubmit = async (e) => {
     e.preventDefault()
 
-    console.log('送出', email)
+    const sendMailNow = Date.now()
+    if (sendMailNow - lastRequestTime.current < MIN_INTERVAL) {
+      setAlertMessage('操作太頻繁，請稍後再試')
+      setUserMessage('請於1分鐘後再申請一次')
+      setIsModalOpen(true)
+      return
+    }
+
+    lastRequestTime.current = sendMailNow
+
+    try {
+      const response = await fetch(
+        'http://localhost:3001/users/test_forget_password',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ email }),
+        }
+      )
+      const data = await response.json()
+      if (response.ok) {
+        setAlertMessage('更改密碼申請已成功')
+        setUserMessage('請確認您的電子郵件以重設密碼')
+      } else {
+        setAlertMessage('更改密碼申請失敗')
+        setUserMessage(data.message || '發生錯誤，請稍後再試')
+      }
+      setIsModalOpen(true)
+    } catch (error) {
+      console.error('Error:', error)
+      setAlertMessage('發生錯誤')
+      setUserMessage('請稍後再試')
+      setIsModalOpen(true)
+    }
   }
 
   return (
@@ -25,12 +68,20 @@ export default function ForgetPassword() {
             action="/forget_password"
             method="post"
             onSubmit={handleSubmit}
+            noValidate
           >
             <MyEmailInput email={email} setEmail={setEmail} />
             <MyBtn buttonText="送出" />
           </form>
         </div>
       </UserSignin>
+      {isModalOpen && (
+        <UserModal
+          onClose={() => setIsModalOpen(false)}
+          alertMessage={alertMessage}
+          userMessage={userMessage}
+        />
+      )}
     </>
   )
 }

@@ -19,8 +19,8 @@ export default function SignIn() {
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   const [isModalOpen, setIsModalOpen] = useState(false)
-  const [alertMessage, setalertMessage] = useState('')
-  const [userMessage, setuserMessage] = useState('')
+  const [alertMessage, setAlertMessage] = useState('')
+  const [userMessage, setUserMessage] = useState('')
   const router = useRouter()
 
   const handleSubmit = async (e) => {
@@ -30,16 +30,16 @@ export default function SignIn() {
     try {
       const success = await login(email, password)
       if (success) {
-        setalertMessage('登入成功')
-        setuserMessage('讓我們一起開始健康的旅程吧!')
+        setAlertMessage('登入成功')
+        setUserMessage('讓我們一起開始健康的旅程吧!')
         setIsModalOpen(true)
         setTimeout(() => {
           setIsModalOpen(false)
           router.push('/')
         }, 3000)
       } else {
-        setalertMessage('登入失敗')
-        setuserMessage('請檢查您的電子郵件和密碼')
+        setAlertMessage('登入失敗')
+        setUserMessage('請檢查您的電子郵件和密碼')
         setIsModalOpen(true)
       }
     } catch (error) {
@@ -84,7 +84,7 @@ export default function SignIn() {
         <div className={styles.forget_password}>
           {/* <Link className={styles.a} href="forget_password"> */}
           {/* 測試版 */}
-          <Link className={styles.a} href="gpt_forget_password">
+          <Link className={styles.a} href="forget_password">
             <FaAngleRight />
             <span className={styles.p}>我忘記密碼了</span>
           </Link>
