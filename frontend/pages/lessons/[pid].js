@@ -4,6 +4,7 @@ import styles from '@/styles/lessonDetail.module.css'
 import { IoCart, IoHeart } from 'react-icons/io5'
 import axios from 'axios'
 import { useRouter } from 'next/router'
+import { useAuth } from '@/context/auth-context'
 
 export default function Detail() {
   const [isClicked, setIsClicked] = useState(false)
@@ -11,6 +12,7 @@ export default function Detail() {
   const router = useRouter()
   const { pid } = router.query
   const [isLoading, setIsLoading] = useState(true)
+  const { auth, getAuthHeader } = useAuth()
 
   useEffect(() => {
     const fetchLesson = async () => {
@@ -41,7 +43,11 @@ export default function Detail() {
   }
 
   const handlePurchase = () => {
-    if (lesson) {
+    if (!auth.token) {
+      // 沒有登錄token，導向登錄頁
+      router.push('/users/sign_in')
+    } else if (lesson) {
+      // 有登錄token，導向結帳頁
       router.push({
         pathname: '/lessons/checkout',
         query: { lessonId: lesson.lesson_id },
