@@ -12,7 +12,7 @@ export default function ProductCarousel() {
         <div className="carousel-inner">
           <div className="carousel-item active">
             <img
-              src="/product-img/cloth.jpg"
+              src="/product-img/大豆.webp"
               className={styles.carouselImage}
               alt="Product"
             />
