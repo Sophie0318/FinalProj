@@ -9,7 +9,6 @@ import styles from '../type.module.css'
 // 測試用資料
 import data from '@/data/FakeArticles.json'
 
-// 寫 useEffect 抓後端資料的時候記得檢查有沒有redirect(page>total / page<1防呆用)
 const renderCard = (item) => {
   return (
     <ArticleCard

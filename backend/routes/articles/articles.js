@@ -18,9 +18,21 @@ const getArticleList = async (req) => {
   // 篩選文章列表用的參數
   let category = req.query.category || '';
   let categoryID = 1;
-  let searchBy = req.query.searchby || [];
   let keyword = req.query.keyword || "";
   let later_than = req.query.later_than || "";
+  // 處理關鍵字搜尋參數
+  let searchBy = [];
+  if (req.query.searchBy) {
+    if (typeof req.query.searchBy === "string") {
+      // 單一關鍵字參數時 query 會是 string, 把它變成陣列
+      searchBy[0] = req.query.searchBy
+    } else {
+      // 多重關鍵字參數時 query 會是 array
+      searchBy = req.query.searchBy
+    }
+  }
+
+  // 預設 WHERE 子句
   let q_sql = " WHERE 1 ";
 
   // 先判斷有沒有類別
@@ -49,13 +61,13 @@ const getArticleList = async (req) => {
     q_sql += ` AND code_id = ${categoryID} `;
   }
 
-  // 判斷有沒有指定關鍵字搜尋類別
+  // 判斷有沒有指定關鍵字搜尋
   if (searchBy && keyword) {
     let q_sql_segment = ''
 
     searchBy.forEach((element) => {
       const keyword_ = db.escape(`%${keyword}%`)
-      if (indexOf(element) === 0) {
+      if (searchBy.indexOf(element) === 0) {
         q_sql_segment += ` ${element} LIKE ${keyword_} `
       } else {
         q_sql_segment += ` OR ${element} LIKE ${keyword_} `
@@ -98,6 +110,7 @@ const getArticleList = async (req) => {
     return {success}
   }
 
+  // 從資料庫拿文章列表
   const sql = `SELECT article_id, article_title, update_at, code_desc, article_cover FROM Articles JOIN CommonType AS CT ON CT.code_type = 9 AND CT.code_id = Articles.code_id_fk ${q_sql} ORDER BY update_at DESC LIMIT ${(page - 1) * perPage}, ${perPage};`;
   [rows] = await db.query(sql);
 
@@ -128,6 +141,37 @@ router.get("/api/listData", async (req, res) => {
   const data = await getArticleList(req);
   res.json(data);
 });
+
+router.get("/api/articleIndex", async(req,res)=>{
+  // 定義最新文章及熱門文章
+  let latestQuery = {...req, query:{later_than: "2024-01-01"}};
+  let hotQuery = {...req, query:{searchBy: "article_title", keyword: "挑戰"}};
+  // debug 用參數, 存列表的參數
+  let success = false;
+  let latestList = [];
+  let hotList = [];
+
+  // 從資料庫拿最新及熱門文章列表
+  const latestData = await getArticleList(latestQuery);
+  if (latestData.success) {
+    latestList = latestData.rows;
+  }
+  const hotData = await getArticleList(hotQuery);
+  if (hotData.success) {
+    hotList = hotData.rows;
+  }
+
+  // 兩個列表都成功 success = true
+  if (hotData.success && latestData.success) {
+    success = true;
+  }
+
+  res.json({
+    success,
+    latestList,
+    hotList
+  })
+})
 
 router.post("/add", async (req, res) => {
   const sql = "INSERT INTO Articles SET ?";

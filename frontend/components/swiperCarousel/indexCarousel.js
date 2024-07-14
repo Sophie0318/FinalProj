@@ -8,6 +8,8 @@ export default function IndexCarousel({
   data,
   renderItem,
   cardMaxWidth = 'fit-content',
+  showBtn = true,
+  separator = true,
 }) {
   return (
     <>
@@ -21,11 +23,15 @@ export default function IndexCarousel({
             data={data}
             renderItem={renderItem}
           >
-            <div className={styles.swiperSeparator}></div>
+            <div
+              className={`${styles.swiperSeparator} ${
+                separator ? 'd-block' : 'd-none'
+              }`}
+            ></div>
           </CardCarousel>
         </div>
       </div>
-      <div className="row px-0 mx-0 g-0">
+      <div className={showBtn ? 'row px-0 mx-0 g-0' : 'd-none'}>
         <div
           className={`${styles.carouselBtnPC} d-none d-md-flex justify-content-center`}
         >

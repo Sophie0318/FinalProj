@@ -7,7 +7,6 @@ import Link from 'next/link'
 import Layout1 from '@/components/layout/layout1'
 import Btn from '@/components/articles/buttons_test'
 import JoinMember from '@/components/joinMember'
-import CardCarousel from '@/components/swiperCarousel/cardCarousel'
 import IndexCarousel from '@/components/swiperCarousel/indexCarousel'
 import LessonCard from '@/components/lessons/lessonCard'
 import CoachCard from '@/components/coaches/coachCard'
@@ -20,7 +19,6 @@ import LessonData from '@/data/FavLessons.json'
 import CoachData from '@/data/FavCoaches.json'
 
 // TODO: carousel 的 separater 的右邊緣要對其 joinMember card
-// TODO: 首頁keyVisual_SP滑動動畫優化, 參考 kacco
 // TODO: 之後來優化 keyVisualPC 的結構
 
 export default function Home() {
