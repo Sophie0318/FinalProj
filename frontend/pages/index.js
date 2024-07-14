@@ -408,6 +408,7 @@ export default function Home() {
                   <CardCarousel
                     cardMaxWidth="350px"
                     data={ArticleData}
+                    gap="25px"
                     renderItem={renderArticleCard}
                   />
                 </div>

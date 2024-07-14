@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Layout3 from '@/components/layout/layout3'
 import SearchSection from '@/components/articles/search-section'
+import CardCarousel from '@/components/swiperCarousel/cardCarousel'
 // import SwiperCarousel from '@/components/swiperCarousel'
 import Link from 'next/link'
 import styles from './articles.module.css'
@@ -59,7 +60,9 @@ export default function Articles() {
             <div className="col-md-3 d-flex justify-content-md-end justify-content-center align-items-center">
               <h3 className="my-0">最新文章</h3>
             </div>
-            <div className="col-md-9 ps-3">{/* <SwiperCarousel /> */}</div>
+            <div className="col-md-9 ps-3">
+              <CardCarousel />
+            </div>
           </div>
         </section>
 
@@ -68,7 +71,9 @@ export default function Articles() {
             <div className="col-md-3 d-flex justify-content-md-end justify-content-center align-items-center">
               <h3 className="my-0">熱門文章</h3>
             </div>
-            <div className="col-md-9 ps-3">{/* <SwiperCarousel /> */}</div>
+            <div className="col-md-9 ps-3">
+              <CardCarousel />
+            </div>
           </div>
         </section>
 
