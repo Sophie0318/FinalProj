@@ -72,9 +72,16 @@
   align-items: center;
   gap: 40px;
 }
-.change_password .form_group {
+.change_password{
   position: relative;
   padding-bottom: 60px;
+}
+.form_group ,.form_groupMb{
+  display: flex;
+  gap: 20px;
+  padding-bottom: 60px;
+  align-items: center;
+  flex-direction: row;
 }
 .input_container {
   width: 240px;
@@ -91,8 +98,9 @@
   display: flex;
   gap: 40px;
   justify-content: flex-end;
-  margin-right: 35px;
+  /* margin-right: 35px; */
   max-width: 1200px;
+  margin-top: 30px;
 }
 .edit_btn > a {
   display: block;
@@ -129,10 +137,17 @@
   }
 }
 
-@media screen and (max-width: 950px) {
-  /* .userinfo_edit {
-    padding: 0;
-  } */
+@media screen and (max-width: 700px) {
+  .flex {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .change_password, .form_group ,.form_groupMb {
+    padding-bottom: 30px;
+  }
+  .form_groupMb{
+    flex-direction: column;
+  }
 }
 @media screen and (max-width: 600px) {
   .userinfo_edit {
@@ -141,10 +156,14 @@
   .form_group input {
     max-width: 350px;
   }
-  .flex .form_group {
+  .flex, .form_group, .form_groupMb{
     padding-bottom: 0;
   }
+  .form_groupMb{
+    align-items: flex-start;
+  }
   .flex {
+    display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: start;

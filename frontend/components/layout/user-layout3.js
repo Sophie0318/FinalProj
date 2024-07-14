@@ -8,8 +8,10 @@ import Footer from '../common/footer'
 import BackToTop from '../common/buttons/back-to-top'
 import styles from '@/styles/user-layout3.module.css'
 import { FaUser } from 'react-icons/fa6'
+import { useAuth } from '../../context/auth-context'
 
 export default function LayoutUser({ children, title = 'myProfile' }) {
+  const { auth } = useAuth()
   const titleMap = {
     myProfile: '我的檔案',
     myLessons: '我的課程',
@@ -19,6 +21,7 @@ export default function LayoutUser({ children, title = 'myProfile' }) {
   }
 
   const titleResult = titleMap[title] || '會員中心'
+  const defaultAvatar = 'http://localhost:3001/users/'
 
   return (
     <>
@@ -33,8 +36,14 @@ export default function LayoutUser({ children, title = 'myProfile' }) {
         <div className={styles.warp}>
           <div className={styles.menu}>
             <div className={styles.user}>
-              <img src="/users-img/user_avator.png" alt="" />
-              <h5 className={styles.h5_font}>你阿罵</h5>
+              {/* <img src="/users-img/user_avator.png" alt="" /> */}
+              <img
+                src={`${defaultAvatar}${auth.avatar}`}
+                className={`${styles.memberAvatar}`}
+              />
+              <h5 className={styles.h5_font}>
+                {auth.nick_name ? auth.nick_name : auth.name}
+              </h5>
             </div>
             <nav className={styles.user_sidebar}>
               <Link className={styles.inline_link} href="/users/profile">

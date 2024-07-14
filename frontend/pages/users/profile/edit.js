@@ -1,6 +1,6 @@
 import React from 'react'
 import LayoutUser from '@/components/layout/user-layout3'
-import styles from '@/styles/user-edit.module.css'
+import styles from '../../../styles/user-edit.module.css'
 
 export default function LessonsOrders() {
   return (
@@ -68,7 +68,7 @@ export default function LessonsOrders() {
                     type="text"
                     id="address"
                     name="address"
-                    style={{ width: '420px' }}
+                    style={{ width: '300px' }}
                   />
                 </div>
               </div>
@@ -76,13 +76,16 @@ export default function LessonsOrders() {
               <div className={styles.change_password}>
                 <h5>更改密碼</h5>
                 <div className={styles.flex}>
-                  <div className={styles.form_group}>
+                  <div className={styles.form_groupMb}>
                     <label htmlFor="password">
                       <p>密碼:</p>
                     </label>
                     <input type="password" id="new_password" name="password" />
                   </div>
-                  <div className={styles.form_group} style={{ width: '350px' }}>
+                  <div
+                    className={styles.form_groupMb}
+                    style={{ width: '350px' }}
+                  >
                     <label htmlFor="password">
                       <p>請再輸入一次密碼:</p>
                     </label>

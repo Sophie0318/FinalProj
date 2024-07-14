@@ -81,6 +81,11 @@
 .mobile_nav {
   display: none;
 }
+.memberAvatar{
+  width: 100px;
+  border-radius: 50px;
+  margin-bottom: 20px;
+}
 @media screen and (max-width: 950px) {
   .menu {
     display: none;
