@@ -59,20 +59,16 @@ export default function Reservation() {
   const handleMemberDataCheckbox = (e) => {
     if (e.target.checked) {
       if (!auth.token) {
-        // 如果用戶未登入，重定向到登入頁面
         router.push('/users/sign_in')
       } else {
-        // 用戶已登入，填入會員資料
         setFormData((prevData) => ({
           ...prevData,
           name: auth.name,
+          phone: auth.mobile, // 使用 mobile 或 phone，取決於您在後端返回的字段名
           email: auth.email,
-          // 如果有電話號碼，也可以加上
-          // phone: auth.phone,
         }))
       }
     } else {
-      // 取消勾選時，清空表單
       setFormData({
         name: '',
         phone: '',

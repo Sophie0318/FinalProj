@@ -18,6 +18,7 @@ const emptyAuth = {
   email: '',
   name: '',
   token: '',
+  phone: '', // 添加這行
 }
 
 export function AuthContextProvider({ children }) {
