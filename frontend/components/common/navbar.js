@@ -21,7 +21,6 @@ import { useState, useEffect } from 'react'
 import { useCart } from '@/hooks/product/use-cart'
 
 // TODO: header logo offsets when toggle offcanvas, 可以參考kacco
-// TODO: toggle button 會蓋住scrollbar, 也參考kacco
 // 也可以用看看 bootstrap offcanvas body scrollable
 export default function Navbar({ hideLogo = false }) {
   const { auth, logout } = useAuth()

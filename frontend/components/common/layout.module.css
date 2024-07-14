@@ -80,9 +80,12 @@
 .icons {
   display: flex;
   margin-left: auto; /* 將 icons 列表推到最右邊 */
-  justify-content: center;
+  justify-content: space-between;
   margin-top: 18px; /* 讓icons對齊navlink文字下緣用 與align-items擇一 */
-  gap:30px;
+  width: 100%;
+  max-width: 186px;
+  gap: 15px;
+  /* gap:30px; */
     /* align-items: flex-end; */
 }
 
@@ -144,7 +147,7 @@
 /* section 相關樣式結束 */
 
 /* 手機板 */
-@media (max-width: 900px) {
+@media (max-width: 992px) {
   .navbarPC {
     display: none;
   }
