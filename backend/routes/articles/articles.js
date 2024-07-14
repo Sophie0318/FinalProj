@@ -7,78 +7,108 @@ const router = express.Router();
 
 const dateFormat = "YYYY-MM-DD";
 
-const getArticleCategory = async (req) => {
-  let success = false;
-  let categories = [];
-
-  const sql = `SELECT * FROM CommonType WHERE code_type = 9;`;
-  [categories] = await db.query(sql);
-
-  success = true;
-  return {
-    success,
-    subtypes,
-    qs: req.query,
-  };
-};
-
-const getFullListData = async (req) => {
+const getArticleList = async (req) => {
+  // debug 用 message
   let success = false;
 
+  // 有做分頁功能, 先檢查傳來的頁數是不是 < 1
+  let page = req.query.page || 1;
+  let redirect = '';
+
+  // 篩選文章列表用的參數
+  let category = req.query.category || '';
+  let categoryID = 1;
+  let searchBy = req.query.searchby || [];
   let keyword = req.query.keyword || "";
-  let update_begin = req.query.update_begin || "";
-  let update_end = req.query.update_end || "";
-
+  let later_than = req.query.later_than || "";
   let q_sql = " WHERE 1 ";
-  if (keyword) {
-    const keyword_ = db.escape(`%${keyword}%`);
-    q_sql += ` AND (article_title LIKE ${keyword_} OR article_desc LIKE ${keyword_}) `;
+
+  // 先判斷有沒有類別
+  if (category) {
+    switch (category) {
+      case "fitness":
+        categoryID = 1;
+        break;
+      case "healthy_diet":
+        categoryID = 2;
+        break;
+      case "medical_care":
+        categoryID = 3;
+        break;
+      case "mental_wellness":
+        categoryID = 4;
+        break;
+      case "happy_learning":
+        categoryID = 5;
+        break;
+
+      default:
+        categoryID = 1;
+        break;
+    }
+    q_sql += ` AND code_id = ${categoryID} `;
   }
 
-  if (update_begin) {
-    const m = moment(update_begin);
+  // 判斷有沒有指定關鍵字搜尋類別
+  if (searchBy && keyword) {
+    let q_sql_segment = ''
+
+    searchBy.forEach((element) => {
+      const keyword_ = db.escape(`%${keyword}%`)
+      if (indexOf(element) === 0) {
+        q_sql_segment += ` ${element} LIKE ${keyword_} `
+      } else {
+        q_sql_segment += ` OR ${element} LIKE ${keyword_} `
+      }
+    })
+    q_sql += ` AND (${q_sql_segment}) `
+  }
+
+  // 判斷有沒有時間篩選
+  if (later_than) {
+    const m = moment(later_than)
     if (m.isValid()) {
-      q_sql += ` AND update_at >= '${m.format("YYYY-MM-DD hh:mm:ss")}' `;
+      q_sql += ` AND update_at >= '${m.format(dateFormat)}' `
     }
   }
 
-  if (update_end) {
-    const m = moment(update_end);
-    if (m.isValid()) {
-      q_sql += ` AND update_at <= '${m.format("YYYY-MM-DD hh:mm:ss")}' `;
-    }
-  }
-
-  const t_sql = `SELECT COUNT(1) totalRows FROM Articles ${q_sql}`;
-  const [[{ totalRows }]] = await db.query(t_sql);
-
-  const perPage = 5;
-  let page = parseInt(req.query.page) || 1;
+  // 決定列表文章數 & 分頁用的參數
+  const perPage = 12;
   let totalPages = 0;
+  let totalRows = 0;
   let rows = [];
-  if (totalRows) {
+  // 得知篩選資料總筆數
+  let t_sql = `SELECT COUNT(1) totalRows FROM Articles JOIN CommonType ON CommonType.code_type = 9 AND CommonType.code_id = Articles.code_id_fk ${q_sql}`;
+  try {
+  [[{totalRows}]] = await db.query(t_sql);
+  if(totalRows) {
     success = true;
     totalPages = Math.ceil(totalRows / perPage);
-
     if (page < 1) {
-      redirect = "?page=1";
-      return { success, redirect };
+      page = 1;
+      redirect = {page: "1"}
     }
     if (page > totalPages) {
-      redirect = `?page=${totalPages}`;
-      return { success };
+      page = totalPages;
+      redirect = {page: `${totalPages}`}
     }
+  }
+  } catch (error) {
+    console.log('database query totalRows error: ', error)
+    return {success}
+  }
 
-    const sql = `SELECT A.article_id, A.article_title, AImgs.articleimg_name, CT1.code_desc AS subtype, A.update_at FROM Articles AS A JOIN CommonType AS CT1 ON CT1.code_type = 10 AND A.article_subtype = CT1.code_id JOIN ArticleImgs AImgs ON A.article_id = AImgs.article_id_fk AND AImgs.articleimg_cover = 1 ${q_sql} GROUP BY A.article_id, A.article_title, subtype, articleimg_name, A.update_at ORDER BY article_id DESC LIMIT ${
-      (page - 1) * perPage
-    }, ${perPage};`;
+  const sql = `SELECT article_id, article_title, update_at, code_desc, article_cover FROM Articles JOIN CommonType AS CT ON CT.code_type = 9 AND CT.code_id = Articles.code_id_fk ${q_sql} ORDER BY update_at DESC LIMIT ${(page - 1) * perPage}, ${perPage};`;
+  [rows] = await db.query(sql);
+
+  try {
     [rows] = await db.query(sql);
-    rows.forEach((el) => {
-      const m1 = moment(el.update_at);
-      const m2 = moment(el.article_publish_date);
-      el.update_at = m1.isValid() ? m1.format("YYYY-MM-DD hh:mm:ss") : "";
-      // el.article_publish_date = m2.isValid() ? m2.format('YYYY-MM-DD hh:mm:ss') : '';
-    });
+    rows.forEach((element) => {
+      const m = moment(element.update_at)
+      element.update_at = m.isValid() ? m.format(dateFormat) : "";
+    })
+  } catch (error) {
+    console.log('database query list error: ', error)
   }
 
   success = true;
@@ -89,61 +119,15 @@ const getFullListData = async (req) => {
     totalRows,
     totalPages,
     rows,
-    qs: req.query,
-  };
-};
-
-// 測試出現網路延遲, 或出現AJAX競速問題的時候用Abort解決
-// router.use((req,res,next)=>{
-//   const ms = 100 + Math.floor(Math.random()*2000);
-//   setTimeout(()=>{
-//     next()
-//   }, ms)
-// })
-
-// router.use((req,res,next)=>{
-//   let u = req.url.split("?")[0];
-//   if (u === '/') {
-//     return next();
-//   };
-//   if(req.session.admin){
-//     return next();
-//   } else {
-//     res.redirect("/login");
-//   };
-// });
-
-router.get("/", async (req, res) => {
-  res.locals.title = "Express Practice";
-  res.locals.pageName = "article_list";
-  const data = await getFullListData(req);
-  if (data.redirect) {
-    return res.redirect(data.redirect);
+    redirect,
+    qs:req.query,
   }
-  if (data.success) {
-    res.render("articles/list", data);
-  }
-});
+}
 
-router.get("/api", async (req, res) => {
-  const data = await getFullListData(req);
+router.get("/api/listData", async (req, res) => {
+  const data = await getArticleList(req);
   res.json(data);
 });
-
-router.get("/api/subtypes", async (req, res) => {
-  const data = await getArticleType(req);
-  res.json(data);
-});
-
-router.get("/add", async (req, res) => {
-  res.locals.title = "Express Practice";
-  res.locals.pageName = "article_add";
-  res.render("articles/add");
-});
-
-// router.post("/add", upload.none(), async(req,res) => {
-//   res.json(req.body);
-// });
 
 router.post("/add", async (req, res) => {
   const sql = "INSERT INTO Articles SET ?";
@@ -242,5 +226,25 @@ router.put("/api/:article_id", upload.none(), async (req, res) => {
 
   res.json(output);
 });
+
+// const getArticleCategory = async (req) => {
+//   let success = false;
+//   let categories = [];
+
+//   const sql = `SELECT code_id, code_desc FROM CommonType WHERE code_type = 9;`;
+//   [categories] = await db.query(sql);
+
+//   success = true;
+//   return {
+//     success,
+//     categories,
+//     qs: req.query,
+//   };
+// };
+// router.get("/api/categories", async (req, res) => {
+//   const data = await getArticleCategory(req);
+//   res.json(data);
+// });
+
 
 export default router;

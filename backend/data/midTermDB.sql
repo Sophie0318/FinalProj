@@ -885,7 +885,6 @@ create table ProductTypes(
 ProductTypes_Id    int auto_increment primary key,
 ProductTypes_name  varchar(50),
 ProductTypes_parenti_id  int
-
 );
 insert into ProductTypes(ProductTypes_name,ProductTypes_parenti_id)
 value 
@@ -958,12 +957,73 @@ OrdersDetail_order_id_fk int,
 OrdersDetail_unit_price_at_time int
 -- foreign key (OrdersDetail_order_id_fk) references ProductOrders(ProductOrders_orders_id),
 -- foreign key (OrdersDetail_product_id_fk) references Products(Product_id )
-
 );
 insert into OrdersDetail 
 (OrdersDetail_product_id_fk , OrdersDetail_product_quantity,OrdersDetail_order_id_fk,OrdersDetail_unit_price_at_time)
 value (1,'3',1,90);
 -- ---------------------------- 
 -- ########################## 文章管理系統 ##########################
+-- ------------------ 創建文章論壇表格 ------------------
+create table Authors(
+author_id int primary key auto_increment,
+author_name varchar(50),
+author_is_coach int, -- 0 not coach of site, or link to coach table
+author_desc varchar(250)
+);
 
+-- articles related
+create table Articles(
+article_id int primary key auto_increment,
+article_title varchar(200),
+code_id_fk int, -- article_category link to commontype: code_type_id 9 code_id 1~5
+update_at timestamp not null default NOW(),
+article_cover varchar(100), -- cover image name
+article_publish_date timestamp,
+author_id_fk int, -- linked to author, range 1-10
+article_desc varchar(500),
+article_content varchar(5000),
+article_file varchar(100) -- name of edited article file
+);
 
+create table FavArticles(
+favarticle_id int primary key auto_increment,
+member_id_fk int,
+article_id_fk int, -- range 1~120
+create_at timestamp not null default NOW()
+);
+
+create table Comments(
+comment_id int primary key auto_increment,
+comment_content varchar(50),
+create_at timestamp not null default NOW(), -- record first posted time
+update_at timestamp not null default NOW(), -- reserved field for user edit time
+main int, -- which comment entry of an article
+sub int, -- is it a reply to a comment?
+article_id_fk int, -- which article, range 1-120
+member_id_fk int -- who left the comment/reply
+);
+
+create table ReportedComments(
+reportedcomment_id int primary key auto_increment,
+reportedcomment_note varchar(500), -- why it's reported
+create_at timestamp not null default NOW(),
+reportedcomment_review int, 
+-- 0 innocent 1 bot viewed and vindicated 2 need human review 3 human reviewed, 4 human reviewed and vindicated
+article_comment_id_fk int, -- which comment is reported range 1-20
+code_id_fk int, -- report category link to commontype: code_type_id 11 code_id 1~4 
+member_id_fk int
+);
+
+-- reserved table for comment section blacklist
+create table Blacklist(
+blacklist_id int primary key auto_increment,
+create_at datetime not null default NOW(), -- when blacklisted
+member_id_fk int not null -- which member is blacklisted
+);
+
+-- reserved table for offensive word category
+create table OffensiveWords(
+offensiveword_id int primary key auto_increment,
+offensiveword_name varchar(50),
+code_id_fk int -- offensive type link to commontype: code_type_id 12 code_id 1~4
+);
