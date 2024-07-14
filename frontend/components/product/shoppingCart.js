@@ -92,9 +92,9 @@ export default function ShoppingCart() {
                         <li style={{ paddingBottom: '20px' }}>
                           商品:{v.Product_name}
                         </li>
-                        <li style={{ paddingBottom: '20px' }}>
+                        {/* <li style={{ paddingBottom: '20px' }}>
                           特色: {v.Product_desc}
-                        </li>
+                        </li> */}
                         <li>價格: {v.Product_price}</li>
                       </ul>
                       {/* <div

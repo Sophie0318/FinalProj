@@ -1,12 +1,12 @@
 import React from 'react'
 import styles from '@/styles/product-list.module.css'
 
-export default function CardList({ id, name, price }) {
+export default function CardList({ id, name, price, img }) {
   return (
     <>
       <div className={styles.cardsize}>
         <img
-          src="/product-img/cloth.jpg"
+          src={`/product-img/${img}`}
           alt=""
           className={`w-100 ${styles.imagradius}`}
         />

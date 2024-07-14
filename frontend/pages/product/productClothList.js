@@ -107,6 +107,7 @@ export default function ProductList() {
                           id={v.Product_id}
                           name={v.Product_name}
                           price={v.Product_price}
+                          img={v.Product_photo}
                         />
                       </Link>
                     </div>

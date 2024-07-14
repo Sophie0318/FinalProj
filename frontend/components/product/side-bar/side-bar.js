@@ -71,12 +71,24 @@ export default function SideBar({ proTect, setProTect, updateProductData }) {
                 </label>
                 <br />
                 <label>
-                  <input type="radio" name="protect" value={proTect} />
+                  <input
+                    type="radio"
+                    name="protect"
+                    value="leg"
+                    checked={proTect === 'leg'}
+                    onChange={handleRadioChange}
+                  />
                   護腿
                 </label>
                 <br />
                 <label>
-                  <input type="radio" name="protect" value={proTect} />
+                  <input
+                    type="radio"
+                    name="protect"
+                    value="ankle"
+                    checked={proTect === 'ankle'}
+                    onChange={handleRadioChange}
+                  />
                   護踝
                 </label>
               </div>
