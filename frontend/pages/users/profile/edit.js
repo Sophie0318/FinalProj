@@ -74,7 +74,7 @@ export default function LessonsOrders() {
                 </div>
                 <div className={styles.form_group}>
                   <label htmlFor="address">
-                    <p>詳細地址:</p>
+                    <p>地址:</p>
                   </label>
                   <input
                     type="text"
