@@ -15,6 +15,7 @@ export default function CardCarousel({
   cardWidth = '100%',
   gap = '20px',
   renderItem,
+  children,
 }) {
   const swiperRef = useRef(null)
   const [activeIndex, setActiveIndex] = useState(-1)
@@ -55,7 +56,7 @@ export default function CardCarousel({
   // 加上抓 database 除錯訊息
   if ((data.length === 0) | (data === null) | (data === undefined)) {
     data = initlist
-    console.log('data 沒抓到')
+    console.log('輪播 data 沒抓到')
   }
 
   useEffect(() => {
@@ -128,6 +129,7 @@ export default function CardCarousel({
             )
           })}
         </swiper-container>
+        {children}
         <button
           className={`${styles.navBtn} ${styles.prevBtn}`}
           style={{ display: `${showArrow}` }}

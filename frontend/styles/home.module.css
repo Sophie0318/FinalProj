@@ -55,13 +55,17 @@
   display: none;
 }
 
-.carouselBtnPC {
-  display: flex;
-  justify-content: center;
+.swiperSeparator {
+  position: absolute;
+  bottom: -55px;
+  left: 0;
+  height: 182px;
+  width: calc(100% + 80px);
+  background-color: var(--color-old-lace);
+  border-radius: 50px 0 0 50px;
+
 }
-.carouselBtnSP {
-  display: none;
-}
+
 
 /* 整體頁面樣式 */
 .hero {
@@ -132,7 +136,7 @@
 
 .cta2 {
   margin-top: -55px;
-  margin-bottom: 56px;
+  margin-bottom: 110px;
   padding-top: 67px;
 }
 
@@ -202,11 +206,7 @@
 }
 
 .popular {
-  padding-top: 110px;
-}
-
-.popular > div:nth-child(odd) {
-  margin-bottom: 86px;
+  padding-bottom: 110px;
 }
 
 .joinMemberMargin {
@@ -260,17 +260,6 @@
   }
   .logoPC img {
     width: 138px;
-  }
-}
-
-@media (max-width: 888px) {
-  .carouselBtnPC {
-    display: none;
-  }
-
-  .carouselBtnSP {
-    display: flex;
-    justify-content: center;
   }
 }
 
@@ -356,8 +345,8 @@
   }
 
   .popular {
-    padding-top: 0;
-    padding-bottom: 50px;
+    /* padding-top: 0;
+    padding-bottom: 50px; */
   }
 }
 
