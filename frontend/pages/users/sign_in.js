@@ -54,7 +54,7 @@ export default function SignIn() {
         title="登入"
         description="請輸入您的電子信箱及密碼進行登入，也可以選擇其他帳號登入"
       >
-        <form onSubmit={handleSubmit} noValidate>
+        <form className={styles.form} onSubmit={handleSubmit} noValidate>
           <div className={styles.form_group}>
             <div className={styles.form_group_flex}>
               <label className={styles.user_label} htmlFor="email">
@@ -95,14 +95,24 @@ export default function SignIn() {
         <div className={styles.warp2}>
           <div className={styles.third_party_login}>
             <a className={styles.a} href="#">
-              <img src="/users-img/Logo-google-icon.svg" alt="google icon" />
-              <p className={styles.p}>以Google帳號登入</p>
+              <div className={styles.icon_wrapper}>
+                <img src="/users-img/Logo-google-icon.svg" alt="google icon" />
+              </div>
+              <div className={styles.text_wrapper}>
+                <p className={styles.p} width="184px">
+                  以Google帳號登入
+                </p>
+              </div>
             </a>
           </div>
           <div className={styles.third_party_login}>
             <a className={styles.a} href="#">
-              <img src="/users-img/Facebook_icon.svg" alt="facebook icon" />
-              <p className={styles.p}>以Facebook帳號登入</p>
+              <div className={styles.icon_wrapper}>
+                <img src="/users-img/Facebook_icon.svg" alt="facebook icon" />
+              </div>
+              <div className={styles.text_wrapper}>
+                <p className={styles.p}>以Facebook帳號登入</p>
+              </div>
             </a>
           </div>
         </div>
