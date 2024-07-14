@@ -8,6 +8,7 @@ import StepOne from '../../components/users/StepOne'
 import StepTwo from '../../components/users/StepTwo'
 import StepThree from '../../components/users/StepThree'
 import MyBtn from '@/components/users/MyBtn'
+import UserModal from '../../components/users/UserModal'
 
 export default function SignUp() {
   const router = useRouter()
@@ -17,12 +18,23 @@ export default function SignUp() {
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const [currentStep, setCurrentStep] = useState(1) //當前步驟，預設為第一步
-
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [alertMessage, setAlertMessage] = useState('')
+  const [userMessage, setUserMessage] = useState('')
   const handleSubmit = async (e) => {
     e.preventDefault()
 
     if (password !== confirmPassword) {
-      alert('密碼不一致，請重新輸入')
+      setAlertMessage('資料錯誤')
+      setUserMessage('兩次輸入的密碼不一致')
+      setIsModalOpen(true)
+      return
+    }
+
+    if (!password || !confirmPassword) {
+      setAlertMessage('資料錯誤')
+      setUserMessage('請輸入密碼')
+      setIsModalOpen(true)
       return
     }
 
@@ -39,17 +51,31 @@ export default function SignUp() {
 
     const result = await res.json()
     if (result.success) {
-      alert('註冊成功，請登入')
+      setAlertMessage('註冊成功')
+      setUserMessage('歡迎加入我們，請登入您的帳戶')
+      setIsModalOpen(true)
       router.push('sign_in') // 跳到登入頁面
     } else {
-      alert('Error 會員註冊失敗')
+      setAlertMessage('註冊失敗')
+      setUserMessage('請檢查您的電子郵件和密碼')
+      setIsModalOpen(true)
     }
   }
 
   const handleNextStep = (e) => {
     e.preventDefault()
-    setCurrentStep(currentStep + 1)
-    setStep(step + 1)
+    if (step === 1 && !email) {
+      setAlertMessage('資料錯誤')
+      setUserMessage('請輸入電子信箱')
+      setIsModalOpen(true)
+    } else if (step === 2 && !name) {
+      setAlertMessage('資料錯誤')
+      setUserMessage('請輸入名字')
+      setIsModalOpen(true)
+    } else {
+      setCurrentStep(currentStep + 1)
+      setStep(step + 1)
+    }
   }
 
   const handlePrevStep = (e) => {
@@ -109,6 +135,13 @@ export default function SignUp() {
           )}
         </div>
       </form>
+      {isModalOpen && (
+        <UserModal
+          onClose={() => setIsModalOpen(false)}
+          alertMessage={alertMessage}
+          userMessage={userMessage}
+        />
+      )}
     </UserSignup>
   )
 }
