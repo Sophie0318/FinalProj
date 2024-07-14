@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import LayoutUser from '@/components/layout/user-layout3'
 import BranchCard from '@/components/users/branchCard'
 // 待 import 進文章&場館卡片
@@ -10,8 +10,35 @@ import styles from '@/styles/user-profile.module.css'
 import coaches from '@/data/FavCoaches.json'
 import lessons from '@/data/FavLessons.json'
 
+import axios from 'axios'
+import { useAuth } from '@/context/auth-context'
+
 export default function Favorites() {
+  const [favorites, setFavorites] = useState([])
+  const { auth } = useAuth()
   // 決定要用哪一個分支的卡片, 參數 branch=分支名稱, data=Array.map的v
+  useEffect(() => {
+    const fetchFavorites = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:3001/users/favorites/${auth.id}`,
+          {
+            headers: { Authorization: `Bearer ${auth.token}` },
+          }
+        )
+        if (response.data.success) {
+          setFavorites(response.data.favorites)
+        }
+      } catch (error) {
+        console.error('Error fetching favorites:', error)
+      }
+    }
+
+    if (auth.token) {
+      fetchFavorites()
+    }
+  }, [auth])
+
   const renderCard = (branch, data) => {
     switch (branch) {
       case 'lessons':
@@ -26,7 +53,11 @@ export default function Favorites() {
         )
       case 'coaches':
         return (
-          <CoachCard name={data.name} skill={data.skill} imgSrc={data.imgSrc} />
+          <CoachCard
+            name={data.name}
+            skill={data.skills}
+            imgSrc={data.imgSrc}
+          />
         )
       default:
         return (
@@ -58,13 +89,15 @@ export default function Favorites() {
             <BranchCard branch="articles" />
           </div>
           <div className={styles.fav_search}>
-            {lessons.map((v, i) => {
-              return (
-                <div className="resultGrid" key={i}>
-                  {renderCard('lessons', v)}
-                </div>
-              )
-            })}
+            {favorites.map((coach) => (
+              <div className="resultGrid" key={coach.coach_id}>
+                <CoachCard
+                  name={coach.coach_name}
+                  skill={coach.skills}
+                  imgSrc={`/${coach.coach_img}`}
+                />
+              </div>
+            ))}
           </div>
 
           <div className={styles.pagination}>

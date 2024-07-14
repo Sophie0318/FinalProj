@@ -109,6 +109,43 @@ router.post("/login-jwt", async (req, res) => {
         res.status(500).json(output);
     }
 });
+
+// 添加收藏
+router.post("/add-favorite", async (req, res) => {
+    const { member_id, coach_id } = req.body;
+    if (!member_id || !coach_id) {
+      return res.status(400).json({ success: false, message: "Missing member_id or coach_id" });
+    }
+    try {
+      console.log("Attempting to add favorite:", { member_id, coach_id });
+      const sql = "INSERT INTO FavCoach (member_id, coach_id) VALUES (?, ?)";
+      await db.query(sql, [member_id, coach_id]);
+      console.log("Favorite added successfully");
+      res.json({ success: true, message: "Added to favorites" });
+    } catch (error) {
+      console.error("Detailed error adding favorite:", error);
+      res.status(500).json({ success: false, message: "Server error", error: error.message });
+    }
+  });
+
+// 獲取用戶的收藏教練
+router.get("/favorites/:userId", async (req, res) => {
+    const { userId } = req.params;
+    try {
+        const sql = `
+            SELECT c.*, ci.coach_img
+            FROM Coaches c
+            JOIN FavCoach fc ON c.coach_id = fc.coach_id
+            JOIN CoachImgs ci ON c.coachImgs_id = ci.coachImgs_id
+            WHERE fc.member_id = ?
+        `;
+        const [favorites] = await db.query(sql, [userId]);
+        res.json({ success: true, favorites });
+    } catch (error) {
+        console.error("Error fetching favorites:", error);
+        res.status(500).json({ success: false, message: "Server error", error: error.message });
+    }
+});
 //忘記密碼的路由
 router.post("/test_forget_password", userController.forgotPassword);
 //驗證重設密碼的路由

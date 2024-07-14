@@ -5,8 +5,10 @@ import styles from '@/styles/coachDetail.module.css'
 import { IoCall, IoHeart } from 'react-icons/io5'
 import axios from 'axios'
 import { useRouter } from 'next/router'
+import { useAuth } from '@/context/auth-context'
 
 export default function Detail() {
+  const { auth } = useAuth()
   const [isClicked, setIsClicked] = useState(false)
   const [coach, setCoach] = useState(null)
   const router = useRouter()
@@ -40,8 +42,34 @@ export default function Detail() {
     fetchCoach()
   }, [pid])
 
-  const handleClick = () => {
+  const handleClick = async () => {
+    if (!auth.token) {
+      router.push('/users/sign_in')
+      return
+    }
+
     setIsClicked(!isClicked)
+    try {
+      const response = await axios.post(
+        'http://localhost:3001/users/add-favorite',
+        {
+          member_id: auth.id, // 使用 auth.id 而不是 userId
+          coach_id: pid,
+        },
+        {
+          headers: { Authorization: `Bearer ${auth.token}` },
+        }
+      )
+      if (response.data.success) {
+        console.log('Added to favorites')
+        setIsClicked(true)
+      }
+    } catch (error) {
+      console.error(
+        'Error adding to favorites:',
+        error.response ? error.response.data : error
+      )
+    }
   }
 
   if (isLoading) {
