@@ -99,7 +99,7 @@ export default function SignIn() {
                 <img src="/users-img/Logo-google-icon.svg" alt="google icon" />
               </div>
               <div className={styles.text_wrapper}>
-                <p className={styles.p} width="184px">
+                <p className={styles.p} style={{ width: '184px' }}>
                   以Google帳號登入
                 </p>
               </div>
