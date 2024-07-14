@@ -97,6 +97,7 @@ router.post("/login-jwt", async (req, res) => {
             name: rows[0].member_name,
             nick_name: rows[0].nick_name,
             avatar: rows[0].avatar,
+            mobile: rows[0].mobile,
             token,
         };
         console.log("Login successful, output.data:", output.data);
