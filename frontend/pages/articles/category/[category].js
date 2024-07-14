@@ -4,10 +4,8 @@ import ArticleCard from '@/components/articles/article-card'
 import Layout3 from '@/components/layout/layout3'
 import SearchBar from '@/components/common/searchbar/searchbar'
 import SearchSection from '@/components/articles/search-section'
+import BS5Pagination from '@/components/product/Pagination/bs5-pagination'
 import styles from '../type.module.css'
-
-// 測試用資料
-import data from '@/data/FakeArticles.json'
 
 const renderCard = (item) => {
   return (
@@ -21,7 +19,7 @@ const renderCard = (item) => {
 }
 
 export default function ArticleType() {
-  const [articleList, setArticleList] = useState(data)
+  const [articleList, setArticleList] = useState([])
   const [pageCategory, setPageCategory] = useState('文章列表')
   const router = useRouter()
   const categoryMap = {
@@ -30,6 +28,11 @@ export default function ArticleType() {
     medical_care: '醫療保健',
     mental_wellness: '心靈健康',
     happy_learning: '熟齡學習',
+  }
+
+  const onPageChange = (e) => {
+    const pageNum = e.selected + 1
+    router.push({ query: { ...router.query, page: pageNum } })
   }
 
   const getList = async (url) => {
@@ -67,7 +70,7 @@ export default function ArticleType() {
       getList(url)
       setPageCategory(categoryMap[router.query.category])
     }
-  }, [router.isReady, articleList.success])
+  }, [router, articleList.success])
 
   if (!router.isReady || !articleList.success) return null
   return (
@@ -97,7 +100,11 @@ export default function ArticleType() {
               <div
                 className={`${styles.page} col-12 d-flex justify-content-center`}
               >
-                <div
+                <BS5Pagination
+                  totalPages={articleList.totalPages}
+                  onPageChange={onPageChange}
+                />
+                {/* <div
                   style={{
                     backgroundColor: '#bbb',
                     height: '50px',
@@ -105,7 +112,7 @@ export default function ArticleType() {
                   }}
                 >
                   pagination
-                </div>
+                </div> */}
               </div>
             </div>
           </div>
