@@ -16,6 +16,7 @@ export default function SignUp() {
   const [name, setName] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
+  const [currentStep, setCurrentStep] = useState(1) //當前步驟，預設為第一步
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -39,7 +40,6 @@ export default function SignUp() {
     const result = await res.json()
     if (result.success) {
       alert('註冊成功，請登入')
-      // todo: 註冊成功的madule
       router.push('sign_in') // 跳到登入頁面
     } else {
       alert('Error 會員註冊失敗')
@@ -48,11 +48,13 @@ export default function SignUp() {
 
   const handleNextStep = (e) => {
     e.preventDefault()
+    setCurrentStep(currentStep + 1)
     setStep(step + 1)
   }
 
   const handlePrevStep = (e) => {
     e.preventDefault()
+    setCurrentStep(currentStep - 1)
     setStep(step - 1)
   }
 
@@ -60,7 +62,7 @@ export default function SignUp() {
     <UserSignup
       title="建立一個帳戶"
       description="運動是保持健康的關鍵，請填寫以下資訊以創建您的帳號，加入我們，讓健康和活力成為生活常態！"
-      currentStep={step} //目前的狀態
+      currentStep={currentStep} //目前的狀態
     >
       <form className={styles2.form} onSubmit={handleSubmit} noValidate>
         {step === 1 && <StepOne email={email} setEmail={setEmail} />}

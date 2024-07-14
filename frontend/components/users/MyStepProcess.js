@@ -1,16 +1,13 @@
 import React from 'react'
 import styles from '@/styles/MyStepProcess.module.css'
 
-export default function MyStepProcess({ steps = [] }) {
-  const currentStep = 1
+export default function MyStepProcess({ steps = [], currentStep }) {
   return (
     <div className="container  mb-5">
       <div className={styles.MyStepProcess}>
         {steps.map((step, i) => (
           <React.Fragment key={i}>
             <div className={`col-3 col-md-3 ${styles.size}`}>
-              {/* <div className={styles.test}>{i + 1}</div> */}
-
               {/* 當 currentStep 等於 i + 1 時，就會顯示 activeStep 的樣式 */}
               <div
                 className={`${styles.test} ${
@@ -19,7 +16,6 @@ export default function MyStepProcess({ steps = [] }) {
               >
                 {i + 1}
               </div>
-
               <div className={styles.checkFount}>{step}</div>
             </div>
             {/* 虛線數量會是步驟的數量-1 */}
@@ -34,8 +30,6 @@ export default function MyStepProcess({ steps = [] }) {
     </div>
   )
 }
-
-//currentStep一開始是1
 
 // 當 i = 0 時，第1步（i + 1 = 1）
 // 當 i = 1 時，第2步（i + 1 = 2）
