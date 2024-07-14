@@ -1,8 +1,10 @@
 import React from 'react'
 import LayoutUser from '@/components/layout/user-layout3'
 import styles from '../../../styles/user-edit.module.css'
+import { useAuth } from '../../../context/auth-context'
 
 export default function LessonsOrders() {
+  const { auth } = useAuth()
   return (
     <>
       <LayoutUser title="myProfile">
@@ -18,19 +20,29 @@ export default function LessonsOrders() {
                   <label htmlFor="name">
                     <p>姓名:</p>
                   </label>
-                  <input type="text" id="name" name="name" />
+                  <input type="text" id="name" name="name" value={auth.name} />
                 </div>
                 <div className={styles.form_group}>
                   <label htmlFor="nickname">
                     <p>暱稱:</p>
                   </label>
-                  <input type="text" id="nickname" name="nickname" />
+                  <input
+                    type="text"
+                    id="nickname"
+                    name="nickname"
+                    value={auth.nick_name}
+                  />
                 </div>
                 <div className={styles.form_group}>
                   <label htmlFor="phone">
                     <p>手機:</p>
                   </label>
-                  <input type="text" id="phone" name="phone" />
+                  <input
+                    type="text"
+                    id="phone"
+                    name="phone"
+                    value={auth.mobile}
+                  />
                 </div>
               </div>
 
@@ -69,6 +81,7 @@ export default function LessonsOrders() {
                     id="address"
                     name="address"
                     style={{ width: '300px' }}
+                    value={auth.address}
                   />
                 </div>
               </div>
