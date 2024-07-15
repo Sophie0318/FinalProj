@@ -5,6 +5,7 @@ import CoachCard from '@/components/coaches/coachCard'
 import ReserveModal from '@/components/coaches/reserve-modal'
 import { useRouter } from 'next/router'
 import axios from 'axios'
+import { useAuth } from '@/context/auth-context'
 
 export default function Reservation() {
   const [formData, setFormData] = useState({
@@ -16,6 +17,7 @@ export default function Reservation() {
   const [selectedCoach, setSelectedCoach] = useState(null)
   const [showModal, setShowModal] = useState(false)
   const router = useRouter()
+  const { auth } = useAuth()
 
   useEffect(() => {
     const fetchCoach = async () => {
@@ -54,6 +56,28 @@ export default function Reservation() {
     setShowModal(false)
   }
 
+  const handleMemberDataCheckbox = (e) => {
+    if (e.target.checked) {
+      if (!auth.token) {
+        router.push('/users/sign_in')
+      } else {
+        setFormData((prevData) => ({
+          ...prevData,
+          name: auth.name,
+          phone: auth.mobile, // 使用 mobile 或 phone，取決於您在後端返回的字段名
+          email: auth.email,
+        }))
+      }
+    } else {
+      setFormData({
+        name: '',
+        phone: '',
+        email: '',
+        timeSlot: '',
+      })
+    }
+  }
+
   return (
     <>
       <Layout3 title="教練預約" pageName="coaches">
@@ -67,6 +91,7 @@ export default function Reservation() {
                   id="member"
                   name="member"
                   className={styles.checkbox}
+                  onChange={handleMemberDataCheckbox}
                 />
                 <label htmlFor="member">同會員資料</label>
               </div>

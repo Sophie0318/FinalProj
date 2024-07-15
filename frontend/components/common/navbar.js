@@ -111,9 +111,9 @@ export default function Navbar() {
                 />
               </Link>
               <li>
-                <Link href="" onClick={() => logout()}>
+                <a href="#/" onClick={() => logout()}>
                   <FaPersonRunning className={`${styles.member}`} />
-                </Link>
+                </a>
               </li>
             </>
           ) : (

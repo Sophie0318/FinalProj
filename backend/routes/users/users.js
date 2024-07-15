@@ -97,6 +97,7 @@ router.post("/login-jwt", async (req, res) => {
             name: rows[0].member_name,
             nick_name: rows[0].nick_name,
             avatar: rows[0].avatar,
+            mobile: rows[0].mobile,
             token,
         };
         console.log("Login successful, output.data:", output.data);
@@ -106,6 +107,89 @@ router.post("/login-jwt", async (req, res) => {
         output.code = 500;
         output.error = "伺服器內部錯誤";
         res.status(500).json(output);
+    }
+});
+
+// 添加收藏
+router.post("/add-favorite", async (req, res) => {
+    const { member_id, coach_id } = req.body;
+    if (!member_id || !coach_id) {
+      return res.status(400).json({ success: false, message: "Missing member_id or coach_id" });
+    }
+    try {
+      console.log("Attempting to add favorite:", { member_id, coach_id });
+      const sql = "INSERT INTO FavCoach (member_id, coach_id) VALUES (?, ?)";
+      await db.query(sql, [member_id, coach_id]);
+      console.log("Favorite added successfully");
+      res.json({ success: true, message: "Added to favorites" });
+    } catch (error) {
+      console.error("Detailed error adding favorite:", error);
+      res.status(500).json({ success: false, message: "Server error", error: error.message });
+    }
+  });
+
+// 獲取用戶的收藏教練
+router.get("/favorites/:userId", async (req, res) => {
+    const { userId } = req.params;
+    try {
+        const sql = `
+            SELECT 
+                c.coach_id,
+                c.coach_name,
+                c.coach_phone,
+                c.coach_gender,
+                c.coach_info,
+                c.coach_price,
+                c.create_date,
+                c.update_at,
+                GROUP_CONCAT(DISTINCT ct.code_desc ORDER BY ct.code_desc SEPARATOR '、') AS skills,
+                ci.coach_img,
+                g.gym_name AS gym
+            FROM 
+                Coaches c
+            JOIN 
+                FavCoach fc ON c.coach_id = fc.coach_id
+            JOIN 
+                CoachSkills cs ON c.coach_id = cs.coach_id
+            JOIN 
+                CommonType ct ON cs.commontype_id = ct.commontype_id
+            JOIN 
+                CoachImgs ci ON c.coachImgs_id = ci.coachImgs_id
+            JOIN 
+                Gyms g ON c.gym_id = g.gym_id
+            WHERE 
+                fc.member_id = ?
+            GROUP BY 
+                c.coach_id, g.gym_name, ci.coach_img
+        `;
+        const [favorites] = await db.query(sql, [userId]);
+        res.json({ success: true, favorites });
+    } catch (error) {
+        console.error("獲取收藏時發生錯誤:", error);
+        res.status(500).json({ success: false, message: "伺服器錯誤", error: error.message });
+    }
+});
+
+// 刪除收藏
+router.delete("/remove-favorite", async (req, res) => {
+    const { member_id, coach_id } = req.body;
+    if (!member_id || !coach_id) {
+        return res.status(400).json({ success: false, message: "缺少 member_id 或 coach_id" });
+    }
+    try {
+        console.log("嘗試刪除收藏:", { member_id, coach_id });
+        const sql = "DELETE FROM FavCoach WHERE member_id = ? AND coach_id = ?";
+        const [result] = await db.query(sql, [member_id, coach_id]);
+        
+        if (result.affectedRows > 0) {
+            console.log("收藏刪除成功");
+            res.json({ success: true, message: "已從收藏中移除" });
+        } else {
+            res.status(404).json({ success: false, message: "找不到要刪除的收藏" });
+        }
+    } catch (error) {
+        console.error("刪除收藏時發生錯誤:", error);
+        res.status(500).json({ success: false, message: "伺服器錯誤", error: error.message });
     }
 });
 //忘記密碼的路由
