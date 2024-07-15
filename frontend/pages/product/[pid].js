@@ -28,82 +28,7 @@ export default function ProductDetail() {
     setProduct,
   } = useCart()
 
-  // const [product, setProduct] = useState({
-  //   Product_id: 0,
-  //   Product_name: '',
-  //   Product_price: 0,
-  //   Product_desc: '',
-  //   Product_image: '',
-  //   Product_qty: 1,
-  // })
-  // const [item, setItem] = useState([]) // 購物車陣列)
-  // const addItem = (product) => {
-  //   const newItem = { ...product, qty: 1 }
-  //   const nextItem = [newItem, ...item]
-  //   setItem(nextItem)
-  //   localStorage.setItem('shoppingCart', JSON.stringify(nextItem))
-  //   console.log('button clicked', item)
-  // }
-  // const [item, setItem] = useState([])
-  // useEffect(() => {
-  //   if (typeof window !== 'undefined') {
-  //     const savedItems = localStorage.getItem('shoppingCart')
-  //     if (savedItems) {
-  //       setItem(JSON.parse(savedItems))
-  //     }
-  //   }
-  // }, []) // 只在客戶端渲染時運行一次 // 購物車陣列  如果在客戶端環境中（即瀏覽器中），就從 localStorage 中讀取名為 'shoppingCart' 的資料。如果資料存在，則將其解析為 JSON 格式，作為初始的 item 狀態；如果資料不存在或者無法解析，則初始為空陣列 []
-
-  // const addItem = (product) => {
-  //   const existingItem = item.find(
-  //     (cartItem) => cartItem.Product_id === product.Product_id
-  //   )
-
-  //   let nextItem
-
-  //   if (existingItem) {
-  //     nextItem = item.map((cartItem) =>
-  //       cartItem.Product_id === product.Product_id
-  //         ? { ...cartItem, qty: cartItem.qty + 1 }
-  //         : cartItem
-  //     )
-  //   } else {
-  //     const newItem = { ...product, qty: 1 }
-  //     nextItem = [newItem, ...item]
-  //   }
-
-  //   setItem(nextItem)
-  //   localStorage.setItem('shoppingCart', JSON.stringify(nextItem))
-  //   console.log('button clicked', nextItem)
-  // }
-
-  // //遞增
-  // const increaseItem = (id) => {
-  //   const nextItem = item.map((v) => {
-  //     if (v.Product_id === id) return { ...v, qty: v.qty + 1 }
-  //     else return v
-  //   })
-  //   setItem(nextItem)
-  //   localStorage.setItem('shoppingCart', JSON.stringify(nextItem))
-  // }
-
-  // //遞減
-  // const decreaseItem = (id) => {
-  //   const nextItem = item.map((v) => {
-  //     if (v.Product_id === id && v.qty > 1) return { ...v, qty: v.qty - 1 }
-  //     else return v
-  //   })
-  //   setItem(nextItem)
-  //   localStorage.setItem('shoppingCart', JSON.stringify(nextItem))
-  // }
-  // //移除
-  // const removeItem = (id) => {
-  //   const nextItem = item.filter((v) => {
-  //     return v.Product_id !== id
-  //   })
-  //   setItem(nextItem)
-  //   localStorage.setItem('shoppingCart', JSON.stringify(nextItem))
-  // }
+  const [photodata, setPhotoData] = useState([])
 
   const getProduct = async (pid) => {
     const url = `http://localhost:3001/product/api/${pid}`
@@ -117,7 +42,8 @@ export default function ProductDetail() {
           // 設定到狀態中 ===> 進入update階段，觸發重新渲染(re-render)
           console.log(resData.data[0])
           setProduct(resData.data[0])
-          console.log(product)
+          setPhotoData(resData.photodata)
+          console.log(photodata)
         }
       }
     } catch (e) {
@@ -137,6 +63,11 @@ export default function ProductDetail() {
   const notify = (productName) => {
     toast.success(productName + '已成功加入購物車')
   }
+  // const productImages = [
+  //   product.Product_photo1,
+  //   product.Product_photo2,
+  //   product.Product_photo3,
+  // ]
 
   return (
     <Layout3
@@ -145,14 +76,12 @@ export default function ProductDetail() {
       increaseItem={increaseItem}
       decreaseItem={decreaseItem}
       removeItem={removeItem}
-      // calcTotalPrice={calcTotalPrice}
     >
       {/* 卡片輪播 */}
       <div className="container mt-4 ">
         <div className="row">
           <div className="col-12 col-md-6">
-            <ProductCarousel />
-            <ProductImage />
+            <ProductCarousel photodata={photodata} />
           </div>
           <div className="col-12 col-md-6">
             <DetailText

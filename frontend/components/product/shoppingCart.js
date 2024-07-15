@@ -6,36 +6,6 @@ import { useState } from 'react'
 import { useCart } from '@/hooks/product/use-cart'
 
 export default function ShoppingCart() {
-  // const [total, setTotal] = useState(0) //計算金錢，因金錢是變動的，所以用useState
-  // const calcTotalPrice = (item) => {
-  //   let nextTotal = 0
-  //   if (item.length < 0) return '' //預防裡面沒東西
-  //   for (let i = 0; i < item.length; i++) {
-  //     nextTotal += item[i].qty * item[i].Product_price
-  //     // console.log(nextTotal)
-  //   }
-  //   setTotal(nextTotal)
-  // }
-  // console.log()
-  // if (typeof window !== 'undefined') {
-  //   const saveItems = localStorage.getItem('shoppingCart')
-  //   item = saveItems ? JSON.parse(saveItems) : item
-  //   console.log(`Shopping Cart saveItems: ${saveItems}`)
-  //   console.log(`Shopping Cart Item: ${JSON.stringify(item)}`)
-  // }
-  // const [shoppingList, setShoppingList] = useState([])
-  // useEffect(() => {
-  //   if (typeof window !== 'undefined') {
-  //     const saveItems = localStorage.getItem('shoppingCart')
-  //     setShoppingList(saveItems ? JSON.parse(saveItems) : item)
-
-  //     calcTotalPrice(item)
-  //     // console.log(total)
-  //   }
-  // }, [item]) //每當購物車裡面東西更新，價錢也會更新
-  // console.log(calcTotalPrice)
-
-  // console.log(`shoppingList: ${shoppingList}`)
   const { item, increaseItem, decreaseItem, removeItem, shoppingList, total } =
     useCart()
 
@@ -84,7 +54,7 @@ export default function ShoppingCart() {
                       }}
                     >
                       <img
-                        src="/product-img/大豆.webp"
+                        src={`/product-img/${v.Product_photo}`}
                         alt=""
                         style={{ width: '30%', borderRadius: '25px' }}
                       />
@@ -97,65 +67,7 @@ export default function ShoppingCart() {
                         </li> */}
                         <li>價格: {v.Product_price}</li>
                       </ul>
-                      {/* <div
-                        className="d-flex"
-                        style={{ height: '30px', marginTop: '70px' }}
-                      >
-                        <div
-                          style={{
-                            border: '1px solid black',
-                            backgroundColor: '#1A394A',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyItems: 'center',
-                            color: 'white',
-                            fontSize: '30px',
-                          }}
-                        >
-                          <IoAddSharp
-                            onClick={() => increaseItem(v.Product_id)}
-                          />
-                        </div>
-                        <div
-                          style={{
-                            backgroundColor: 'white',
-                            color: '#1a394a',
-                            width: '30px',
-                            border: '1px solid black',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyItems: 'center',
-                            paddingLeft: '8px',
-                            fontSize: '25px',
-                          }}
-                        >
-                          {v.qty}
-                        </div>
-                        <div
-                          style={{
-                            backgroundColor: '#1A394A',
-                            border: '1px solid black',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyItems: 'center',
-                            color: 'white',
-                            fontSize: '30px',
-                          }}
-                        >
-                          <IoRemove
-                            onClick={() => {
-                              const nextQty = v.qty - 1
-                              if (nextQty === 0) {
-                                if (confirm('這樣會整個刪掉喔!確定嗎?')) {
-                                  removeItem(v.Product_id)
-                                }
-                              } else {
-                                decreaseItem(v.Product_id)
-                              }
-                            }}
-                          />
-                        </div>
-                      </div> */}
+
                       <div>
                         <IoCloseSharp
                           style={{

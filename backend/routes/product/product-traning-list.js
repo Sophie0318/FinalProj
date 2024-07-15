@@ -162,14 +162,19 @@ router.get("/api/:pid", async (req, res) => {
        join CommonType as iCommonType 
       on Products.Suppliers_id_fk = iCommonType.commontype_id
       WHERE Product_id = ${product_id}`;
-  const [data] = await db.query(sql);
+  const [data] = await db.query(sql); //從db來的資料是個陣列(本來要從db來的資料是個陣列)陣列裡面有包陣列再包物件，故要拿到裡面的資料，要解構兩次，現在是第一次
   // console.log(data);
+  let photodata = data[0]; //用這個方法怕data是很多物件陣列，故要指定第一個物件
+  // let [photodata] = data; //多張照片處理，解構第二次，現在就是物件
+  // 現在photodata是個物件
+  photodata = photodata.Product_photo.split(",");
   success = true;
   if (data) {
     // 這裡應該使用模板渲染，否則使用 JSON 渲染
     return res.json({
       success,
       data,
+      photodata, //傳回前端
     });
 
     // try {

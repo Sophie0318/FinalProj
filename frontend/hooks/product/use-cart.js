@@ -27,7 +27,8 @@ export const CartProvider = ({ children }) => {
           : cartItem
       )
     } else {
-      const newItem = { ...product, qty: 1 }
+      const cover = product.Product_photo.split(',')[0]
+      const newItem = { ...product, Product_photo: cover, qty: 1 }
       nextItem = [newItem, ...item]
     }
 
