@@ -133,17 +133,40 @@ router.get("/favorites/:userId", async (req, res) => {
     const { userId } = req.params;
     try {
         const sql = `
-            SELECT c.*, ci.coach_img
-            FROM Coaches c
-            JOIN FavCoach fc ON c.coach_id = fc.coach_id
-            JOIN CoachImgs ci ON c.coachImgs_id = ci.coachImgs_id
-            WHERE fc.member_id = ?
+            SELECT 
+                c.coach_id,
+                c.coach_name,
+                c.coach_phone,
+                c.coach_gender,
+                c.coach_info,
+                c.coach_price,
+                c.create_date,
+                c.update_at,
+                GROUP_CONCAT(DISTINCT ct.code_desc ORDER BY ct.code_desc SEPARATOR '、') AS skills,
+                ci.coach_img,
+                g.gym_name AS gym
+            FROM 
+                Coaches c
+            JOIN 
+                FavCoach fc ON c.coach_id = fc.coach_id
+            JOIN 
+                CoachSkills cs ON c.coach_id = cs.coach_id
+            JOIN 
+                CommonType ct ON cs.commontype_id = ct.commontype_id
+            JOIN 
+                CoachImgs ci ON c.coachImgs_id = ci.coachImgs_id
+            JOIN 
+                Gyms g ON c.gym_id = g.gym_id
+            WHERE 
+                fc.member_id = ?
+            GROUP BY 
+                c.coach_id, g.gym_name, ci.coach_img
         `;
         const [favorites] = await db.query(sql, [userId]);
         res.json({ success: true, favorites });
     } catch (error) {
-        console.error("Error fetching favorites:", error);
-        res.status(500).json({ success: false, message: "Server error", error: error.message });
+        console.error("獲取收藏時發生錯誤:", error);
+        res.status(500).json({ success: false, message: "伺服器錯誤", error: error.message });
     }
 });
 //忘記密碼的路由

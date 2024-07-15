@@ -7,8 +7,8 @@ import LessonCard from '@/components/lessons/lessonCard'
 import styles from '@/styles/user-profile.module.css'
 
 // 測試用資料，連到資料庫後要刪掉
-import coaches from '@/data/FavCoaches.json'
-import lessons from '@/data/FavLessons.json'
+// import coaches from '@/data/FavCoaches.json'
+// import lessons from '@/data/FavLessons.json'
 
 import axios from 'axios'
 import { useAuth } from '@/context/auth-context'
@@ -93,7 +93,7 @@ export default function Favorites() {
               <div className="resultGrid" key={coach.coach_id}>
                 <CoachCard
                   name={coach.coach_name}
-                  skill={coach.skills}
+                  skill={coach.skills} // 使用 coach.skills
                   imgSrc={`/${coach.coach_img}`}
                 />
               </div>

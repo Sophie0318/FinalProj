@@ -91,6 +91,7 @@ export default function Detail() {
               <div className={styles.coachInfo}>
                 <div className={styles.coachName}> {coach.coach_name} 教練</div>
                 <div className={styles.coachGym}>地點：{coach.gym}</div>
+                <div className={styles.coachGym}>擅長技能：{coach.skills}</div>
               </div>
               <div className={styles.desc}>
                 <div className={styles.descTitle}>教練描述</div>
