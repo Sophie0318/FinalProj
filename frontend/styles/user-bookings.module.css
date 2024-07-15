@@ -120,6 +120,7 @@
   .date_card {
     gap: 10px;
     margin-bottom: 50px;
+    justify-content: center;
   }
   .schedule {
     width: 100%;

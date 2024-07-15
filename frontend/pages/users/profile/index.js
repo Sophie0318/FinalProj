@@ -3,14 +3,20 @@ import LayoutUser from '@/components/layout/user-layout3'
 import ReserveCard from '@/components/users/reserveCard'
 import BranchCard from '@/components/users/branchCard'
 import styles from '@/styles/user-profile.module.css'
+import { useAuth } from '../../../context/auth-context'
 
 export default function Profile() {
+  const { auth } = useAuth()
+
   return (
     <>
       <LayoutUser title="myProfile">
         <div className={styles.userinfo_profile}>
           <div className={styles.user_title}>
-            <h4>你阿罵，讓我們啟動健康的新里程吧！</h4>
+            <h4>
+              {auth.nick_name ? auth.nick_name : auth.name}
+              ，讓我們啟動健康的新里程吧！
+            </h4>
           </div>
           <div className={styles.title_describe}>
             <p className={styles.p_font}>即將到來的預約</p>

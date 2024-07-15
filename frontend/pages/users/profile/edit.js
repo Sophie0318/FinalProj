@@ -1,8 +1,99 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import LayoutUser from '@/components/layout/user-layout3'
-import styles from '@/styles/user-edit.module.css'
+import styles from '../../../styles/user-edit.module.css'
+import { useAuth } from '../../../context/auth-context'
 
 export default function LessonsOrders() {
+  const { auth } = useAuth()
+  const [city, setcity] = useState([])
+  const [districts, setDistrict] = useState([])
+  // const [selectedCity, setSelectedCity] = useState(0)
+  const [selectedCity, setSelectedCity] = useState(auth.city)
+  const [selectedDistrict, setSelectedDistrict] = useState(auth.district)
+
+  // 重新整理頁面時，讀取 token 中的 city 和 district
+  useEffect(() => {
+    const token = localStorage.getItem('token')
+    if (token) {
+      try {
+        const { city, district } = JSON.parse(atob(token.split('.')[1]))
+        setSelectedCity(city)
+        setSelectedDistrict(district)
+      } catch (error) {
+        console.error('Error parsing token:', error)
+      }
+    }
+  }, [])
+
+  const fetchDistrict = async (cityId) => {
+    try {
+      const response = await fetch(
+        `http://localhost:3001/users/selectWhere/district/${cityId}`
+      )
+      const data = await response.json()
+      setDistrict(data)
+    } catch (error) {
+      console.error('Error fetching district:', error)
+    }
+  }
+
+  // Fetch 資料庫縣市資料
+  useEffect(() => {
+    const fetchcity = async () => {
+      try {
+        const response = await fetch(
+          'http://localhost:3001/users/selectWhere/city'
+        )
+        const data = await response.json()
+        setcity(data)
+      } catch (error) {
+        console.error('Error fetching city:', error)
+      }
+    }
+
+    fetchcity()
+
+    if (auth.city !== 0) {
+      fetchDistrict(auth.city)
+    }
+  }, [])
+
+  // 根據選擇的城市fetcch 鄉鎮市區
+  useEffect(() => {
+    if (selectedCity !== 0) {
+      const fetchDistrict = async (cityId) => {
+        try {
+          const response = await fetch(
+            `http://localhost:3001/users/selectWhere/district/${cityId}`
+          )
+          const data = await response.json()
+          setDistrict(data)
+        } catch (error) {
+          console.error('Error fetching district:', error)
+        }
+      }
+
+      fetchDistrict()
+    } else {
+      setDistrict([])
+    }
+  }, [selectedCity])
+
+  const handleCityChange = (e) => {
+    const newCityId = parseInt(e.target.value)
+    setSelectedCity(newCityId)
+    setSelectedDistrict(0)
+    if (newCityId !== 0) {
+      fetchDistrict(newCityId)
+    } else {
+      setDistrict([])
+    }
+  }
+  useEffect(() => {
+    if (auth.city !== 0) {
+      fetchDistrict(auth.city)
+    }
+  }, [])
   return (
     <>
       <LayoutUser title="myProfile">
@@ -18,19 +109,29 @@ export default function LessonsOrders() {
                   <label htmlFor="name">
                     <p>姓名:</p>
                   </label>
-                  <input type="text" id="name" name="name" />
+                  <input type="text" id="name" name="name" value={auth.name} />
                 </div>
                 <div className={styles.form_group}>
                   <label htmlFor="nickname">
                     <p>暱稱:</p>
                   </label>
-                  <input type="text" id="nickname" name="nickname" />
+                  <input
+                    type="text"
+                    id="nickname"
+                    name="nickname"
+                    value={auth.nick_name}
+                  />
                 </div>
                 <div className={styles.form_group}>
                   <label htmlFor="phone">
                     <p>手機:</p>
                   </label>
-                  <input type="text" id="phone" name="phone" />
+                  <input
+                    type="text"
+                    id="phone"
+                    name="phone"
+                    value={auth.mobile}
+                  />
                 </div>
               </div>
 
@@ -40,35 +141,50 @@ export default function LessonsOrders() {
                   <label htmlFor="city">
                     <p>縣市:</p>
                   </label>
-                  <select id="city" name="city">
+                  <select
+                    id="city"
+                    name="city"
+                    value={selectedCity}
+                    onChange={handleCityChange}
+                  >
                     <option value="0">--請選擇--</option>
-                    <option value="1">台北市</option>
-                    <option value="2">新北市</option>
-                    <option value="3">台中市</option>
-                    {/* <!-- 青菜加加 --> */}
+                    {city.map((city) => (
+                      <option key={city.code_id} value={city.code_id}>
+                        {city.code_desc}
+                      </option>
+                    ))}
                   </select>
                 </div>
                 <div className={styles.form_group}>
                   <label htmlFor="district">
                     <p>行政區:</p>
                   </label>
-                  <select id="district" name="district">
+                  <select
+                    id="district"
+                    name="district"
+                    value={selectedDistrict}
+                    onChange={(e) =>
+                      setSelectedDistrict(parseInt(e.target.value))
+                    }
+                  >
                     <option value="0">--請選擇--</option>
-                    <option value="1">信義區</option>
-                    <option value="2">大安區</option>
-                    <option value="3">松山區</option>
-                    {/* <!-- 青菜加加 --> */}
+                    {districts.map((district) => (
+                      <option key={district.code_id} value={district.code_id}>
+                        {district.code_desc}
+                      </option>
+                    ))}
                   </select>
                 </div>
                 <div className={styles.form_group}>
                   <label htmlFor="address">
-                    <p>詳細地址:</p>
+                    <p>地址:</p>
                   </label>
                   <input
                     type="text"
                     id="address"
                     name="address"
-                    style={{ width: '420px' }}
+                    style={{ width: '300px' }}
+                    value={auth.address}
                   />
                 </div>
               </div>
@@ -76,13 +192,21 @@ export default function LessonsOrders() {
               <div className={styles.change_password}>
                 <h5>更改密碼</h5>
                 <div className={styles.flex}>
-                  <div className={styles.form_group}>
+                  <div className={styles.form_groupMb}>
                     <label htmlFor="password">
                       <p>密碼:</p>
                     </label>
-                    <input type="password" id="new_password" name="password" />
+                    <input
+                      type="password"
+                      id="new_password"
+                      name="password"
+                      value={auth.password}
+                    />
                   </div>
-                  <div className={styles.form_group} style={{ width: '350px' }}>
+                  <div
+                    className={styles.form_groupMb}
+                    style={{ width: '350px' }}
+                  >
                     <label htmlFor="password">
                       <p>請再輸入一次密碼:</p>
                     </label>
@@ -92,6 +216,7 @@ export default function LessonsOrders() {
                         type="password"
                         id="confirm_password"
                         name="password"
+                        value={auth.confirm_password}
                       />
                       <div className={styles.myicon}>
                         <a href="">

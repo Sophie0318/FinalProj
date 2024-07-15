@@ -1,8 +1,8 @@
 import express from "express";
 import session from "express-session";
-import db from "./utils/connect-mysql.js";
 import cors from "cors";
 import jwt from "jsonwebtoken";
+import selectWhereRouter from "./routes/users/selectWhere.js";
 
 // import 各分支的 router
 import aRouter from "./routes/articles/article-book.js";
@@ -31,7 +31,7 @@ app.use(
     saveUninitialized: false,
     resave: false,
     secret: "加密用的字串",
-
+    store: sessionStore,
     // cookie:{
     //   maxAge: 1800_000,
     // }
@@ -67,6 +67,9 @@ app.get("/", (req, res) => {
   res.locals.title = "首頁 | " + res.locals.title;
   res.render("home", { name: "homepage" });
 });
+
+//會員個人資料表下拉選單
+app.use('/users/selectWhere', selectWhereRouter);
 
 //後端驗證的token測試路由
 app.get("/jwt-data", (req, res) => {

@@ -11,12 +11,16 @@ import MyCheckBox from '@/components/users/MyCheckBox'
 import Link from 'next/link'
 import { useAuth } from '../../context/auth-context'
 import { useRouter } from 'next/router'
+import UserModal from '../../components/users/UserModal'
 
 export default function SignIn() {
   const { login } = useAuth()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [alertMessage, setAlertMessage] = useState('')
+  const [userMessage, setUserMessage] = useState('')
   const router = useRouter()
 
   const handleSubmit = async (e) => {
@@ -24,12 +28,19 @@ export default function SignIn() {
     setError('') // 清除之前的錯誤信息
 
     try {
-      const success = await login(email, password) // 假設 login 函數直接返回成功或失敗的布爾值
+      const success = await login(email, password)
       if (success) {
-        console.log('登入成功')
-        router.push('/')
+        setAlertMessage('登入成功')
+        setUserMessage('讓我們一起開始健康的旅程吧!')
+        setIsModalOpen(true)
+        setTimeout(() => {
+          setIsModalOpen(false)
+          router.push('/')
+        }, 3000)
       } else {
-        setError('登入失敗，請檢查您的電子郵件和密碼')
+        setAlertMessage('登入失敗')
+        setUserMessage('請檢查您的電子郵件和密碼')
+        setIsModalOpen(true)
       }
     } catch (error) {
       console.error('登入過程中發生錯誤:', error)
@@ -43,7 +54,7 @@ export default function SignIn() {
         title="登入"
         description="請輸入您的電子信箱及密碼進行登入，也可以選擇其他帳號登入"
       >
-        <form onSubmit={handleSubmit} noValidate>
+        <form className={styles.form} onSubmit={handleSubmit} noValidate>
           <div className={styles.form_group}>
             <div className={styles.form_group_flex}>
               <label className={styles.user_label} htmlFor="email">
@@ -73,7 +84,7 @@ export default function SignIn() {
         <div className={styles.forget_password}>
           {/* <Link className={styles.a} href="forget_password"> */}
           {/* 測試版 */}
-          <Link className={styles.a} href="gpt_forget_password">
+          <Link className={styles.a} href="forget_password">
             <FaAngleRight />
             <span className={styles.p}>我忘記密碼了</span>
           </Link>
@@ -84,18 +95,35 @@ export default function SignIn() {
         <div className={styles.warp2}>
           <div className={styles.third_party_login}>
             <a className={styles.a} href="#">
-              <img src="/users-img/Logo-google-icon.svg" alt="google icon" />
-              <p className={styles.p}>以Google帳號登入</p>
+              <div className={styles.icon_wrapper}>
+                <img src="/users-img/Logo-google-icon.svg" alt="google icon" />
+              </div>
+              <div className={styles.text_wrapper}>
+                <p className={styles.p} style={{ width: '184px' }}>
+                  以Google帳號登入
+                </p>
+              </div>
             </a>
           </div>
           <div className={styles.third_party_login}>
             <a className={styles.a} href="#">
-              <img src="/users-img/Facebook_icon.svg" alt="facebook icon" />
-              <p className={styles.p}>以Facebook帳號登入</p>
+              <div className={styles.icon_wrapper}>
+                <img src="/users-img/Facebook_icon.svg" alt="facebook icon" />
+              </div>
+              <div className={styles.text_wrapper}>
+                <p className={styles.p}>以Facebook帳號登入</p>
+              </div>
             </a>
           </div>
         </div>
       </UserSignin>
+      {isModalOpen && (
+        <UserModal
+          onClose={() => setIsModalOpen(false)}
+          alertMessage={alertMessage}
+          userMessage={userMessage}
+        />
+      )}
     </>
   )
 }

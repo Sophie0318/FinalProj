@@ -50,7 +50,7 @@ router.get("/jwt2", (req, res) => {
         payload = { ex };
     }
 })
-// jwt 登入 1
+// jwt 登入
 router.post("/login-jwt", async (req, res) => {
     const output = {
         success: false,
@@ -98,6 +98,9 @@ router.post("/login-jwt", async (req, res) => {
             nick_name: rows[0].nick_name,
             avatar: rows[0].avatar,
             mobile: rows[0].mobile,
+            city: rows[0].city_id,
+            district: rows[0].district_id,
+            address: rows[0].address,
             token,
         };
         console.log("Login successful, output.data:", output.data);
@@ -197,7 +200,7 @@ router.post("/test_forget_password", userController.forgotPassword);
 //驗證重設密碼的路由
 router.get("/verify_reset_token", userController.verifyResetToken);
 //重設密碼的路由
-router.post("/reset_password", userController.changePassword);
+router.post("/changePassword", userController.changePassword);
 
 
 

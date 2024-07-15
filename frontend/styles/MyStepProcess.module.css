@@ -35,7 +35,7 @@
     width: 20%;
     padding: 0;
     padding-top: 40px;
-    /* gap: 14px, */
+    text-align: center;
   }
   
   .dashContainer {
@@ -66,4 +66,8 @@
     font-weight: 400;
 
   }
-  
+  @media screen and (max-width: 600px) {
+    .checkFount{
+      width: 70px;
+    }
+  }
