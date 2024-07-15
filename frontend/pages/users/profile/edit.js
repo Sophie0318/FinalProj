@@ -7,7 +7,6 @@ export default function LessonsOrders() {
   const { auth } = useAuth()
   const [city, setcity] = useState([])
   const [districts, setDistrict] = useState([])
-  // const [selectedCity, setSelectedCity] = useState(0)
   const [selectedCity, setSelectedCity] = useState(auth.city)
   const [selectedDistrict, setSelectedDistrict] = useState(auth.district)
 
@@ -58,22 +57,10 @@ export default function LessonsOrders() {
     }
   }, [])
 
-  // 根據選擇的城市fetcch 鄉鎮市區
+  // 根據選擇的城市 fetch 鄉鎮市區
   useEffect(() => {
     if (selectedCity !== 0) {
-      const fetchDistrict = async (cityId) => {
-        try {
-          const response = await fetch(
-            `http://localhost:3001/users/selectWhere/district/${cityId}`
-          )
-          const data = await response.json()
-          setDistrict(data)
-        } catch (error) {
-          console.error('Error fetching district:', error)
-        }
-      }
-
-      fetchDistrict()
+      fetchDistrict(selectedCity)
     } else {
       setDistrict([])
     }
@@ -89,11 +76,7 @@ export default function LessonsOrders() {
       setDistrict([])
     }
   }
-  useEffect(() => {
-    if (auth.city !== 0) {
-      fetchDistrict(auth.city)
-    }
-  }, [])
+
   return (
     <>
       <LayoutUser title="myProfile">
@@ -109,7 +92,13 @@ export default function LessonsOrders() {
                   <label htmlFor="name">
                     <p>姓名:</p>
                   </label>
-                  <input type="text" id="name" name="name" value={auth.name} />
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    value={auth.name}
+                    readOnly
+                  />
                 </div>
                 <div className={styles.form_group}>
                   <label htmlFor="nickname">
@@ -120,6 +109,7 @@ export default function LessonsOrders() {
                     id="nickname"
                     name="nickname"
                     value={auth.nick_name}
+                    readOnly
                   />
                 </div>
                 <div className={styles.form_group}>
@@ -131,6 +121,7 @@ export default function LessonsOrders() {
                     id="phone"
                     name="phone"
                     value={auth.mobile}
+                    readOnly
                   />
                 </div>
               </div>
@@ -185,6 +176,7 @@ export default function LessonsOrders() {
                     name="address"
                     style={{ width: '300px' }}
                     value={auth.address}
+                    readOnly
                   />
                 </div>
               </div>
@@ -196,18 +188,13 @@ export default function LessonsOrders() {
                     <label htmlFor="password">
                       <p>密碼:</p>
                     </label>
-                    <input
-                      type="password"
-                      id="new_password"
-                      name="password"
-                      value={auth.password}
-                    />
+                    <input type="password" id="new_password" name="password" />
                   </div>
                   <div
                     className={styles.form_groupMb}
                     style={{ width: '350px' }}
                   >
-                    <label htmlFor="password">
+                    <label htmlFor="confirm_password">
                       <p>請再輸入一次密碼:</p>
                     </label>
                     <div className={styles.input_container}>
@@ -216,7 +203,6 @@ export default function LessonsOrders() {
                         type="password"
                         id="confirm_password"
                         name="password"
-                        value={auth.confirm_password}
                       />
                       <div className={styles.myicon}>
                         <a href="">
