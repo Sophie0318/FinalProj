@@ -14,53 +14,14 @@ export default function ProductList({
     updateProductData()
   }
 
-  // const [proTect, setProTect] = useState('') //細分類
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      searchKeyword()
+    }
+  }
 
   return (
     <>
-      {/* <div className="accordion" id="accordionExample">
-        <div className="accordion-item">
-          <h2 className="accordion-header" id="headingOne">
-            <button
-              className="accordion-button"
-              type="button"
-              data-bs-toggle="collapse"
-              data-bs-target="#collapseOne"
-              aria-expanded="true"
-              aria-controls="collapseOne"
-            >
-              健身護具
-            </button>
-          </h2>
-          <div
-            id="collapseOne"
-            className="accordion-collapse collapse show"
-            aria-labelledby="headingOne"
-            data-bs-parent="#accordionExample"
-          >
-            <div className="accordion-body">
-              <div>
-                <label>
-                  <input type="radio" name="protect" value="" />
-                  護腰
-                </label>
-                <label>
-                  <input type="radio" name="protect" value="" />
-                  護膝
-                </label>
-                <label>
-                  <input type="radio" name="protect" value="" />
-                  護腿
-                </label>
-                <label>
-                  <input type="radio" name="protect" value="" />
-                  護踝
-                </label>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>  搬家到sideBar*/}
       <div className="wrap">
         <div className={styles.search}>
           <input
@@ -73,6 +34,7 @@ export default function ProductList({
             onChange={(e) => {
               setNameLike(e.target.value)
             }}
+            onKeyDown={handleKeyDown}
           />
           <button className={styles.searchBtn}>
             <FaSearch
