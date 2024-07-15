@@ -5,12 +5,17 @@ import { IoSearch } from 'react-icons/io5'
 import CoachList from '@/components/coaches/coachList'
 import axios from 'axios'
 import CheckboxList from '@/components/lessons/checkboxList'
+import { useAuth } from '@/context/auth-context'
+import { useRouter } from 'next/router'
 
 export default function Index() {
+  const { auth } = useAuth()
+  const router = useRouter()
   const [allCoaches, setAllCoaches] = useState([])
   const [filteredCoaches, setFilteredCoaches] = useState([])
   const [selectedCategories, setSelectedCategories] = useState([])
   const [searchKeyword, setSearchKeyword] = useState('')
+  const [favorites, setFavorites] = useState([])
 
   const handleCategoryChange = (code_desc, isChecked) => {
     setSelectedCategories((prev) => {
@@ -20,13 +25,12 @@ export default function Index() {
 
       console.log('New selected categories:', newSelectedCategories)
 
-      // 只顯示選擇類別的課程
       const newFilteredCoaches = allCoaches.filter(
         (coach) =>
           newSelectedCategories.length === 0 ||
           newSelectedCategories.includes(coach.categories)
       )
-      console.log('Filtered lessons:', newFilteredCoaches)
+      console.log('Filtered coaches:', newFilteredCoaches)
       setFilteredCoaches(newFilteredCoaches)
 
       return newSelectedCategories
@@ -51,6 +55,24 @@ export default function Index() {
     }
   }
 
+  const fetchFavorites = async () => {
+    if (auth.token) {
+      try {
+        const response = await axios.get(
+          `http://localhost:3001/users/favorites/${auth.id}`,
+          {
+            headers: { Authorization: `Bearer ${auth.token}` },
+          }
+        )
+        if (response.data.success) {
+          setFavorites(response.data.favorites.map((coach) => coach.coach_id))
+        }
+      } catch (error) {
+        console.error('Error fetching favorites:', error)
+      }
+    }
+  }
+
   const handleSearchInputChange = (e) => {
     setSearchKeyword(e.target.value)
   }
@@ -62,7 +84,34 @@ export default function Index() {
 
   useEffect(() => {
     fetchCoaches()
-  }, [selectedCategories]) // 只在選擇的類別變更時重新獲取數據
+    fetchFavorites()
+  }, [selectedCategories, auth.token])
+
+  const handleFavoriteToggle = async (coachId) => {
+    if (!auth.token) {
+      router.push('/users/sign_in')
+      return
+    }
+
+    try {
+      if (favorites.includes(coachId)) {
+        await axios.delete('http://localhost:3001/users/remove-favorite', {
+          data: { member_id: auth.id, coach_id: coachId },
+          headers: { Authorization: `Bearer ${auth.token}` },
+        })
+        setFavorites(favorites.filter((id) => id !== coachId))
+      } else {
+        await axios.post(
+          'http://localhost:3001/users/add-favorite',
+          { member_id: auth.id, coach_id: coachId },
+          { headers: { Authorization: `Bearer ${auth.token}` } }
+        )
+        setFavorites([...favorites, coachId])
+      }
+    } catch (error) {
+      console.error('Error toggling favorite:', error)
+    }
+  }
 
   return (
     <Layout3 title="教練列表" pageName="coaches">
@@ -98,7 +147,11 @@ export default function Index() {
         <div className={styles.result}>
           <p className={styles.result_title}>篩選結果</p>
           <div className={styles.coachCards}>
-            <CoachList coaches={filteredCoaches} />
+            <CoachList
+              coaches={filteredCoaches}
+              favorites={favorites}
+              onFavoriteToggle={handleFavoriteToggle}
+            />
           </div>
         </div>
       </div>

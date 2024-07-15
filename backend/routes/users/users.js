@@ -169,6 +169,29 @@ router.get("/favorites/:userId", async (req, res) => {
         res.status(500).json({ success: false, message: "伺服器錯誤", error: error.message });
     }
 });
+
+// 刪除收藏
+router.delete("/remove-favorite", async (req, res) => {
+    const { member_id, coach_id } = req.body;
+    if (!member_id || !coach_id) {
+        return res.status(400).json({ success: false, message: "缺少 member_id 或 coach_id" });
+    }
+    try {
+        console.log("嘗試刪除收藏:", { member_id, coach_id });
+        const sql = "DELETE FROM FavCoach WHERE member_id = ? AND coach_id = ?";
+        const [result] = await db.query(sql, [member_id, coach_id]);
+        
+        if (result.affectedRows > 0) {
+            console.log("收藏刪除成功");
+            res.json({ success: true, message: "已從收藏中移除" });
+        } else {
+            res.status(404).json({ success: false, message: "找不到要刪除的收藏" });
+        }
+    } catch (error) {
+        console.error("刪除收藏時發生錯誤:", error);
+        res.status(500).json({ success: false, message: "伺服器錯誤", error: error.message });
+    }
+});
 //忘記密碼的路由
 router.post("/test_forget_password", userController.forgotPassword);
 //驗證重設密碼的路由

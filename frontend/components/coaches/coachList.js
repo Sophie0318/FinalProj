@@ -1,10 +1,17 @@
 import React from 'react'
 import CoachCard from './coachCard'
-import styles from '@/styles/coach.module.css' // 更改为正确的 CSS 模块
+import styles from '@/styles/coach.module.css'
 import Link from 'next/link'
 
-const CoachList = ({ coaches }) => {
-  console.log('Coaches in CoachList:', coaches)
+const CoachList = ({ coaches, favorites = [], onFavoriteToggle }) => {
+  const handleFavoriteToggle = (coachId) => {
+    if (typeof onFavoriteToggle === 'function') {
+      onFavoriteToggle(coachId)
+    } else {
+      console.error('onFavoriteToggle is not a function')
+    }
+  }
+
   return (
     <div className={styles.coachCards}>
       {coaches && coaches.length > 0 ? (
@@ -15,6 +22,10 @@ const CoachList = ({ coaches }) => {
                 name={coach.coach_name}
                 skill={coach.skills}
                 imgSrc={`/${coach.coach_img}`}
+                isLiked={
+                  Array.isArray(favorites) && favorites.includes(coach.coach_id)
+                }
+                onHeartClick={() => handleFavoriteToggle(coach.coach_id)}
               />
             </Link>
           </div>
