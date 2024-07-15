@@ -1,26 +1,16 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
-import ArticleCard from '@/components/articles/article-card'
+import useRenderCards from '@/hooks/cards/cards'
 import Layout3 from '@/components/layout/layout3'
 import SearchBar from '@/components/common/searchbar/searchbar'
 import SearchSection from '@/components/articles/search-section'
 import BS5Pagination from '@/components/product/Pagination/bs5-pagination'
 import styles from '../type.module.css'
 
-const renderCard = (item) => {
-  return (
-    <ArticleCard
-      title={item.article_title}
-      category={item.code_desc}
-      update_at={item.update_at}
-      imgSrc={item.article_cover}
-    />
-  )
-}
-
 export default function ArticleType() {
   const [articleList, setArticleList] = useState([])
   const [pageCategory, setPageCategory] = useState('文章列表')
+  const renderCard = useRenderCards('articles')
   const router = useRouter()
   const categoryMap = {
     fitness: '體能鍛鍊',
@@ -104,15 +94,6 @@ export default function ArticleType() {
                   totalPages={articleList.totalPages}
                   onPageChange={onPageChange}
                 />
-                {/* <div
-                  style={{
-                    backgroundColor: '#bbb',
-                    height: '50px',
-                    width: '370px',
-                  }}
-                >
-                  pagination
-                </div> */}
               </div>
             </div>
           </div>

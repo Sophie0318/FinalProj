@@ -103,7 +103,6 @@ export default function CardCarousel({
                 style={{
                   width: `${cardWidth}`,
                   maxWidth: `${cardMaxWidth}`,
-                  // display: `${activeIndex > i ? 'none' : 'block'}`,
                   opacity: `${activeIndex > i ? '0' : '1'}`,
                 }}
               >

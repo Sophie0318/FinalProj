@@ -4,8 +4,8 @@ import { useRouter } from 'next/router'
 
 import Layout3 from '@/components/layout/layout3'
 import SearchSection from '@/components/articles/search-section'
-import CardCarousel from '@/components/swiperCarousel/cardCarousel'
 import IndexCarousel from '@/components/swiperCarousel/indexCarousel'
+import useRenderCards from '@/hooks/cards/cards'
 import ArticleCard from '@/components/articles/article-card'
 import styles from './articles.module.css'
 
@@ -13,17 +13,7 @@ export default function Articles() {
   const router = useRouter()
   const [latest, setLatest] = useState([])
   const [hottest, setHottest] = useState([])
-
-  const renderCard = (item) => {
-    return (
-      <ArticleCard
-        title={item.article_title}
-        category={item.code_desc}
-        update_at={item.update_at}
-        imgSrc={item.article_cover}
-      />
-    )
-  }
+  const renderCard = useRenderCards('articles')
 
   useEffect(() => {
     console.log(router.isReady)

@@ -8,19 +8,18 @@ const ArticleCard = ({
   category = '',
   update_at = '',
   imgSrc = '/defaultImg.png',
-  hrefURL = '/',
+  idURL = '',
 }) => {
   const [isClicked, setIsClicked] = useState(false)
   const handleClick = (e) => {
     e.preventDefault()
     e.stopPropagation()
     setIsClicked(!isClicked)
-    console.log('heart clicked')
   }
 
   return (
     <div className={styles.articleCard}>
-      <Link href={hrefURL}>
+      <Link href={`/articles/${idURL}`}>
         <div className={styles.cardMainInfo}>
           <div className={styles.cardImgContainer}>
             <img

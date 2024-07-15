@@ -154,9 +154,17 @@
   display: none;
 }
 
+.commentSect{
+  padding-top: 64px;
+}
+
+.comment {
+  max-width: 960px;
+}
 /* 留言區樣式 */
 .comment h3 {
   text-align: center;
+  margin-bottom: 48px;
 }
 
 /* 延伸閱讀 */
