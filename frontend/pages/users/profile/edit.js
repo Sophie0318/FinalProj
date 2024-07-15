@@ -11,6 +11,20 @@ export default function LessonsOrders() {
   const [selectedCity, setSelectedCity] = useState(auth.city)
   const [selectedDistrict, setSelectedDistrict] = useState(auth.district)
 
+  // 重新整理頁面時，讀取 token 中的 city 和 district
+  useEffect(() => {
+    const token = localStorage.getItem('token')
+    if (token) {
+      try {
+        const { city, district } = JSON.parse(atob(token.split('.')[1]))
+        setSelectedCity(city)
+        setSelectedDistrict(district)
+      } catch (error) {
+        console.error('Error parsing token:', error)
+      }
+    }
+  }, [])
+
   const fetchDistrict = async (cityId) => {
     try {
       const response = await fetch(
@@ -182,7 +196,12 @@ export default function LessonsOrders() {
                     <label htmlFor="password">
                       <p>密碼:</p>
                     </label>
-                    <input type="password" id="new_password" name="password" />
+                    <input
+                      type="password"
+                      id="new_password"
+                      name="password"
+                      value={auth.password}
+                    />
                   </div>
                   <div
                     className={styles.form_groupMb}
@@ -197,6 +216,7 @@ export default function LessonsOrders() {
                         type="password"
                         id="confirm_password"
                         name="password"
+                        value={auth.confirm_password}
                       />
                       <div className={styles.myicon}>
                         <a href="">
