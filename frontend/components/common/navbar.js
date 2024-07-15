@@ -22,9 +22,8 @@ import { useCart } from '@/hooks/product/use-cart'
 
 
 // TODO: header logo offsets when toggle offcanvas, 可以參考kacco
-// TODO: toggle button 會蓋住scrollbar, 也參考kacco
 // 也可以用看看 bootstrap offcanvas body scrollable
-export default function Navbar() {
+export default function Navbar({ hideLogo = false }) {
   const { auth, logout } = useAuth()
   const {
     product,
@@ -34,6 +33,27 @@ export default function Navbar() {
     removeItem,
     calcTotalQty,
   } = useCart()
+  const [hideNavLogo, setHideNavLogo] = useState(false)
+  const [hasScrolled, setHasScrolled] = useState(false)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!hasScrolled) {
+        setHasScrolled(true)
+      }
+      if (window.scrollY > 100) {
+        setHideNavLogo(true)
+      } else {
+        setHideNavLogo(false)
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll)
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+    }
+  }, [hasScrolled])
 
   // useEffect(() => {
   //   if (product && product.Product_name) {
@@ -135,6 +155,9 @@ export default function Navbar() {
           <Link href="/">
             <div
               className={`${styles.logo} row justify-content-center p-0 m-0`}
+              style={
+                hideLogo || hideNavLogo ? { opacity: '0' } : { opacity: '1' }
+              }
             >
               <img src="/logo.png" alt="" className={`${styles.logoPhoto}`} />
             </div>

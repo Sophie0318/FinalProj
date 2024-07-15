@@ -8,8 +8,13 @@ import Layout3 from '@/components/layout/layout3'
 import Btn from '@/components/articles/buttons_test'
 import ArticleSidebar from '@/components/articles/article-sidebar'
 import ArticleCard from '@/components/articles/article-card'
-// import SwiperCarousel from '@/components/swiperCarousel'
+import useRenderCards from '@/hooks/cards/cards'
+import IndexCarousel from '@/components/swiperCarousel/indexCarousel'
+import Comment from '@/components/articles/comment/comment'
 import styles from './articleId.module.css'
+
+// 測試用data
+import moreArticles from '@/data/FakeArticles.json'
 
 export default function ArticlePage() {
   const router = useRouter()
@@ -17,22 +22,7 @@ export default function ArticlePage() {
   const [articles, setArticles] = useState([])
   const articleRef = useRef(null)
 
-  const renderCard = (item) => {
-    return (
-      <ArticleCard
-        title="枯木逢春訓練法是什麼？大豬教練與你分享銀髮族..."
-        category="體能鍛鍊"
-        update_at="2024.05.16"
-        imgSrc="/articles-img/240117_voice03.png"
-      />
-      // <ArticleCard
-      //   title={item.article_title}
-      //   category={item.article_subtype}
-      //   update_at={item.update_at}
-      //   imgSrc={item.article_cover}
-      // />
-    )
-  }
+  const renderCard = useRenderCards('articles')
 
   const getArticleList = async () => {
     try {
@@ -61,7 +51,6 @@ export default function ArticlePage() {
       rootMargin: '-650px 0px 0px 0px',
     }
     const observer = new IntersectionObserver(([entry]) => {
-      console.log(entry)
       setShowSidebar(entry.isIntersecting)
     }, options)
     if (articleRef.current) {
@@ -183,20 +172,22 @@ export default function ArticlePage() {
         </section>
 
         <section className={styles.moreArticles}>
-          <div className="row px-0 mx-0 g-0">
-            <div className="col-md-3 d-flex justify-content-md-end justify-content-center align-items-center">
-              <h3 className="my-0">延伸閱讀</h3>
-            </div>
-            <div className="col-md-9 ps-3">
-              {/* <SwiperCarousel data={articles} renderItem={renderCard} /> */}
-            </div>
-          </div>
+          <IndexCarousel
+            title="延伸閱讀"
+            renderItem={renderCard}
+            data={moreArticles}
+            cardMaxWidth="350px"
+            showBtn={false}
+          />
         </section>
 
-        <section>
-          <div className="container">
-            <div className={`${styles.comment} row`}>
+        <section className={styles.commentSect}>
+          <div className={`${styles.comment} container`}>
+            <div className={`row`}>
               <h3>看看留言</h3>
+              <div>
+                <Comment />
+              </div>
             </div>
           </div>
         </section>

@@ -1,20 +1,37 @@
 import React, { useEffect, useState } from 'react'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
+
 import Layout3 from '@/components/layout/layout3'
 import SearchSection from '@/components/articles/search-section'
-// import SwiperCarousel from '@/components/swiperCarousel'
-import Link from 'next/link'
+import IndexCarousel from '@/components/swiperCarousel/indexCarousel'
+import useRenderCards from '@/hooks/cards/cards'
+import ArticleCard from '@/components/articles/article-card'
 import styles from './articles.module.css'
 
 export default function Articles() {
-  const [articles, setArticles] = useState([])
+  const router = useRouter()
+  const [latest, setLatest] = useState([])
+  const [hottest, setHottest] = useState([])
+  const renderCard = useRenderCards('articles')
 
-  // useEffect(() => {
-  //   fetch('http://localhost:3001/articles/api')
-  //     .then((r) => r.json())
-  //     .then((data) => {
-  //       setArticles(data.rows)
-  //     })
-  // }, [])
+  useEffect(() => {
+    console.log(router.isReady)
+    if (router.isReady) {
+      fetch('http://localhost:3001/articles/api/articleIndex')
+        .then((r) => r.json())
+        .then((data) => {
+          if (data.latestList) {
+            setLatest(data.latestList)
+          }
+          if (data.hotList) {
+            setHottest(data.hotList)
+          }
+          console.log(data.success)
+        })
+        .catch((ex) => console.log(ex))
+    }
+  }, [router.isReady])
 
   return (
     <>
@@ -54,22 +71,24 @@ export default function Articles() {
           </div>
         </section>
 
-        <section className={`${styles.latest}`}>
-          <div className="row px-0 mx-0 g-0">
-            <div className="col-md-3 d-flex justify-content-md-end justify-content-center align-items-center">
-              <h3 className="my-0">最新文章</h3>
-            </div>
-            <div className="col-md-9 ps-3">{/* <SwiperCarousel /> */}</div>
-          </div>
+        <section className={styles.latest}>
+          <IndexCarousel
+            title="最新文章"
+            data={latest}
+            renderItem={renderCard}
+            cardMaxWidth="350px"
+            showBtn={false}
+          />
         </section>
 
-        <section className={`${styles.popular}`}>
-          <div className="row px-0 mx-0 g-0">
-            <div className="col-md-3 d-flex justify-content-md-end justify-content-center align-items-center">
-              <h3 className="my-0">熱門文章</h3>
-            </div>
-            <div className="col-md-9 ps-3">{/* <SwiperCarousel /> */}</div>
-          </div>
+        <section className={styles.popular}>
+          <IndexCarousel
+            title="熱門文章"
+            data={hottest}
+            renderItem={renderCard}
+            cardMaxWidth="350px"
+            showBtn={false}
+          />
         </section>
 
         <SearchSection />

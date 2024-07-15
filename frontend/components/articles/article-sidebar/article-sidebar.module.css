@@ -5,6 +5,7 @@
   bottom: 0;
   width: calc(100vw - 72px);
   height: 64px;
+  border-radius: 0 20px 0 0;
   background-color: var(--color-white);
   transition: transform 0.5s ease-in-out;
   transform: translateY(100%);

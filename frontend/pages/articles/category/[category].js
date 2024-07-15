@@ -1,27 +1,68 @@
-import React from 'react'
-import ArticleCard from '@/components/articles/article-card'
+import { useState, useEffect } from 'react'
+import { useRouter } from 'next/router'
+import useRenderCards from '@/hooks/cards/cards'
 import Layout3 from '@/components/layout/layout3'
 import SearchBar from '@/components/common/searchbar/searchbar'
 import SearchSection from '@/components/articles/search-section'
+import BS5Pagination from '@/components/product/Pagination/bs5-pagination'
 import styles from '../type.module.css'
 
-// 測試用資料
-import data from '@/data/FakeArticles.json'
-
-const renderCard = (item) => {
-  return (
-    <ArticleCard
-      title={item.article_title}
-      category={item.article_subtype}
-      update_at={item.update_at}
-      imgSrc={item.articleImg_name}
-    />
-  )
-}
-
 export default function ArticleType() {
-  const articleList = data || Array(12).fill(1)
+  const [articleList, setArticleList] = useState([])
+  const [pageCategory, setPageCategory] = useState('文章列表')
+  const renderCard = useRenderCards('articles')
+  const router = useRouter()
+  const categoryMap = {
+    fitness: '體能鍛鍊',
+    healthy_diet: '健康飲食',
+    medical_care: '醫療保健',
+    mental_wellness: '心靈健康',
+    happy_learning: '熟齡學習',
+  }
 
+  const onPageChange = (e) => {
+    const pageNum = e.selected + 1
+    router.push({ query: { ...router.query, page: pageNum } })
+  }
+
+  const getList = async (url) => {
+    let res = ''
+    let resData = ''
+    try {
+      res = await fetch(url)
+      resData = await res.json()
+    } catch (error) {
+      console.log('database fetch data error: ', error)
+    }
+    if (resData.success) {
+      if (resData.redirect) {
+        console.log(resData.redirect)
+        router.push(
+          {
+            pathname: router.pathname,
+            query: { ...router.query, ...resData.redirect },
+          },
+          undefined,
+          { shallow: true }
+        )
+        console.log(router.query)
+      }
+      setArticleList(resData)
+    }
+  }
+
+  useEffect(() => {
+    if (router.isReady) {
+      const baseURL = 'http://localhost:3001/articles/api/listData?'
+      const query = new URLSearchParams(router.query)
+
+      const url = `${baseURL}${query}`
+      getList(url)
+      setPageCategory(categoryMap[router.query.category])
+    }
+  }, [router, articleList.success])
+
+  if (!router.isReady || !articleList.success) return null
   return (
     <>
       <Layout3 title="體能鍛鍊" pageName="articles" section="whiteSection">
@@ -31,12 +72,12 @@ export default function ArticleType() {
               <div
                 className={`${styles.titleRow} col-12 d-flex justify-content-between align-items-center`}
               >
-                <h4 className="text-primary">體能鍛鍊</h4>
+                <h4 className="text-primary">{pageCategory}</h4>
                 <div className={styles.searchbarPC}>
                   <SearchBar maxWidth="351px" />
                 </div>
               </div>
-              {articleList.map((v, i) => {
+              {articleList.rows.map((v, i) => {
                 return (
                   <div
                     className={`${styles.card} col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12`}
@@ -49,15 +90,10 @@ export default function ArticleType() {
               <div
                 className={`${styles.page} col-12 d-flex justify-content-center`}
               >
-                <div
-                  style={{
-                    backgroundColor: '#bbb',
-                    height: '50px',
-                    width: '370px',
-                  }}
-                >
-                  pagination
-                </div>
+                <BS5Pagination
+                  totalPages={articleList.totalPages}
+                  onPageChange={onPageChange}
+                />
               </div>
             </div>
           </div>

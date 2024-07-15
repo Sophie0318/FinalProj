@@ -1,28 +1,3 @@
-import express from "express";
-import db from "./../../utils/connect-mysql.js";
-import moment from "moment-timezone";
-import upload from "./../../utils/upload-imgs.js";
-
-const router = express.Router();
-
-const dateFormat = "YYYY-MM-DD";
-
-const getArticleType = async (req) => {
-  let success = false;
-  let redirect = "";
-  let subtypes = [];
-
-  const sql = `SELECT * FROM CommonType WHERE code_type = 10;`;
-  [subtypes] = await db.query(sql);
-
-  success = true;
-  return {
-    success,
-    subtypes,
-    qs: req.query,
-  };
-};
-
 const getFullListData = async (req) => {
   let success = false;
 
@@ -70,9 +45,8 @@ const getFullListData = async (req) => {
       return { success };
     }
 
-    const sql = `SELECT A.article_id, A.article_title, AImgs.articleimg_name, CT1.code_desc AS subtype, A.update_at FROM Articles AS A JOIN CommonType AS CT1 ON CT1.code_type = 10 AND A.article_subtype = CT1.code_id JOIN ArticleImgs AImgs ON A.article_id = AImgs.article_id_fk AND AImgs.articleimg_cover = 1 ${q_sql} GROUP BY A.article_id, A.article_title, subtype, articleimg_name, A.update_at ORDER BY article_id DESC LIMIT ${
-      (page - 1) * perPage
-    }, ${perPage};`;
+    const sql = `SELECT A.article_id, A.article_title, AImgs.articleimg_name, CT1.code_desc AS subtype, A.update_at FROM Articles AS A JOIN CommonType AS CT1 ON CT1.code_type = 10 AND A.article_subtype = CT1.code_id JOIN ArticleImgs AImgs ON A.article_id = AImgs.article_id_fk AND AImgs.articleimg_cover = 1 ${q_sql} GROUP BY A.article_id, A.article_title, subtype, articleimg_name, A.update_at ORDER BY article_id DESC LIMIT ${(page - 1) * perPage
+      }, ${perPage};`;
     [rows] = await db.query(sql);
     rows.forEach((el) => {
       const m1 = moment(el.update_at);

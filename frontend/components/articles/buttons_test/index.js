@@ -85,7 +85,6 @@ export default function Btn({
           {...props}
           style={{ width: `${width}`, maxWidth: `${maxWidth}`, ...props }}
         >
-          {/* <span>{children}</span> */}
           {children}
         </button>
       )}

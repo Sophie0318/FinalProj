@@ -38,6 +38,9 @@
 .keyVisualSP {
   display: none;
 }
+.logoPC {
+  display: none;
+}
 
 .ctaMobile {
   display: none;
@@ -52,13 +55,17 @@
   display: none;
 }
 
-.carouselBtnPC {
-  display: flex;
-  justify-content: center;
+.swiperSeparator {
+  position: absolute;
+  bottom: -55px;
+  left: 0;
+  height: 182px;
+  width: calc(100% + 80px);
+  background-color: var(--color-old-lace);
+  border-radius: 50px 0 0 50px;
+
 }
-.carouselBtnSP {
-  display: none;
-}
+
 
 /* 整體頁面樣式 */
 .hero {
@@ -129,7 +136,7 @@
 
 .cta2 {
   margin-top: -55px;
-  margin-bottom: 56px;
+  margin-bottom: 110px;
   padding-top: 67px;
 }
 
@@ -199,12 +206,7 @@
 }
 
 .popular {
-  padding-top: 110px;
-  /* padding-bottom: 56px; */
-}
-
-.popular > div:nth-child(odd) {
-  margin-bottom: 86px;
+  padding-bottom: 110px;
 }
 
 .joinMemberMargin {
@@ -248,14 +250,16 @@
   }
 }
 
-@media (max-width: 888px) {
-  .carouselBtnPC {
-    display: none;
+@media (max-width: 992px) {
+  .logoPC {
+    display: block;
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
   }
-
-  .carouselBtnSP {
-    display: flex;
-    justify-content: center;
+  .logoPC img {
+    width: 138px;
   }
 }
 
@@ -341,8 +345,8 @@
   }
 
   .popular {
-    padding-top: 0;
-    padding-bottom: 50px;
+    /* padding-top: 0;
+    padding-bottom: 50px; */
   }
 }
 
@@ -351,30 +355,51 @@
     display: none;
   }
 
+  .logoPC {
+    display: none;
+  }
+
   .keyVisualSP {
     display: block;
     position: relative;
     height: calc(100dvh);
-    /* height: calc(100vh - 70px); */
-    /* width: 100vw; */
+    overflow: hidden;
   }
 
-  .heroImage img {
+  .hideHero {
+    opacity: 0;
+  }
+
+  .logoSP {
     position: fixed;
-    width: 120vw;
-    top: calc(80px + 10px);
+    top: calc(-10px - 70px);
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .logoSP img{
+    width: 138px;
+  }
+  .heroImageContainer {
+    position: fixed;
+    top: calc(10px + 70px);
     left: 50%;
     transform: translateX(-50%);
     z-index: -5;
+    transition: opacity 0.5s ease;
+    margin: 10px 0;
+  }
+
+  .heroImage {
+    width: 120vw;
   }
 
   .cta1 {
     position: absolute;
-    /* bottom: 0; */
-    bottom: calc(30px + 50px);
+    bottom: calc(50px);
     left: 0;
-    z-index: -1;
-    /* width: 100vw; */
+    z-index: 3;
+    width: 100%;
     margin: 0;
     padding: 0;
     
@@ -398,7 +423,6 @@
   .cta1Img > img {
     z-index: -1;
     right: 0;
-    bottom: 5px;
     border-radius: 25px;
     height: 244px;
     width: 181px;
@@ -410,9 +434,13 @@
   }
   .cta1Mask img {
     position: absolute;
-    right: 0;
-    bottom: calc(-25px - 170px);
+    right: -150px;
+    bottom: calc(-115px);
     z-index: -2;
+  }
+
+  .pageWrap {
+    margin-top: 25px;
   }
 
 }

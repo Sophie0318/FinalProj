@@ -5,7 +5,7 @@ import jwt from "jsonwebtoken";
 import selectWhereRouter from "./routes/users/selectWhere.js";
 
 // import 各分支的 router
-import aRouter from "./routes/articles/article-book.js";
+import aRouter from "./routes/articles/articles.js";
 import lessonRouter from "./routes/lessons/lesson.js";
 import coachRouter from "./routes/coaches/coach.js";
 import productRouter from "./routes/product/product-traning-list.js";
@@ -26,12 +26,12 @@ const corsOption = {
 };
 app.use(cors(corsOption));
 
+
 app.use(
   session({
     saveUninitialized: false,
     resave: false,
     secret: "加密用的字串",
-    store: sessionStore,
     // cookie:{
     //   maxAge: 1800_000,
     // }
@@ -40,9 +40,6 @@ app.use(
 
 // define top level middleware
 app.use((req, res, next) => {
-  res.locals.title = "Express Practice";
-  res.locals.session = req.session;
-
   //後端驗證token
   //在top-level middleware處理jwt token
   const auth = req.get("Authorization"); // 先拿到檔頭的 Authorization 項目值
@@ -57,16 +54,11 @@ app.use((req, res, next) => {
 });
 
 // set routes
-// app.use('/articles', aRouter);
+app.use('/articles', aRouter);
 app.use("/lessons", lessonRouter);
 app.use("/coaches", coachRouter);
 app.use("/product", productRouter);
 app.use("/users", usersRouter);
-
-app.get("/", (req, res) => {
-  res.locals.title = "首頁 | " + res.locals.title;
-  res.render("home", { name: "homepage" });
-});
 
 //會員個人資料表下拉選單
 app.use('/users/selectWhere', selectWhereRouter);
@@ -77,7 +69,6 @@ app.get("/jwt-data", (req, res) => {
 });
 
 app.use(express.static("public"));
-app.use("/bootstrap", express.static("node_modules/bootstrap/dist"));
 
 app.use((req, res) => {
   res.type("text/plain");
