@@ -171,6 +171,9 @@ export default function ShoppingCart() {
                   height: '65px',
                   color: 'white',
                 }}
+                onClick={() => {
+                  window.location.href = '../product/product-order'
+                }}
               >
                 前往付款
               </button>

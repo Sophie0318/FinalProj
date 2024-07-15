@@ -3,8 +3,19 @@ import styles from '@/styles/product-order.module.css'
 import { IoClose } from 'react-icons/io5'
 import { IoAddSharp, IoRemove } from 'react-icons/io5'
 import ProductCheckout1 from '@/components/product/product-checkout1'
-
+import { useState, useEffect } from 'react'
 export default function ProductOrder() {
+  const [orderItems, setOrderItems] = useState([])
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const savedItems = localStorage.getItem('shoppingCart')
+      if (savedItems) {
+        setOrderItems(JSON.parse(savedItems))
+      }
+    }
+  }, [])
+  console.log(orderItems)
+
   return (
     <>
       {/* 結帳進度 */}
@@ -30,73 +41,106 @@ export default function ProductOrder() {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <th scope="row">1</th>
-                <td style={{ width: '20%' }}>
-                  <img src="/product-img/cloth.jpg" alt="" class="w-75" />
-                </td>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>
-                  <div className="d-flex">
-                    <div className={styles.contbtn}>
-                      <IoAddSharp
-                        style={{ color: 'white', fontSize: '20px' }}
-                      />
+              {orderItems.map((item, index) => (
+                <tr key={index}>
+                  <th scope="row">{index + 1}</th>
+                  <td style={{ width: '20%' }}>
+                    <img
+                      src={`/product-img/${item.Product_photo}`}
+                      alt=""
+                      className="w-75"
+                    />
+                  </td>
+                  <td>{item.Product_name}</td>
+                  <td>{item.Product_desc}</td>
+                  <td>
+                    <div className="d-flex">
+                      <div className={styles.contbtn}>
+                        <IoAddSharp
+                          style={{ color: 'white', fontSize: '20px' }}
+                          onClick={() => {
+                            const newItems = [...orderItems]
+                            newItems[index].qty += 1
+                            setOrderItems(newItems)
+                            localStorage.setItem(
+                              'shoppingCart',
+                              JSON.stringify(newItems)
+                            )
+                          }}
+                        />
+                      </div>
+                      <div
+                        className={styles.contbtn}
+                        style={{ backgroundColor: 'white', width: '30px' }}
+                      >
+                        {item.qty}
+                      </div>
+                      <div className={styles.contbtn}>
+                        <IoRemove
+                          style={{
+                            color: 'white',
+                            fontSize: '20px',
+                          }}
+                          onClick={() => {
+                            const newItems = [...orderItems]
+                            if (newItems[index].qty > 1) {
+                              newItems[index].qty -= 1
+                              setOrderItems(newItems)
+                              localStorage.setItem(
+                                'shoppingCart',
+                                JSON.stringify(newItems)
+                              )
+                            } else {
+                              if (confirm('這樣會整個刪掉喔!確定嗎?')) {
+                                newItems.splice(index, 1)
+                                setOrderItems(newItems)
+                                localStorage.setItem(
+                                  'shoppingCart',
+                                  JSON.stringify(newItems)
+                                )
+                              }
+                            }
+                          }}
+                        />
+                      </div>
                     </div>
-                    <div
-                      className={styles.contbtn}
-                      style={{ backgroundColor: 'white', width: '30px' }}
-                    >
-                      4
-                    </div>
-                    <div className={styles.contbtn}>
-                      <IoRemove
-                        style={{
-                          color: 'white',
-                          fontSize: '20px',
-                        }}
-                      />
-                    </div>
-                  </div>
-                </td>
-                <td>@mdo</td>
-              </tr>
+                  </td>
+                  <td>{item.Product_price}</td>
+                  <td>
+                    <IoClose
+                      style={{ fontSize: '40px' }}
+                      onClick={() => {
+                        if (confirm('要刪除嗎?')) {
+                          const newItems = [...orderItems]
+                          newItems.splice(index, 1)
+                          setOrderItems(newItems)
+                          localStorage.setItem(
+                            'shoppingCart',
+                            JSON.stringify(newItems)
+                          )
+                        }
+                      }}
+                    />
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
-          {/* <table className={`table ${styles.customTable}`}>
-            <thead>
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">照片</th>
-                <th scope="col">商品名稱</th>
-                <th scope="col">款式顏色</th>
-                <th scope="col">數量</th>
-                <th scope="col">價格</th>
-                <th scope="col">
-                  <IoClose style={{ fontSize: '40px' }} />{' '}
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <th scope="row">2</th>
-                <td>
-                  <img src="/product-img/cloth.jpg" alt="" class="w-75" />
-                </td>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-                <td>@mdo</td>
-              </tr>
-            </tbody>
-          </table> */}
           <div className="row">
             <div
               className={`col-12 col-md-12 d-flex justify-content-between ${styles.count}`}
             >
-              <h6>小計:總商品數</h6>
-              <h6>總金額:</h6>
+              <h6>
+                小計: 總商品數{' '}
+                {orderItems.reduce((acc, item) => acc + item.qty, 0)}
+              </h6>
+              <h6>
+                總金額: NT$
+                {orderItems.reduce(
+                  (acc, item) => acc + item.qty * item.Product_price,
+                  0
+                )}
+              </h6>
             </div>
           </div>
         </div>
@@ -105,10 +149,19 @@ export default function ProductOrder() {
             <button
               className={styles.btn}
               style={{ backgroundColor: '#6C6C6C' }}
+              onClick={() => window.history.back()}
             >
               返回
             </button>
-            <button className={styles.btn}>確認</button>
+            <button
+              className={styles.btn}
+              onClick={() => {
+                // 實作訂單確認的邏輯
+                alert('訂單已確認')
+              }}
+            >
+              確認
+            </button>
           </div>
         </div>
       </div>
