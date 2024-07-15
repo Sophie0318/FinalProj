@@ -10,6 +10,14 @@ export default function LessonsOrders() {
   const [selectedCity, setSelectedCity] = useState(auth.city)
   const [selectedDistrict, setSelectedDistrict] = useState(auth.district)
 
+  const [name, setName] = useState(auth.name)
+  const [nickName, setNickName] = useState(auth.nick_name)
+  const [mobile, setMobile] = useState(auth.mobile)
+  const [address, setAddress] = useState(auth.address)
+  const [password, setPassword] = useState('')
+  const [confirmPassword, setConfirmPassword] = useState('')
+  const [errorMessage, setErrorMessage] = useState('')
+
   // 重新整理頁面時，讀取 token 中的 city 和 district
   useEffect(() => {
     const token = localStorage.getItem('token')
@@ -75,6 +83,24 @@ export default function LessonsOrders() {
     } else {
       setDistrict([])
     }
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    if (password !== confirmPassword) {
+      setErrorMessage('密碼不一致')
+    }
+
+    const updateProfile = {
+      name,
+      nick_name: nickName,
+      mobile,
+      address,
+      city: selectedCity,
+      district: selectedDistrict,
+      password,
+    }
+    return
   }
 
   return (

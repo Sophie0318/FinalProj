@@ -882,12 +882,10 @@ CREATE TABLE LessonCategories (
 );
 
 -- ---------------------------ProductTypes----------------------
-create table ProductTypes(
-ProductTypes_Id    int auto_increment primary key,
-ProductTypes_name  varchar(50),
-ProductTypes_parenti_id  int
-
-
+create table ProductTypes (
+    ProductTypes_Id int auto_increment primary key,
+    ProductTypes_name varchar(50),
+    ProductTypes_parenti_id int
 );
 
 -- -----------------------------Products----------------------------------
@@ -924,16 +922,23 @@ create table ProductOrders (
 );
 
 -- ----------------------------OrdersDetail---------------------------------
-create table OrdersDetail(
-OrdersDetail_id  int auto_increment primary key,
-OrdersDetail_product_id_fk   int,
-OrdersDetail_product_quantity int,
-OrdersDetail_order_id_fk int,
-OrdersDetail_unit_price_at_time int
--- foreign key (OrdersDetail_order_id_fk) references ProductOrders(ProductOrders_orders_id),
--- foreign key (OrdersDetail_product_id_fk) references Products(Product_id )
+create table OrdersDetail (
+    OrdersDetail_id int auto_increment primary key,
+    OrdersDetail_product_id_fk int,
+    OrdersDetail_product_quantity int,
+    OrdersDetail_order_id_fk int,
+    OrdersDetail_unit_price_at_time int
+    -- foreign key (OrdersDetail_order_id_fk) references ProductOrders(ProductOrders_orders_id),
+    -- foreign key (OrdersDetail_product_id_fk) references Products(Product_id )
+);
 
-
+CREATE TABLE FavCoach (
+    fcoach_id INT AUTO_INCREMENT PRIMARY KEY,
+    member_id INT NOT NULL,
+    coach_id INT NOT NULL,
+    FOREIGN KEY (member_id) REFERENCES Members (member_id),
+    FOREIGN KEY (coach_id) REFERENCES Coaches (coach_id),
+    UNIQUE KEY unique_member_coach (member_id, coach_id)
 );
 
 -- ----------------------------
