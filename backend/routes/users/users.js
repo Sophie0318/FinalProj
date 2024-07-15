@@ -121,6 +121,13 @@ router.post("/add-favorite", async (req, res) => {
     }
     try {
       console.log("Attempting to add favorite:", { member_id, coach_id });
+      // 先檢查是否已經存在收藏
+      const checkSql = "SELECT COUNT(*) as count FROM FavCoach WHERE member_id = ? AND coach_id = ?";
+      const [checkResult] = await db.query(checkSql, [member_id, coach_id]);
+      if (checkResult[0].count > 0) {
+        return res.json({ success: true, message: "Already in favorites" });
+      }
+      // 如果不存在，則添加收藏
       const sql = "INSERT INTO FavCoach (member_id, coach_id) VALUES (?, ?)";
       await db.query(sql, [member_id, coach_id]);
       console.log("Favorite added successfully");
@@ -129,7 +136,7 @@ router.post("/add-favorite", async (req, res) => {
       console.error("Detailed error adding favorite:", error);
       res.status(500).json({ success: false, message: "Server error", error: error.message });
     }
-  });
+});
 
 // 獲取用戶的收藏教練
 router.get("/favorites/:userId", async (req, res) => {
@@ -195,6 +202,21 @@ router.delete("/remove-favorite", async (req, res) => {
         res.status(500).json({ success: false, message: "伺服器錯誤", error: error.message });
     }
 });
+
+// 檢查收藏狀態
+router.get("/check-favorite/:userId/:coachId", async (req, res) => {
+    const { userId, coachId } = req.params;
+    try {
+      const sql = "SELECT COUNT(*) as count FROM FavCoach WHERE member_id = ? AND coach_id = ?";
+      const [rows] = await db.query(sql, [userId, coachId]);
+      const isFavorite = rows[0].count > 0;
+      res.json({ success: true, isFavorite });
+    } catch (error) {
+      console.error("檢查收藏狀態時發生錯誤:", error);
+      res.status(500).json({ success: false, message: "伺服器錯誤", error: error.message });
+    }
+  });
+  
 //忘記密碼的路由
 router.post("/test_forget_password", userController.forgotPassword);
 //驗證重設密碼的路由

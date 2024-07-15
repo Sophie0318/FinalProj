@@ -20,8 +20,6 @@ export default function Detail() {
 
   useEffect(() => {
     const fetchCoachAndFavoriteStatus = async () => {
-      console.log('Fetching data for coach ID:', pid)
-
       if (pid) {
         setIsLoading(true)
         try {
@@ -30,12 +28,11 @@ export default function Detail() {
           )
           if (coachResponse.data.success) {
             setCoach(coachResponse.data.coach)
-            console.log('Coach data:', coachResponse.data.coach)
           } else {
             console.error('Coach data not found')
           }
 
-          if (auth.token) {
+          if (auth.token && auth.id) {
             const favoriteResponse = await axios.get(
               `http://localhost:3001/users/check-favorite/${auth.id}/${pid}`,
               {
@@ -43,18 +40,14 @@ export default function Detail() {
               }
             )
             setIsLiked(favoriteResponse.data.isFavorite)
-            console.log('Favorite status:', favoriteResponse.data.isFavorite)
+          } else {
+            setIsLiked(false)
           }
         } catch (error) {
-          console.error(
-            'Error fetching data:',
-            error.response?.data || error.message
-          )
+          console.error('Error fetching data:', error)
         } finally {
           setIsLoading(false)
         }
-      } else {
-        console.log('Missing pid')
       }
     }
 
@@ -99,7 +92,11 @@ export default function Detail() {
       <div className={styles.content}>
         <div className={styles.coach}>
           <div className={styles.imgContainer}>
-            <img src={`/${coach?.coach_img}`} className={styles.img} />
+            <img
+              src={`/${coach?.coach_img}`}
+              className={styles.img}
+              alt={coach.coach_name}
+            />
           </div>
           <div className={styles.coachText}>
             <div className={styles.coachInfo}>
