@@ -7,7 +7,21 @@ export default function LessonsOrders() {
   const { auth } = useAuth()
   const [city, setcity] = useState([])
   const [districts, setDistrict] = useState([])
-  const [selectedCity, setSelectedCity] = useState(0)
+  // const [selectedCity, setSelectedCity] = useState(0)
+  const [selectedCity, setSelectedCity] = useState(auth.city)
+  const [selectedDistrict, setSelectedDistrict] = useState(auth.district)
+
+  const fetchDistrict = async (cityId) => {
+    try {
+      const response = await fetch(
+        `http://localhost:3001/users/selectWhere/district/${cityId}`
+      )
+      const data = await response.json()
+      setDistrict(data)
+    } catch (error) {
+      console.error('Error fetching district:', error)
+    }
+  }
 
   // Fetch 資料庫縣市資料
   useEffect(() => {
@@ -24,15 +38,19 @@ export default function LessonsOrders() {
     }
 
     fetchcity()
+
+    if (auth.city !== 0) {
+      fetchDistrict(auth.city)
+    }
   }, [])
 
   // 根據選擇的城市fetcch 鄉鎮市區
   useEffect(() => {
     if (selectedCity !== 0) {
-      const fetchDistricts = async () => {
+      const fetchDistrict = async (cityId) => {
         try {
           const response = await fetch(
-            `http://localhost:3001/users/selectWhere/district/${selectedCity}`
+            `http://localhost:3001/users/selectWhere/district/${cityId}`
           )
           const data = await response.json()
           setDistrict(data)
@@ -41,15 +59,27 @@ export default function LessonsOrders() {
         }
       }
 
-      fetchDistricts()
+      fetchDistrict()
     } else {
       setDistrict([])
     }
   }, [selectedCity])
 
   const handleCityChange = (e) => {
-    setSelectedCity(parseInt(e.target.value))
+    const newCityId = parseInt(e.target.value)
+    setSelectedCity(newCityId)
+    setSelectedDistrict(0)
+    if (newCityId !== 0) {
+      fetchDistrict(newCityId)
+    } else {
+      setDistrict([])
+    }
   }
+  useEffect(() => {
+    if (auth.city !== 0) {
+      fetchDistrict(auth.city)
+    }
+  }, [])
   return (
     <>
       <LayoutUser title="myProfile">
@@ -97,7 +127,12 @@ export default function LessonsOrders() {
                   <label htmlFor="city">
                     <p>縣市:</p>
                   </label>
-                  <select id="city" name="city" onChange={handleCityChange}>
+                  <select
+                    id="city"
+                    name="city"
+                    value={selectedCity}
+                    onChange={handleCityChange}
+                  >
                     <option value="0">--請選擇--</option>
                     {city.map((city) => (
                       <option key={city.code_id} value={city.code_id}>
@@ -110,7 +145,14 @@ export default function LessonsOrders() {
                   <label htmlFor="district">
                     <p>行政區:</p>
                   </label>
-                  <select id="district" name="district">
+                  <select
+                    id="district"
+                    name="district"
+                    value={selectedDistrict}
+                    onChange={(e) =>
+                      setSelectedDistrict(parseInt(e.target.value))
+                    }
+                  >
                     <option value="0">--請選擇--</option>
                     {districts.map((district) => (
                       <option key={district.code_id} value={district.code_id}>
