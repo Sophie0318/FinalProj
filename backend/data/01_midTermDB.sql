@@ -850,6 +850,16 @@ CREATE TABLE CoachSkills (
     PRIMARY KEY (coach_id, commontype_id)
 );
 
+-- 教練收藏
+CREATE TABLE FavCoach (
+    fcoach_id INT AUTO_INCREMENT PRIMARY KEY,
+    member_id INT NOT NULL,
+    coach_id INT NOT NULL,
+    FOREIGN KEY (member_id) REFERENCES Members(member_id),
+    FOREIGN KEY (coach_id) REFERENCES Coaches(coach_id),
+    UNIQUE KEY unique_member_coach (member_id, coach_id)
+);
+
 -- 课程照片表
 CREATE TABLE LessonImgs (
     LessonImgs_id INT PRIMARY KEY AUTO_INCREMENT,

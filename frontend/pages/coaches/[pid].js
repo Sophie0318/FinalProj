@@ -20,7 +20,9 @@ export default function Detail() {
 
   useEffect(() => {
     const fetchCoachAndFavoriteStatus = async () => {
-      if (pid && auth.token) {
+      console.log('Fetching data for coach ID:', pid)
+
+      if (pid) {
         setIsLoading(true)
         try {
           const coachResponse = await axios.get(
@@ -28,17 +30,21 @@ export default function Detail() {
           )
           if (coachResponse.data.success) {
             setCoach(coachResponse.data.coach)
+            console.log('Coach data:', coachResponse.data.coach)
           } else {
             console.error('Coach data not found')
           }
 
-          const favoriteResponse = await axios.get(
-            `http://localhost:3001/users/check-favorite/${auth.id}/${pid}`,
-            {
-              headers: { Authorization: `Bearer ${auth.token}` },
-            }
-          )
-          setIsLiked(favoriteResponse.data.isFavorite)
+          if (auth.token) {
+            const favoriteResponse = await axios.get(
+              `http://localhost:3001/users/check-favorite/${auth.id}/${pid}`,
+              {
+                headers: { Authorization: `Bearer ${auth.token}` },
+              }
+            )
+            setIsLiked(favoriteResponse.data.isFavorite)
+            console.log('Favorite status:', favoriteResponse.data.isFavorite)
+          }
         } catch (error) {
           console.error(
             'Error fetching data:',
@@ -47,6 +53,8 @@ export default function Detail() {
         } finally {
           setIsLoading(false)
         }
+      } else {
+        console.log('Missing pid')
       }
     }
 
