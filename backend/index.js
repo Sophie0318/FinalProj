@@ -27,15 +27,12 @@ const corsOption = {
 };
 app.use(cors(corsOption));
 
-const MysqlStore = mysql_session(session);
-const sessionStore = new MysqlStore({}, db);
-
 app.use(
   session({
     saveUninitialized: false,
     resave: false,
     secret: "加密用的字串",
-    store: sessionStore,
+
     // cookie:{
     //   maxAge: 1800_000,
     // }
@@ -51,10 +48,10 @@ app.use((req, res, next) => {
   //在top-level middleware處理jwt token
   const auth = req.get("Authorization"); // 先拿到檔頭的 Authorization 項目值
   if (auth && auth.indexOf("Bearer ") === 0) {
-    const token = auth.slice(7);//去掉"Bearer "
+    const token = auth.slice(7); //去掉"Bearer "
     try {
       req.my_jwt = jwt.verify(token, process.env.JWT_KEY);
-    } catch (ex) { }
+    } catch (ex) {}
   }
 
   next();
