@@ -589,9 +589,9 @@ INSERT INTO Members (
     'male',
     '冠廷',
     '0987878787',
-    (SELECT code_id FROM CommonType WHERE code_type = 1 AND code_desc = '基隆市'),
-    (SELECT code_id FROM CommonType WHERE code_type = 2 AND code_desc = '暖暖區'),
-    '暖暖區源遠路260巷36弄23號8樓'
+    4,  -- city_id 對應基隆市的 code_id
+    7,  -- district_id 對應暖暖區的 code_id
+    '源遠路260巷36弄23號8樓'
 );
 INSERT INTO Members (
     member_name,
