@@ -9,6 +9,8 @@ import ResultCards from '@/components/gyms/gymCard'
 
 export default function Gyms() {
   // 功能寫在這
+
+  
   const gymsData = [
     {
       id: 1,
