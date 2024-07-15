@@ -7,6 +7,7 @@ import axios from 'axios'
 import CheckboxList from '@/components/lessons/checkboxList'
 import { useAuth } from '@/context/auth-context'
 import { useRouter } from 'next/router'
+import debounce from 'lodash/debounce'
 
 export default function Index() {
   const { auth } = useAuth()
@@ -23,21 +24,11 @@ export default function Index() {
         ? [...prev, code_desc]
         : prev.filter((cat) => cat !== code_desc)
 
-      console.log('New selected categories:', newSelectedCategories)
-
-      const newFilteredCoaches = allCoaches.filter(
-        (coach) =>
-          newSelectedCategories.length === 0 ||
-          newSelectedCategories.includes(coach.categories)
-      )
-      console.log('Filtered coaches:', newFilteredCoaches)
-      setFilteredCoaches(newFilteredCoaches)
-
       return newSelectedCategories
     })
   }
 
-  const fetchCoaches = async () => {
+  const fetchCoaches = debounce(async () => {
     try {
       const response = await axios.get(`http://localhost:3001/coaches/api`, {
         params: {
@@ -53,7 +44,7 @@ export default function Index() {
     } catch (error) {
       console.error('Error fetching coaches:', error)
     }
-  }
+  }, 300) // 300ms 延遲
 
   const fetchFavorites = async () => {
     if (auth.token) {
@@ -85,7 +76,7 @@ export default function Index() {
   useEffect(() => {
     fetchCoaches()
     fetchFavorites()
-  }, [selectedCategories, auth.token])
+  }, [selectedCategories, auth.token]) // 增加 auth.token 的依賴
 
   const handleFavoriteToggle = async (coachId) => {
     if (!auth.token) {
