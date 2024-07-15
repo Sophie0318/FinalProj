@@ -98,6 +98,8 @@ router.post("/login-jwt", async (req, res) => {
             nick_name: rows[0].nick_name,
             avatar: rows[0].avatar,
             mobile: rows[0].mobile,
+            city: rows[0].city_id,
+            district: rows[0].district_id,
             address: rows[0].address,
             token,
         };

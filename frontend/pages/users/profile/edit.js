@@ -1,10 +1,55 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import LayoutUser from '@/components/layout/user-layout3'
 import styles from '../../../styles/user-edit.module.css'
 import { useAuth } from '../../../context/auth-context'
 
 export default function LessonsOrders() {
   const { auth } = useAuth()
+  const [city, setcity] = useState([])
+  const [districts, setDistrict] = useState([])
+  const [selectedCity, setSelectedCity] = useState(0)
+
+  // Fetch 資料庫縣市資料
+  useEffect(() => {
+    const fetchcity = async () => {
+      try {
+        const response = await fetch(
+          'http://localhost:3001/users/selectWhere/city'
+        )
+        const data = await response.json()
+        setcity(data)
+      } catch (error) {
+        console.error('Error fetching city:', error)
+      }
+    }
+
+    fetchcity()
+  }, [])
+
+  // 根據選擇的城市fetcch 鄉鎮市區
+  useEffect(() => {
+    if (selectedCity !== 0) {
+      const fetchDistricts = async () => {
+        try {
+          const response = await fetch(
+            `http://localhost:3001/users/selectWhere/district/${selectedCity}`
+          )
+          const data = await response.json()
+          setDistrict(data)
+        } catch (error) {
+          console.error('Error fetching district:', error)
+        }
+      }
+
+      fetchDistricts()
+    } else {
+      setDistrict([])
+    }
+  }, [selectedCity])
+
+  const handleCityChange = (e) => {
+    setSelectedCity(parseInt(e.target.value))
+  }
   return (
     <>
       <LayoutUser title="myProfile">
@@ -52,12 +97,13 @@ export default function LessonsOrders() {
                   <label htmlFor="city">
                     <p>縣市:</p>
                   </label>
-                  <select id="city" name="city">
+                  <select id="city" name="city" onChange={handleCityChange}>
                     <option value="0">--請選擇--</option>
-                    <option value="1">台北市</option>
-                    <option value="2">新北市</option>
-                    <option value="3">台中市</option>
-                    {/* <!-- 青菜加加 --> */}
+                    {city.map((city) => (
+                      <option key={city.code_id} value={city.code_id}>
+                        {city.code_desc}
+                      </option>
+                    ))}
                   </select>
                 </div>
                 <div className={styles.form_group}>
@@ -66,10 +112,11 @@ export default function LessonsOrders() {
                   </label>
                   <select id="district" name="district">
                     <option value="0">--請選擇--</option>
-                    <option value="1">信義區</option>
-                    <option value="2">大安區</option>
-                    <option value="3">松山區</option>
-                    {/* <!-- 青菜加加 --> */}
+                    {districts.map((district) => (
+                      <option key={district.code_id} value={district.code_id}>
+                        {district.code_desc}
+                      </option>
+                    ))}
                   </select>
                 </div>
                 <div className={styles.form_group}>
