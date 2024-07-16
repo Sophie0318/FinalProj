@@ -4,7 +4,7 @@ import styles from '../../../styles/user-edit.module.css'
 import { useAuth } from '../../../context/auth-context'
 
 export default function LessonsOrders() {
-  const { auth } = useAuth()
+  const { auth, setAuth } = useAuth()
   const [city, setCity] = useState([])
   const [districts, setDistricts] = useState([])
   const [selectedCity, setSelectedCity] = useState(auth.city || 0)
@@ -17,6 +17,8 @@ export default function LessonsOrders() {
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const [errorMessage, setErrorMessage] = useState('')
+
+  console.log('auth.id:', auth.id)
 
   useEffect(() => {
     setName(auth.name || '')
@@ -90,6 +92,11 @@ export default function LessonsOrders() {
     }
 
     try {
+      if (!auth.id) {
+        throw new Error('User ID is not defined')
+      }
+
+      console.log('Sending update profile request...')
       const response = await fetch(
         `http://localhost:3001/users/updateProfile/${auth.id}`,
         {
@@ -101,17 +108,29 @@ export default function LessonsOrders() {
         }
       )
 
-      const result = await response.json()
+      console.log('Response status:', response.status)
 
       if (!response.ok) {
-        setErrorMessage(result.message)
+        throw new Error(`HTTP error! status: ${response.status}`)
       } else {
-        alert('資料更新成功')
-        // Optionally refresh the page or update the auth context
+        console('123')
       }
+
+      const data = await response.json()
+      console.log('Profile updated successfully:', data)
+
+      // Update auth context with updated profile data
+      setAuth({
+        ...auth,
+        name: data.member.member_name,
+        nick_name: data.member.nick_name,
+        mobile: data.member.mobile,
+        address: data.member.address,
+        city: data.member.city_id,
+        district: data.member.district_id,
+      })
     } catch (error) {
-      console.error('Error updating profile:', error)
-      setErrorMessage('更新失敗，請稍後再試')
+      console.error('Failed to update profile:', error)
     }
   }
 
