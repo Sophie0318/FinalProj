@@ -67,7 +67,7 @@ app.use("/users", usersRouter);
 // app.use('/users/getProfile', getProfileRouter);
 
 //會員個人資料頁的編輯
-app.use('/users/updateProfile/:member_id', updateProfileRouter);
+app.use('/users/updateProfile', updateProfileRouter);
 
 //會員個人資料表下拉選單
 app.use('/users/selectWhere', selectWhereRouter);

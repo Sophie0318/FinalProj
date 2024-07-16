@@ -1,5 +1,5 @@
 import express from 'express';
-import db from '../../utils/connect-mysql.js'; // 調整路徑以匹配你的項目結構
+import db from '../../utils/connect-mysql.js';
 
 const router = express.Router();
 
@@ -7,25 +7,46 @@ const router = express.Router();
 router.post('/:member_id', (req, res) => {
     console.log('Received request for member ID:', req.params.member_id);
     console.log('Request body:', req.body);
+
     const memberId = req.params.member_id;
     const { name, nick_name, mobile, address, city, district, password } = req.body;
 
-    // 更新用户资料的 SQL 查询
-    const query = `
+    // 構建 SQL 查詢
+    let query = `
         UPDATE members 
-        SET member_name = ?, nick_name = ?, mobile = ?, address = ?, city_id = ?, district_id = ?, member_password = ?
-        WHERE member_id = ?
+        SET member_name = ?, nick_name = ?, mobile = ?, address = ?, city_id = ?, district_id = ?
     `;
 
-    db.query(query, [name, nick_name, mobile, address, city, district, password, memberId], (error, results) => {
+    let queryParams = [name, nick_name, mobile, address, city, district];
+
+    // 只有在提供密碼時才更新密碼
+    if (password) {
+        query += `, member_password = ?`;
+        queryParams.push(password);
+    }
+
+    query += ` WHERE member_id = ?`;
+    queryParams.push(memberId);
+
+    console.log('Starting database query');
+    db.query(query, queryParams, (error, results) => {
+        console.log('Database query completed');
+
         if (error) {
-            console.error('更新用户资料时出错:', error);
-            return res.status(500).json({ message: '无法更新用户资料' });
+            console.error('Error updating user profile:', error);
+            return res.status(500).json({ message: 'Unable to update user profile', error: error.message });
         }
 
-        // 返回成功信息
-        res.json({ message: '资料更新成功' });
+        if (results.affectedRows === 0) {
+            console.log('No rows affected. User not found or no changes made.');
+            return res.status(404).json({ message: 'User not found or no changes made' });
+        }
+
+        console.log('Profile updated successfully');
+        console.log('Sending response');
+        res.json({ message: 'Profile updated successfully', affectedRows: results.affectedRows });
+        console.log('Response sent');
     });
 });
 
-export default router;
+export default router; 
