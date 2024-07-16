@@ -3,6 +3,8 @@ import session from "express-session";
 import cors from "cors";
 import jwt from "jsonwebtoken";
 import selectWhereRouter from "./routes/users/selectWhere.js";
+import updateProfileRouter from "./routes/users/updateProfile.js";
+// import getProfileRouter from "./routes/users/getProfile.js";
 
 // import 各分支的 router
 import aRouter from "./routes/articles/articles.js";
@@ -10,7 +12,7 @@ import lessonRouter from "./routes/lessons/lesson.js";
 import coachRouter from "./routes/coaches/coach.js";
 import productRouter from "./routes/product/product-traning-list.js";
 import usersRouter from "./routes/users/users.js";
-// import updateProfileRouter from "./routes/users/updateProfile.js";
+
 
 const app = express();
 
@@ -61,8 +63,11 @@ app.use("/coaches", coachRouter);
 app.use("/product", productRouter);
 app.use("/users", usersRouter);
 
+//把會員在資料庫中的資料帶入個人資料頁
+// app.use('/users/getProfile', getProfileRouter);
+
 //會員個人資料頁的編輯
-// app.use('/users/updateProfile', updateProfileRouter);
+app.use('/users/updateProfile/:member_id', updateProfileRouter);
 
 //會員個人資料表下拉選單
 app.use('/users/selectWhere', selectWhereRouter);
