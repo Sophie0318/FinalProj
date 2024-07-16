@@ -1,3 +1,4 @@
+use midTermDB;
 -- 暫時禁用外鍵約束
 SET foreign_key_checks = 0;
 
@@ -33,7 +34,6 @@ INSERT INTO Gyms (gym_name, gym_subtitle, gym_address, gym_phone, business_hours
 
 -- Features (Gym的類型)
 INSERT INTO Features (feature_name) VALUES
-('重量訓練'),
 ('CrossFit'),
 ('格鬥訓練'),
 ('游泳池'),

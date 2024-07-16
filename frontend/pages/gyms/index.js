@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Layout3 from '@/components/layout/layout3'
 import styles from './gyms.module.css'
 import SearchBar from '@/components/common/searchbar/searchbar'
@@ -6,12 +6,26 @@ import Switch from '@/components/common/switch/switch'
 import MapErea from '@/components/gyms/map-erea'
 import GymFilters from './gymfilter'
 import ResultCards from '@/components/gyms/gymCard'
+import { useRouter } from 'next/router'
 
 export default function Gyms() {
   // 功能寫在這
-
+  const router = useRouter()
+  const [gymsData, setGymsData] = useState([])
+  useEffect(() => {
+    const url = 'http://localhost:3001/gyms/api'
+if(router.isReady){
   
-  const gymsData = [
+  fetch(url)
+    .then((response) => response.json())
+    .then((data) => {
+      setGymsData(data.processedRows)
+      console.log(gymsData)
+    })
+}
+  }, [router.isReady])
+
+  const fakeData = [
     {
       id: 1,
       name: '原力覺醒健身房',

@@ -10,6 +10,7 @@ import lessonRouter from "./routes/lessons/lesson.js";
 import coachRouter from "./routes/coaches/coach.js";
 import productRouter from "./routes/product/product-traning-list.js";
 import usersRouter from "./routes/users/users.js";
+import gymRouter from "./routes/gyms/gyms.js";
 
 const app = express();
 
@@ -59,6 +60,7 @@ app.use("/lessons", lessonRouter);
 app.use("/coaches", coachRouter);
 app.use("/product", productRouter);
 app.use("/users", usersRouter);
+app.use("/gyms", gymRouter);
 
 //會員個人資料表下拉選單
 app.use('/users/selectWhere', selectWhereRouter);

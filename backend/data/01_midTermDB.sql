@@ -886,8 +886,6 @@ create table ProductTypes(
 ProductTypes_Id    int auto_increment primary key,
 ProductTypes_name  varchar(50),
 ProductTypes_parenti_id  int
-
-
 );
 
 -- -----------------------------Products----------------------------------
@@ -932,9 +930,6 @@ OrdersDetail_order_id_fk int,
 OrdersDetail_unit_price_at_time int
 -- foreign key (OrdersDetail_order_id_fk) references ProductOrders(ProductOrders_orders_id),
 -- foreign key (OrdersDetail_product_id_fk) references Products(Product_id )
-
-
 );
-
 -- ----------------------------
 -- ########################## 文章管理系統 ##########################

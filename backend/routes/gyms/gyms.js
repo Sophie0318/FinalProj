@@ -1,5 +1,5 @@
 import express from "express";
-import db from "../../utils/connect-mysql";
+import db from "../../utils/connect-mysql.js";
 
 const router = express.Router();
 
@@ -25,71 +25,75 @@ const getGymFeatures = async (req) => {
 
 // 獲取所有場館
 const getFullGymData = async (req) => {
-  let success = false;
-
   //關鍵字的參數
   let keyword = req.query.keyword || "";
-  let q_sql = " WHERE 1 ";
-  let feature = req.query.feature_name || "";
+  let q_sql = " WHERE 1 "; //就算qs什麼都沒也會是1 = true
+  let feature = req.query.features || "";
   //篩選類別
   if (feature) {
-    const features = feature.split("-");
-    if (features.length > 0) {
-      const features = features.map((feature) => db.escape(feature));
-      q_sql += ` AND feature_name IN (${feature.join(", ")}) `;
+    const featuresArray = feature.split("-");
+    if (featuresArray.length > 0) {
+      const featuresResult = featuresArray.map((feature) => db.escape(feature));
+      q_sql += ` AND gym_features.feature_id IN (${featuresResult.join(",")}) `;
     }
   }
   // 篩選關鍵字
   if (keyword) {
     const keyword_ = db.escape(`%${keyword}%`);
-    q_sql += ` AND (gym_name LIKE '%${keyword_}%' OR address LIKE '%${keyword_}%') `;
+    q_sql += ` AND (gym_name LIKE ${keyword_} OR gym_address LIKE ${keyword_}) `;
   }
 
-  const sql = `SELECT 
-  gyms.*, 
-  GROUP_CONCAT(DISTINCT features.feature_name) AS feature_list,
-  GROUP_CONCAT( gym_images.image_filename) AS image_list
-FROM 
-  Gyms gyms
-LEFT JOIN 
-  GymFeatures gym_features ON gyms.gym_id = gym_features.gym_id
-LEFT JOIN 
-  Features features ON gym_features.feature_id = features.feature_id
-LEFT JOIN 
-  GymImages gym_images ON gyms.gym_id = gym_images.gym_id
-  ${q_sql}
-GROUP BY 
-  gyms.gym_id;`;
+  const sql = `SELECT gyms.*, GROUP_CONCAT(DISTINCT features.feature_name) AS feature_list, GROUP_CONCAT( gym_images.image_filename) AS image_list FROM Gyms gyms LEFT JOIN GymFeatures AS gym_features ON gyms.gym_id = gym_features.gym_id JOIN Features AS features ON gym_features.feature_id = features.feature_id LEFT JOIN GymImages gym_images ON gyms.gym_id = gym_images.gym_id ${q_sql} GROUP BY gyms.gym_id;`;
   try {
     // 執行 SQL 查詢
-    [rows] = await db.query(sql);
-    success = true;
+    const [rows] = await db.query(sql);
+    // 對每一行數據進行處理
+    const processedRows = rows.map((row) => {
+      return {
+        ...row, // 保留原有的所有屬性
+        feature_list: row.feature_list.split(","), // 將 feature_list 轉換為陣列.
+        image_list: row.image_list.split(","), // 將 image_list 轉換為陣列
+      };
+    });
+
+    console.log(processedRows);
+    return {
+      processedRows,
+      qs: req.query,
+    };
   } catch (error) {
     console.error("Error fetching gyms:", error);
   }
 
-  console.log("有收到資料Feature:", req.query.feature_name);
+  console.log("有收到資料Feature:", req.query.features);
   console.log("有收到資料Keyword:", req.query.keyword);
   console.log("有收到資料SQL:", sql);
-
-  return {
-    success,
-    rows,
-    qs: req.query,
-  };
 };
 
 //獲取場館頁面
-router.get("/gyms", async (req, res) => {
+// router.get("/", async (req, res) => {
+//   try {
+//     const data = await getFullGymData(req);
+//     if (data.success) {
+//       res.json(data);
+//     } else {
+//       res.status(404).json({ success: false, message: "No gyms found" });
+//     }
+//   } catch (error) {
+//     console.error("Route error:", error);
+//     res.status(500).json({ success: false, error: "Internal Server Error" });
+//   }
+// });
+
+router.get("/api", async (req, res) => {
+  let data = "";
   try {
-    const data = await getFullGymData(req);
-    if (data.success) {
-      res.json(data);
-    } else {
-      res.status(404).json({ success: false, message: "No gyms found" });
-    }
+    data = await getFullGymData(req);
   } catch (error) {
     console.error("Route error:", error);
-    res.status(500).json({ success: false, error: "Internal Server Error" });
+    data = { success: false, error: "Internal Server Error" };
   }
+  res.json(data);
 });
+
+export default router;

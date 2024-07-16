@@ -1,3 +1,4 @@
+use midTermDB;
 -- 暫時禁用外鍵約束
 SET foreign_key_checks = 0;
 
