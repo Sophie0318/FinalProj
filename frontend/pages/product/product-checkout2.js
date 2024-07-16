@@ -9,7 +9,7 @@ export default function ProductCheckout2() {
   return (
     <>
       <div className="container">
-        <ProductCheckout1 />
+        <ProductCheckout1 currentStep={3} />
         <div className="row">
           <div className={`col-12 col-md-12 text-center ${styles.Revise}`}>
             <h2>填寫收件人資料</h2>

@@ -9,7 +9,7 @@ export default function ProductCheckout3() {
   return (
     <>
       <div className="container">
-        <ProductCheckout1 />
+        <ProductCheckout1 currentStep={4} />
       </div>
       <div className="container">
         <div className="row">

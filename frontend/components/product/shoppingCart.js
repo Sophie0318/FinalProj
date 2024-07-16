@@ -4,10 +4,35 @@ import { IoCloseSharp, IoAddSharp, IoRemove, IoCart } from 'react-icons/io5'
 import styles from '../common/layout.module.css'
 import { useState } from 'react'
 import { useCart } from '@/hooks/product/use-cart'
+import withReactContent from 'sweetalert2-react-content'
+import Swal from 'sweetalert2'
 
 export default function ShoppingCart() {
   const { item, increaseItem, decreaseItem, removeItem, shoppingList, total } =
     useCart()
+
+  const MySwal = withReactContent(Swal)
+  const notifyAndRemove = (itemName, itemId) => {
+    MySwal.fire({
+      title: '你確定嗎?',
+      text: '將無法回復這操作',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      cancelButtonText: '取消',
+      confirmButtonText: '確定刪除!',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        MySwal.fire({
+          title: '已刪除!',
+          text: itemName + '已被刪除',
+          icon: 'success',
+        })
+        removeItem(itemId)
+      }
+    })
+  }
 
   return (
     <>
@@ -41,7 +66,6 @@ export default function ShoppingCart() {
               className="offcanvas-body"
               style={{ backgroundColor: '#FFF7E9' }}
             >
-              {/* <div style={{ display: 'flex', gap: '17px' }}> */}
               {shoppingList &&
                 shoppingList.map((v, i) => {
                   return (
@@ -51,6 +75,7 @@ export default function ShoppingCart() {
                         display: 'flex',
                         gap: '17px',
                         marginBottom: `50px`,
+                        justifyContent: 'space-between',
                       }}
                     >
                       <img
@@ -60,23 +85,18 @@ export default function ShoppingCart() {
                       />
                       <ul>
                         <li style={{ paddingBottom: '20px' }}>
-                          商品:{v.Product_name}
+                          商品: {v.Product_name}
                         </li>
-                        {/* <li style={{ paddingBottom: '20px' }}>
-                          特色: {v.Product_desc}
-                        </li> */}
                         <li>價格: {v.Product_price}</li>
                       </ul>
 
                       <div>
                         <IoCloseSharp
                           style={{
-                            marginLeft: '50px',
+                            marginLeft: '76px',
                           }}
                           onClick={() => {
-                            if (confirm('要刪除嗎?')) {
-                              removeItem(v.Product_id)
-                            }
+                            notifyAndRemove(v.Product_name, v.Product_id) // 傳遞商品名稱和ID
                           }}
                         />
                         <div
@@ -128,9 +148,7 @@ export default function ShoppingCart() {
                               onClick={() => {
                                 const nextQty = v.qty - 1
                                 if (nextQty === 0) {
-                                  if (confirm('這樣會整個刪掉喔!確定嗎?')) {
-                                    removeItem(v.Product_id)
-                                  }
+                                  notifyAndRemove(v.Product_name, v.Product_id) // 傳遞商品名稱和ID
                                 } else {
                                   decreaseItem(v.Product_id)
                                 }
@@ -147,7 +165,8 @@ export default function ShoppingCart() {
               className="d-flex"
               style={{
                 justifyContent: 'space-between',
-                padding: '0 0 20px 20px',
+                paddingLeft: '16px',
+                paddingRight: '16px',
                 marginTop: '50px',
               }}
             >
@@ -170,6 +189,7 @@ export default function ShoppingCart() {
                   width: '265px',
                   height: '65px',
                   color: 'white',
+                  marginBottom: '40px',
                 }}
                 onClick={() => {
                   window.location.href = '../product/product-order'
@@ -179,7 +199,6 @@ export default function ShoppingCart() {
               </button>
             </div>
           </div>
-          {/* </div> */}
         </a>
       </li>
     </>

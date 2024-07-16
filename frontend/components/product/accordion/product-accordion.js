@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
 import { IoAddOutline } from 'react-icons/io5'
 import styles from './product-checkout.module.css'
+import ShipIndex from '../../../pages/product/ship-index'
 
-export default function ProductAccordion({ store = '' }) {
+export default function ProductAccordion() {
   return (
     <>
       <div className={`accordion  ${styles.qqq}`} id="accordionExample ">
@@ -34,7 +35,7 @@ export default function ProductAccordion({ store = '' }) {
                 e.target.style.color = '#1a394a'
               }}
             >
-              全家
+              7-ELEVEN
             </button>
           </h2>
           <div
@@ -44,7 +45,7 @@ export default function ProductAccordion({ store = '' }) {
             data-bs-parent="#accordionExample"
           >
             <div className="accordion-body">
-              新增門市
+              <ShipIndex />
               <IoAddOutline style={{ fontSize: '25px' }} />
             </div>
           </div>
@@ -79,7 +80,7 @@ export default function ProductAccordion({ store = '' }) {
                 e.target.style.color = '#1a394a'
               }}
             >
-              7-ELEVEN
+              全家
             </button>
           </h2>
           <div

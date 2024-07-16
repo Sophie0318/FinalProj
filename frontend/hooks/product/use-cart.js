@@ -5,6 +5,11 @@ const CartContext = createContext()
 export const useCart = () => useContext(CartContext)
 
 export const CartProvider = ({ children }) => {
+  const [checkout, setCheckout] = useState({
+    storename: '',
+    storeaddress: '',
+  })
+
   const [product, setProduct] = useState({
     Product_id: 0,
     Product_name: '',
@@ -115,6 +120,8 @@ export const CartProvider = ({ children }) => {
         removeItem,
         addItem,
         setProduct,
+        setCheckout,
+        checkout,
       }}
     >
       {children}

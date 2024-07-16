@@ -12,7 +12,7 @@ export default function ProductCheckout() {
     <>
       {/* 結帳進度 */}
       <div className="container">
-        <ProductCheckout1 />
+        <ProductCheckout1 currentStep={2} />
         {/* 結帳進度 */}
         {/* 手風琴 */}
         <ProductAccordion />
