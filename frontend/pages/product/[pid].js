@@ -12,6 +12,7 @@ import { useRouter } from 'next/router'
 import styles from '@/components/product/product-detail/detail-text.module.css'
 import toast, { Toaster } from 'react-hot-toast'
 import { useCart } from '@/hooks/product/use-cart'
+import Link from 'next/link'
 
 export default function ProductDetail() {
   const router = useRouter()
@@ -101,7 +102,7 @@ export default function ProductDetail() {
             </button>
           </div>
         </div>
-        <PhotoText />
+        <PhotoText photodata={photodata} desc={product.Product_desc} />
         <div className="row  text-center align-items-center d-flex">
           <div className="col-12 col-md-12">
             <h2

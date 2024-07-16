@@ -6,7 +6,7 @@ export default function CardDetail() {
     <>
       <div className={styles.cardsize}>
         <img
-          src="/product-img/大豆.webp"
+          src="/product-img/food4.jpg"
           alt=""
           className="img-fluid"
           style={{
@@ -26,7 +26,7 @@ export default function CardDetail() {
       </div>
       <div className={styles.cardsize}>
         <img
-          src="/product-img/大豆.webp"
+          src="/product-img/food29.jpg"
           alt=""
           className="img-fluid"
           style={{
@@ -39,14 +39,14 @@ export default function CardDetail() {
               paddingRight: '100px',
             }}
           >
-            乳清蛋白
+            保健食品
           </h6>
-          <p>每份蛋白質含量高達....</p>
+          <p>台大醫師建議....</p>
         </div>
       </div>
       <div className={styles.cardsize}>
         <img
-          src="/product-img/大豆.webp"
+          src="/product-img/food28.jpg"
           alt=""
           className="img-fluid"
           style={{
@@ -59,9 +59,9 @@ export default function CardDetail() {
               paddingRight: '100px',
             }}
           >
-            乳清蛋白
+            綜合維他命
           </h6>
-          <p>每份蛋白質含量高達....</p>
+          <p>經研究顯示....</p>
         </div>
       </div>
     </>

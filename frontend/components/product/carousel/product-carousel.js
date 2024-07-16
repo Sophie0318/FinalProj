@@ -31,21 +31,6 @@ export default function ProductCarousel({ photodata = [] }) {
               <p>No images available</p>
             </div>
           )}
-
-          {/* <div className="carousel-item">
-            <img
-              src={`/product-img/${img}`}
-              className={styles.carouselImage}
-              alt="Product"
-            />
-          </div>
-          <div className="carousel-item">
-            <img
-              src={`/product-img/${img}`}
-              className={styles.carouselImage}
-              alt="Product"
-            />
-          </div> */}
         </div>
         <button
           className="carousel-control-prev"
@@ -74,34 +59,15 @@ export default function ProductCarousel({ photodata = [] }) {
       </div>
       {/* 底下的照片 */}
       <div className="row">
-        <div className="col-6 col-md-3 mt-3">
-          <img
-            src="/product-img/cloth.jpg"
-            className="img-fluid"
-            alt="Cloth 1"
-          />
-        </div>
-        <div className="col-6 col-md-3 mt-3">
-          <img
-            src="/product-img/cloth.jpg"
-            className="img-fluid"
-            alt="Cloth 2"
-          />
-        </div>
-        <div className="col-6 col-md-3 mt-3">
-          <img
-            src="/product-img/cloth.jpg"
-            className="img-fluid"
-            alt="Cloth 3"
-          />
-        </div>
-        <div className="col-6 col-md-3 mt-3">
-          <img
-            src="/product-img/cloth.jpg"
-            className="img-fluid"
-            alt="Cloth 4"
-          />
-        </div>
+        {photodata.map((v, i) => (
+          <div key={i} className="col-6 col-md-3 mt-3">
+            <img
+              src={`/product-img/${v}`}
+              className="img-fluid"
+              alt={`Cloth ${v + 1}`}
+            />
+          </div>
+        ))}
       </div>
     </div>
   )
