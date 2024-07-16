@@ -7,11 +7,42 @@ import { useRouter } from 'next/router'
 import axios from 'axios'
 
 export default function Checkout() {
-  const [showSuccessModal, setShowSuccessModal] = useState(false)
-  const [showFailModal, setShowFailModal] = useState(false)
+  // const [showSuccessModal, setShowSuccessModal] = useState(false)
+  // const [showFailModal, setShowFailModal] = useState(false)
   const [lesson, setLesson] = useState(null)
   const router = useRouter()
   const { lessonId } = router.query
+  const handleReturnToLessons = () => {
+    router.push('/lessons')
+  }
+
+  const handlePayment = async () => {
+    try {
+      const response = await axios.get(
+        `http://localhost:3001/payment?amount=${lesson.lesson_price}`
+      )
+      if (response.data.htmlContent) {
+        // 創建一個臨時的 div 元素來存放 HTML 內容
+        const tempDiv = document.createElement('div')
+        tempDiv.innerHTML = response.data.htmlContent
+
+        // 找到表單元素
+        const form = tempDiv.querySelector('form')
+
+        // 如果找到表單，則提交它
+        if (form) {
+          document.body.appendChild(form)
+          form.submit()
+        } else {
+          console.error('找不到支付表單')
+        }
+      } else {
+        console.error('無效的回應格式')
+      }
+    } catch (error) {
+      console.error('發生錯誤:', error)
+    }
+  }
 
   useEffect(() => {
     const fetchLesson = async () => {
@@ -34,21 +65,21 @@ export default function Checkout() {
     fetchLesson()
   }, [lessonId])
 
-  const handlePayment = () => {
-    setShowSuccessModal(true)
-  }
+  // const handlePayment = () => {
+  //   setShowSuccessModal(true)
+  // }
 
-  const handleCloseModal = () => {
-    setShowSuccessModal(false)
-  }
+  // const handleCloseModal = () => {
+  //   setShowSuccessModal(false)
+  // }
 
-  const handleFailModal = () => {
-    setShowFailModal(true)
-  }
+  // const handleFailModal = () => {
+  //   setShowFailModal(true)
+  // }
 
-  const handleCloseFailModal = () => {
-    setShowFailModal(false)
-  }
+  // const handleCloseFailModal = () => {
+  //   setShowFailModal(false)
+  // }
 
   if (!lesson) {
     return <div>Loading...</div>
@@ -72,9 +103,17 @@ export default function Checkout() {
           <div className={styles.sum}>結帳金額</div>
           <div className={styles.num}>NT.{lesson.lesson_price}</div>
         </div>
+        <div className={styles.btns}>
+          <button className={styles.btnBack} onClick={handleReturnToLessons}>
+            回到課程頁
+          </button>
+          <button className={styles.btnFin} onClick={handlePayment}>
+            確認結帳
+          </button>
+        </div>
       </div>
 
-      <div className={styles.pcontainer}>
+      {/* <div className={styles.pcontainer}>
         <div className={styles.title}>2、選擇付款方式</div>
         <div className={styles.card}>
           <span className={styles.cardIcon}>
@@ -123,8 +162,8 @@ export default function Checkout() {
             完成付款
           </button>
         </div>
-      </div>
-      {showSuccessModal && (
+      </div> */}
+      {/* {showSuccessModal && (
         <SuccessModal
           orderNumber="6VF2NC"
           lessonName={lesson.lesson_name}
@@ -135,7 +174,7 @@ export default function Checkout() {
         />
       )}
 
-      {showFailModal && <FailureModal onClose={handleCloseFailModal} />}
+      {showFailModal && <FailureModal onClose={handleCloseFailModal} />} */}
     </>
   )
 }
