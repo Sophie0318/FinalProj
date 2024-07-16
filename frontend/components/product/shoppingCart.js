@@ -14,20 +14,36 @@ export default function ShoppingCart() {
   const MySwal = withReactContent(Swal)
   const notifyAndRemove = (itemName, itemId) => {
     MySwal.fire({
-      title: '你確定嗎?',
-      text: '將無法回復這操作',
+      title: '你確定要刪除嗎?',
+      text: '再考慮一下?',
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: '#3085d6',
+      confirmButtonColor: '#1A394A',
       cancelButtonColor: '#d33',
       cancelButtonText: '取消',
       confirmButtonText: '確定刪除!',
+      willOpen: () => {
+        // 在彈出視窗打開時改變背景顏色
+        const swalPopup = document.querySelector('.swal2-popup')
+        if (swalPopup) {
+          swalPopup.style.backgroundColor = '#FFF7E9' // 自定義背景顏色
+          swalPopup.style.color = '#1a394a' // 自定義文字顏色
+        }
+      },
     }).then((result) => {
       if (result.isConfirmed) {
         MySwal.fire({
           title: '已刪除!',
           text: itemName + '已被刪除',
           icon: 'success',
+          willOpen: () => {
+            // 在彈出視窗打開時改變背景顏色
+            const swalPopup = document.querySelector('.swal2-popup')
+            if (swalPopup) {
+              swalPopup.style.backgroundColor = '#FFF7E9' // 自定義背景顏色
+              swalPopup.style.color = '#1a394a' // 自定義文字顏色
+            }
+          },
         })
         removeItem(itemId)
       }
