@@ -5,6 +5,8 @@ import { IoAddSharp, IoRemove } from 'react-icons/io5'
 import ProductCheckout1 from '@/components/product/product-checkout1'
 import { useState, useEffect } from 'react'
 import { Link } from 'react-ionicons'
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
 export default function ProductOrder() {
   const [orderItems, setOrderItems] = useState([])
   useEffect(() => {
@@ -16,7 +18,7 @@ export default function ProductOrder() {
     }
   }, [])
   console.log(orderItems)
-
+  const MySwal = withReactContent(Swal)
   return (
     <>
       {/* 結帳進度 */}
@@ -157,9 +159,14 @@ export default function ProductOrder() {
             <button
               className={styles.btn}
               onClick={() => {
-                // 實作訂單確認的邏輯
-                alert('訂單已確認')
-                window.location.href = '/product/product-checkout1'
+                MySwal.fire({
+                  title: '您的訂單已成立囉!',
+                  confirmButtonText: '確定',
+                }).then((result) => {
+                  if (result.isConfirmed) {
+                    window.location.href = '/product/product-checkout1'
+                  }
+                })
               }}
             >
               確認

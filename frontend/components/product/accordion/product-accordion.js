@@ -46,7 +46,7 @@ export default function ProductAccordion() {
           >
             <div className="accordion-body">
               <ShipIndex />
-              <IoAddOutline style={{ fontSize: '25px' }} />
+              {/* <IoAddOutline style={{ fontSize: '25px' }} /> */}
             </div>
           </div>
         </div>

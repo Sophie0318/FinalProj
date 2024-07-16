@@ -15,7 +15,7 @@ export default function ShoppingCart() {
   const notifyAndRemove = (itemName, itemId) => {
     MySwal.fire({
       title: '你確定要刪除嗎?',
-      text: '再考慮一下?',
+      text: '不再考慮一下?',
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#1A394A',

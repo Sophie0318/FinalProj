@@ -1,6 +1,7 @@
 import { useShip711StoreOpener } from '../../hooks/product/use-ship-711-store'
 import { useCart } from '@/hooks/product/use-cart'
 import { useEffect } from 'react'
+import styles from './index.module.css'
 
 export default function Index() {
   // useShip711StoreOpener的第一個傳入參數是"伺服器7-11運送商店用Callback路由網址"
@@ -22,22 +23,36 @@ export default function Index() {
 
   return (
     <>
-      <h1>7-11 運送商店選擇</h1>
-      <hr />
+      {/* <h1 style={{ color: '#1A394A', fontFamily: 'Gensen', fontSize: '60px' }}>
+        7-11 運送商店選擇
+      </h1> */}
+      {/* <hr /> */}
       <p>
         <button
           onClick={() => {
             openWindow()
           }}
+          style={{
+            backgroundColor: '#FFF7E9',
+            color: '#1A394A',
+            // width: '200px',
+            marginBottom: '10px',
+          }}
         >
           選擇門市
         </button>
         <br />
-        門市名稱: <input type="text" value={store711.storename} disabled />
+        門市名稱:{' '}
+        <input
+          type="text"
+          value={store711.storename}
+          disabled
+          style={{ marginBottom: '20px' }}
+        />
         <br />
         門市地址: <input type="text" value={store711.storeaddress} disabled />
       </p>
-      <hr />
+      {/* <hr />
       <h3>以下為測試</h3>
       <p>
         <button
@@ -52,7 +67,7 @@ export default function Index() {
         得到的物件值如下(註:
         也可以觀察瀏覽器中的localStorage中有一個鍵(key)為`store711`的值(value)，會同步化被設定一致的。):
       </p>
-      <p>{JSON.stringify(store711)}</p>
+      <p>{JSON.stringify(store711)}</p> */}
     </>
   )
 }

@@ -128,6 +128,7 @@ export default function ProductList() {
                 setPage(e.selected + 1)
                 router.push(`?page=${e.selected + 1}`, undefined, {
                   scroll: false,
+                  shallow: true,
                 })
               }}
               totalPages={data.totalPages}
