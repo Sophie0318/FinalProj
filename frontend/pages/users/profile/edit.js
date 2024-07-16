@@ -113,7 +113,7 @@ export default function LessonsOrders() {
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`)
       } else {
-        console('123')
+        console.log('123')
       }
 
       const data = await response.json()
