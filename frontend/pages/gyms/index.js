@@ -9,20 +9,45 @@ import ResultCards from '@/components/gyms/gymCard'
 import { useRouter } from 'next/router'
 
 export default function Gyms() {
-  // 功能寫在這
   const router = useRouter()
   const [gymsData, setGymsData] = useState([])
+  const [selectedFeatures, setSelectedFeatures] = useState([])
+  const clearAllCheckboxes = () => {
+    setSelectedFeatures([]);
+  }
+  const handleCheckboxChange = (feature) => {
+    setSelectedFeatures((prev) => {
+      if (prev.includes(feature)) {
+        return prev.filter((f) => f !== feature)
+      } else {
+        return [...prev, feature]
+      }
+    })
+  }
+  useEffect(() => {
+    const query = selectedFeatures.length
+      ? { feature_list: selectedFeatures.join('-') }
+      : {}
+    router.replace(
+      {
+        pathname: '/gyms',
+        query,
+      },
+      undefined,
+      { shallow: true }
+    )
+  }, [selectedFeatures, router.isReady])
+
   useEffect(() => {
     const url = 'http://localhost:3001/gyms/api'
-if(router.isReady){
-  
-  fetch(url)
-    .then((response) => response.json())
-    .then((data) => {
-      setGymsData(data.processedRows)
-      console.log(gymsData)
-    })
-}
+    if (router.isReady) {
+      fetch(url)
+        .then((response) => response.json())
+        .then((data) => {
+          setGymsData(data.processedRows)
+          console.log(gymsData)
+        })
+    }
   }, [router.isReady])
 
   const fakeData = [
@@ -104,13 +129,17 @@ if(router.isReady){
               </div>
             </div>
           </div>
-          <GymFilters />
+          <GymFilters
+            selectedFeatures={selectedFeatures}
+            handleCheckboxChange={handleCheckboxChange}
+            clearAllCheckboxes={clearAllCheckboxes}
+          />
         </div>
         <div className={styles.flexRow}>
           <div className={styles.mapContainerStyle}>
             <MapErea />
           </div>
-          <ResultCards gyms={gymsData} />
+          <ResultCards gyms={gymsData} selectedFeatures={selectedFeatures} />
         </div>
       </div>
     </Layout3>

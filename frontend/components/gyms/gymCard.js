@@ -73,7 +73,13 @@ const GymCard = ({ data }) => {
   )
 }
 
-const ResultCards = ({ gyms }) => {
+const ResultCards = ({ gyms,selectedFeatures }) => {
+  const filteredGyms = gyms.filter((gym) => {
+    if (selectedFeatures.length === 0) {
+      return true
+    }
+    return selectedFeatures.some((feature) => gym.feature_list.includes(feature))
+  })
   const [isScrolled, setIsScrolled] = useState(false)
   const containerRef = useRef(null)
   useEffect(() => {
@@ -99,8 +105,8 @@ const ResultCards = ({ gyms }) => {
   }
   return (
     <div className={styles.resultCards}>
-      {Array.isArray(gyms) && gyms.length > 0 ? (
-        gyms.map((gym, i) => <GymCard key={i} data={gym} />)
+      {Array.isArray(filteredGyms) && filteredGyms.length > 0 ? (
+        filteredGyms.map((gym, i) => <GymCard key={i} data={gym} />)
       ) : (
         <p>沒有接收到gyms資料，檢查是不是陣列</p>
       )}

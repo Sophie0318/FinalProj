@@ -171,6 +171,28 @@
   height: 50%;
 }
 
+.clearBtn {
+  background: none;
+  border: none;
+  margin-bottom:10px ;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.clearBtn svg {
+  width: 24px;
+  height: 24px;
+  color: #4a4a4a;
+  /* 您可以根據需要調整顏色 */
+}
+
+.clearBtn:hover svg {
+  color: #2a2a2a;
+  /* 懸停時的顏色 */
+}
+
 /* MapErea */
 
 @media (width >=768px) {
