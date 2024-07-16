@@ -9,6 +9,7 @@ import styles from '../type.module.css'
 
 export default function ArticleType() {
   const [articleList, setArticleList] = useState([])
+  const [totalPages, setTotalPages] = useState(0)
   const [pageCategory, setPageCategory] = useState('文章列表')
   const renderCard = useRenderCards('articles')
   const router = useRouter()
@@ -47,8 +48,11 @@ export default function ArticleType() {
         )
         console.log(router.query)
       }
-      setArticleList(resData)
+    } else {
+      console.log(resData.success)
     }
+    setArticleList(resData.rows)
+    setTotalPages(resData.totalPages)
   }
 
   useEffect(() => {
@@ -60,9 +64,8 @@ export default function ArticleType() {
       getList(url)
       setPageCategory(categoryMap[router.query.category])
     }
-  }, [router, articleList.success])
+  }, [router])
 
-  if (!router.isReady || !articleList.success) return null
   return (
     <>
       <Layout3 title="體能鍛鍊" pageName="articles" section="whiteSection">
@@ -77,7 +80,7 @@ export default function ArticleType() {
                   <SearchBar maxWidth="351px" />
                 </div>
               </div>
-              {articleList.rows.map((v, i) => {
+              {articleList.map((v, i) => {
                 return (
                   <div
                     className={`${styles.card} col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12`}
@@ -91,7 +94,7 @@ export default function ArticleType() {
                 className={`${styles.page} col-12 d-flex justify-content-center`}
               >
                 <BS5Pagination
-                  totalPages={articleList.totalPages}
+                  totalPages={totalPages}
                   onPageChange={onPageChange}
                 />
               </div>

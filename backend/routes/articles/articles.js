@@ -92,27 +92,26 @@ const getArticleList = async (req) => {
   // 得知篩選資料總筆數
   let t_sql = `SELECT COUNT(1) totalRows FROM Articles JOIN CommonType ON CommonType.code_type = 9 AND CommonType.code_id = Articles.code_id_fk ${q_sql}`;
   try {
-  [[{totalRows}]] = await db.query(t_sql);
-  if(totalRows) {
-    success = true;
-    totalPages = Math.ceil(totalRows / perPage);
-    if (page < 1) {
-      page = 1;
-      redirect = {page: "1"}
+    [[{ totalRows }]] = await db.query(t_sql);
+    if (totalRows) {
+      success = true;
+      totalPages = Math.ceil(totalRows / perPage);
+      if (page < 1) {
+        page = 1;
+        redirect = { page: "1" }
+      }
+      if (page > totalPages) {
+        page = totalPages;
+        redirect = { page: `${totalPages}` }
+      }
     }
-    if (page > totalPages) {
-      page = totalPages;
-      redirect = {page: `${totalPages}`}
-    }
-  }
   } catch (error) {
     console.log('database query totalRows error: ', error)
-    return {success}
+    return { success }
   }
 
   // 從資料庫拿文章列表
   const sql = `SELECT article_id, article_title, update_at, code_desc, article_cover FROM Articles JOIN CommonType AS CT ON CT.code_type = 9 AND CT.code_id = Articles.code_id_fk ${q_sql} ORDER BY update_at DESC LIMIT ${(page - 1) * perPage}, ${perPage};`;
-  [rows] = await db.query(sql);
 
   try {
     [rows] = await db.query(sql);
@@ -120,20 +119,24 @@ const getArticleList = async (req) => {
       const m = moment(element.update_at)
       element.update_at = m.isValid() ? m.format(dateFormat) : "";
     })
+    success = true;
+    return {
+      success,
+      perPage,
+      page,
+      totalRows,
+      totalPages,
+      rows,
+      redirect,
+      qs: req.query,
+    }
   } catch (error) {
     console.log('database query list error: ', error)
-  }
-
-  success = true;
-  return {
-    success,
-    perPage,
-    page,
-    totalRows,
-    totalPages,
-    rows,
-    redirect,
-    qs:req.query,
+    success = false
+    return {
+      success,
+      rows
+    }
   }
 }
 
@@ -142,10 +145,10 @@ router.get("/api/listData", async (req, res) => {
   res.json(data);
 });
 
-router.get("/api/articleIndex", async(req,res)=>{
+router.get("/api/articleIndex", async (req, res) => {
   // 定義最新文章及熱門文章
-  let latestQuery = {...req, query:{later_than: "2024-01-01"}};
-  let hotQuery = {...req, query:{searchBy: "article_title", keyword: "挑戰"}};
+  let latestQuery = { ...req, query: { later_than: "2024-01-01" } };
+  let hotQuery = { ...req, query: { searchBy: "article_title", keyword: "挑戰" } };
   // debug 用參數, 存列表的參數
   let success = false;
   let latestList = [];
