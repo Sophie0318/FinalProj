@@ -16,7 +16,7 @@ export default function ProductCheckout2() {
           </div>
         </div>
         <Checkout2Input />
-        <Checkout2Btn />
+        {/* <Checkout2Btn /> */}
       </div>
     </>
   )

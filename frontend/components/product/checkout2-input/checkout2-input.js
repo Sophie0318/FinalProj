@@ -79,6 +79,17 @@ export default function Checkout2Input() {
           disabled
         />
       </div>
+      <div
+        className={`con-12 col-md-12 text-center d-flex justify-content-center align-items-center`}
+      >
+        <button
+          className={styles.btn}
+          onClick={() => router.push('/product/product-checkout3')}
+        >
+          {' '}
+          確定
+        </button>
+      </div>
     </>
   )
 }
