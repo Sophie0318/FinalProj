@@ -6,6 +6,9 @@ export default function SearchBar({
   placeholder = '請輸入地址搜尋...',
   maxWidth = '600px',
   size = '60px',
+  onChange,
+  value,
+
   // 增加props mainColor or 設定Theme
 }) {
   return (
@@ -22,6 +25,8 @@ export default function SearchBar({
       <input
         type="text"
         name="search_input"
+        value={value}
+        onChange={onChange}
         className={styles.search_input}
         style={{
           height: size,

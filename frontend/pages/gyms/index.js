@@ -12,8 +12,48 @@ export default function Gyms() {
   const router = useRouter()
   const [gymsData, setGymsData] = useState([])
   const [selectedFeatures, setSelectedFeatures] = useState([])
+  const [searchTerm, setSearchTerm] = useState('')
+  const [filteredGyms, setFilteredGyms] = useState([])
+  const handleSearchChange = (e) => {
+    setSearchTerm(e.target.value);
+  };
+// fetch資料
+  useEffect(() => {
+    const url = 'http://localhost:3001/gyms/api'
+    if (router.isReady) {
+      fetch(url)
+        .then((response) => response.json())
+        .then((data) => {
+          setGymsData(data.processedRows)
+          setFilteredGyms(data.processedRows)
+        })
+    }
+  }, [router.isReady])
+
+  useEffect(() => {
+    // 從URL取得搜尋關鍵字
+
+    if (router.isReady && router.query.search) {
+      setSearchTerm(router.query.search)
+    }
+  }, [router.isReady, router.query.search])
+
+  useEffect(() => {
+    const filtered = gymsData.filter(gym => 
+      gym.gym_name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    setFilteredGyms(filtered);
+  //更新URL
+  const currentPath = router.pathname;
+  const query = searchTerm ? { search: searchTerm } : {};
+  router.push({
+    pathname: currentPath,
+    query,
+  }, undefined, { shallow: true });
+  }, [searchTerm, gymsData,router]);
+
   const clearAllCheckboxes = () => {
-    setSelectedFeatures([]);
+    setSelectedFeatures([])
   }
   const handleCheckboxChange = (feature) => {
     setSelectedFeatures((prev) => {
@@ -24,6 +64,17 @@ export default function Gyms() {
       }
     })
   }
+
+  // 搜尋關鍵字的hook
+  useEffect(() => {
+    // 當searchTerm 變化時，進行搜尋
+    const filtered = gymsData.filter((gym) =>
+      gym.gym_name.toLowerCase().includes(searchTerm.toLowerCase())
+    )
+    setFilteredGyms(filtered)
+  }, [searchTerm, gymsData])
+
+  // checkbox的動態選染hook
   useEffect(() => {
     const query = selectedFeatures.length
       ? { feature_list: selectedFeatures.join('-') }
@@ -37,18 +88,6 @@ export default function Gyms() {
       { shallow: true }
     )
   }, [selectedFeatures, router.isReady])
-
-  useEffect(() => {
-    const url = 'http://localhost:3001/gyms/api'
-    if (router.isReady) {
-      fetch(url)
-        .then((response) => response.json())
-        .then((data) => {
-          setGymsData(data.processedRows)
-          console.log(gymsData)
-        })
-    }
-  }, [router.isReady])
 
   const fakeData = [
     {
@@ -120,6 +159,8 @@ export default function Gyms() {
                 className=""
                 placeholder="輸入地址查詢最近場館..."
                 maxWidth="789px"
+                onChange={handleSearchChange}
+                value={searchTerm}
               />
               <div
                 title="switch"

@@ -87,7 +87,7 @@ const ResponsiveCheckboxFilter = ({ options, onChange, selectedFeatures, clearAl
             僅列出選項｜
           </p>
           <div
-            className={`${styles.h20} d-none d-md-block d-flex align-items-center`}
+            className={`${styles.h20} d-none d-md-flex align-items-center position-relative`}
           >
             <div className="d-flex gap-3 align-items-center ">
               {renderCheckboxes()}
