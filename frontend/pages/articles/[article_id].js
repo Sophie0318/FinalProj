@@ -7,33 +7,31 @@ import Link from 'next/link'
 import Layout3 from '@/components/layout/layout3'
 import Btn from '@/components/articles/buttons_test'
 import ArticleSidebar from '@/components/articles/article-sidebar'
-import ArticleCard from '@/components/articles/article-card'
 import useRenderCards from '@/hooks/cards/cards'
 import IndexCarousel from '@/components/swiperCarousel/indexCarousel'
 import Comment from '@/components/articles/comment/comment'
 import styles from './articleId.module.css'
 
-// 測試用data
-import moreArticles from '@/data/FakeArticles.json'
-
 export default function ArticlePage() {
   const router = useRouter()
   const [showSidebar, setShowSidebar] = useState(false)
+  const [content, setContent] = useState({})
   const [articles, setArticles] = useState([])
+  const [author, setAuthor] = useState({})
   const articleRef = useRef(null)
 
   const renderCard = useRenderCards('articles')
 
-  const getArticleList = async () => {
+  const getArticle = async () => {
+    const baseURL = 'http://localhost:3001/articles/api/'
+    const param = router.query.article_id
     try {
-      console.log(router.query)
-      const res = await fetch(
-        `http://localhost:3001/articles/api?${new URLSearchParams(
-          router.query
-        )}`
-      )
+      // get individual article
+      const res = await fetch(`${baseURL}entry/${param}`)
       const resData = await res.json()
-      setArticles(resData)
+      setContent(resData.result)
+      setAuthor(resData.authorInfo)
+      setArticles(resData.furtherReading)
     } catch (error) {
       console.log(error)
     }
@@ -41,7 +39,7 @@ export default function ArticlePage() {
 
   useEffect(() => {
     if (router.isReady) {
-      getArticleList()
+      getArticle()
     }
 
     // 設定手機sidebar, 讓他可以依照視窗滑到哪就顯示或隱藏
@@ -61,10 +59,13 @@ export default function ArticlePage() {
         observer.unobserve(articleRef.current)
       }
     }
-  }, [router.isReady, articles])
+  }, [router])
   return (
     <>
-      <Layout3 title="文章頁面" pageName="articles">
+      <Layout3
+        title={content ? `找知識 - ${content.article_title}` : '文章頁面'}
+        pageName="articles"
+      >
         <main ref={articleRef} className={`${styles.article} container`}>
           <aside className={styles.sidebarTrack}>
             <ArticleSidebar
@@ -75,23 +76,21 @@ export default function ArticlePage() {
           <article className="row mx-0">
             <div className="d-flex flex-column mx-0">
               <h3 className={`${styles.articleTitle} text-primary`}>
-                49歲騎單車減18公斤！台大醫師：健康中年生活享受無比
+                {content.article_title}
               </h3>
               <div className={styles.articleInfo}>
                 <div className={`${styles.articleAuthor} w-md-50 w-100`}>
-                  作者：林芳如
+                  作者：{author.author_name}
                 </div>
                 <div className={`${styles.articleUpdateAt} w-md-50 w-100`}>
-                  最後更新：2024.03.08
+                  最後更新：{content.update_at}
                 </div>
               </div>
               <div className={`${styles.articleDesc}`}>
-                <p>
-                  編按：靠著騎單車，台大醫院麻醉部疼痛治療科主任林至芃減重18公斤，不僅消除三高，體力也變得更好。和台大EMBA同學一起外出騎單車時，他還能幫忙調整同學的姿勢，成為有餘力照顧別人的人。「成為一個健康的中年人很享受！」但他也坦言，時間對他而言最為珍貴。工作、生活忙碌，如何找出時間有效率地騎車，且找到持續的動力？（本文出自《50+週刊》）
-                </p>
+                <p>編按：{content.article_desc}</p>
               </div>
               <div className={`${styles.articleCover} col-12`}>
-                <img src="/articles-img/julia-zyablova-S1v7hVUiCg0-unsplash.jpg" />
+                <img src={`/articles-img/${content.article_cover}`} />
               </div>
             </div>
 
@@ -139,10 +138,10 @@ export default function ArticlePage() {
           <div className="container fixed-960 p-0">
             <div className="row g-0 justify-content-md-between justify-content-center mx-3">
               <div className={`${styles.authorImg} col-md-5 col-12`}>
-                <img src="/articles-img/bruce-mars-WGN6ZEFEZbs-unsplash.jpg" />
+                <img src={author.author_image} />
               </div>
               <div className="col-md-7 col-12 ps-4">
-                <h3>關於作者 - Ola 喬教練</h3>
+                <h3>關於作者 - {author.author_name}</h3>
                 <p>
                   小時候成績最爛科目是體育，現在卻成為健身教練。服務的客群多是想要減重塑身的女性，也透過肌力訓練、功能性訓練，幫助了不少人解決身體長期疼痛的問題。
                 </p>
@@ -153,6 +152,12 @@ export default function ArticlePage() {
                     bgColor="midnightgreen"
                     width="100%"
                     maxWidth="312px"
+                    btnOrLink="link"
+                    hrefURL={
+                      author.author_id
+                        ? `/coaches/${author.author_id}`
+                        : `${author.author_href}`
+                    }
                   >
                     了解更多
                   </Btn>
@@ -162,6 +167,12 @@ export default function ArticlePage() {
                     bgColor="midnightgreen"
                     width="100%"
                     maxWidth="173px"
+                    btnOrLink={author.author_id ? 'link' : 'button'}
+                    hrefURL={
+                      author.author_id
+                        ? `/coaches/${author.author_id}`
+                        : `${author.author_href}`
+                    }
                   >
                     了解更多
                   </Btn>
@@ -175,7 +186,7 @@ export default function ArticlePage() {
           <IndexCarousel
             title="延伸閱讀"
             renderItem={renderCard}
-            data={moreArticles}
+            data={articles}
             cardMaxWidth="350px"
             showBtn={false}
           />
