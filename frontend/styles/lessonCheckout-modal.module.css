@@ -6,7 +6,6 @@
 
 .modal {
   background-color: var(--color-white);
-  width: 600px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -76,7 +75,7 @@
 }
 
 .total {
-  width: 80%;
+  width:100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -90,7 +89,7 @@
 }
 
 .btns {
-  width: 80%;
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
