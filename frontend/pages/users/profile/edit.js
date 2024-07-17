@@ -116,19 +116,19 @@ export default function LessonsOrders() {
 
       if (updatedData.message === '個人資料更新成功') {
         // 使用本地更新的數據來更新 auth context
-        // if (typeof setAuth === 'function') {
-        //   setAuth({
-        //     ...auth,
-        //     name: name,
-        //     nick_name: nickName,
-        //     mobile: mobile,
-        //     address: address,
-        //     city: selectedCity,
-        //     district: selectedDistrict,
-        //   })
-        // } else {
-        //   console.error('setAuth is not a function')
-        // }
+        if (typeof setAuth === 'function') {
+          setAuth({
+            ...auth,
+            name: name,
+            nick_name: nickName,
+            mobile: mobile,
+            address: address,
+            city: selectedCity,
+            district: selectedDistrict,
+          })
+        } else {
+          console.error('setAuth is not a function')
+        }
 
         setErrorMessage('') // 清除錯誤訊息
         alert('個人資料更新成功')
