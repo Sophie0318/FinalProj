@@ -5,8 +5,8 @@ import styles from './index-carousel.module.css'
 
 export default function IndexCarousel({
   title,
-  data,
-  renderItem,
+  data = [],
+  renderItem = () => {},
   cardMaxWidth = 'fit-content',
   showBtn = true,
   separator = true,
