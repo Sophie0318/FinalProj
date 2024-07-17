@@ -6,8 +6,10 @@ export default function SearchBar({
   placeholder = '請輸入地址搜尋...',
   maxWidth = '600px',
   size = '60px',
-  onChange,
-  value,
+  setSearchTerm,
+  searchTerm = '',
+  setFilteredGyms = () => {},
+  gymsData = [],
 
   // 增加props mainColor or 設定Theme
 }) {
@@ -25,8 +27,17 @@ export default function SearchBar({
       <input
         type="text"
         name="search_input"
-        value={value}
-        onChange={onChange}
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+        // onKeyDown={(e) => {
+        //   if (e.key === 'Enter') {
+        //     const filtered = gymsData.filter((gym) =>
+        //       gym.gym_name.includes(searchTerm)
+        //     )
+        //     setFilteredGyms(filtered)
+        //     console.log(filtered)
+        //   }
+        // }}
         className={styles.search_input}
         style={{
           height: size,
