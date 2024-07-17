@@ -1,7 +1,7 @@
 import React from 'react'
 import styles from '@/styles/product-checkout2.module.css'
 import ProductCheckout1 from '@/components/product/product-checkout1'
-import Checkout2CheckBox from '@/components/product/checkbox/checkout2-checkbox'
+// import Checkout2CheckBox from '@/components/product/checkbox/checkout2-checkbox'
 import Checkout2Input from '@/components/product/checkout2-input/checkout2-input'
 import Checkout2Btn from '@/components/product/button/checkout2-btn'
 
@@ -15,7 +15,6 @@ export default function ProductCheckout2() {
             <h2>填寫收件人資料</h2>
           </div>
         </div>
-        <Checkout2CheckBox />
         <Checkout2Input />
         <Checkout2Btn />
       </div>

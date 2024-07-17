@@ -237,3 +237,10 @@
   position: relative;
   display: inline-block;
 }
+.move{
+  transition: transform 0.5s ease-out
+}
+.move:hover {
+  transform: scale(1.1, 1.1);
+
+}

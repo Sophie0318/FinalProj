@@ -18,7 +18,7 @@ export default function ProductCheckout() {
         <ProductAccordion />
         <div className="col-12 col-md-8  mx-auto text-center">
           {/* 手風琴 end*/}
-          <Checkout1Btn />
+          {/* <Checkout1Btn /> */}
         </div>
       </div>
     </>

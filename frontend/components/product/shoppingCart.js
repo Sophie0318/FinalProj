@@ -98,6 +98,7 @@ export default function ShoppingCart() {
                         src={`/product-img/${v.Product_photo}`}
                         alt=""
                         style={{ width: '30%', borderRadius: '25px' }}
+                        className="w-50"
                       />
                       <ul>
                         <li style={{ paddingBottom: '20px' }}>
@@ -207,6 +208,7 @@ export default function ShoppingCart() {
                   color: 'white',
                   marginBottom: '40px',
                 }}
+                className={`${styles.move}`}
                 onClick={() => {
                   window.location.href = '../product/product-order'
                 }}
