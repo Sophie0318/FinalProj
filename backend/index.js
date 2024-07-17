@@ -63,8 +63,6 @@ app.use("/coaches", coachRouter);
 app.use("/product", productRouter);
 app.use("/users", usersRouter);
 
-//把會員在資料庫中的資料帶入個人資料頁
-// app.use('/users/getProfile', getProfileRouter);
 
 
 //會員個人資料頁的編輯
