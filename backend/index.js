@@ -66,11 +66,6 @@ app.use("/users", usersRouter);
 //把會員在資料庫中的資料帶入個人資料頁
 // app.use('/users/getProfile', getProfileRouter);
 
-//把會員在資料庫中的資料帶入個人資料頁(只有這個能用)
-app.post('/users/updateProfile/:member_id', (req, res) => {
-  console.log('Test route hit');
-  res.json({ message: 'Test route successful' });
-});
 
 //會員個人資料頁的編輯
 app.use('/users/updateProfile', updateProfileRouter);
