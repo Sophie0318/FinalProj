@@ -7,7 +7,9 @@ import { useState, useEffect } from 'react'
 import { Link } from 'react-ionicons'
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
+import { useRouter } from 'next/router'
 export default function ProductOrder() {
+  const router = useRouter()
   const [orderItems, setOrderItems] = useState([])
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -152,7 +154,7 @@ export default function ProductOrder() {
             <button
               className={styles.btn}
               style={{ backgroundColor: '#6C6C6C' }}
-              onClick={() => window.history.back()}
+              onClick={() => router.back()}
             >
               返回
             </button>
@@ -164,7 +166,7 @@ export default function ProductOrder() {
                   confirmButtonText: '確定',
                 }).then((result) => {
                   if (result.isConfirmed) {
-                    window.location.href = '/product/product-checkout1'
+                    router.push('/product/product-checkout1')
                   }
                 })
               }}
