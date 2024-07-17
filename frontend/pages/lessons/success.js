@@ -44,12 +44,12 @@ export default function Success() {
             <div className={styles.success}>付款成功！</div>
             <div className={styles.reminder}>記得準時出席喔～</div>
             <div className={styles.reserveInfo}>
-              <div className={styles.infoRow}>
+              {/* <div className={styles.infoRow}>
                 <div className={styles.label}>訂單編號</div>
                 <div className={styles.details}>
                   <div className={styles.name}>{orderNumber}</div>
                 </div>
-              </div>
+              </div> */}
               <div className={styles.infoRow}>
                 <div className={styles.label}>{lesson.lesson_name}</div>
                 <div className={styles.details}>
