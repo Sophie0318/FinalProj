@@ -1,5 +1,4 @@
 import React from 'react'
-import { useRouter } from 'next/router'
 import {
   IoHeart,
   IoSearch,
@@ -15,7 +14,6 @@ export default function ArticleSidebar({
   setFontSize = () => {},
   commentRef,
 }) {
-  const router = useRouter()
   const handleFontSize = () => {
     if (fontSize === 2) {
       setFontSize(0)
