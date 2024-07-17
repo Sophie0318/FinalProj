@@ -1,10 +1,14 @@
 import express from 'express'
-const router = express.Router()
 import * as crypto from 'crypto'
+import { v4 as uuidv4 } from 'uuid'; 
+
+const router = express.Router()
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
   const amount = req.query.amount
+  const lessonId = req.query.lessonId // 新增：從查詢參數獲取課程ID
+  const orderNumber = 'ORD-' + uuidv4().slice(0, 8).toUpperCase();
   //綠界全方位金流技術文件：
   // https://developers.ecpay.com.tw/?p=2856
   // 信用卡測試卡號：4311-9522-2222-2222 安全碼 222
@@ -20,8 +24,8 @@ router.get('/', function (req, res, next) {
   const TotalAmount = amount
   const TradeDesc = '商店線上付款'
   const ItemName = 'xx商店購買一批'
-  const ReturnURL = 'https://www.ecpay.com.tw'
-  const OrderResultURL = 'http://localhost:3000/lessons/success' //前端成功頁面
+  const ReturnURL = `http://localhost:3001/lessons/payment-result?lessonId=${lessonId}`
+  const OrderResultURL = `http://localhost:3000/lessons/success?lessonId=${lessonId}` //前端成功頁面
   const ChoosePayment = 'ALL'
 
   ////////////////////////以下參數不用改////////////////////////
@@ -142,6 +146,40 @@ router.get('/', function (req, res, next) {
   </body>
   </html>
   `
+
+  router.post('/payment-result', async (req, body) => {
+    // 處理綠界的回調
+    const { RtnCode, TradeNo, TradeAmt, PaymentDate } = req.body
+    const lessonId = req.query.lessonId
+  
+    if (RtnCode === '1') {
+      // 支付成功
+      try {
+        // 生成隨機訂單編號
+        const orderNumber = generateOrderNumber()
+  
+        // 將訂單資訊保存到數據庫
+        await db.query(
+          'INSERT INTO Orders (order_number, lesson_id, trade_no, amount, payment_date) VALUES (?, ?, ?, ?, ?)',
+          [orderNumber, lessonId, TradeNo, TradeAmt, PaymentDate]
+        )
+  
+        // 重定向到成功頁面，並傳遞訂單編號和課程ID
+        res.redirect(`http://localhost:3000/lessons/success?orderNumber=${orderNumber}&lessonId=${lessonId}`)
+      } catch (error) {
+        console.error('保存訂單失敗:', error)
+        res.status(500).send('訂單處理失敗')
+      }
+    } else {
+      // 支付失敗
+      res.redirect('http://localhost:3000/lessons/failure')
+    }
+  })
+  
+  function generateOrderNumber() {
+    // 生成隨機訂單編號的邏輯
+    return 'ORD' + Date.now() + Math.floor(Math.random() * 1000)
+  }
 
   // 修改：返回 JSON 格式的回應
   res.json({ htmlContent })

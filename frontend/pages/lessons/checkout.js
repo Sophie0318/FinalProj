@@ -19,17 +19,12 @@ export default function Checkout() {
   const handlePayment = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:3001/payment?amount=${lesson.lesson_price}`
+        `http://localhost:3001/payment?amount=${lesson.lesson_price}&lessonId=${lesson.lesson_id}`
       )
       if (response.data.htmlContent) {
-        // 創建一個臨時的 div 元素來存放 HTML 內容
         const tempDiv = document.createElement('div')
         tempDiv.innerHTML = response.data.htmlContent
-
-        // 找到表單元素
         const form = tempDiv.querySelector('form')
-
-        // 如果找到表單，則提交它
         if (form) {
           document.body.appendChild(form)
           form.submit()
