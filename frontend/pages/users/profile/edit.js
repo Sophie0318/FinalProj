@@ -96,8 +96,7 @@ export default function LessonsOrders() {
         throw new Error('User ID is not defined')
       }
 
-      console.log('Sending update profile request...')
-      const response = await fetch(
+      const updateResponse = await fetch(
         `http://localhost:3001/users/updateProfile/${auth.id}`,
         {
           method: 'POST',
@@ -108,32 +107,39 @@ export default function LessonsOrders() {
         }
       )
 
-      console.log('Response status:', response.status)
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`)
-      } else {
-        console.log('123')
+      if (!updateResponse.ok) {
+        throw new Error(`HTTP error! status: ${updateResponse.status}`)
       }
 
-      const data = await response.json()
-      console.log('Profile updated successfully:', data)
+      const updatedData = await updateResponse.json()
+      console.log('後端返回的數據:', updatedData)
 
-      // Update auth context with updated profile data
-      setAuth({
-        ...auth,
-        name: data.member.member_name,
-        nick_name: data.member.nick_name,
-        mobile: data.member.mobile,
-        address: data.member.address,
-        city: data.member.city_id,
-        district: data.member.district_id,
-      })
+      if (updatedData.message === '個人資料更新成功') {
+        // 使用本地更新的數據來更新 auth context
+        // if (typeof setAuth === 'function') {
+        //   setAuth({
+        //     ...auth,
+        //     name: name,
+        //     nick_name: nickName,
+        //     mobile: mobile,
+        //     address: address,
+        //     city: selectedCity,
+        //     district: selectedDistrict,
+        //   })
+        // } else {
+        //   console.error('setAuth is not a function')
+        // }
+
+        setErrorMessage('') // 清除錯誤訊息
+        alert('個人資料更新成功')
+      } else {
+        throw new Error('更新失敗')
+      }
     } catch (error) {
       console.error('Failed to update profile:', error)
+      setErrorMessage('更新失敗，請稍後再試')
     }
   }
-
   return (
     <LayoutUser title="myProfile">
       <div className={styles.userinfo_edit}>
