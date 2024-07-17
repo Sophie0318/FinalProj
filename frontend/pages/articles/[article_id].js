@@ -18,10 +18,20 @@ export default function ArticlePage() {
   const [content, setContent] = useState({})
   const [articles, setArticles] = useState([])
   const [author, setAuthor] = useState({})
+  const [fontSize, setFontSize] = useState(0)
   const articleRef = useRef(null)
+  const commentRef = useRef(null)
 
+  // 顯示卡片的hook
   const renderCard = useRenderCards('articles')
+  // 決定字體大小的 class map
+  const fontSizeMap = {
+    0: 'fontSize0',
+    1: 'fontSize1',
+    2: 'fontSize2',
+  }
 
+  // 後端 fetch 單篇文章資料
   const getArticle = async () => {
     const baseURL = 'http://localhost:3001/articles/api/'
     const param = router.query.article_id
@@ -63,7 +73,9 @@ export default function ArticlePage() {
   return (
     <>
       <Layout3
-        title={content ? `找知識 - ${content.article_title}` : '文章頁面'}
+        title={
+          content ? `找知識 - ${content.article_title}` : '找知識 - 文章頁面'
+        }
         pageName="articles"
       >
         <main ref={articleRef} className={`${styles.article} container`}>
@@ -71,9 +83,12 @@ export default function ArticlePage() {
             <ArticleSidebar
               showSidebar={showSidebar}
               pageLoaded={router.isReady}
+              fontSize={fontSize}
+              setFontSize={setFontSize}
+              commentRef={commentRef}
             />
           </aside>
-          <article className="row mx-0">
+          <article className={styles[fontSizeMap[fontSize]]}>
             <div className="d-flex flex-column mx-0">
               <h3 className={`${styles.articleTitle} text-primary`}>
                 {content.article_title}
@@ -95,9 +110,7 @@ export default function ArticlePage() {
             </div>
 
             <div className={`${styles.articleContent}`}>
-              <div>
-                <MarkdownContent content={`${content.article_content}`} />
-              </div>
+              <MarkdownContent content={`${content.article_content}`} />
             </div>
           </article>
         </main>
@@ -110,9 +123,7 @@ export default function ArticlePage() {
               </div>
               <div className="col-md-7 col-12 ps-4">
                 <h3>關於作者 - {author.author_name}</h3>
-                <p>
-                  小時候成績最爛科目是體育，現在卻成為健身教練。服務的客群多是想要減重塑身的女性，也透過肌力訓練、功能性訓練，幫助了不少人解決身體長期疼痛的問題。
-                </p>
+                <p>{author.author_desc}</p>
                 <div className="row g-0 justify-content-md-start justify-content-center">
                   <Btn
                     className={styles.authorBtnPC}
@@ -163,7 +174,9 @@ export default function ArticlePage() {
         <section className={styles.commentSect}>
           <div className={`${styles.comment} container`}>
             <div className={`row`}>
-              <h3>看看留言</h3>
+              <h3 id="commentSection" ref={commentRef}>
+                看看留言
+              </h3>
               <div>
                 <Comment />
               </div>
