@@ -23,7 +23,7 @@ router.get('/', function (req, res, next) {
   //二、輸入參數
   const TotalAmount = amount
   const TradeDesc = '商店線上付款'
-  const ItemName = 'xx商店購買一批'
+  const ItemName = '活力啟點課程'
   const ReturnURL = `http://localhost:3001/lessons/payment-result?lessonId=${lessonId}`
   const OrderResultURL = `http://localhost:3000/lessons/success?lessonId=${lessonId}` //前端成功頁面
   const ChoosePayment = 'ALL'
