@@ -12,11 +12,9 @@ export default function Gyms() {
   const router = useRouter()
   const [gymsData, setGymsData] = useState([])
   const [selectedFeatures, setSelectedFeatures] = useState([])
-
-  const [filteredGyms, setFilteredGyms] = useState([])
-
   const [searchTerm, setSearchTerm] = useState('')
   const [boo, setBoo] = useState(true) //switch 的外觀state
+  const [isComposing, setIsComposing] = useState(false)
 
   const fetchGymsData = () => {
     const url = `http://localhost:3001/gyms/api?keyword=${searchTerm}&features=${selectedFeatures}`
@@ -25,7 +23,6 @@ export default function Gyms() {
         .then((response) => response.json())
         .then((data) => {
           setGymsData(data.processedRows)
-          setFilteredGyms(data.processedRows)
         })
     }
   }
@@ -33,17 +30,13 @@ export default function Gyms() {
   // 從URL取得搜尋關鍵字
   useEffect(() => {
     if (router.isReady) {
-      // fetch資料
-      fetchGymsData()
+      if (!isComposing) {
+        // fetch資料
+        fetchGymsData()
+      }
     }
 
-    // 過濾關鍵字
-    // const filtered = gymsData.filter((gym) => gym.gym_name.includes(searchTerm))
-    // setFilteredGyms(filtered)
-
-
     //更新URL
-    const currentPath = router.pathname
     const query = searchTerm ? { gym_name: searchTerm } : {}
     router.push(
       {
@@ -53,7 +46,7 @@ export default function Gyms() {
       undefined,
       { shallow: true }
     )
-  }, [router.isReady, searchTerm, selectedFeatures])
+  }, [router.isReady, searchTerm, selectedFeatures, isComposing])
 
   const clearAllCheckboxes = () => {
     setSelectedFeatures([])
@@ -83,6 +76,9 @@ export default function Gyms() {
     )
   }, [selectedFeatures, router.isReady])
 
+  const handleCompositionChange = (composing) => {
+    setIsComposing(composing);
+  };
   return (
     <Layout3 title="尋找場館" pageName="gyms">
       <div className={styles.indexContainer}>
@@ -96,6 +92,7 @@ export default function Gyms() {
                 setSearchTerm={setSearchTerm}
                 searchTerm={searchTerm}
                 gymsData={gymsData}
+                onCompositionChange={handleCompositionChange}
               />
               <div
                 title="switch"
