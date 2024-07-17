@@ -1,5 +1,6 @@
 import express from 'express';
 import db from '../../utils/connect-mysql.js';
+import bcrypt from "bcrypt";
 
 const router = express.Router();
 console.log('updateProfile router module loaded');
@@ -33,8 +34,14 @@ router.post('/:member_id', async (req, res) => {
 
         // 只有在提供密碼時才更新密碼
         if (password) {
+
+            //雜湊
+            const saltRounds = 10;
+            const hashedPassword = await bcrypt.hash(password, saltRounds);
+
+            // 更新密碼
             query += `, member_password = ?`;
-            queryParams.push(password);
+            queryParams.push(hashedPassword);
         }
 
         query += ` WHERE members.member_id = ?`;
