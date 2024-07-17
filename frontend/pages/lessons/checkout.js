@@ -19,7 +19,9 @@ export default function Checkout() {
   const handlePayment = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:3001/payment?amount=${lesson.lesson_price}&lessonId=${lesson.lesson_id}`
+        `http://localhost:3001/payment?amount=${lesson.lesson_price}&lessonId=${
+          lesson.lesson_id
+        }&lessonName=${encodeURIComponent(lesson.lesson_name)}`
       )
       if (response.data.htmlContent) {
         const tempDiv = document.createElement('div')

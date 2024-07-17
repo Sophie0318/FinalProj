@@ -8,6 +8,7 @@ const router = express.Router()
 router.get('/', function (req, res, next) {
   const amount = req.query.amount
   const lessonId = req.query.lessonId // 新增：從查詢參數獲取課程ID
+  const lessonName = req.query.lessonName
   const orderNumber = 'ORD-' + uuidv4().slice(0, 8).toUpperCase();
   //綠界全方位金流技術文件：
   // https://developers.ecpay.com.tw/?p=2856
@@ -23,7 +24,7 @@ router.get('/', function (req, res, next) {
   //二、輸入參數
   const TotalAmount = amount
   const TradeDesc = '商店線上付款'
-  const ItemName = '活力啟點課程'
+  const ItemName = lessonName || '課程付款' 
   const ReturnURL = `http://localhost:3001/lessons/payment-result?lessonId=${lessonId}`
   const OrderResultURL = `http://localhost:3000/lessons/success?lessonId=${lessonId}` //前端成功頁面
   const ChoosePayment = 'ALL'
