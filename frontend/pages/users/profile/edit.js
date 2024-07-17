@@ -2,9 +2,11 @@ import React, { useState, useEffect } from 'react'
 import LayoutUser from '@/components/layout/user-layout3'
 import styles from '../../../styles/user-edit.module.css'
 import { useAuth } from '../../../context/auth-context'
+import { useRouter } from 'next/router'
 
 export default function LessonsOrders() {
-  const { auth, setAuth } = useAuth()
+  const router = useRouter()
+  const { auth, setAuth, logout } = useAuth()
   const [city, setCity] = useState([])
   const [districts, setDistricts] = useState([])
   const [selectedCity, setSelectedCity] = useState(auth.city || 0)
@@ -131,7 +133,18 @@ export default function LessonsOrders() {
         }
 
         setErrorMessage('') // 清除錯誤訊息
-        alert('個人資料更新成功')
+
+        if (updatedData.isPasswordChange) {
+          alert('密碼已更新，請重新登入')
+          // 呼叫登出函數
+          logout()
+          // 導向登入頁面
+          router.push('/users/sign_in')
+        } else {
+          alert('個人資料更新成功')
+          //回到頂部
+          window.scrollTo(0, 0)
+        }
       } else {
         throw new Error('更新失敗')
       }

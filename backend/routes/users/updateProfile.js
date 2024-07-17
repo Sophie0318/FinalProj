@@ -32,6 +32,9 @@ router.post('/:member_id', async (req, res) => {
 
         let queryParams = [name, nick_name, mobileValue, addressValue, cityValue, districtValue];
 
+        //看看有沒有更改密碼，如果沒改，就更新資料滾回頁面頂端
+        let isPasswordChange = false;
+
         // 只有在提供密碼時才更新密碼
         if (password) {
 
@@ -42,6 +45,10 @@ router.post('/:member_id', async (req, res) => {
             // 更新密碼
             query += `, member_password = ?`;
             queryParams.push(hashedPassword);
+
+            //有更改讓前端跳轉到登入頁
+            isPasswordChange = true;
+            console.log("isPasswordChange", isPasswordChange);
         }
 
         query += ` WHERE members.member_id = ?`;
@@ -50,7 +57,7 @@ router.post('/:member_id', async (req, res) => {
         // 執行查詢
         const [results] = await db.query(query, queryParams);
 
-        res.json({ message: '個人資料更新成功', affectedRows: results.affectedRows });
+        res.json({ message: '個人資料更新成功', affectedRows: results.affectedRows, isPasswordChange: isPasswordChange });
     } catch (error) {
         console.error('更新失敗:', error);
         res.status(500).json({ error: '更新失敗', details: error.message });
