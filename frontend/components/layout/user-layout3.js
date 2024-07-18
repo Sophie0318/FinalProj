@@ -12,7 +12,7 @@ import { useAuth } from '../../context/auth-context'
 
 export default function LayoutUser({ children, title = 'myProfile' }) {
   const { auth, setAuth } = useAuth()
-  const { isUploading, setIsUploading } = useState(false)
+  const [isUploading, setIsUploading] = useState(false)
   const fileInput = useRef(null)
 
   const titleMap = {
@@ -27,7 +27,10 @@ export default function LayoutUser({ children, title = 'myProfile' }) {
   const defaultAvatar = 'http://localhost:3001/users/'
 
   const handAvatarClick = () => {
-    fileInput.current.click()
+    // fileInput.current.click()
+    if (fileInput.current) {
+      fileInput.current.click()
+    }
   }
 
   const handFileChange = async (e) => {
