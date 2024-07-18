@@ -18,7 +18,8 @@ export const CartProvider = ({ children }) => {
     Product_image: '',
     Product_qty: 1,
   })
-  console.log(product)
+
+  // console.log(product)
   const addItem = (product) => {
     const existingItem = item.find(
       (cartItem) => cartItem.Product_id === product.Product_id

@@ -2,6 +2,8 @@ import React, { useEffect } from 'react'
 import styles from './checkout3-order.module.css'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
+import { useAuth } from '@/context/auth-context' // useAuth 的鉤子
+import { useLocation } from 'react-router-dom'
 
 function generateRandomOrderId(length) {
   let result = ''
@@ -16,23 +18,38 @@ function generateRandomOrderId(length) {
 export default function Checkout3Order() {
   const [orderDetail, setOrderDetail] = useState([])
   const [orderId, setOrderId] = useState('')
+  const { auth } = useAuth()
+  // console.log('auth:', auth)
+  // console.log(orderDetail)
+  const router = useRouter()
 
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const savedItems = localStorage.getItem('shoppingCart')
-      // console.log('Saved items:', savedItems)
-      if (savedItems) {
-        setOrderDetail(JSON.parse(savedItems))
-      }
+    if (router.isReady) {
+      fetch(
+        `http://localhost:3001/product/orderdetail?order_id=${router.query.order_id}`
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data)
+          setOrderDetail(data.orderDetail)
+        })
     }
-    setOrderId(generateRandomOrderId(10)) // 在組件加載時生成訂單編號
-  }, [])
+    // if (typeof window !== 'undefined') {
+    //   const savedItems = localStorage.getItem('shoppingCart')
+    //   // console.log('Saved items:', savedItems)
+    //   if (savedItems) {
+    //     setOrderDetail(JSON.parse(savedItems))
+    //   }
+    // }
+    // setOrderId(generateRandomOrderId(10)) // 在組件加載時生成訂單編號
+    //${queryParams.toString()
+  }, [router.isReady])
 
   //計算總數量
   const calcTotalQty = () => {
     let total = 0
     for (let i = 0; i < orderDetail.length; i++) {
-      total += orderDetail[i].qty
+      total += orderDetail[i].OrdersDetail_product_quantity
     }
     return total
   }
@@ -46,32 +63,38 @@ export default function Checkout3Order() {
           style={{
             marginTop: '20px',
             color: '#FFC800',
+            fontSize: '30px',
           }}
         >
           訂單明細
         </p>
-        <p>訂單編號:{orderId}</p>
-        <p>訂購人:</p>
+        <p style={{ fontSize: '25px' }}>訂單編號:{orderId}</p>
+        <p style={{ fontSize: '25px' }}>
+          訂購人:{orderDetail[0].ProductOrders_recipient_name}
+        </p>
         <div className={styles.place}>
-          <span>商品:</span>
-          <span>單個價錢:</span>
+          <span style={{ fontSize: '25px' }}>商品:</span>
+          <span style={{ fontSize: '25px' }}>單個價錢:</span>
         </div>
         {orderDetail.map((v, i) => (
           <div key={i} className={styles.place}>
             <span>
-              {v.Product_name}x{v.qty}
+              {v.Product_name}x{v.OrdersDetail_product_quantity}
             </span>
-            <span>{v.Product_price}</span>
+            <span>{v.OrdersDetail_unit_price_at_time}</span>
           </div>
         ))}
         <div className={styles.subtotal}>
-          <span>總數量:</span>
-          <span>{calcTotalQty()}</span>
-          <span>總金額:</span>
-          <span>
+          <span style={{ fontSize: '25px' }}>總數量:</span>
+          <span style={{ fontSize: '25px' }}>{calcTotalQty()}</span>
+          <span style={{ fontSize: '25px' }}>總金額:</span>
+          <span style={{ fontSize: '25px' }}>
             NT$
             {orderDetail.reduce(
-              (acc, item) => acc + item.qty * item.Product_price,
+              (acc, item) =>
+                acc +
+                item.OrdersDetail_product_quantity *
+                  item.OrdersDetail_unit_price_at_time,
               0
               //orderDetail 是包含訂單項目的數組。
               // reduce 方法對數組中的每個元素執行提供的回調函數（這裡是 (acc, item) => acc + item.qty），將每次回調函數的返回值累積到一個累加器（acc）。
