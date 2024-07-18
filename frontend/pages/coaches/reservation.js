@@ -50,12 +50,14 @@ export default function Reservation() {
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
-      // 假設 formData.timeSlot 是一個日期字符串，如 "2024-03-15 14:30"
-      // 如果沒有秒數，我們可以加上 ":00"
-      const reserveTime =
-        formData.timeSlot.length === 16
-          ? formData.timeSlot + ':00'
-          : formData.timeSlot
+      // 根據選擇的時間段獲取正確的日期時間字符串
+      const timeSlotMap = {
+        1: '2024-12-31 12:00:00',
+        2: '2024-12-31 13:00:00',
+        3: '2024-12-31 14:00:00',
+        4: '2024-12-31 15:00:00',
+      }
+      const reserveTime = timeSlotMap[formData.timeSlot] || formData.timeSlot
 
       console.log('Sending data:', {
         reserve_name: formData.name,
@@ -80,14 +82,12 @@ export default function Reservation() {
         setShowModal(true)
       } else {
         console.error('預約提交失敗:', response.data.message)
-        // 在這裡可以加入一些錯誤處理的UI邏輯
       }
     } catch (error) {
       console.error(
         '預約提交失敗:',
         error.response ? error.response.data : error.message
       )
-      // 在這裡可以加入一些錯誤處理的UI邏輯
     }
   }
 
@@ -177,7 +177,6 @@ export default function Reservation() {
                   <option value="3">2024/12/31 14:00</option>
                   <option value="4">2024/12/31 15:00</option>
                 </select>
-
                 <div className={styles.formLabel}>預約教練</div>
                 <div className={styles.cardContainer}>
                   <div className={styles.resCoach}>

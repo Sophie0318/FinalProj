@@ -36,7 +36,17 @@ function ReserveModal({ onClose, formData, selectedCoach }) {
           <div className={styles.infoRow}>
             <div className={styles.label}>預約時間 |</div>
             <div className={styles.reserveTime}>
-              <div>{formData.timeSlot}</div>
+              <div>
+                {formData.timeSlot === '1'
+                  ? '2024/12/31 12:00'
+                  : formData.timeSlot === '2'
+                  ? '2024/12/31 13:00'
+                  : formData.timeSlot === '3'
+                  ? '2024/12/31 14:00'
+                  : formData.timeSlot === '4'
+                  ? '2024/12/31 15:00'
+                  : formData.timeSlot}
+              </div>
             </div>
           </div>
         </div>
