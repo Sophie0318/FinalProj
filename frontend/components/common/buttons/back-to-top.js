@@ -23,7 +23,10 @@ export default function BackToTop() {
         if (!hasScrolled) {
           setHasScrolled(true)
         }
-        if (window.scrollY > 100) {
+        if (
+          window.scrollY >
+          document.documentElement.scrollHeight - window.innerHeight * 2
+        ) {
           setShowBtn(true)
         } else {
           setShowBtn(false)

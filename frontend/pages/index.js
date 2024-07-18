@@ -57,7 +57,7 @@ export default function Home() {
 
       const userScroll = window.scrollY
       const slideParamOne = -0.04
-      const slideParamTwo = 0.1
+      const slideParamTwo = 0.06
 
       setSlideOne(String(Math.ceil(slideParamOne * userScroll)))
       setSlideTwo(String(Math.ceil(slideParamTwo * userScroll)))
