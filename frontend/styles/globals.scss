@@ -39,38 +39,44 @@ $carousel-control-next-icon-bg: linear-gradient(black, black);
 /* 字體設定 */
 @font-face {
   font-family: 'Gensen';
-  src: url('./fonts/GenSenRounded-EL.ttc') format('truetype');
+  src: url('./fonts/GenSenRoundedJP-EL-02.woff2') format('woff2');
   font-weight: 100;
+  // font-display: swap;
 }
 
 @font-face {
   font-family: 'Gensen';
-  src: url('./fonts/GenSenRounded-L.ttc') format('truetype');
+  src: url('./fonts/GenSenRoundedJP-L-02.woff2') format('woff2');
   font-weight: 300;
+  // font-display: swap;
 }
 
 @font-face {
   font-family: 'Gensen';
-  src: url('./fonts/GenSenRounded-R.ttc') format('truetype');
+  src: url('./fonts/GenSenRoundedJP-R-02.woff2') format('woff2');
   font-weight: 400;
+  // font-display: swap;
 }
 
 @font-face {
   font-family: 'Gensen';
-  src: url('./fonts/GenSenRounded-M.ttc') format('truetype');
+  src: url('./fonts/GenSenRoundedJP-M-02.woff2') format('woff2');
   font-weight: 500;
+  // font-display: swap;
 }
 
 @font-face {
   font-family: 'Gensen';
-  src: url('./fonts/GenSenRounded-B.ttc') format('truetype');
+  src: url('./fonts/GenSenRoundedJP-B-02.woff2') format('woff2');
   font-weight: 700;
+  // font-display: swap;
 }
 
 @font-face {
   font-family: 'Gensen';
-  src: url('./fonts/GenSenRounded-H.ttc') format('truetype');
+  src: url('./fonts/GenSenRoundedJP-H-02.woff2') format('woff2');
   font-weight: 900;
+  // font-display: swap;
 }
 
 @font-face {
