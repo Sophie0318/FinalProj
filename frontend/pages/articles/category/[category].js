@@ -11,6 +11,7 @@ export default function ArticleType() {
   const [articleList, setArticleList] = useState([])
   const [totalPages, setTotalPages] = useState(0)
   const [pageCategory, setPageCategory] = useState('文章列表')
+  const [keyword, setKeyword] = useState('')
   const renderCard = useRenderCards('articles')
   const router = useRouter()
   const categoryMap = {
@@ -55,6 +56,15 @@ export default function ArticleType() {
     setTotalPages(resData.totalPages)
   }
 
+  const handleSearch = (value) => {
+    setKeyword(value)
+
+    // let query = { ...router.query, serachBy: 'article_title', keyword: keyword }
+    // console.log(query)
+    // const newQuery = new URLSearchParams(query)
+    // router.push(newQuery)
+  }
+
   useEffect(() => {
     if (router.isReady) {
       const baseURL = 'http://localhost:3001/articles/api/listData?'
@@ -77,7 +87,11 @@ export default function ArticleType() {
               >
                 <h4 className="text-primary">{pageCategory}</h4>
                 <div className={styles.searchbarPC}>
-                  <SearchBar maxWidth="351px" />
+                  <SearchBar
+                    maxWidth="351px"
+                    searchTerm={keyword}
+                    setSearchTerm={handleSearch}
+                  />
                 </div>
               </div>
               {articleList.map((v, i) => {

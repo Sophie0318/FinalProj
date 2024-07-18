@@ -92,12 +92,14 @@ export default function Home() {
               <div className={`${styles.heroContainer} container-fluid p-0`}>
                 <div className="row g-0 position-relative">
                   <div className={`${styles.heroText} col-md-8 col-10`}>
-                    <h1 className="text-primary pe-1">
-                      愛默生曾經說過健康是人生第一財富。
-                    </h1>
-                    <Link href="/#">
-                      <h3 className={`${styles.startAction}`}>{`[ Start ]`}</h3>
-                    </Link>
+                    <img
+                      src="/index-img/heroBig.png"
+                      className={styles.heroImgBig}
+                    />
+                    <img
+                      src="/index-img/heroMid.png"
+                      className={styles.heroImgMid}
+                    />
                   </div>
                   <div
                     className={`${styles.heroImage} col-12 d-flex justify-content-end`}

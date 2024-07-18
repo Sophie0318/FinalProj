@@ -95,6 +95,15 @@
   z-index: -1;
   text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff,
     1px 1px 0 #fff;
+  height: 386px;
+  width: 640px;
+  margin-top: 40px;
+}
+.heroImgBig {
+  display: block;
+}
+.heroImgMid {
+  display: none;
 }
 
 .cta1 {
@@ -244,9 +253,11 @@
     font-size: 32px;
   }
 
-  .heroText h1 {
-    font-size: 52px;
-    line-height: 90px;
+  .heroImgBig {
+    display: none;
+  }
+  .heroImgMid {
+    display: block;
   }
 }
 
