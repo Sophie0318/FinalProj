@@ -3,8 +3,10 @@ import styles from '@/styles/lessonCheckout-modal.module.css'
 import { useRouter } from 'next/router'
 import Layout3 from '@/components/layout/layout3'
 import axios from 'axios'
+import { useAuth } from '@/context/auth-context'
 
 export default function Success() {
+  const { auth } = useAuth()
   const router = useRouter()
   const { orderNumber, lessonId } = router.query
   const [lesson, setLesson] = useState(null)
@@ -18,15 +20,28 @@ export default function Success() {
           )
           if (response.data.success) {
             setLesson(response.data.lesson)
+            // 更新訂單狀態
+            await axios.post(
+              'http://localhost:3001/lessons/update-order',
+              {
+                order_id: orderNumber,
+                status: 'paid',
+              },
+              {
+                headers: {
+                  Authorization: `Bearer ${auth.token}`,
+                },
+              }
+            )
           }
         } catch (error) {
-          console.error('獲取課程詳情失敗:', error)
+          console.error('獲取課程詳情或更新訂單狀態失敗:', error)
         }
       }
     }
 
     fetchLessonDetails()
-  }, [lessonId])
+  }, [lessonId, orderNumber, auth.token])
 
   const handleReturnToLessons = () => {
     router.push('/lessons')

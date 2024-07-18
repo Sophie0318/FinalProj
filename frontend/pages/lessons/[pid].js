@@ -42,16 +42,40 @@ export default function Detail() {
     setIsClicked(!isClicked)
   }
 
-  const handlePurchase = () => {
+  const handlePurchase = async () => {
     if (!auth.token) {
-      // 沒有登錄token，導向登錄頁
       router.push('/users/sign_in')
     } else if (lesson) {
-      // 有登錄token，導向結帳頁
-      router.push({
-        pathname: '/lessons/checkout',
-        query: { lessonId: lesson.lesson_id },
-      })
+      try {
+        // 創建訂單
+        const response = await axios.post(
+          'http://localhost:3001/lessons/create-order',
+          {
+            member_id: auth.id,
+            lesson_id: lesson.lesson_id,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${auth.token}`,
+            },
+          }
+        )
+
+        if (response.data.success) {
+          // 導向結帳頁面，並傳遞訂單ID
+          router.push({
+            pathname: '/lessons/checkout',
+            query: {
+              lessonId: lesson.lesson_id,
+              orderId: response.data.orderId,
+            },
+          })
+        } else {
+          console.error('創建訂單失敗')
+        }
+      } catch (error) {
+        console.error('創建訂單時發生錯誤:', error)
+      }
     }
   }
 

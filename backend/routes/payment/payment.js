@@ -6,10 +6,7 @@ const router = express.Router()
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
-  const amount = req.query.amount
-  const lessonId = req.query.lessonId // 新增：從查詢參數獲取課程ID
-  const lessonName = req.query.lessonName
-  const orderNumber = 'ORD-' + uuidv4().slice(0, 8).toUpperCase();
+  const { amount, lessonId, lessonName} = req.query
   //綠界全方位金流技術文件：
   // https://developers.ecpay.com.tw/?p=2856
   // 信用卡測試卡號：4311-9522-2222-2222 安全碼 222

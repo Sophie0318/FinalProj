@@ -6,7 +6,7 @@ import axios from 'axios'
 export default function Checkout() {
   const [lesson, setLesson] = useState(null)
   const router = useRouter()
-  const { lessonId } = router.query
+  const { lessonId, orderId } = router.query
   const handleReturnToLessons = () => {
     router.push('/lessons')
   }
@@ -16,7 +16,9 @@ export default function Checkout() {
       const response = await axios.get(
         `http://localhost:3001/payment?amount=${lesson.lesson_price}&lessonId=${
           lesson.lesson_id
-        }&lessonName=${encodeURIComponent(lesson.lesson_name)}`
+        }&lessonName=${encodeURIComponent(
+          lesson.lesson_name
+        )}&orderId=${orderId}`
       )
       if (response.data.htmlContent) {
         const tempDiv = document.createElement('div')

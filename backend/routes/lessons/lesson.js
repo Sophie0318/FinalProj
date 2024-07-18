@@ -241,4 +241,28 @@ router.get("/api/:id", async (req, res) => {
     }
   });
 
+  router.post("/create-order", async (req, res) => {
+    const { member_id, lesson_id } = req.body;
+    try {
+      const sql = "INSERT INTO LessonOrders (member_id, lesson_id, order_status) VALUES (?, ?, 'pending')";
+      const [result] = await db.query(sql, [member_id, lesson_id]);
+      res.json({ success: true, orderId: result.insertId });
+    } catch (error) {
+      console.error('創建訂單時發生錯誤:', error);
+      res.status(500).json({ success: false, message: '伺服器錯誤' });
+    }
+  });
+
+  router.post("/update-order", async (req, res) => {
+    const { order_id, status } = req.body;
+    try {
+      const sql = "UPDATE LessonOrders SET order_status = ?, payment_date = NOW() WHERE order_id = ?";
+      await db.query(sql, [status, order_id]);
+      res.json({ success: true });
+    } catch (error) {
+      console.error('更新訂單狀態時發生錯誤:', error);
+      res.status(500).json({ success: false, message: '伺服器錯誤' });
+    }
+  });
+
 export default router;
