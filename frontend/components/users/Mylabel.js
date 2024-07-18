@@ -1,12 +1,12 @@
-import React from 'react'
-import styles from '../../styles/sign-in.module.css'
+// import React from 'react'
+// import styles from '../../styles/sign-in.module.css'
 
-const MyLabel = ({ htmlFor, children }) => {
-  return (
-    <label className={styles.p} htmlFor={htmlFor}>
-      {children}
-    </label>
-  )
-}
+// const MyLabel = ({ htmlFor, children }) => {
+//   return (
+//     <label className={styles.p} htmlFor={htmlFor}>
+//       {children}
+//     </label>
+//   )
+// }
 
-export default MyLabel
+// export default MyLabel
