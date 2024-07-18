@@ -80,7 +80,13 @@
 .flex {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  /* gap: 16px; */
+  padding-left: 20px;
+}
+.schedule_item{
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .time_and_gym {
   display: flex;

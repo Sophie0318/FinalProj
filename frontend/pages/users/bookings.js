@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
 import LayoutUser from '@/components/layout/user-layout3'
 import Select from '@/components/common/select/select'
 import styles from '@/styles/user-bookings.module.css'
@@ -11,7 +11,7 @@ export default function LessonsOrders() {
   const [error, setError] = useState(null)
   const { auth } = useAuth()
 
-  const fetchBookings = async () => {
+  const fetchBookings = useCallback(async () => {
     if (!auth.id) return
 
     setIsLoading(true)
@@ -32,11 +32,11 @@ export default function LessonsOrders() {
     } finally {
       setIsLoading(false)
     }
-  }
+  }, [auth.id])
 
   useEffect(() => {
     fetchBookings()
-  }, [auth.id])
+  }, [fetchBookings])
 
   if (isLoading) return <div>加載中...</div>
   if (error) return <div>錯誤: {error}</div>
@@ -95,7 +95,11 @@ export default function LessonsOrders() {
             bookings.map((booking, index) => (
               <div key={index} className={styles.schedule_item}>
                 <div>
-                  <img src="/users-img/icon-notebook.svg" alt="" />
+                  <img
+                    src="/users-img/icon-notebook.svg"
+                    alt=""
+                    className={styles.iconImg}
+                  />
                 </div>
                 <div className={styles.flex}>
                   <h5>{booking.coach_name} 教練</h5>
