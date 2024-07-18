@@ -113,7 +113,7 @@ router.post("/login-jwt", async (req, res) => {
     }
 });
 
-// 添加收藏
+// 添加教練收藏
 router.post("/add-favorite", async (req, res) => {
     const { member_id, coach_id } = req.body;
     if (!member_id || !coach_id) {
@@ -242,7 +242,6 @@ router.get("/check-favorite/:userId/:coachId", async (req, res) => {
       res.status(500).json({ success: false, message: '資料庫錯誤', error: error.message });
     }
   });
-  
   // 獲取用戶的教練預約
   router.get("/bookings/:userId", async (req, res) => {
     try {

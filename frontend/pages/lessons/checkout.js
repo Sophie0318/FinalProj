@@ -1,14 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import styles from '@/styles/lessonCheckout.module.css'
-import { IoCard } from 'react-icons/io5'
-import SuccessModal from '@/components/lessons/success-modal'
-import FailureModal from '@/components/lessons/fail-modal'
 import { useRouter } from 'next/router'
 import axios from 'axios'
 
 export default function Checkout() {
-  // const [showSuccessModal, setShowSuccessModal] = useState(false)
-  // const [showFailModal, setShowFailModal] = useState(false)
   const [lesson, setLesson] = useState(null)
   const router = useRouter()
   const { lessonId } = router.query

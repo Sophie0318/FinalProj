@@ -148,39 +148,6 @@ router.get('/', function (req, res, next) {
   </html>
   `
 
-  router.post('/payment-result', async (req, body) => {
-    // 處理綠界的回調
-    const { RtnCode, TradeNo, TradeAmt, PaymentDate } = req.body
-    const lessonId = req.query.lessonId
-  
-    if (RtnCode === '1') {
-      // 支付成功
-      try {
-        // 生成隨機訂單編號
-        const orderNumber = generateOrderNumber()
-  
-        // 將訂單資訊保存到數據庫
-        await db.query(
-          'INSERT INTO Orders (order_number, lesson_id, trade_no, amount, payment_date) VALUES (?, ?, ?, ?, ?)',
-          [orderNumber, lessonId, TradeNo, TradeAmt, PaymentDate]
-        )
-  
-        // 重定向到成功頁面，並傳遞訂單編號和課程ID
-        res.redirect(`http://localhost:3000/lessons/success?orderNumber=${orderNumber}&lessonId=${lessonId}`)
-      } catch (error) {
-        console.error('保存訂單失敗:', error)
-        res.status(500).send('訂單處理失敗')
-      }
-    } else {
-      // 支付失敗
-      res.redirect('http://localhost:3000/lessons/failure')
-    }
-  })
-  
-  function generateOrderNumber() {
-    // 生成隨機訂單編號的邏輯
-    return 'ORD' + Date.now() + Math.floor(Math.random() * 1000)
-  }
 
   // 修改：返回 JSON 格式的回應
   res.json({ htmlContent })
