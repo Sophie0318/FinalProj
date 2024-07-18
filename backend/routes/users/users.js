@@ -216,6 +216,51 @@ router.get("/check-favorite/:userId/:coachId", async (req, res) => {
       res.status(500).json({ success: false, message: "伺服器錯誤", error: error.message });
     }
   });
+
+  router.post("/add/coachReserve", async (req, res) => {
+    try {
+      // 驗證並格式化日期時間
+      const reserveTime = new Date(req.body.reserve_time);
+      if (isNaN(reserveTime.getTime())) {
+        return res.status(400).json({ success: false, message: '無效的日期時間格式' });
+      }
+      
+      // 格式化為 MySQL datetime 格式
+      const formattedReserveTime = reserveTime.toISOString().slice(0, 19).replace('T', ' ');
+  
+      const sql = "INSERT INTO coachReserve (`reserve_name`, `reserve_phone`, `reserve_email`, `reserve_time`, `coach_id`, `created_at`) VALUES (?, ?, ?, ?, ?, NOW())";
+      const [result] = await db.query(sql, [
+        req.body.reserve_name,
+        req.body.reserve_phone,
+        req.body.reserve_email,
+        formattedReserveTime,
+        req.body.coach_id,
+      ]);
+      res.json({ success: true, result });
+    } catch (error) {
+      console.error('新增教練預約時發生錯誤:', error);
+      res.status(500).json({ success: false, message: '資料庫錯誤', error: error.message });
+    }
+  });
+  
+  // 獲取用戶的教練預約
+  router.get("/bookings/:userId", async (req, res) => {
+    try {
+      const sql = `
+        SELECT cr.*, c.coach_name, g.gym_name
+        FROM coachReserve cr
+        JOIN Coaches c ON cr.coach_id = c.coach_id
+        JOIN Gyms g ON c.gym_id = g.gym_id
+        WHERE cr.reserve_name = (SELECT member_name FROM members WHERE member_id = ?)
+        ORDER BY cr.reserve_time DESC
+      `;
+      const [bookings] = await db.query(sql, [req.params.userId]);
+      res.json({ success: true, bookings });
+    } catch (error) {
+      console.error('獲取教練預約時發生錯誤:', error);
+      res.status(500).json({ success: false, message: '資料庫錯誤' });
+    }
+  });
   
 //忘記密碼的路由
 router.post("/test_forget_password", userController.forgotPassword);

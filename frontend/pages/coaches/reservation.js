@@ -47,9 +47,48 @@ export default function Reservation() {
     }))
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    setShowModal(true)
+    try {
+      // 假設 formData.timeSlot 是一個日期字符串，如 "2024-03-15 14:30"
+      // 如果沒有秒數，我們可以加上 ":00"
+      const reserveTime =
+        formData.timeSlot.length === 16
+          ? formData.timeSlot + ':00'
+          : formData.timeSlot
+
+      console.log('Sending data:', {
+        reserve_name: formData.name,
+        reserve_phone: formData.phone,
+        reserve_email: formData.email,
+        reserve_time: reserveTime,
+        coach_id: selectedCoach.coach_id,
+      })
+
+      const response = await axios.post(
+        'http://localhost:3001/users/add/coachReserve',
+        {
+          reserve_name: formData.name,
+          reserve_phone: formData.phone,
+          reserve_email: formData.email,
+          reserve_time: reserveTime,
+          coach_id: selectedCoach.coach_id,
+        }
+      )
+
+      if (response.data.success) {
+        setShowModal(true)
+      } else {
+        console.error('預約提交失敗:', response.data.message)
+        // 在這裡可以加入一些錯誤處理的UI邏輯
+      }
+    } catch (error) {
+      console.error(
+        '預約提交失敗:',
+        error.response ? error.response.data : error.message
+      )
+      // 在這裡可以加入一些錯誤處理的UI邏輯
+    }
   }
 
   const handleCloseModal = () => {
@@ -133,10 +172,10 @@ export default function Reservation() {
                   onChange={handleInputChange}
                 >
                   <option value="">請選擇時段</option>
-                  <option value="1">時段1</option>
-                  <option value="2">時段2</option>
-                  <option value="3">時段3</option>
-                  <option value="4">時段4</option>
+                  <option value="1">2024/12/31 12:00</option>
+                  <option value="2">2024/12/31 13:00</option>
+                  <option value="3">2024/12/31 14:00</option>
+                  <option value="4">2024/12/31 15:00</option>
                 </select>
 
                 <div className={styles.formLabel}>預約教練</div>
