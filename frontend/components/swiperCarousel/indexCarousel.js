@@ -46,7 +46,7 @@ export default function IndexCarousel({
           </Btn>
         </div>
         <div
-          className={`${styles.carouselBtnSP} d-md-none d-flex justify-content-center`}
+          className={`${styles.carouselBtnSP} d-md-none d-flex justify-content-end`}
         >
           <Btn
             size="thin2"
@@ -54,6 +54,8 @@ export default function IndexCarousel({
             btnOrLink="link"
             hrefURL="/lessons"
             maxWidth="210px"
+            borderRadius="50px 0 0 50px"
+            // marginRight="-24px"
           >
             找課程
           </Btn>

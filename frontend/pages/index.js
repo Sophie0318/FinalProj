@@ -197,8 +197,8 @@ export default function Home() {
                     讓我們活到老，動到老！
                   </p>
                 </div>
-                <div className={`${styles.cta2Btn} row`}>
-                  <div className="col d-flex justify-content-center">
+                <div className="row">
+                  <div className="col d-flex justify-content-end">
                     <Btn
                       size="thin2"
                       bgColor="midnightgreen"
@@ -206,6 +206,8 @@ export default function Home() {
                       hrefURL="/gyms"
                       width="100%"
                       maxWidth="210px"
+                      borderRadius="50px 0 0 50px"
+                      marginRight="-24px"
                     >
                       找場館
                     </Btn>
@@ -284,6 +286,8 @@ export default function Home() {
                       btnOrLink="link"
                       hrefURL="/gyms"
                       maxWidth="210px"
+                      borderRadius="50px 0 0 50px"
+                      marginRight="-20px"
                     >
                       找解答
                     </Btn>

@@ -299,9 +299,9 @@
 
   .cta2BtnSP {
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
   }
-
+  
   .ctaMobile {
     display: block;
     margin-bottom: 50px;
@@ -357,10 +357,6 @@
     margin: 0;
   }
 
-  .popular {
-    /* padding-top: 0;
-    padding-bottom: 50px; */
-  }
 }
 
 @media (max-width: 697px) {

@@ -57,13 +57,7 @@ export default function Btn({
   // btnOrLink 防呆措施, 輸入錯誤就會變回預設 'button'
   const btnOrLinkResult = btnOrLinkMap[btnOrLink] || 'button'
 
-  const classNames = [
-    'rounded-pill',
-    sizeClass,
-    bgColorClass,
-    shadow ? shadow : '',
-    className,
-  ]
+  const classNames = [sizeClass, bgColorClass, shadow ? shadow : '', className]
     .filter(Boolean)
     .join(' ')
 
