@@ -35,8 +35,17 @@ export default function SignIn() {
         setIsModalOpen(true)
         setTimeout(() => {
           setIsModalOpen(false)
-          router.push('/')
-        }, 3000)
+          // 獲取 returnUrl 參數
+          const returnUrl = new URLSearchParams(location.search).get(
+            'returnUrl'
+          ) // 如果有 returnUrl，則跳轉到該 URL，否則跳轉到首頁
+          if (returnUrl) {
+            router.push(returnUrl)
+          } else {
+            console.log(returnUrl)
+            router.push('/')
+          }
+        }, 1000)
       } else {
         setAlertMessage('登入失敗')
         setUserMessage('請檢查您的電子郵件和密碼')
