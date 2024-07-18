@@ -94,13 +94,11 @@ export default function LessonsOrders() {
           ) : (
             bookings.map((booking, index) => (
               <div key={index} className={styles.schedule_item}>
-                <div>
-                  <img
-                    src="/users-img/icon-notebook.svg"
-                    alt=""
-                    className={styles.iconImg}
-                  />
-                </div>
+                <img
+                  src="/users-img/icon-notebook.svg"
+                  alt=""
+                  className={styles.iconImg}
+                />
                 <div className={styles.flex}>
                   <h5>{booking.coach_name} 教練</h5>
                   <div className={styles.time_and_gym}>
