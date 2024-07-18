@@ -16,7 +16,9 @@ function generateRandomOrderId(length) {
 }
 
 export default function Checkout3Order() {
-  const [orderDetail, setOrderDetail] = useState([])
+  const [orderDetail, setOrderDetail] = useState([
+    { ProductOrders_recipient_name: '' },
+  ])
   const [orderId, setOrderId] = useState('')
   const { auth } = useAuth()
   // console.log('auth:', auth)
@@ -32,7 +34,9 @@ export default function Checkout3Order() {
         .then((data) => {
           console.log(data)
           setOrderDetail(data.orderDetail)
+          console.log(orderDetail[0])
         })
+      console.log(router.query.order_id)
     }
     // if (typeof window !== 'undefined') {
     //   const savedItems = localStorage.getItem('shoppingCart')

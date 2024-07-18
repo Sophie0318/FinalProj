@@ -241,14 +241,16 @@ JOIN
     OrdersDetail od ON po.Productorders_orders_id = od.OrdersDetail_order_id_fk
 JOIN 
     Products p ON od.OrdersDetail_product_id_fk = p.Product_id WHERE po.Productorders_orders_id = ${req.query.order_id};`;
+
   try {
     const [rows] = await db.query(sql);
-    return res.json({
+    console.log(rows);
+    res.json({
       orderDetail: rows, // 傳回前端
     });
   } catch (error) {
     console.error(error);
-    return res.status(500).json({
+    res.status(500).json({
       message: "Server error",
     });
   }
