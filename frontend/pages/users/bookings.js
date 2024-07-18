@@ -105,10 +105,14 @@ export default function LessonsOrders() {
                   <h5>{booking.coach_name} 教練</h5>
                   <div className={styles.time_and_gym}>
                     <h6>
-                      {new Date(booking.reserve_time).toLocaleDateString()}
-                    </h6>
-                    <h6>
-                      {new Date(booking.reserve_time).toLocaleTimeString()}
+                      {new Date(booking.reserve_time).toLocaleString('zh-TW', {
+                        year: 'numeric',
+                        month: '2-digit',
+                        day: '2-digit',
+                        hour: '2-digit',
+                        minute: '2-digit',
+                        hour12: false,
+                      })}
                     </h6>
                     <h6>{booking.gym_name}</h6>
                   </div>
