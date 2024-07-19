@@ -10,6 +10,7 @@ import axios from 'axios'
 
 export default function Index({ lessons }) {
   const [allLessons, setAllLessons] = useState([])
+  const [hotLessons, setHotLessons] = useState([])
   const [filteredLessons, setFilteredLessons] = useState([])
   const [selectedCategories, setSelectedCategories] = useState([])
   const [searchKeyword, setSearchKeyword] = useState('')
@@ -21,7 +22,7 @@ export default function Index({ lessons }) {
         price={data.lesson_price}
         gym={data.gym_name}
         category={data.categories}
-        imgSrc="/defaultImg.png"
+        imgSrc={data.lesson_img || '/defaultImg.png'}
       />
     )
   }
@@ -67,6 +68,23 @@ export default function Index({ lessons }) {
     fetchLessons()
   }, [selectedCategories]) // 只在選擇的類別變更時重新獲取數據
 
+  useEffect(() => {
+    const fetchHotLessons = async () => {
+      try {
+        const response = await axios.get(
+          'http://localhost:3001/lessons/api/hotLessons'
+        )
+        if (response.data.success) {
+          setHotLessons(response.data.hotLessons)
+        }
+      } catch (error) {
+        console.error('Error fetching hot lessons:', error)
+      }
+    }
+
+    fetchHotLessons()
+  }, [])
+
   return (
     <>
       <Layout3 title="課程列表" pageName="lessons">
@@ -79,7 +97,7 @@ export default function Index({ lessons }) {
               <div className="col-md-9 ps-3 py-5 overflow-hidden">
                 <CardCarousel
                   cardMaxWidth="fit-content"
-                  data={allLessons}
+                  data={hotLessons}
                   renderItem={renderLessonCard}
                 />
               </div>
