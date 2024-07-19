@@ -11,6 +11,8 @@ import MyCheckBox from '@/components/users/MyCheckBox'
 import Link from 'next/link'
 import { useAuth } from '../../context/auth-context'
 import { useRouter } from 'next/router'
+import { signInWithPopup, GoogleAuthProvider } from 'firebase/auth'
+import { auth } from '../../configs/firebase'
 import UserModal from '../../components/users/UserModal'
 
 export default function SignIn() {
