@@ -19,7 +19,7 @@ router.get('/', function (req, res, next) {
   let isStage = true // 測試環境： true；正式環境：false
 
   //二、輸入參數
-  const TotalAmount = amount
+  const TotalAmount = Number(amount)
   const TradeDesc = '商店線上付款'
   const ItemName = lessonName || '課程付款' 
   const ReturnURL = `http://localhost:3001/lessons/payment-result?lessonId=${lessonId}`
