@@ -27,26 +27,33 @@ const getGymFeatures = async (req) => {
 const getFullGymData = async (req) => {
   //關鍵字的參數
   let keyword = req.query.keyword || "";
-  let feature = req.query.feature_list || "";
+  let feature = req.query.features || "";
   let q_sql = " WHERE 1 "; //就算qs什麼都沒也會是1 = true
   //篩選類別
+  const params = [];
   if (feature) {
-    const featuresArray = feature.split("-");
-    if (featuresArray.length > 0) {
-      const featuresResult = featuresArray.map((feature) => db.escape(feature));
-      q_sql += ` AND gym_features.feature_name IN (${featuresResult.join(",")}) `;
-    }
-  }
-  // 篩選關鍵字
-  if (keyword) {
-    const keyword_ = db.escape(`%${keyword}%`);
-    q_sql += ` AND (gym_name LIKE ${keyword_} OR gym_address LIKE ${keyword_}) `;
+    const featuresArray = req.query.features
+      .split(",")
+      .map((feature) => feature.trim());
+    q_sql += ` AND features.feature_name IN (${featuresArray
+      .map(() => "?")
+      .join(",")})`;
+    params.push(...featuresArray);
   }
 
-  const sql = `SELECT gyms.*, GROUP_CONCAT(DISTINCT features.feature_id) AS feature_id,GROUP_CONCAT(DISTINCT features.feature_name) AS feature_list, GROUP_CONCAT( gym_images.image_filename) AS image_list FROM Gyms gyms LEFT JOIN GymFeatures AS gym_features ON gyms.gym_id = gym_features.gym_id JOIN Features AS features ON gym_features.feature_id = features.feature_id LEFT JOIN GymImages gym_images ON gyms.gym_id = gym_images.gym_id ${q_sql} GROUP BY gyms.gym_id;`;
+  // 篩選關鍵字
+  if (keyword) {
+    // const keyword_ = db.escape(`%${keyword}%`);
+    // q_sql += ` AND (gym_name LIKE ${keyword_} OR gym_address LIKE ${keyword_}) `;
+    q_sql += ` AND (gym_name LIKE ? OR gym_address LIKE ?) `;
+    params.push(`%${keyword}%`, `%${keyword}%`);
+  }
+
+  const sql = `SELECT gyms.*, GROUP_CONCAT(DISTINCT features.feature_name) AS feature_list, GROUP_CONCAT( gym_images.image_filename) AS image_list FROM Gyms gyms LEFT JOIN GymFeatures AS gym_features ON gyms.gym_id = gym_features.gym_id JOIN Features AS features ON gym_features.feature_id = features.feature_id LEFT JOIN GymImages gym_images ON gyms.gym_id = gym_images.gym_id ${q_sql} GROUP BY gyms.gym_id;`;
   try {
     // 執行 SQL 查詢
-    const [rows] = await db.query(sql);
+    const [rows] = await db.query(sql, params);
+    console.log(sql, params);
     // 對每一行數據進行處理
     const processedRows = rows.map((row) => {
       return {

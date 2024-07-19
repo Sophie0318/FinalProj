@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import Layout3 from '@/components/layout/layout3'
 import styles from './gyms.module.css'
 import SearchBar from '@/components/common/searchbar/searchbar'
@@ -15,8 +15,15 @@ export default function Gyms() {
   const [searchTerm, setSearchTerm] = useState('')
   const [boo, setBoo] = useState(true) //switch 的外觀state
   const [isComposing, setIsComposing] = useState(false)
+  
+  //用fetch請後端搜尋資料的函式
+  const handleCompositionChange = (composing) => {
+    setIsComposing(composing)
+  }
 
   const fetchGymsData = () => {
+    const qq = new URLSearchParams(router.query)
+    console.log(qq)
     const url = `http://localhost:3001/gyms/api?keyword=${searchTerm}&features=${selectedFeatures}`
     if (router.isReady) {
       fetch(url)
@@ -27,30 +34,7 @@ export default function Gyms() {
     }
   }
 
-  // 從URL取得搜尋關鍵字
-  useEffect(() => {
-    if (router.isReady) {
-      if (!isComposing) {
-        // fetch資料
-        fetchGymsData()
-      }
-    }
-
-    //更新URL
-    const query = searchTerm ? { gym_name: searchTerm } : {}
-    router.push(
-      {
-        pathname: '/gyms',
-        query,
-      },
-      undefined,
-      { shallow: true }
-    )
-  }, [router.isReady, searchTerm, selectedFeatures, isComposing])
-
-  const clearAllCheckboxes = () => {
-    setSelectedFeatures([])
-  }
+  //處理checkbox狀態改變的函式
   const handleCheckboxChange = (feature) => {
     setSelectedFeatures((prev) => {
       if (prev.includes(feature)) {
@@ -61,24 +45,57 @@ export default function Gyms() {
     })
   }
 
-  // checkbox的動態選染hook
-  useEffect(() => {
-    const query = selectedFeatures.length
-      ? { feature_list: selectedFeatures.join('-') }
-      : {}
-    router.push(
-      {
-        pathname: '/gyms',
-        query,
-      },
-      undefined,
-      { shallow: true }
-    )
-  }, [selectedFeatures, router.isReady])
+  // 清除所有checkbox函式
+  const clearAllCheckboxes = () => {
+    setSelectedFeatures([])
+  }
 
-  const handleCompositionChange = (composing) => {
-    setIsComposing(composing);
-  };
+  //更新URL
+  // const query = searchTerm ? { gym_name: searchTerm } : {}
+  // router.push(
+  //   {
+  //     pathname: '/gyms',
+  //     query,
+  //   },
+  //   undefined,
+  //   { shallow: true }
+  // )
+
+
+  const handleSearch = (e) => {
+    console.log(isComposing,searchTerm)
+    // if(!isComposing){
+      router.push({
+        pathname: '/gyms',
+        query: { ...router.query, gym_name: searchTerm },
+      })
+    // }
+      
+    }
+  
+
+  // 從URL取得搜尋關鍵字
+  useEffect(() => {
+    if (router.isReady) {
+      if (!isComposing) {
+        // fetch資料
+        fetchGymsData()
+      }
+      // checkbox的動態選染hook
+      const query = selectedFeatures.length
+        ? { feature_list: selectedFeatures.join('-') }
+        : {}
+      router.push(
+        {
+          pathname: '/gyms',
+          query:{...router.query,features:selectedFeatures.join('-')},
+        },
+        undefined,
+        { scroll:false }
+      )
+    }
+  }, [router.isReady, searchTerm, selectedFeatures, isComposing])
+
   return (
     <Layout3 title="尋找場館" pageName="gyms">
       <div className={styles.indexContainer}>
@@ -93,6 +110,9 @@ export default function Gyms() {
                 searchTerm={searchTerm}
                 gymsData={gymsData}
                 onCompositionChange={handleCompositionChange}
+                handleSearch={handleSearch}
+                
+                
               />
               <div
                 title="switch"
@@ -110,7 +130,7 @@ export default function Gyms() {
         </div>
         <div className={styles.flexRow}>
           <div className={styles.mapContainerStyle}>
-            <MapErea />
+            <MapErea gymsData={gymsData} />
           </div>
           <ResultCards gyms={gymsData} selectedFeatures={selectedFeatures} />
         </div>

@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useRef, useState } from 'react'
 import { IoSearch } from 'react-icons/io5'
 import styles from './searchbar.module.css'
 
@@ -8,16 +8,35 @@ export default function SearchBar({
   size = '60px',
   setSearchTerm,
   searchTerm = '',
+  handleSearch,
   onCompositionChange = () => {},
+  
+  
   // 增加props mainColor or 設定Theme
 }) {
-  
+  const searchBarRef = useRef(null)
+
+  const handleScroll = () => {
+    if(searchBarRef.current){
+      searchBarRef.current.scrollIntoView({ behavior: 'smooth',block: 'start' })}
+  }
+
+  const handleClick = () => {
+    const yOffset = -50; // 50px offset above the target
+    const element = searchBarRef.current;
+    const y = element.getBoundingClientRect().top + window.scrollY + yOffset;
+
+    window.scrollTo({top: y, behavior: 'smooth'});
+  };
+
   const handleCompositionStart = () => {
     onCompositionChange(true);
   };
 
-  const handleCompositionEnd = () => {
+  const handleCompositionEnd = (e) => {
+    console.log(handleSearch,'handleSearch')
     onCompositionChange(false);
+    handleSearch()
   };
   
 
@@ -37,6 +56,8 @@ export default function SearchBar({
         type="text"
         name="search_input"
         value={searchTerm}
+        onClick={()=>{handleClick()}}
+        ref={searchBarRef}
         onChange={(e) => setSearchTerm(e.target.value)}
         onCompositionStart={handleCompositionStart}
         onCompositionEnd={handleCompositionEnd}
@@ -46,6 +67,7 @@ export default function SearchBar({
           paddingLeft: `calc(${size} + 9px)`,
         }}
         placeholder={placeholder}
+        
       />
     </div>
   )
