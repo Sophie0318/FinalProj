@@ -1,7 +1,7 @@
 .article {
   display: flex;
   justify-content: flex-start;
-  /* max-width= 960px 裡面加上保留左右24px */
+  /* max-width= 960px 加上保留左右24px */
   max-width: 1008px;
   padding: 0 24px;
 }
@@ -85,10 +85,37 @@
   margin-bottom: 30px;
 }
 
-.articleContent h4 {
+.articleContent h1,
+.articleContent h2,
+.articleContent h3,
+.articleContent h4,
+.articleContent h5,
+.articleContent h6 {
   width: 100%;
   margin-top: 25px;
   margin-bottom: 30px;
+}
+
+.articleContent ol,
+.articleContent ul{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+  padding-left: 40px;
+} 
+.articleContent ol li {
+  list-style-type: decimal;
+  font-size: 18px;
+  letter-spacing: 1px;
+  line-height: 160%;
+}
+.articleContent ul li {
+  list-style-type: disc;
+  font-size: 18px;
+  letter-spacing: 1px;
+  line-height: 160%;
 }
 
 .articleImg {
@@ -201,6 +228,174 @@
   display: flex;
   gap: 10px;
 }
+
+.fontSize0 p {
+  font-size: 22px;
+  letter-spacing: 1px;
+  line-height: 160%;
+}
+.fontSize1 p {
+  font-size: 26px;
+  letter-spacing: 1px;
+  line-height: 160%;
+}
+.fontSize2 p {
+  font-size: 32px;
+  letter-spacing: 1px;
+  line-height: 160%;
+}
+
+.fontSize0 h1 {
+  font-family: 'Gensen', sans-serif;
+  font-size: 64px;
+  font-weight: 900;
+  line-height: 100px;
+}
+.fontSize1 h1 {
+  font-family: 'Gensen', sans-serif;
+  font-size: 77px;
+  font-weight: 900;
+  line-height: 100px;
+}
+.fontSize2 h1 {
+  font-family: 'Gensen', sans-serif;
+  font-size: 92px;
+  font-weight: 900;
+  line-height: 100px;
+}
+.fontSize0 h2 {
+  font-family: 'Gensen', sans-serif;
+  font-size: 48px;
+  font-weight: 700;
+}
+.fontSize1 h2 {
+  font-family: 'Gensen', sans-serif;
+  font-size: 58px;
+  font-weight: 700;
+}.fontSize1 h2 {
+  font-family: 'Gensen', sans-serif;
+  font-size: 69px;
+  font-weight: 700;
+}
+
+.fontSize0 h3 {
+  font-family: 'Gensen', sans-serif;
+  font-size: 40px;
+  font-weight: 700;
+  letter-spacing: 6px;
+}
+.fontSize1 h3 {
+  font-family: 'Gensen', sans-serif;
+  font-size: 48px;
+  font-weight: 700;
+  letter-spacing: 6px;
+}
+.fontSize2 h3 {
+  font-family: 'Gensen', sans-serif;
+  font-size: 58px;
+  font-weight: 700;
+  letter-spacing: 6px;
+}
+
+.fontSize0 h4 {
+  font-family: 'Gensen', sans-serif;
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: 3.2px;
+}
+.fontSize1 h4 {
+  font-family: 'Gensen', sans-serif;
+  font-size: 38px;
+  font-weight: 700;
+  letter-spacing: 3.2px;
+}
+.fontSize2 h4 {
+  font-family: 'Gensen', sans-serif;
+  font-size: 46px;
+  font-weight: 700;
+  letter-spacing: 3.2px;
+}
+
+.fontSize0 h5 {
+  font-family: 'Gensen', sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: 5px;
+}
+.fontSize1 h5 {
+  font-family: 'Gensen', sans-serif;
+  font-size: 29px;
+  font-weight: 700;
+  letter-spacing: 5px;
+}
+.fontSize2 h5 {
+  font-family: 'Gensen', sans-serif;
+  font-size: 35px;
+  font-weight: 700;
+  letter-spacing: 5px;
+}
+
+.fontSize0 h6 {
+  font-family: 'Gensen', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 3px;
+}
+.fontSize1 h6 {
+  font-family: 'Gensen', sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 3px;
+}
+.fontSize2 h6 {
+  font-family: 'Gensen', sans-serif;
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: 3px;
+}
+
+.fontSize0 .articleAuthor,
+.fontSize0 .articleUpdateAt {
+  font-family: 'Gensen', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  height: 48px;
+}
+.fontSize1 .articleAuthor,
+.fontSize1 .articleUpdateAt {
+  font-family: 'Gensen', sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  height: 48px;
+}
+.fontSize2 .articleAuthor,
+.fontSize2 .articleUpdateAt {
+  font-family: 'Gensen', sans-serif;
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  height: 48px;
+}
+.fontSize0 li::marker {
+  list-style-type: disc;
+  font-size: 18px;
+  letter-spacing: 1px;
+  line-height: 160%;
+}
+.fontSize1 li::marker {
+  list-style-type: disc;
+  font-size: 22px;
+  letter-spacing: 1px;
+  line-height: 160%;
+}.fontSize2 li::marker {
+  list-style-type: disc;
+  font-size: 26px;
+  letter-spacing: 1px;
+  line-height: 160%;
+}
+
 
 @media (max-width: 900px) {
   .sidebarTrack {

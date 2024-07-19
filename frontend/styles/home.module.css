@@ -95,6 +95,15 @@
   z-index: -1;
   text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff,
     1px 1px 0 #fff;
+  height: 386px;
+  width: 640px;
+  margin-top: 40px;
+}
+.heroImgBig {
+  display: block;
+}
+.heroImgMid {
+  display: none;
 }
 
 .cta1 {
@@ -129,15 +138,16 @@
 }
 
 .pageWrap {
-  box-shadow: 0px -4px 50px 0px rgba(0, 0, 0, 0.1);
-  border-radius: 50px 50px 0 0;
-  background-color: var(--color-white);
+  background-color: var(--color-old-lace);
 }
 
 .cta2 {
   margin-top: -55px;
-  margin-bottom: 110px;
+  padding-bottom: 110px;
   padding-top: 67px;
+  box-shadow: 0px -4px 50px 0px rgba(0, 0, 0, 0.1);
+  border-radius: 50px 50px 0 0;
+  background-color: var(--color-white);
 }
 
 .cta2List {
@@ -206,6 +216,7 @@
 }
 
 .popular {
+  background-color: var(--color-white);
   padding-bottom: 110px;
 }
 
@@ -244,9 +255,11 @@
     font-size: 32px;
   }
 
-  .heroText h1 {
-    font-size: 52px;
-    line-height: 90px;
+  .heroImgBig {
+    display: none;
+  }
+  .heroImgMid {
+    display: block;
   }
 }
 
@@ -286,9 +299,9 @@
 
   .cta2BtnSP {
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
   }
-
+  
   .ctaMobile {
     display: block;
     margin-bottom: 50px;
@@ -344,10 +357,6 @@
     margin: 0;
   }
 
-  .popular {
-    /* padding-top: 0;
-    padding-bottom: 50px; */
-  }
 }
 
 @media (max-width: 697px) {
@@ -362,7 +371,7 @@
   .keyVisualSP {
     display: block;
     position: relative;
-    height: calc(100dvh);
+    height: calc(100dvh - 50px);
     overflow: hidden;
   }
 
@@ -398,7 +407,7 @@
     position: absolute;
     bottom: calc(50px);
     left: 0;
-    z-index: 3;
+    z-index: -1;
     width: 100%;
     margin: 0;
     padding: 0;
@@ -435,12 +444,12 @@
   .cta1Mask img {
     position: absolute;
     right: -150px;
-    bottom: calc(-115px);
+    bottom: calc(-165px);
     z-index: -2;
   }
 
   .pageWrap {
-    margin-top: 25px;
+    margin-top: 50px;
   }
 
 }

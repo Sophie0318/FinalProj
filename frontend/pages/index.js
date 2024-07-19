@@ -57,7 +57,7 @@ export default function Home() {
 
       const userScroll = window.scrollY
       const slideParamOne = -0.04
-      const slideParamTwo = 0.1
+      const slideParamTwo = 0.06
 
       setSlideOne(String(Math.ceil(slideParamOne * userScroll)))
       setSlideTwo(String(Math.ceil(slideParamTwo * userScroll)))
@@ -92,12 +92,14 @@ export default function Home() {
               <div className={`${styles.heroContainer} container-fluid p-0`}>
                 <div className="row g-0 position-relative">
                   <div className={`${styles.heroText} col-md-8 col-10`}>
-                    <h1 className="text-primary pe-1">
-                      愛默生曾經說過健康是人生第一財富。
-                    </h1>
-                    <Link href="/#">
-                      <h3 className={`${styles.startAction}`}>{`[ Start ]`}</h3>
-                    </Link>
+                    <img
+                      src="/index-img/heroBig.png"
+                      className={styles.heroImgBig}
+                    />
+                    <img
+                      src="/index-img/heroMid.png"
+                      className={styles.heroImgMid}
+                    />
                   </div>
                   <div
                     className={`${styles.heroImage} col-12 d-flex justify-content-end`}
@@ -195,8 +197,8 @@ export default function Home() {
                     讓我們活到老，動到老！
                   </p>
                 </div>
-                <div className={`${styles.cta2Btn} row`}>
-                  <div className="col d-flex justify-content-center">
+                <div className="row">
+                  <div className="col d-flex justify-content-end">
                     <Btn
                       size="thin2"
                       bgColor="midnightgreen"
@@ -204,6 +206,8 @@ export default function Home() {
                       hrefURL="/gyms"
                       width="100%"
                       maxWidth="210px"
+                      borderRadius="50px 0 0 50px"
+                      marginRight="-24px"
                     >
                       找場館
                     </Btn>
@@ -282,6 +286,8 @@ export default function Home() {
                       btnOrLink="link"
                       hrefURL="/gyms"
                       maxWidth="210px"
+                      borderRadius="50px 0 0 50px"
+                      marginRight="-20px"
                     >
                       找解答
                     </Btn>

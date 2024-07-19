@@ -2,6 +2,7 @@ import React, { useCallback, useRef, useState } from 'react'
 import { IoSearch } from 'react-icons/io5'
 import styles from './searchbar.module.css'
 
+
 export default function SearchBar({
   placeholder = '請輸入地址搜尋...',
   maxWidth = '600px',

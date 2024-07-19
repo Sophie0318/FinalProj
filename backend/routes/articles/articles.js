@@ -1,4 +1,4 @@
-import express from "express";
+import express, { query } from "express";
 import db from "../../utils/connect-mysql.js";
 import moment from "moment-timezone";
 import upload from "../../utils/upload-imgs.js";
@@ -61,12 +61,19 @@ const getArticleList = async (req) => {
     q_sql += ` AND code_id = ${categoryID} `;
   }
 
+
+
   // 判斷有沒有指定關鍵字搜尋
   if (searchBy && keyword) {
     let q_sql_segment = ''
+    let searchByArr = [...searchBy]
+    const keyword_ = db.escape(`%${keyword}%`)
+    if (searchByArr.includes('article_content')) {
+      q_sql_segment += ` ${element} LIKE ${keyword_} `
+    }
 
     searchBy.forEach((element) => {
-      const keyword_ = db.escape(`%${keyword}%`)
+      
       if (searchBy.indexOf(element) === 0) {
         q_sql_segment += ` ${element} LIKE ${keyword_} `
       } else {
@@ -92,27 +99,26 @@ const getArticleList = async (req) => {
   // 得知篩選資料總筆數
   let t_sql = `SELECT COUNT(1) totalRows FROM Articles JOIN CommonType ON CommonType.code_type = 9 AND CommonType.code_id = Articles.code_id_fk ${q_sql}`;
   try {
-  [[{totalRows}]] = await db.query(t_sql);
-  if(totalRows) {
-    success = true;
-    totalPages = Math.ceil(totalRows / perPage);
-    if (page < 1) {
-      page = 1;
-      redirect = {page: "1"}
+    [[{ totalRows }]] = await db.query(t_sql);
+    if (totalRows) {
+      success = true;
+      totalPages = Math.ceil(totalRows / perPage);
+      if (page < 1) {
+        page = 1;
+        redirect = { page: "1" }
+      }
+      if (page > totalPages) {
+        page = totalPages;
+        redirect = { page: `${totalPages}` }
+      }
     }
-    if (page > totalPages) {
-      page = totalPages;
-      redirect = {page: `${totalPages}`}
-    }
-  }
   } catch (error) {
     console.log('database query totalRows error: ', error)
-    return {success}
+    return { success }
   }
 
   // 從資料庫拿文章列表
   const sql = `SELECT article_id, article_title, update_at, code_desc, article_cover FROM Articles JOIN CommonType AS CT ON CT.code_type = 9 AND CT.code_id = Articles.code_id_fk ${q_sql} ORDER BY update_at DESC LIMIT ${(page - 1) * perPage}, ${perPage};`;
-  [rows] = await db.query(sql);
 
   try {
     [rows] = await db.query(sql);
@@ -120,20 +126,72 @@ const getArticleList = async (req) => {
       const m = moment(element.update_at)
       element.update_at = m.isValid() ? m.format(dateFormat) : "";
     })
+    success = true;
+    return {
+      success,
+      perPage,
+      page,
+      totalRows,
+      totalPages,
+      rows,
+      redirect,
+      qs: req.query,
+    }
   } catch (error) {
     console.log('database query list error: ', error)
+    success = false
+    return {
+      success,
+      rows
+    }
+  }
+}
+
+const getAuthorData = async (author_id, author_is_coach) => {
+  let success = false
+  let author_sql = ''
+  let data = {}
+  let result = {
+    author_id: 0,
+    author_name: '',
+    author_desc: '',
+    author_image: '',
+    author_href: ''
   }
 
-  success = true;
+  try {
+    if (author_is_coach === 0) {
+      author_sql = `SELECT * FROM Authors WHERE author_id = ${author_id}`;
+    } else {
+      author_sql = `SELECT c.coach_id, c.coach_name, c.coach_info, ci.coach_img FROM Coaches c JOIN CoachImgs ci ON c.coachImgs_id = ci.coachImgs_id WHERE c.coach_id = ${author_is_coach}`;
+    }
+    [[data]] = await db.query(author_sql)
+    if (data) {
+      if (author_is_coach === 0) {
+        result = {
+          ...result,
+          author_name: data.author_name,
+          author_desc: data.author_desc,
+          author_image: `/articles-img/${data.author_image}`,
+          author_href: data.author_href
+        }
+      } else {
+        result = {
+          ...result,
+          author_id: data.coach_id,
+          author_name: data.coach_name,
+          author_desc: data.coach_info,
+          author_image: `/${data.coach_img}`
+        }
+      }
+      success = !!result
+    }
+  } catch (error) {
+    console.log('database fetch author error: ', error)
+  }
   return {
     success,
-    perPage,
-    page,
-    totalRows,
-    totalPages,
-    rows,
-    redirect,
-    qs:req.query,
+    result
   }
 }
 
@@ -142,10 +200,10 @@ router.get("/api/listData", async (req, res) => {
   res.json(data);
 });
 
-router.get("/api/articleIndex", async(req,res)=>{
+router.get("/api/articleIndex", async (req, res) => {
   // 定義最新文章及熱門文章
-  let latestQuery = {...req, query:{later_than: "2024-01-01"}};
-  let hotQuery = {...req, query:{searchBy: "article_title", keyword: "挑戰"}};
+  let latestQuery = { ...req, query: { later_than: "2024-01-01" } };
+  let hotQuery = { ...req, query: { searchBy: "article_title", keyword: "挑戰" } };
   // debug 用參數, 存列表的參數
   let success = false;
   let latestList = [];
@@ -171,6 +229,97 @@ router.get("/api/articleIndex", async(req,res)=>{
     latestList,
     hotList
   })
+})
+
+router.get("/api/entry/:article_id", async (req, res) => {
+  const output = {
+    success: true,
+    code: 0,
+    result: {},
+    furtherReading: [],
+    authorInfo: {}
+  }
+
+  const article_id = +req.params.article_id || 0;
+  if (!article_id) {
+    return res.json(output)
+  }
+
+  let articleCategory = 0;
+  let category = '';
+  let author_id = 0;
+  let author_is_coach = 0;
+  const sql = `SELECT article_id, article_title, author_id, author_is_coach, update_at, code_id, article_cover, article_desc, article_content FROM Articles JOIN CommonType AS CT ON CT.code_type = 9 AND CT.code_id = Articles.code_id_fk JOIN Authors ON author_id_fk = author_id WHERE article_id = ${article_id}`;
+
+  try {
+    [[output.result]] = await db.query(sql);
+    output.success = !!output.result
+    if (output.success) {
+      const m = moment(output.result.update_at)
+      output.result.update_at = m.isValid() ? m.format(dateFormat) : "";
+      articleCategory = output.result.code_id
+      author_id = output.result.author_id
+      author_is_coach = output.result.author_is_coach
+    }
+  } catch (error) {
+    console.log('database fetch article error: ', error)
+    output.code = 400
+    output.message = `database fetch article error: ${error}`
+  }
+
+  try {
+    if (articleCategory) {
+      switch (articleCategory) {
+        case 1:
+          category = "fitness";
+          break;
+        case 2:
+          category = "healthy_diet";
+          break;
+        case 3:
+          category = "medical_care";
+          break;
+        case 4:
+          category = "mental_wellness";
+          break;
+        case 5:
+          category = "happy_learning";
+          break;
+
+        default:
+          category = '';
+          break;
+      }
+    }
+
+    const queryParam = { query: { category: category } }
+
+    const listData = await getArticleList(queryParam)
+    if (listData.success) {
+      output.furtherReading = listData.rows
+      output.furtherReading.forEach((element) => {
+        const m = moment(element.update_at)
+        element.update_at = m.isValid() ? m.format(dateFormat) : "";
+      })
+    }
+  } catch (error) {
+    console.log('database fetch further reading list error: ', error)
+    output.code = 400
+    output.message += `database fetch further reading list error: ${error}`
+  }
+
+  try {
+    const authorData = await getAuthorData(author_id, author_is_coach)
+    if (authorData.success) {
+      output.authorInfo = authorData.result
+    }
+  } catch (error) {
+    console.log('database fetch author data error', error)
+    output.code = 400
+    output.message += `database fetch author data error: ${error}`
+  }
+
+  res.json(output)
 })
 
 router.post("/add", async (req, res) => {

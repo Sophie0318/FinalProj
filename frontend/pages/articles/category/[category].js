@@ -9,7 +9,9 @@ import styles from '../type.module.css'
 
 export default function ArticleType() {
   const [articleList, setArticleList] = useState([])
+  const [totalPages, setTotalPages] = useState(0)
   const [pageCategory, setPageCategory] = useState('文章列表')
+  const [keyword, setKeyword] = useState('')
   const renderCard = useRenderCards('articles')
   const router = useRouter()
   const categoryMap = {
@@ -47,8 +49,20 @@ export default function ArticleType() {
         )
         console.log(router.query)
       }
-      setArticleList(resData)
+    } else {
+      console.log(resData.success)
     }
+    setArticleList(resData.rows)
+    setTotalPages(resData.totalPages)
+  }
+
+  const handleSearch = (value) => {
+    setKeyword(value)
+
+    // let query = { ...router.query, serachBy: 'article_title', keyword: keyword }
+    // console.log(query)
+    // const newQuery = new URLSearchParams(query)
+    // router.push(newQuery)
   }
 
   useEffect(() => {
@@ -60,9 +74,8 @@ export default function ArticleType() {
       getList(url)
       setPageCategory(categoryMap[router.query.category])
     }
-  }, [router, articleList.success])
+  }, [router])
 
-  if (!router.isReady || !articleList.success) return null
   return (
     <>
       <Layout3 title="體能鍛鍊" pageName="articles" section="whiteSection">
@@ -74,10 +87,14 @@ export default function ArticleType() {
               >
                 <h4 className="text-primary">{pageCategory}</h4>
                 <div className={styles.searchbarPC}>
-                  <SearchBar maxWidth="351px" />
+                  <SearchBar
+                    maxWidth="351px"
+                    searchTerm={keyword}
+                    setSearchTerm={handleSearch}
+                  />
                 </div>
               </div>
-              {articleList.rows.map((v, i) => {
+              {articleList.map((v, i) => {
                 return (
                   <div
                     className={`${styles.card} col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12`}
@@ -91,7 +108,7 @@ export default function ArticleType() {
                 className={`${styles.page} col-12 d-flex justify-content-center`}
               >
                 <BS5Pagination
-                  totalPages={articleList.totalPages}
+                  totalPages={totalPages}
                   onPageChange={onPageChange}
                 />
               </div>

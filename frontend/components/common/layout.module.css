@@ -80,7 +80,7 @@
 .icons {
   display: flex;
   margin-left: auto; /* 將 icons 列表推到最右邊 */
-  justify-content: space-between;
+  justify-content: flex-end;
   margin-top: 18px; /* 讓icons對齊navlink文字下緣用 與align-items擇一 */
   width: 100%;
   max-width: 186px;
