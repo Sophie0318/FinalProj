@@ -183,11 +183,11 @@ router.get("/favorites-lesson/:userId", async (req, res) => {
 router.delete("/remove-lesson-favorite", async (req, res) => {
     const { member_id, lesson_id } = req.body;
     if (!member_id || !lesson_id) {
-        return res.status(400).json({ success: false, message: "缺少 member_id 或 coach_id" });
+        return res.status(400).json({ success: false, message: "缺少 member_id 或 lesson_id" });
     }
     try {
         console.log("嘗試刪除收藏:", { member_id, lesson_id });
-        const sql = "DELETE FROM FavCoach WHERE member_id = ? AND coach_id = ?";
+        const sql = "DELETE FROM FavLesson WHERE member_id = ? AND lesson_id = ?";
         const [result] = await db.query(sql, [member_id, lesson_id]);
         
         if (result.affectedRows > 0) {
@@ -202,6 +202,7 @@ router.delete("/remove-lesson-favorite", async (req, res) => {
     }
 });
 
+
 // 檢查收藏狀態
 router.get("/check-favorite/:userId/:lessonId", async (req, res) => {
     const { userId, lessonId } = req.params;
@@ -215,6 +216,8 @@ router.get("/check-favorite/:userId/:lessonId", async (req, res) => {
       res.status(500).json({ success: false, message: "伺服器錯誤", error: error.message });
     }
   });
+// 課程收藏結束
+
 
 // 添加教練收藏
 router.post("/add-favorite", async (req, res) => {
@@ -283,7 +286,7 @@ router.get("/favorites/:userId", async (req, res) => {
     }
 });
 
-// 刪除收藏
+// 刪除教練收藏
 router.delete("/remove-favorite", async (req, res) => {
     const { member_id, coach_id } = req.body;
     if (!member_id || !coach_id) {
@@ -320,6 +323,7 @@ router.get("/check-favorite/:userId/:coachId", async (req, res) => {
     }
   });
 
+// 教練預約
   router.post("/add/coachReserve", async (req, res) => {
     try {
       // 驗證並格式化日期時間
