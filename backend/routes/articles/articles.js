@@ -66,9 +66,14 @@ const getArticleList = async (req) => {
   // 判斷有沒有指定關鍵字搜尋
   if (searchBy && keyword) {
     let q_sql_segment = ''
+    let searchByArr = [...searchBy]
+    const keyword_ = db.escape(`%${keyword}%`)
+    if (searchByArr.includes('article_content')) {
+      q_sql_segment += ` ${element} LIKE ${keyword_} `
+    }
 
     searchBy.forEach((element) => {
-      const keyword_ = db.escape(`%${keyword}%`)
+      
       if (searchBy.indexOf(element) === 0) {
         q_sql_segment += ` ${element} LIKE ${keyword_} `
       } else {
