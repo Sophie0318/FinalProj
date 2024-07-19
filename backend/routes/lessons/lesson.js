@@ -195,6 +195,53 @@ router.get("/api", async (req, res) => {
     }
 });
 
+router.get("/api/hotLessons", async (req, res) => {
+  try {
+      const sql = `
+      SELECT 
+        l.lesson_id,
+        l.lesson_name,
+        l.lesson_state,
+        FORMAT(l.lesson_price, 0) AS lesson_price,
+        l.lesson_desc,
+        DATE_FORMAT(l.lesson_date, '%Y-%m-%d %H:%i') AS lesson_date,
+        GROUP_CONCAT(DISTINCT ct.code_desc ORDER BY ct.code_desc SEPARATOR '/') AS categories,
+        li.lesson_img,
+        c.coach_name,
+        g.gym_name
+      FROM 
+        Lessons l
+      JOIN 
+        LessonCategories lc ON l.lesson_id = lc.lesson_id
+      JOIN 
+        CommonType ct ON lc.commontype_id = ct.commontype_id
+      JOIN 
+        LessonImgs li ON l.LessonImgs_id = li.LessonImgs_id
+      JOIN 
+        Coaches c ON l.coach_id = c.coach_id
+      JOIN 
+        Gyms g ON l.gym_id = g.gym_id
+      WHERE 
+        l.lesson_id BETWEEN 1 AND 10
+      GROUP BY 
+        l.lesson_id
+      ORDER BY 
+        l.lesson_id`;
+
+      const [rows] = await db.query(sql);
+
+      if (rows.length > 0) {
+          res.json({ success: true, hotLessons: rows });
+      } else {
+          res.status(404).json({ success: false, message: 'No hot lessons found' });
+      }
+  } catch (error) {
+      console.error('Error fetching hot lessons:', error);
+      res.status(500).json({ success: false, message: 'Server error' });
+  }
+});
+
+
 // 獲取單個課程詳情 API
 router.get("/api/:id", async (req, res) => {
     const { id } = req.params;
