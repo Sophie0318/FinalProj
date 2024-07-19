@@ -17,17 +17,20 @@ router.post('/', async function (req, res, next) {
         // 查詢資料庫是否有同 google_uid 的資料
         const [rows] = await db.execute('SELECT * FROM Members WHERE google_uid = ?', [google_uid]);
 
-        let userData = {};
+        let userData;
 
         if (rows.length > 0) {
             // 用户已存在
-            const user = rows[0];
+            userData = rows[0];
         } else {
             // 用户不存在，創建新用户
             const [result] = await db.execute(
                 'INSERT INTO Members (member_name, member_email, google_uid) VALUES (?, ?, ?)',
                 [memberName, email, google_uid]
             );
+            // 查詢新用戶資料
+            const [newUserRows] = await db.execute('SELECT * FROM Members WHERE member_id = ?', [result.insertId]);
+            userData = newUserRows[0];
         }
 
         // 生成訪問令牌 (access token)
@@ -43,21 +46,25 @@ router.post('/', async function (req, res, next) {
         // 使用 httpOnly cookie 讓瀏覽器存 access token
         // res.cookie('accessToken', accessToken, { httpOnly: true });
 
-        res.json({
+        const googleLoginData = ({
             success: true,
             data: {
                 id: userData.member_id,
                 email: userData.member_email,
                 name: userData.member_name,
-                nick_name: userData.nick_name,
+                nick_name: userData.nick_name || '',
                 avatar: userData.avatar,
-                mobile: userData.mobile,
-                city: userData.city_id,
-                district: userData.district_id,
-                address: userData.address,
+                mobile: userData.mobile || '',
+                city: userData.city_id || '',
+                district: userData.district_id || '',
+                address: userData.address || '',
                 token,
             },
         });
+        console.log('googleLoginData:', googleLoginData);
+
+        res.json(googleLoginData);
+
     } catch (error) {
         console.error('Error handling Google login:', error);
         return res.status(500).json({ status: 'error', message: '伺服器內部錯誤' });
