@@ -61,8 +61,10 @@ const getArticleList = async (req) => {
     q_sql += ` AND code_id = ${categoryID} `;
   }
 
+
+
   // 判斷有沒有指定關鍵字搜尋
-  if (searchBy & keyword) {
+  if (searchBy && keyword) {
     let q_sql_segment = ''
 
     searchBy.forEach((element) => {
