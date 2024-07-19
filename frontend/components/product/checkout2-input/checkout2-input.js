@@ -21,23 +21,40 @@ export default function Checkout2Input() {
   const { checkout, setCheckout } = useCart() // 使用 useCart 的鉤子
   // console.log(checkout)
   const [orderDetail, setOrderDetail] = useState([])
+  const [orderId, setOrderId] = useState(0)
+  function generateRandomOrderId(length) {
+    let result = ''
+    const characters = 'ABCDEFGHIJKLMNOwxyz0123456789'
+    const charactersLength = characters.length
+    for (let i = 0; i < length; i++) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength))
+    }
+    return result
+  }
 
   //把表單丟去後端
   const onSubmit = async (e) => {
     e.preventDefault()
-
+    const num = generateRandomOrderId(10) // 在組件加載時生成訂單編號
     const r = await fetch('http://localhost:3001/product/addorder', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ ...myForm, orderDetail }),
+      body: JSON.stringify({
+        ...myForm,
+        orderDetail,
+        orderDetail_number: num,
+      }),
     })
+    //處理伺服器的回應
     const result = await r.json()
     console.log(result)
     router.push(`/product/product-checkout3?order_id=${result}`)
   }
-  //
+  //這行程式碼使用 router.push 導航到新的頁面 product-checkout3，並在 URL 中傳遞伺服器回應的 order_id 作為查詢參數。
+
+  //這段程式碼的功能是處理表單提交，將表單數據發送到伺服器，然後根據伺服器的回應導航到另一個頁面。
 
   const memberData = (e) => {
     if (e.target.checked) {

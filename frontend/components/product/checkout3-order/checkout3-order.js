@@ -5,21 +5,11 @@ import { useState } from 'react'
 import { useAuth } from '@/context/auth-context' // useAuth 的鉤子
 import { useLocation } from 'react-router-dom'
 
-function generateRandomOrderId(length) {
-  let result = ''
-  const characters = 'ABCDEFGHIJKLMNOwxyz0123456789'
-  const charactersLength = characters.length
-  for (let i = 0; i < length; i++) {
-    result += characters.charAt(Math.floor(Math.random() * charactersLength))
-  }
-  return result
-}
-
 export default function Checkout3Order() {
   const [orderDetail, setOrderDetail] = useState([
     { ProductOrders_recipient_name: '' },
   ])
-  const [orderId, setOrderId] = useState('')
+
   const { auth } = useAuth()
   // console.log('auth:', auth)
   // console.log(orderDetail)
@@ -45,7 +35,7 @@ export default function Checkout3Order() {
     //     setOrderDetail(JSON.parse(savedItems))
     //   }
     // }
-    // setOrderId(generateRandomOrderId(10)) // 在組件加載時生成訂單編號
+
     //${queryParams.toString()
   }, [router.isReady])
 
@@ -72,7 +62,9 @@ export default function Checkout3Order() {
         >
           訂單明細
         </p>
-        <p style={{ fontSize: '25px' }}>訂單編號:{orderId}</p>
+        <p style={{ fontSize: '25px' }}>
+          訂單編號:{orderDetail[0].orderDetail_number}
+        </p>
         <p style={{ fontSize: '25px' }}>
           訂購人:{orderDetail[0].ProductOrders_recipient_name}
         </p>

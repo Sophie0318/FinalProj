@@ -209,7 +209,7 @@ router.post("/addorder", async (req, res) => {
   const [result] = await db.query(sql, [body]);
   const order_id = result.insertId;
   const sql2 =
-    "INSERT INTO OrdersDetail SET OrdersDetail_product_id_fk = ?,OrdersDetail_product_quantity=?,OrdersDetail_order_id_fk=? ,OrdersDetail_unit_price_at_time=? ";
+    "INSERT INTO OrdersDetail SET OrdersDetail_product_id_fk = ?,OrdersDetail_product_quantity=?,OrdersDetail_order_id_fk=? ,OrdersDetail_unit_price_at_time=?";
   const insersql = JSON.parse(orderDetail);
   for (let i of insersql) {
     const [result2] = await db.query(sql2, [
@@ -217,9 +217,11 @@ router.post("/addorder", async (req, res) => {
       i.qty,
       order_id,
       i.Product_price,
+      i.orderDetail_number,
     ]);
   }
-  console.log(result);
+  // console.log(result);
+  console.log(orderDetail);
   res.json(order_id);
 });
 
@@ -232,6 +234,7 @@ router.get("/orderdetail", async (req, res) => {
     od.OrdersDetail_id,
     od.OrdersDetail_product_quantity,
     od.OrdersDetail_unit_price_at_time,
+    po.orderDetail_number,
     p.Product_id,
     p.Product_name,
     p.Product_photo

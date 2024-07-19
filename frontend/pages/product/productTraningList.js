@@ -127,10 +127,10 @@ export default function ProductList() {
               forcePage={page - 1}
               onPageChange={(e) => {
                 setPage(e.selected + 1)
-                // router.push(`?page=${e.selected + 1}`, undefined, {
-                //   scroll: false,
-                //   shallow: true,
-                // })
+                router.push(`?page=${e.selected + 1}`, undefined, {
+                  scroll: false,
+                  shallow: true,
+                })
               }}
               totalPages={data.totalPages}
             />
