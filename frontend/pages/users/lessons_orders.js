@@ -47,7 +47,7 @@ export default function LessonsOrders() {
         title={lesson.lesson_name}
         price={`NT$ ${lesson.lesson_price}`}
         gym={lesson.gym_name}
-        category={lesson.categories} // 这里使用从后端获取的课程技能
+        category={lesson.categories} // 这里使用从后端获取的课程类别
         imgSrc={`/${lesson.lesson_img}`}
       />
     )

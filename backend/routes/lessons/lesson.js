@@ -283,31 +283,35 @@ router.get("/api/:id", async (req, res) => {
     const { memberId } = req.params;
     try {
       const sql = `
-        SELECT 
-          l.lesson_id,
-          l.lesson_name,
-          l.lesson_price,
-          l.lesson_desc,
-          DATE_FORMAT(l.lesson_date, '%Y-%m-%d %H:%i') AS lesson_date,
-          li.lesson_img,
-          c.coach_name,
-          g.gym_name,
-          lo.order_status
-        FROM 
-          LessonOrders lo
-        JOIN 
-          Lessons l ON lo.lesson_id = l.lesson_id
-        JOIN 
-          LessonImgs li ON l.LessonImgs_id = li.LessonImgs_id
-        JOIN 
-          Coaches c ON l.coach_id = c.coach_id
-        JOIN 
-          Gyms g ON l.gym_id = g.gym_id
-        WHERE 
-          lo.member_id = ? AND lo.order_status = 'paid'
-        ORDER BY 
-          lo.order_date DESC
-      `;
+      SELECT 
+  l.lesson_id,
+  l.lesson_name,
+  l.lesson_price,
+  l.lesson_desc,
+  DATE_FORMAT(l.lesson_date, '%Y-%m-%d %H:%i') AS lesson_date,
+  li.lesson_img,
+  c.coach_name,
+  g.gym_name,
+  lo.order_status,
+  (SELECT GROUP_CONCAT(DISTINCT ct.code_desc ORDER BY ct.code_desc SEPARATOR '/') 
+   FROM LessonCategories lc 
+   JOIN CommonType ct ON lc.commontype_id = ct.commontype_id 
+   WHERE lc.lesson_id = l.lesson_id) AS categories
+FROM 
+  LessonOrders lo
+JOIN 
+  Lessons l ON lo.lesson_id = l.lesson_id
+JOIN 
+  LessonImgs li ON l.LessonImgs_id = li.LessonImgs_id
+JOIN 
+  Coaches c ON l.coach_id = c.coach_id
+JOIN 
+  Gyms g ON l.gym_id = g.gym_id
+WHERE 
+  lo.member_id = ? AND lo.order_status = 'paid'
+ORDER BY 
+  lo.order_date DESC
+    `;
   
       const [rows] = await db.query(sql, [memberId]);
       res.json({ success: true, lessons: rows });
