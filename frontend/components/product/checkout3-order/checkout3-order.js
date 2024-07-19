@@ -3,7 +3,6 @@ import styles from './checkout3-order.module.css'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
 import { useAuth } from '@/context/auth-context' // useAuth 的鉤子
-import { useLocation } from 'react-router-dom'
 
 export default function Checkout3Order() {
   const [orderDetail, setOrderDetail] = useState([
@@ -56,7 +55,7 @@ export default function Checkout3Order() {
         <p
           style={{
             marginTop: '20px',
-            color: '#FFC800',
+            color: '#1A394A',
             fontSize: '30px',
           }}
         >

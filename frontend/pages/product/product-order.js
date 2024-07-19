@@ -8,6 +8,7 @@ import { Link } from 'react-ionicons'
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 import { useRouter } from 'next/router'
+import Navbar from '@/components/common/navbar'
 export default function ProductOrder() {
   const router = useRouter()
   const [orderItems, setOrderItems] = useState([])
@@ -23,6 +24,7 @@ export default function ProductOrder() {
   const MySwal = withReactContent(Swal)
   return (
     <>
+      <Navbar />
       {/* 結帳進度 */}
       <div className="container">
         <ProductCheckout1 currentStep={1} />

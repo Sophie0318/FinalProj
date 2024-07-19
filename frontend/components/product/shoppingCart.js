@@ -28,6 +28,7 @@ export default function ShoppingCart() {
         if (swalPopup) {
           swalPopup.style.backgroundColor = '#FFF7E9' // 自定義背景顏色
           swalPopup.style.color = '#1a394a' // 自定義文字顏色
+          swalPopup.style.borderRadius = '50px'
         }
       },
     }).then((result) => {
@@ -89,7 +90,7 @@ export default function ShoppingCart() {
                       key={i}
                       style={{
                         display: 'flex',
-                        gap: '17px',
+                        gap: '5px',
                         marginBottom: `50px`,
                         justifyContent: 'space-between',
                       }}
@@ -97,14 +98,26 @@ export default function ShoppingCart() {
                       <img
                         src={`/product-img/${v.Product_photo}`}
                         alt=""
-                        style={{ width: '30%', borderRadius: '25px' }}
-                        className="w-50"
+                        style={{ width: '35%', borderRadius: '25px' }}
+                        // className="w-50"
                       />
                       <ul>
-                        <li style={{ paddingBottom: '20px' }}>
-                          商品: {v.Product_name}
+                        <li
+                          style={{
+                            paddingBottom: '20px',
+                            fontSize: '20px',
+                          }}
+                        >
+                          商品:
+                          <br /> {v.Product_name}
                         </li>
-                        <li>價格: {v.Product_price}</li>
+                        <li
+                          style={{
+                            fontSize: '20px',
+                          }}
+                        >
+                          價格: {v.Product_price}
+                        </li>
                       </ul>
 
                       <div>
@@ -187,8 +200,8 @@ export default function ShoppingCart() {
                 marginTop: '50px',
               }}
             >
-              <p>小計</p>
-              <p>NT${total}</p>
+              <p style={{ fontSize: '25px', color: '#1a394a' }}>小計</p>
+              <p style={{ fontSize: '25px', color: '#1a394a' }}>NT${total}</p>
             </div>
             <div
               style={{
