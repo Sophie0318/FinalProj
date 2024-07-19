@@ -153,7 +153,9 @@
 
 .lessonCard {
   width: 100%;
+  max-width: 300px; 
   height: 374px;
+  margin: 0 auto;
   border-radius: 40px;
   background-color: var(--color-white);
   box-shadow: 0px 5px 30px 0px rgba(0, 0, 0, 0.15);
@@ -212,6 +214,9 @@
   color: var(--color-black);
   overflow: hidden; /* Prevent text overflow */
   text-overflow: ellipsis; /* Add ellipsis if text overflows */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .lessonPrice {
@@ -220,6 +225,9 @@
   font-weight: 700;
   letter-spacing: 3px;
   color: var(--color-black);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
@@ -235,6 +243,9 @@
   white-space: nowrap; /* Prevent line breaks */
   overflow: hidden; /* Prevent text overflow */
   text-overflow: ellipsis; /* Add ellipsis if text overflows */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .popular {

@@ -15,12 +15,14 @@ import { useAuth } from '@/context/auth-context'
 
 export default function Favorites() {
   const { auth } = useAuth()
-  const [favorites, setFavorites] = useState([])
+  const [coachFavorites, setCoachFavorites] = useState([])
+  const [lessonFavorites, setLessonFavorites] = useState([])
   // 決定要用哪一個分支的卡片, 參數 branch=分支名稱, data=Array.map的v
 
   useEffect(() => {
     if (auth.token) {
       fetchFavorites()
+      fetchLessonFavorites()
     }
   }, [auth.token])
 
@@ -33,10 +35,40 @@ export default function Favorites() {
         }
       )
       if (response.data.success) {
-        setFavorites(response.data.favorites)
+        setCoachFavorites(response.data.favorites)
       }
     } catch (error) {
       console.error('Error fetching favorites:', error)
+    }
+  }
+
+  const fetchLessonFavorites = async () => {
+    try {
+      const response = await axios.get(
+        `http://localhost:3001/users/favorites-lesson/${auth.id}`,
+        {
+          headers: { Authorization: `Bearer ${auth.token}` },
+        }
+      )
+      if (response.data.success) {
+        setLessonFavorites(response.data.favorites)
+      }
+    } catch (error) {
+      console.error('Error fetching favorites:', error)
+    }
+  }
+
+  const handleRemoveLessonFavorite = async (lessonId) => {
+    try {
+      await axios.delete('http://localhost:3001/users/remove-lesson-favorite', {
+        data: { member_id: auth.id, lesson_id: lessonId },
+        headers: { Authorization: `Bearer ${auth.token}` },
+      })
+      setLessonFavorites(
+        lessonFavorites.filter((lesson) => lesson.lesson_id !== lessonId)
+      )
+    } catch (error) {
+      console.error('移除課程收藏時發生錯誤:', error)
     }
   }
 
@@ -47,7 +79,9 @@ export default function Favorites() {
         headers: { Authorization: `Bearer ${auth.token}` },
       })
       // 更新狀態，移除被取消收藏的教練
-      setFavorites(favorites.filter((coach) => coach.coach_id !== coachId))
+      setCoachFavorites(
+        coachFavorites.filter((coach) => coach.coach_id !== coachId)
+      )
     } catch (error) {
       console.error('移除收藏時發生錯誤:', error)
     }
@@ -102,7 +136,8 @@ export default function Favorites() {
             <BranchCard branch="articles" />
           </div>
           <div className={styles.fav_search}>
-            {favorites.map((coach) => (
+            <h5>收藏的教練</h5>
+            {coachFavorites.map((coach) => (
               <div className="resultGrid" key={coach.coach_id}>
                 <CoachCard
                   key={coach.coach_id}
@@ -111,6 +146,22 @@ export default function Favorites() {
                   imgSrc={`/${coach.coach_img}`}
                   isLiked={true}
                   onHeartClick={() => handleRemoveFavorite(coach.coach_id)}
+                />
+              </div>
+            ))}
+          </div>
+
+          <div className={styles.fav_search}>
+            <h5>收藏的課程</h5>
+            {lessonFavorites.map((lesson) => (
+              <div className="resultGrid" key={lesson.lesson_id}>
+                <LessonCard
+                  key={lesson.lesson_id}
+                  title={lesson.lesson_name}
+                  price={`NT$ ${lesson.lesson_price}`}
+                  gym={lesson.gym}
+                  category={lesson.skills}
+                  imgSrc={`/${lesson.lesson_img}`}
                 />
               </div>
             ))}

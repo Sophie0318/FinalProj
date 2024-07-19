@@ -144,37 +144,35 @@ router.get("/favorites-lesson/:userId", async (req, res) => {
     try {
         const sql = `
             SELECT 
-                lesson_id,
-                lesson_name,
-                lesson_price,
-                lesson_desc,
-                lesson_date,
-                create_date,
-                update_at,
+                L.lesson_id,
+                L.lesson_name,
+                L.lesson_price,
+                L.lesson_desc,
+                L.lesson_date,
                 GROUP_CONCAT(DISTINCT ct.code_desc ORDER BY ct.code_desc SEPARATOR '、') AS skills,
-                lesson_img,
+                li.lesson_img,
                 g.gym_name AS gym
             FROM 
                 Lessons L
             JOIN 
                 FavLesson fl ON L.lesson_id = fl.lesson_id
             JOIN 
-                LessonCategories ls ON L.lesson_id = lc.lesson_id
+                LessonCategories lc ON L.lesson_id = lc.lesson_id
             JOIN 
-                CommonType ct ON cs.commontype_id = ct.commontype_id
+                CommonType ct ON lc.commontype_id = ct.commontype_id
             JOIN 
-                LessonImgs li ON L.LessonImgs_id = li.LessonImgs_id
+                LessonImgs li ON L.lesson_id = li.LessonImgs_id
             JOIN 
                 Gyms g ON L.gym_id = g.gym_id
             WHERE 
-                fc.member_id = ?
+                fl.member_id = ?
             GROUP BY 
                 L.lesson_id, g.gym_name, li.lesson_img
         `;
         const [favorites] = await db.query(sql, [userId]);
         res.json({ success: true, favorites });
     } catch (error) {
-        console.error("獲取收藏時發生錯誤:", error);
+        console.error("獲取課程收藏時發生錯誤:", error);
         res.status(500).json({ success: false, message: "伺服器錯誤", error: error.message });
     }
 });
