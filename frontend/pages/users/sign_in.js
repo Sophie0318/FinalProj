@@ -11,6 +11,8 @@ import MyCheckBox from '@/components/users/MyCheckBox'
 import Link from 'next/link'
 import { useAuth } from '../../context/auth-context'
 import { useRouter } from 'next/router'
+import { signInWithPopup, GoogleAuthProvider } from 'firebase/auth'
+import { auth } from '../../configs/firebase'
 import UserModal from '../../components/users/UserModal'
 
 export default function SignIn() {
@@ -35,8 +37,17 @@ export default function SignIn() {
         setIsModalOpen(true)
         setTimeout(() => {
           setIsModalOpen(false)
-          router.push('/')
-        }, 3000)
+          // 獲取 returnUrl 參數
+          const returnUrl = new URLSearchParams(location.search).get(
+            'returnUrl'
+          ) // 如果有 returnUrl，則跳轉到該 URL，否則跳轉到首頁
+          if (returnUrl) {
+            router.push(returnUrl)
+          } else {
+            console.log(returnUrl)
+            router.push('/')
+          }
+        }, 1000)
       } else {
         setAlertMessage('登入失敗')
         setUserMessage('請檢查您的電子郵件和密碼')
@@ -105,7 +116,7 @@ export default function SignIn() {
               </div>
             </a>
           </div>
-          <div className={styles.third_party_login}>
+          {/* <div className={styles.third_party_login}>
             <a className={styles.a} href="#">
               <div className={styles.icon_wrapper}>
                 <img src="/users-img/Facebook_icon.svg" alt="facebook icon" />
@@ -114,7 +125,7 @@ export default function SignIn() {
                 <p className={styles.p}>以Facebook帳號登入</p>
               </div>
             </a>
-          </div>
+          </div> */}
         </div>
       </UserSignin>
       {isModalOpen && (

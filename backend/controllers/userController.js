@@ -81,10 +81,10 @@ const userController = {
             if (!user || user.length === 0) {
                 return res.status(400).json({ message: '重置連結已過期，請重新申請' });
             }
- //現在的時間
+            //現在的時間
             const resetExpiration = new Date(user[0].resetExpiration);
             const currentTime = new Date();
-//如果resetExpiration小於現在時間戳記，代表token已過期
+            //如果resetExpiration小於現在時間戳記，代表token已過期
             if (resetExpiration < currentTime) {
                 await db.query('UPDATE members SET resetToken = NULL, resetExpiration = NULL WHERE member_id = ?', [user[0].member_id]);
                 return res.status(400).json({ message: '重置連結已過期，請重新申請' });
@@ -111,7 +111,7 @@ const userController = {
             if (!user || user.length === 0) {
                 return res.status(400).json({ message: '無效的或已過期的重置連結' });
             }
-//現在的時間
+            //現在的時間
             const currentTime = new Date().toISOString().slice(0, 19).replace('T', ' ');
             //如果resetExpiration小於現在時間戳記，代表token已過期，並清除resetToken與resetExpiration
             if (user[0].resetExpiration < currentTime) {

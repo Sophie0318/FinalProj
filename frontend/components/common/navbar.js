@@ -14,17 +14,19 @@ import { PiMapPinFill, PiLightbulbFilamentFill } from 'react-icons/pi'
 import { FaArrowRight, FaPersonRunning } from 'react-icons/fa6'
 import styles from './layout.module.css'
 import { IoAddSharp, IoRemove, IoCloseSharp } from 'react-icons/io5'
+import { useRouter } from 'next/router'
+import { useCallback } from 'react'
 import { useAuth } from '../../context/auth-context'
 const defaultAvatar = 'http://localhost:3001/users/' // 用來做預設頭像的位置
 import ShoppingCart from '../product/shoppingCart'
 import { useState, useEffect } from 'react'
 import { useCart } from '@/hooks/product/use-cart'
 
-
 // TODO: header logo offsets when toggle offcanvas, 可以參考kacco
 // 也可以用看看 bootstrap offcanvas body scrollable
 export default function Navbar({ hideLogo = false }) {
   const { auth, logout } = useAuth()
+  const router = useRouter()
   const {
     product,
     item,
@@ -68,6 +70,14 @@ export default function Navbar({ hideLogo = false }) {
   //   }
   //   return total
   // }
+  const handleSignInClick = useCallback(
+    (e) => {
+      e.preventDefault()
+      const returnUrl = encodeURIComponent(router.asPath)
+      router.push(`/users/sign_in?returnUrl=${returnUrl}`)
+    },
+    [router]
+  )
 
   return (
     <>
@@ -141,7 +151,7 @@ export default function Navbar({ hideLogo = false }) {
             <>
               {/* 若是沒有登入就顯示 person add 圖示，並且點擊後導向登入頁 */}
               <li>
-                <Link href="/users/sign_in">
+                <Link href="/users/sign_in" onClick={handleSignInClick}>
                   <IoPersonAdd className={`${styles.member}`} />
                 </Link>
               </li>
