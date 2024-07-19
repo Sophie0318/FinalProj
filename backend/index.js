@@ -17,8 +17,7 @@ import coachRouter from "./routes/coaches/coach.js";
 import productRouter from "./routes/product/product-traning-list.js";
 import usersRouter from "./routes/users/users.js";
 import gymRouter from "./routes/gyms/gyms.js";
-import paymentRouter from './routes/payment/payment.js'
-// import updateProfileRouter from "./routes/users/updateProfile.js";
+import paymentRouter from "./routes/payment/payment.js";
 import shipmentRouter from "./routes/product/shipment.js";
 
 const app = express();
@@ -68,13 +67,15 @@ app.use("/lessons", lessonRouter);
 app.use("/coaches", coachRouter);
 app.use("/product", productRouter);
 app.use("/users", usersRouter);
+app.use("/gyms", gymRouter);
+app.use("/payment", paymentRouter);
+app.use("/shipment", shipmentRouter);
 
 //google login
-app.use('/google-login', googleLoginRouter);
-
+app.use("/google-login", googleLoginRouter);
 
 //上傳單個圖片(上傳會員大頭貼)
-app.post("/avatar-upload", imgUpload.single('avatar'), async (req, res) => {
+app.post("/avatar-upload", imgUpload.single("avatar"), async (req, res) => {
   try {
     if (!req.file) {
       return res.status(400).json({ error: "沒有檔案上傳" });
@@ -88,7 +89,10 @@ app.post("/avatar-upload", imgUpload.single('avatar'), async (req, res) => {
     const connection = await db.getConnection();
     try {
       // 獲取當前頭像
-      const [rows] = await connection.execute('SELECT avatar FROM members WHERE member_id = ?', [memberId]);
+      const [rows] = await connection.execute(
+        "SELECT avatar FROM members WHERE member_id = ?",
+        [memberId]
+      );
 
       if (rows.length === 0) {
         return res.status(404).json({ error: "Member 404 not found" });
@@ -97,17 +101,20 @@ app.post("/avatar-upload", imgUpload.single('avatar'), async (req, res) => {
       const oldAvatar = rows[0].avatar;
 
       // 更新數據庫中的頭像
-      await connection.execute('UPDATE members SET avatar = ? WHERE member_id = ?', [req.file.filename, memberId]);
+      await connection.execute(
+        "UPDATE members SET avatar = ? WHERE member_id = ?",
+        [req.file.filename, memberId]
+      );
 
       // 如果舊頭像不是默認頭像，則刪除它
-      if (oldAvatar && oldAvatar !== 'default_avatar.jpg') {
+      if (oldAvatar && oldAvatar !== "default_avatar.jpg") {
         const oldAvatarPath = path.join("public/users", oldAvatar);
-        await fs.unlink(oldAvatarPath).catch(() => { });
+        await fs.unlink(oldAvatarPath).catch(() => {});
       }
 
       res.json({
         message: "圖片上傳成功",
-        avatar: req.file.filename
+        avatar: req.file.filename,
       });
     } finally {
       connection.release();
@@ -119,7 +126,7 @@ app.post("/avatar-upload", imgUpload.single('avatar'), async (req, res) => {
 });
 
 //會員個人資料頁的編輯
-app.use('/users/updateProfile', updateProfileRouter);
+app.use("/users/updateProfile", updateProfileRouter);
 
 //會員個人資料表下拉選單
 app.use("/users/selectWhere", selectWhereRouter);
