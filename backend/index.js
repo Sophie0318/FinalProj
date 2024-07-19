@@ -68,6 +68,10 @@ app.use("/lessons", lessonRouter);
 app.use("/coaches", coachRouter);
 app.use("/product", productRouter);
 app.use("/users", usersRouter);
+app.use("/gyms", gymRouter);
+app.use("/payment", paymentRouter);
+app.use("/shipment", shipmentRouter);
+app.use("/updateProfile", updateProfileRouter);
 
 //google login
 app.use('/google-login', googleLoginRouter);
