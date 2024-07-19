@@ -117,24 +117,24 @@ router.post("/login-jwt", async (req, res) => {
 router.post("/add-lesson-favorite", async (req, res) => {
     const { member_id, lesson_id } = req.body;
     if (!member_id || !lesson_id) {
-      return res.status(400).json({ success: false, message: "Missing member_id or lesson_id" });
+        return res.status(400).json({ success: false, message: "Missing member_id or lesson_id" });
     }
     try {
-      console.log("Attempting to add favorite:", { member_id, lesson_id });
-      // 先檢查是否已經存在收藏
-      const checkSql = "SELECT COUNT(*) as count FROM FavLesson WHERE member_id = ? AND lesson_id = ?";
-      const [checkResult] = await db.query(checkSql, [member_id, lesson_id]);
-      if (checkResult[0].count > 0) {
-        return res.json({ success: true, message: "Already in favorites" });
-      }
-      // 如果不存在，則添加收藏
-      const sql = "INSERT INTO FavLesson (member_id, lesson_id) VALUES (?, ?)";
-      await db.query(sql, [member_id, lesson_id]);
-      console.log("Favorite added successfully");
-      res.json({ success: true, message: "Added to favorites" });
+        console.log("Attempting to add favorite:", { member_id, lesson_id });
+        // 先檢查是否已經存在收藏
+        const checkSql = "SELECT COUNT(*) as count FROM FavLesson WHERE member_id = ? AND lesson_id = ?";
+        const [checkResult] = await db.query(checkSql, [member_id, lesson_id]);
+        if (checkResult[0].count > 0) {
+            return res.json({ success: true, message: "Already in favorites" });
+        }
+        // 如果不存在，則添加收藏
+        const sql = "INSERT INTO FavLesson (member_id, lesson_id) VALUES (?, ?)";
+        await db.query(sql, [member_id, lesson_id]);
+        console.log("Favorite added successfully");
+        res.json({ success: true, message: "Added to favorites" });
     } catch (error) {
-      console.error("Detailed error adding favorite:", error);
-      res.status(500).json({ success: false, message: "Server error", error: error.message });
+        console.error("Detailed error adding favorite:", error);
+        res.status(500).json({ success: false, message: "Server error", error: error.message });
     }
 });
 
@@ -187,7 +187,7 @@ router.delete("/remove-lesson-favorite", async (req, res) => {
         console.log("嘗試刪除收藏:", { member_id, lesson_id });
         const sql = "DELETE FROM FavLesson WHERE member_id = ? AND lesson_id = ?";
         const [result] = await db.query(sql, [member_id, lesson_id]);
-        
+
         if (result.affectedRows > 0) {
             console.log("收藏刪除成功");
             res.json({ success: true, message: "已從收藏中移除" });
@@ -205,15 +205,15 @@ router.delete("/remove-lesson-favorite", async (req, res) => {
 router.get("/check-favorite/:userId/:lessonId", async (req, res) => {
     const { userId, lessonId } = req.params;
     try {
-      const sql = "SELECT COUNT(*) as count FROM FavLesson WHERE member_id = ? AND lesson_id = ?";
-      const [rows] = await db.query(sql, [userId, lessonId]);
-      const isFavorite = rows[0].count > 0;
-      res.json({ success: true, isFavorite });
+        const sql = "SELECT COUNT(*) as count FROM FavLesson WHERE member_id = ? AND lesson_id = ?";
+        const [rows] = await db.query(sql, [userId, lessonId]);
+        const isFavorite = rows[0].count > 0;
+        res.json({ success: true, isFavorite });
     } catch (error) {
-      console.error("檢查收藏狀態時發生錯誤:", error);
-      res.status(500).json({ success: false, message: "伺服器錯誤", error: error.message });
+        console.error("檢查收藏狀態時發生錯誤:", error);
+        res.status(500).json({ success: false, message: "伺服器錯誤", error: error.message });
     }
-  });
+});
 // 課程收藏結束
 
 
@@ -221,24 +221,24 @@ router.get("/check-favorite/:userId/:lessonId", async (req, res) => {
 router.post("/add-favorite", async (req, res) => {
     const { member_id, coach_id } = req.body;
     if (!member_id || !coach_id) {
-      return res.status(400).json({ success: false, message: "Missing member_id or coach_id" });
+        return res.status(400).json({ success: false, message: "Missing member_id or coach_id" });
     }
     try {
-      console.log("Attempting to add favorite:", { member_id, coach_id });
-      // 先檢查是否已經存在收藏
-      const checkSql = "SELECT COUNT(*) as count FROM FavCoach WHERE member_id = ? AND coach_id = ?";
-      const [checkResult] = await db.query(checkSql, [member_id, coach_id]);
-      if (checkResult[0].count > 0) {
-        return res.json({ success: true, message: "Already in favorites" });
-      }
-      // 如果不存在，則添加收藏
-      const sql = "INSERT INTO FavCoach (member_id, coach_id) VALUES (?, ?)";
-      await db.query(sql, [member_id, coach_id]);
-      console.log("Favorite added successfully");
-      res.json({ success: true, message: "Added to favorites" });
+        console.log("Attempting to add favorite:", { member_id, coach_id });
+        // 先檢查是否已經存在收藏
+        const checkSql = "SELECT COUNT(*) as count FROM FavCoach WHERE member_id = ? AND coach_id = ?";
+        const [checkResult] = await db.query(checkSql, [member_id, coach_id]);
+        if (checkResult[0].count > 0) {
+            return res.json({ success: true, message: "Already in favorites" });
+        }
+        // 如果不存在，則添加收藏
+        const sql = "INSERT INTO FavCoach (member_id, coach_id) VALUES (?, ?)";
+        await db.query(sql, [member_id, coach_id]);
+        console.log("Favorite added successfully");
+        res.json({ success: true, message: "Added to favorites" });
     } catch (error) {
-      console.error("Detailed error adding favorite:", error);
-      res.status(500).json({ success: false, message: "Server error", error: error.message });
+        console.error("Detailed error adding favorite:", error);
+        res.status(500).json({ success: false, message: "Server error", error: error.message });
     }
 });
 
@@ -294,7 +294,7 @@ router.delete("/remove-favorite", async (req, res) => {
         console.log("嘗試刪除收藏:", { member_id, coach_id });
         const sql = "DELETE FROM FavCoach WHERE member_id = ? AND coach_id = ?";
         const [result] = await db.query(sql, [member_id, coach_id]);
-        
+
         if (result.affectedRows > 0) {
             console.log("收藏刪除成功");
             res.json({ success: true, message: "已從收藏中移除" });
@@ -311,46 +311,46 @@ router.delete("/remove-favorite", async (req, res) => {
 router.get("/check-favorite/:userId/:coachId", async (req, res) => {
     const { userId, coachId } = req.params;
     try {
-      const sql = "SELECT COUNT(*) as count FROM FavCoach WHERE member_id = ? AND coach_id = ?";
-      const [rows] = await db.query(sql, [userId, coachId]);
-      const isFavorite = rows[0].count > 0;
-      res.json({ success: true, isFavorite });
+        const sql = "SELECT COUNT(*) as count FROM FavCoach WHERE member_id = ? AND coach_id = ?";
+        const [rows] = await db.query(sql, [userId, coachId]);
+        const isFavorite = rows[0].count > 0;
+        res.json({ success: true, isFavorite });
     } catch (error) {
-      console.error("檢查收藏狀態時發生錯誤:", error);
-      res.status(500).json({ success: false, message: "伺服器錯誤", error: error.message });
+        console.error("檢查收藏狀態時發生錯誤:", error);
+        res.status(500).json({ success: false, message: "伺服器錯誤", error: error.message });
     }
-  });
+});
 
 // 教練預約
-  router.post("/add/coachReserve", async (req, res) => {
+router.post("/add/coachReserve", async (req, res) => {
     try {
-      // 驗證並格式化日期時間
-      const reserveTime = new Date(req.body.reserve_time);
-      if (isNaN(reserveTime.getTime())) {
-        return res.status(400).json({ success: false, message: '無效的日期時間格式' });
-      }
-      
-      // 格式化為 MySQL datetime 格式
-      const formattedReserveTime = reserveTime.toISOString().slice(0, 19).replace('T', ' ');
-  
-      const sql = "INSERT INTO coachReserve (`reserve_name`, `reserve_phone`, `reserve_email`, `reserve_time`, `coach_id`, `created_at`) VALUES (?, ?, ?, ?, ?, NOW())";
-      const [result] = await db.query(sql, [
-        req.body.reserve_name,
-        req.body.reserve_phone,
-        req.body.reserve_email,
-        formattedReserveTime,
-        req.body.coach_id,
-      ]);
-      res.json({ success: true, result });
+        // 驗證並格式化日期時間
+        const reserveTime = new Date(req.body.reserve_time);
+        if (isNaN(reserveTime.getTime())) {
+            return res.status(400).json({ success: false, message: '無效的日期時間格式' });
+        }
+
+        // 格式化為 MySQL datetime 格式
+        const formattedReserveTime = reserveTime.toISOString().slice(0, 19).replace('T', ' ');
+
+        const sql = "INSERT INTO coachReserve (`reserve_name`, `reserve_phone`, `reserve_email`, `reserve_time`, `coach_id`, `created_at`) VALUES (?, ?, ?, ?, ?, NOW())";
+        const [result] = await db.query(sql, [
+            req.body.reserve_name,
+            req.body.reserve_phone,
+            req.body.reserve_email,
+            formattedReserveTime,
+            req.body.coach_id,
+        ]);
+        res.json({ success: true, result });
     } catch (error) {
-      console.error('新增教練預約時發生錯誤:', error);
-      res.status(500).json({ success: false, message: '資料庫錯誤', error: error.message });
+        console.error('新增教練預約時發生錯誤:', error);
+        res.status(500).json({ success: false, message: '資料庫錯誤', error: error.message });
     }
-  });
-  // 獲取用戶的教練預約
-  router.get("/bookings/:userId", async (req, res) => {
+});
+// 獲取用戶的教練預約
+router.get("/bookings/:userId", async (req, res) => {
     try {
-      const sql = `
+        const sql = `
         SELECT cr.*, c.coach_name, g.gym_name
         FROM coachReserve cr
         JOIN Coaches c ON cr.coach_id = c.coach_id
@@ -358,14 +358,14 @@ router.get("/check-favorite/:userId/:coachId", async (req, res) => {
         WHERE cr.reserve_name = (SELECT member_name FROM members WHERE member_id = ?)
         ORDER BY cr.reserve_time DESC
       `;
-      const [bookings] = await db.query(sql, [req.params.userId]);
-      res.json({ success: true, bookings });
+        const [bookings] = await db.query(sql, [req.params.userId]);
+        res.json({ success: true, bookings });
     } catch (error) {
-      console.error('獲取教練預約時發生錯誤:', error);
-      res.status(500).json({ success: false, message: '資料庫錯誤' });
+        console.error('獲取教練預約時發生錯誤:', error);
+        res.status(500).json({ success: false, message: '資料庫錯誤' });
     }
-  });
-  
+});
+
 //忘記密碼的路由
 router.post("/test_forget_password", userController.forgotPassword);
 //驗證重設密碼的路由

@@ -16,7 +16,6 @@ import { auth } from '../../configs/firebase'
 import UserModal from '../../components/users/UserModal'
 
 export default function SignIn() {
-  const { login } = useAuth()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
@@ -24,11 +23,56 @@ export default function SignIn() {
   const [alertMessage, setAlertMessage] = useState('')
   const [userMessage, setUserMessage] = useState('')
   const router = useRouter()
+  const { login, googleLogin } = useAuth()
 
+  // Google 登入
+  const handleGoogleLogin = async (e) => {
+    e.preventDefault()
+    const provider = new GoogleAuthProvider()
+    try {
+      const result = await signInWithPopup(auth, provider)
+      const user = result.user
+
+      const success = await googleLogin({
+        uid: user.uid,
+        displayName: user.displayName,
+        email: user.email,
+      })
+
+      if (success) {
+        setAlertMessage('Google 登入成功')
+        setUserMessage('讓我們一起開始健康的旅程吧!')
+        setIsModalOpen(true)
+        setTimeout(() => {
+          setIsModalOpen(false)
+          // 獲取 returnUrl 參數
+          const returnUrl = new URLSearchParams(location.search).get(
+            'returnUrl'
+          ) // 如果有 returnUrl，則跳轉到該 URL，否則跳轉到首頁
+          if (returnUrl) {
+            router.push(returnUrl)
+          } else {
+            console.log(returnUrl)
+            router.push('/')
+          }
+        }, 1000)
+      } else {
+        setAlertMessage('Google 登入失敗')
+        setUserMessage('請稍後再試')
+        setIsModalOpen(true)
+      }
+    } catch (error) {
+      console.error('Error during Google sign in:', error)
+      setAlertMessage('Google 登入失敗')
+      setUserMessage('發生錯誤，請稍後再試')
+      setIsModalOpen(true)
+    }
+  }
+  //一般登入
   const handleSubmit = async (e) => {
     e.preventDefault()
     setError('') // 清除之前的錯誤信息
-
+    //一般的登入
     try {
       const success = await login(email, password)
       if (success) {
@@ -105,7 +149,7 @@ export default function SignIn() {
         </a>
         <div className={styles.warp2}>
           <div className={styles.third_party_login}>
-            <a className={styles.a} href="#">
+            <a className={styles.a} href="#" onClick={handleGoogleLogin}>
               <div className={styles.icon_wrapper}>
                 <img src="/users-img/Logo-google-icon.svg" alt="google icon" />
               </div>
