@@ -245,7 +245,7 @@ router.get("/api/:id", async (req, res) => {
   router.post("/create-order", async (req, res) => {
     const { member_id, lesson_id } = req.body;
     try {
-      const sql = "INSERT INTO LessonOrders (member_id, lesson_id, order_status) VALUES (?, ?, 'paid')";
+      const sql = "INSERT INTO LessonOrders (member_id, lesson_id, order_status) VALUES (?, ?, 'pending')";
       const [result] = await db.query(sql, [member_id, lesson_id]);
       res.json({ success: true, orderId: result.insertId });
     } catch (error) {
@@ -255,16 +255,16 @@ router.get("/api/:id", async (req, res) => {
   });
 
   router.post("/update-order", async (req, res) => {
-    const { order_number } = req.body;
-    console.log('接收到的 order_number:', order_number);
+    // const { order_number } = req.body;
+    // console.log('接收到的 order_number:', order_number);
   
-    if (!order_number) {
-      return res.status(400).json({ success: false, message: '缺少 order_number' });
-    }
+    // if (!order_number) {
+    //   return res.status(400).json({ success: false, message: '缺少 order_number' });
+    // }
   
     try {
-      const sql = "UPDATE LessonOrders SET order_status = 'paid', payment_date = NOW() WHERE order_number = ?";
-      const [result] = await db.query(sql, [order_number]);
+      const sql = "UPDATE LessonOrders SET order_status = 'paid', payment_date = NOW()";
+      const [result] = await db.query(sql);
       
       console.log('更新結果:', result);
   

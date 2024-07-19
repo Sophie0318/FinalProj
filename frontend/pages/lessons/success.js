@@ -22,22 +22,17 @@ export default function Success() {
           if (response.data.success) {
             setLesson(response.data.lesson)
 
-            // 只有在 orderNumber 存在時才發送更新請求
-            if (orderNumber) {
-              // 發出更新訂單狀態的請求
-              const updateResponse = await axios.post(
-                'http://localhost:3001/lessons/update-order',
-                { order_id: orderNumber },
-                {
-                  headers: {
-                    Authorization: `Bearer ${auth.token}`,
-                  },
-                }
-              )
-              console.log('更新訂單狀態響應:', updateResponse.data)
-            } else {
-              console.log('orderNumber 不存在，跳過更新訂單狀態')
-            }
+            // 發出更新訂單狀態的請求
+            const updateResponse = await axios.post(
+              'http://localhost:3001/lessons/update-order',
+              { order_id: orderNumber },
+              {
+                headers: {
+                  Authorization: `Bearer ${auth.token}`,
+                },
+              }
+            )
+            console.log('更新訂單狀態響應:', updateResponse.data)
           }
         } catch (error) {
           console.error('獲取課程詳情或更新訂單狀態失敗:', error)
