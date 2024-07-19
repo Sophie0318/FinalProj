@@ -18,7 +18,6 @@ import productRouter from "./routes/product/product-traning-list.js";
 import usersRouter from "./routes/users/users.js";
 import gymRouter from "./routes/gyms/gyms.js";
 import paymentRouter from './routes/payment/payment.js'
-// import updateProfileRouter from "./routes/users/updateProfile.js";
 import shipmentRouter from "./routes/product/shipment.js";
 
 const app = express();
@@ -56,7 +55,7 @@ app.use((req, res, next) => {
     const token = auth.slice(7); //去掉"Bearer "
     try {
       req.my_jwt = jwt.verify(token, process.env.JWT_KEY);
-    } catch (ex) {}
+    } catch (ex) { }
   }
 
   next();
@@ -68,6 +67,9 @@ app.use("/lessons", lessonRouter);
 app.use("/coaches", coachRouter);
 app.use("/product", productRouter);
 app.use("/users", usersRouter);
+app.use("/gyms", gymRouter);
+app.use("/payment", paymentRouter);
+app.use("/shipment", shipmentRouter);
 
 //google login
 app.use('/google-login', googleLoginRouter);
