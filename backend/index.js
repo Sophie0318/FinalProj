@@ -13,6 +13,7 @@ import usersRouter from "./routes/users/users.js";
 import gymRouter from "./routes/gyms/gyms.js";
 import paymentRouter from './routes/payment/payment.js'
 // import updateProfileRouter from "./routes/users/updateProfile.js";
+import shipmentRouter from "./routes/product/shipment.js";
 
 const app = express();
 
@@ -28,7 +29,6 @@ const corsOption = {
   },
 };
 app.use(cors(corsOption));
-
 
 app.use(
   session({
@@ -50,21 +50,22 @@ app.use((req, res, next) => {
     const token = auth.slice(7); //去掉"Bearer "
     try {
       req.my_jwt = jwt.verify(token, process.env.JWT_KEY);
-    } catch (ex) { }
+    } catch (ex) {}
   }
 
   next();
 });
 
 // set routes
-app.use('/articles', aRouter);
+app.use("/articles", aRouter);
 app.use("/lessons", lessonRouter);
 app.use("/coaches", coachRouter);
 app.use("/product", productRouter);
 app.use("/users", usersRouter);
+app.use("/shipment", shipmentRouter);
 
 //會員個人資料表下拉選單
-app.use('/users/selectWhere', selectWhereRouter);
+app.use("/users/selectWhere", selectWhereRouter);
 
 //後端驗證的token測試路由
 app.get("/jwt-data", (req, res) => {

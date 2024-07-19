@@ -54,8 +54,10 @@ const getListData = async (req) => {
   let keyword = req.query.keyword || "";
   let where = " ";
   if (keyword) {
-    where = ` AND \`Product_name\` LIKE '%${keyword}%' `;
+    // where = ` AND \`Product_name\` LIKE '%${keyword}%' `;
+    where = ` AND \`Product_name\` LIKE ${db.escape(`%${keyword}%`)} `;
   }
+
   //健身護具分類
   // let type = req.query.type || "";
 
@@ -195,6 +197,69 @@ router.get("/api", async (req, res) => {
     return res
       .status(500)
       .json({ success: false, error: "Internal Server Error" });
+  }
+});
+
+//order訂單的api
+router.post("/addorder", async (req, res) => {
+  let { orderDetail, ...body } = req.body; //req.body 包含從客戶端發送過來的數據。這行代碼將 orderDetail 提取出來，並將剩餘的數據存入 body。orderDetail 是一個包含訂單詳細信息的 JSON 字符串，body 包含訂單的其他信息。
+  console.log(JSON.parse(req.body.orderDetail));
+  //插入 ProductOrders 表
+  const sql = "INSERT INTO ProductOrders SET ?";
+  //使用 INSERT INTO ProductOrders SET ? 語法插入 body 這個對象中的數據到 ProductOrders 表中。db.query 方法用於執行 SQL 查詢，並返回結果。result.insertId 是剛插入的訂單的 ID，後續將用於插入訂單詳情。
+  const [result] = await db.query(sql, [body]);
+  //獲取剛插入的訂單 ID
+  const order_id = result.insertId;
+
+  //sql2 是用於插入訂單詳情的 SQL 語句，? 佔位符將會被實際的數據取代。insersql 是將 orderDetail JSON 字符串解析為對象的結果，這樣可以逐條處理訂單詳情
+  const sql2 =
+    "INSERT INTO OrdersDetail SET OrdersDetail_product_id_fk = ?,OrdersDetail_product_quantity=?,OrdersDetail_order_id_fk=? ,OrdersDetail_unit_price_at_time=?";
+  const insersql = JSON.parse(orderDetail);
+  for (let i of insersql) {
+    const [result2] = await db.query(sql2, [
+      i.Product_id,
+      i.qty,
+      order_id,
+      i.Product_price,
+      i.orderDetail_number,
+    ]);
+  }
+  console.log(result);
+  console.log(orderDetail);
+  res.json(order_id);
+});
+
+//orderDetail的api
+router.get("/orderdetail", async (req, res) => {
+  const sql = `SELECT 
+    po.Productorders_orders_id,
+    po.ProductOrders_m_id_fk,
+    po.ProductOrders_recipient_name,
+    od.OrdersDetail_id,
+    od.OrdersDetail_product_quantity,
+    od.OrdersDetail_unit_price_at_time,
+    po.orderDetail_number,
+    p.Product_id,
+    p.Product_name,
+    p.Product_photo
+FROM 
+    ProductOrders po
+JOIN 
+    OrdersDetail od ON po.Productorders_orders_id = od.OrdersDetail_order_id_fk
+JOIN 
+    Products p ON od.OrdersDetail_product_id_fk = p.Product_id WHERE po.Productorders_orders_id = ${req.query.order_id};`;
+
+  try {
+    const [rows] = await db.query(sql);
+    console.log(rows);
+    res.json({
+      orderDetail: rows, // 傳回前端
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      message: "Server error",
+    });
   }
 });
 

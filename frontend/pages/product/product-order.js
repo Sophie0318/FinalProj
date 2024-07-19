@@ -4,7 +4,12 @@ import { IoClose } from 'react-icons/io5'
 import { IoAddSharp, IoRemove } from 'react-icons/io5'
 import ProductCheckout1 from '@/components/product/product-checkout1'
 import { useState, useEffect } from 'react'
+import { Link } from 'react-ionicons'
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
+import { useRouter } from 'next/router'
 export default function ProductOrder() {
+  const router = useRouter()
   const [orderItems, setOrderItems] = useState([])
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -15,12 +20,12 @@ export default function ProductOrder() {
     }
   }, [])
   console.log(orderItems)
-
+  const MySwal = withReactContent(Swal)
   return (
     <>
       {/* 結帳進度 */}
       <div className="container">
-        <ProductCheckout1 />
+        <ProductCheckout1 currentStep={1} />
         {/* 結帳進度 */}
         <div className="row">
           <div className={`col-12 col-md-12 text-center ${styles.Revise}`}>
@@ -32,15 +37,15 @@ export default function ProductOrder() {
                 <th scope="col">#</th>
                 <th scope="col">商品</th>
                 <th scope="col">商品名稱</th>
-                <th scope="col">款式顏色</th>
+                <th scope="col">商品特色</th>
                 <th scope="col">數量</th>
                 <th scope="col">價格</th>
                 <th scope="col">
-                  <IoClose style={{ fontSize: '40px' }} />{' '}
+                  {/* <IoClose style={{ fontSize: '40px' }} />{' '} */}
                 </th>
               </tr>
             </thead>
-            <tbody>
+            <tbody style={{ fontSize: '20px' }}>
               {orderItems.map((item, index) => (
                 <tr key={index}>
                   <th scope="row">{index + 1}</th>
@@ -51,7 +56,7 @@ export default function ProductOrder() {
                       className="w-75"
                     />
                   </td>
-                  <td>{item.Product_name}</td>
+                  <td style={{ width: '10%' }}>{item.Product_name}</td>
                   <td>{item.Product_desc}</td>
                   <td>
                     <div className="d-flex">
@@ -149,15 +154,21 @@ export default function ProductOrder() {
             <button
               className={styles.btn}
               style={{ backgroundColor: '#6C6C6C' }}
-              onClick={() => window.history.back()}
+              onClick={() => router.back()}
             >
               返回
             </button>
             <button
               className={styles.btn}
               onClick={() => {
-                // 實作訂單確認的邏輯
-                alert('訂單已確認')
+                MySwal.fire({
+                  title: '您的訂單已成立囉!',
+                  confirmButtonText: '確定',
+                }).then((result) => {
+                  if (result.isConfirmed) {
+                    router.push('/product/product-checkout1')
+                  }
+                })
               }}
             >
               確認

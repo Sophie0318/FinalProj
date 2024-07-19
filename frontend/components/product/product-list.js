@@ -4,6 +4,7 @@ import styles from '@/components/product/product-list.module.css'
 import Image from 'next/image'
 import { useState } from 'react'
 import { useRouter } from 'next/router'
+import InputIME from './fillter'
 
 export default function ProductList({
   nameLike,
@@ -24,7 +25,7 @@ export default function ProductList({
     <>
       <div className="wrap">
         <div className={styles.search}>
-          <input
+          <InputIME
             className={styles.searchBar}
             type="text"
             name="searchInput"

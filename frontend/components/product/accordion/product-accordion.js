@@ -1,8 +1,11 @@
 import React, { useState } from 'react'
 import { IoAddOutline } from 'react-icons/io5'
 import styles from './product-checkout.module.css'
+import ShipIndex from '../../../pages/product/ship-index'
+import { useRouter } from 'next/router'
 
-export default function ProductAccordion({ store = '' }) {
+export default function ProductAccordion() {
+  const router = useRouter()
   return (
     <>
       <div className={`accordion  ${styles.qqq}`} id="accordionExample ">
@@ -34,7 +37,7 @@ export default function ProductAccordion({ store = '' }) {
                 e.target.style.color = '#1a394a'
               }}
             >
-              全家
+              7-ELEVEN(到店取貨)
             </button>
           </h2>
           <div
@@ -44,8 +47,8 @@ export default function ProductAccordion({ store = '' }) {
             data-bs-parent="#accordionExample"
           >
             <div className="accordion-body">
-              新增門市
-              <IoAddOutline style={{ fontSize: '25px' }} />
+              <ShipIndex />
+              {/* <IoAddOutline style={{ fontSize: '25px' }} /> */}
             </div>
           </div>
         </div>
@@ -79,7 +82,7 @@ export default function ProductAccordion({ store = '' }) {
                 e.target.style.color = '#1a394a'
               }}
             >
-              7-ELEVEN
+              全家
             </button>
           </h2>
           <div
@@ -216,6 +219,19 @@ export default function ProductAccordion({ store = '' }) {
           >
             <div className="accordion-body">嘿嘿</div>
           </div>
+        </div>
+      </div>
+      <div className="row">
+        <div className={`col6 col-md-12 text-center h5 ${styles.kkk}`}>
+          <button className={styles.btn} onClick={() => router.back()}>
+            返回
+          </button>
+          <button
+            className={styles.btn}
+            onClick={() => router.push('/product/product-checkout2')}
+          >
+            確認
+          </button>
         </div>
       </div>
     </>
