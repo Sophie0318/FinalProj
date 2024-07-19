@@ -8,6 +8,7 @@ import db from "./utils/connect-mysql.js";
 import imgUpload from "./utils/upload-imgs.js";
 import fs from "fs/promises";
 import path from "path";
+import googleLoginRouter from "./routes/users/googleLogin.js";
 
 // import 各分支的 router
 import aRouter from "./routes/articles/articles.js";
@@ -66,6 +67,9 @@ app.use("/coaches", coachRouter);
 app.use("/product", productRouter);
 app.use("/users", usersRouter);
 
+//google login
+app.use('/google-login', googleLoginRouter);
+
 
 //上傳單個圖片(上傳會員大頭貼)
 app.post("/avatar-upload", imgUpload.single('avatar'), async (req, res) => {
@@ -111,7 +115,6 @@ app.post("/avatar-upload", imgUpload.single('avatar'), async (req, res) => {
     res.status(500).json({ error: "Server error" });
   }
 });
-
 
 //會員個人資料頁的編輯
 app.use('/users/updateProfile', updateProfileRouter);

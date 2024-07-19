@@ -114,7 +114,7 @@ export default function SignIn() {
               </div>
             </a>
           </div>
-          <div className={styles.third_party_login}>
+          {/* <div className={styles.third_party_login}>
             <a className={styles.a} href="#">
               <div className={styles.icon_wrapper}>
                 <img src="/users-img/Facebook_icon.svg" alt="facebook icon" />
@@ -123,7 +123,7 @@ export default function SignIn() {
                 <p className={styles.p}>以Facebook帳號登入</p>
               </div>
             </a>
-          </div>
+          </div> */}
         </div>
       </UserSignin>
       {isModalOpen && (

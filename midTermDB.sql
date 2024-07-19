@@ -541,9 +541,10 @@ foreign key(employeedetail_id_fk) references Employees(employee_id) on delete ca
 -- 會員基本表
 CREATE TABLE Members (
     member_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    member_name VARCHAR(10),
-    member_email VARCHAR(100) NOT NULL UNIQUE,-- 註冊用的email不可重複
-    member_password VARCHAR(70) NOT NULL,
+	google_uid VARCHAR(200)NULL,-- GOOGLE登入的人的ID
+    member_name VARCHAR(10) NULL,
+    member_email VARCHAR(100) NULL UNIQUE,-- 註冊用的email不可重複
+    member_password VARCHAR(70) NULL,-- 用第三方登入的人沒有密碼
     gender VARCHAR(10),
     nick_name VARCHAR(10),
     avatar VARCHAR(200) NOT NULL DEFAULT 'default_avatar.jpg',-- 可以不放大頭貼，若不放會顯示一個預設圖示
