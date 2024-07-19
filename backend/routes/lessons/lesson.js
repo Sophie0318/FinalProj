@@ -278,4 +278,42 @@ router.get("/api/:id", async (req, res) => {
       res.status(500).json({ success: false, message: '伺服器錯誤' });
     }
   });
+
+  router.get("/user-lessons/:memberId", async (req, res) => {
+    const { memberId } = req.params;
+    try {
+      const sql = `
+        SELECT 
+          l.lesson_id,
+          l.lesson_name,
+          l.lesson_price,
+          l.lesson_desc,
+          DATE_FORMAT(l.lesson_date, '%Y-%m-%d %H:%i') AS lesson_date,
+          li.lesson_img,
+          c.coach_name,
+          g.gym_name,
+          lo.order_status
+        FROM 
+          LessonOrders lo
+        JOIN 
+          Lessons l ON lo.lesson_id = l.lesson_id
+        JOIN 
+          LessonImgs li ON l.LessonImgs_id = li.LessonImgs_id
+        JOIN 
+          Coaches c ON l.coach_id = c.coach_id
+        JOIN 
+          Gyms g ON l.gym_id = g.gym_id
+        WHERE 
+          lo.member_id = ? AND lo.order_status = 'paid'
+        ORDER BY 
+          lo.order_date DESC
+      `;
+  
+      const [rows] = await db.query(sql, [memberId]);
+      res.json({ success: true, lessons: rows });
+    } catch (error) {
+      console.error('Error fetching user lessons:', error);
+      res.status(500).json({ success: false, message: 'Server error' });
+    }
+  });
 export default router;
