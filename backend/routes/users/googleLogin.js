@@ -18,7 +18,7 @@ router.post('/', async function (req, res, next) {
     const google_uid = uid;
 
     try {
-        // 查询数据库是否有同 google_uid 的资料
+        // 查詢資料庫是否有同 google_uid 的資料
         const [rows] = await db.execute('SELECT * FROM Members WHERE google_uid = ?', [google_uid]);
 
         let returnUser;
@@ -33,7 +33,7 @@ router.post('/', async function (req, res, next) {
                 google_uid: user.google_uid,
             };
         } else {
-            // 用户不存在，创建新用户
+            // 用户不存在，創建新用户
             const [result] = await db.execute(
                 'INSERT INTO Members (member_name, member_email, google_uid) VALUES (?, ?, ?)',
                 [memberName, email, google_uid]
@@ -47,7 +47,7 @@ router.post('/', async function (req, res, next) {
             };
         }
 
-        // 生成访问令牌 (access token)
+        // 生成訪問令牌 (access token)
         const payload = {
             id: userData.member_id,
             email: userData.member_email,
@@ -57,13 +57,13 @@ router.post('/', async function (req, res, next) {
             expiresIn: '3d',// 令牌效期 3 天
         });
 
-        // 使用 httpOnly cookie 来让浏览器端存储 access token
+        // 使用 httpOnly cookie 讓瀏覽器存 access token
         res.cookie('accessToken', accessToken, { httpOnly: true });
 
         res.json({
             success: true,
             data: {
-                ...userData,  // 展开 userData 对象
+                ...userData,  // 展開 userData
                 token: accessToken  // 包含生成的 token
             }
         });
