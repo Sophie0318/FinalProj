@@ -202,12 +202,16 @@ router.get("/api", async (req, res) => {
 
 //order訂單的api
 router.post("/addorder", async (req, res) => {
-  let { orderDetail, ...body } = req.body;
+  let { orderDetail, ...body } = req.body; //req.body 包含從客戶端發送過來的數據。這行代碼將 orderDetail 提取出來，並將剩餘的數據存入 body。orderDetail 是一個包含訂單詳細信息的 JSON 字符串，body 包含訂單的其他信息。
   console.log(JSON.parse(req.body.orderDetail));
+  //插入 ProductOrders 表
   const sql = "INSERT INTO ProductOrders SET ?";
-
+  //使用 INSERT INTO ProductOrders SET ? 語法插入 body 這個對象中的數據到 ProductOrders 表中。db.query 方法用於執行 SQL 查詢，並返回結果。result.insertId 是剛插入的訂單的 ID，後續將用於插入訂單詳情。
   const [result] = await db.query(sql, [body]);
+  //獲取剛插入的訂單 ID
   const order_id = result.insertId;
+
+  //sql2 是用於插入訂單詳情的 SQL 語句，? 佔位符將會被實際的數據取代。insersql 是將 orderDetail JSON 字符串解析為對象的結果，這樣可以逐條處理訂單詳情
   const sql2 =
     "INSERT INTO OrdersDetail SET OrdersDetail_product_id_fk = ?,OrdersDetail_product_quantity=?,OrdersDetail_order_id_fk=? ,OrdersDetail_unit_price_at_time=?";
   const insersql = JSON.parse(orderDetail);
@@ -220,7 +224,7 @@ router.post("/addorder", async (req, res) => {
       i.orderDetail_number,
     ]);
   }
-  // console.log(result);
+  console.log(result);
   console.log(orderDetail);
   res.json(order_id);
 });

@@ -21,8 +21,9 @@ export default function Checkout2Input() {
   const { checkout, setCheckout } = useCart() // 使用 useCart 的鉤子
   // console.log(checkout)
   const [orderDetail, setOrderDetail] = useState([])
-  const [orderId, setOrderId] = useState(0)
+  const [orderId, setOrderId] = useState(0) //訂單編號的狀態
   function generateRandomOrderId(length) {
+    //生成訂單亂碼
     let result = ''
     const characters = 'ABCDEFGHIJKLMNOwxyz0123456789'
     const charactersLength = characters.length
@@ -31,20 +32,22 @@ export default function Checkout2Input() {
     }
     return result
   }
+  console.log(orderDetail)
 
-  //把表單丟去後端
+  //把表單丟去後端//inser into
   const onSubmit = async (e) => {
     e.preventDefault()
     const num = generateRandomOrderId(10) // 在組件加載時生成訂單編號
     const r = await fetch('http://localhost:3001/product/addorder', {
+      //後端伺服器的路徑
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        ...myForm,
-        orderDetail,
-        orderDetail_number: num,
+        ...myForm, //form表單
+        orderDetail, //商品明細
+        orderDetail_number: num, //訂單的編號
       }),
     })
     //處理伺服器的回應

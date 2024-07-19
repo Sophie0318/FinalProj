@@ -22,11 +22,11 @@ export default function Checkout3Order() {
       )
         .then((response) => response.json())
         .then((data) => {
-          console.log(data)
+          // console.log(data)
           setOrderDetail(data.orderDetail)
           console.log(orderDetail[0])
         })
-      console.log(router.query.order_id)
+      // console.log(router.query.order_id)
     }
     // if (typeof window !== 'undefined') {
     //   const savedItems = localStorage.getItem('shoppingCart')
