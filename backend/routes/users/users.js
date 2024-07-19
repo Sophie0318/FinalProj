@@ -113,6 +113,109 @@ router.post("/login-jwt", async (req, res) => {
     }
 });
 
+// 課程收藏
+router.post("/add-lesson-favorite", async (req, res) => {
+    const { member_id, lesson_id } = req.body;
+    if (!member_id || !lesson_id) {
+      return res.status(400).json({ success: false, message: "Missing member_id or lesson_id" });
+    }
+    try {
+      console.log("Attempting to add favorite:", { member_id, lesson_id });
+      // 先檢查是否已經存在收藏
+      const checkSql = "SELECT COUNT(*) as count FROM FavLesson WHERE member_id = ? AND lesson_id = ?";
+      const [checkResult] = await db.query(checkSql, [member_id, lesson_id]);
+      if (checkResult[0].count > 0) {
+        return res.json({ success: true, message: "Already in favorites" });
+      }
+      // 如果不存在，則添加收藏
+      const sql = "INSERT INTO FavLesson (member_id, lesson_id) VALUES (?, ?)";
+      await db.query(sql, [member_id, lesson_id]);
+      console.log("Favorite added successfully");
+      res.json({ success: true, message: "Added to favorites" });
+    } catch (error) {
+      console.error("Detailed error adding favorite:", error);
+      res.status(500).json({ success: false, message: "Server error", error: error.message });
+    }
+});
+
+// 獲取用戶的收藏課程
+router.get("/favorites-lesson/:userId", async (req, res) => {
+    const { userId } = req.params;
+    try {
+        const sql = `
+            SELECT 
+                lesson_id,
+                lesson_name,
+                lesson_price,
+                lesson_desc,
+                lesson_date,
+                create_date,
+                update_at,
+                GROUP_CONCAT(DISTINCT ct.code_desc ORDER BY ct.code_desc SEPARATOR '、') AS skills,
+                lesson_img,
+                g.gym_name AS gym
+            FROM 
+                Lessons L
+            JOIN 
+                FavLesson fl ON L.lesson_id = fl.lesson_id
+            JOIN 
+                LessonCategories ls ON L.lesson_id = lc.lesson_id
+            JOIN 
+                CommonType ct ON cs.commontype_id = ct.commontype_id
+            JOIN 
+                LessonImgs li ON L.LessonImgs_id = li.LessonImgs_id
+            JOIN 
+                Gyms g ON L.gym_id = g.gym_id
+            WHERE 
+                fc.member_id = ?
+            GROUP BY 
+                L.lesson_id, g.gym_name, li.lesson_img
+        `;
+        const [favorites] = await db.query(sql, [userId]);
+        res.json({ success: true, favorites });
+    } catch (error) {
+        console.error("獲取收藏時發生錯誤:", error);
+        res.status(500).json({ success: false, message: "伺服器錯誤", error: error.message });
+    }
+});
+
+// 刪除課程收藏
+router.delete("/remove-lesson-favorite", async (req, res) => {
+    const { member_id, lesson_id } = req.body;
+    if (!member_id || !lesson_id) {
+        return res.status(400).json({ success: false, message: "缺少 member_id 或 coach_id" });
+    }
+    try {
+        console.log("嘗試刪除收藏:", { member_id, lesson_id });
+        const sql = "DELETE FROM FavCoach WHERE member_id = ? AND coach_id = ?";
+        const [result] = await db.query(sql, [member_id, lesson_id]);
+        
+        if (result.affectedRows > 0) {
+            console.log("收藏刪除成功");
+            res.json({ success: true, message: "已從收藏中移除" });
+        } else {
+            res.status(404).json({ success: false, message: "找不到要刪除的收藏" });
+        }
+    } catch (error) {
+        console.error("刪除收藏時發生錯誤:", error);
+        res.status(500).json({ success: false, message: "伺服器錯誤", error: error.message });
+    }
+});
+
+// 檢查收藏狀態
+router.get("/check-favorite/:userId/:lessonId", async (req, res) => {
+    const { userId, lessonId } = req.params;
+    try {
+      const sql = "SELECT COUNT(*) as count FROM FavLesson WHERE member_id = ? AND lesson_id = ?";
+      const [rows] = await db.query(sql, [userId, lessonId]);
+      const isFavorite = rows[0].count > 0;
+      res.json({ success: true, isFavorite });
+    } catch (error) {
+      console.error("檢查收藏狀態時發生錯誤:", error);
+      res.status(500).json({ success: false, message: "伺服器錯誤", error: error.message });
+    }
+  });
+
 // 添加教練收藏
 router.post("/add-favorite", async (req, res) => {
     const { member_id, coach_id } = req.body;

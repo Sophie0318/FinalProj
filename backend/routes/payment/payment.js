@@ -6,7 +6,7 @@ const router = express.Router()
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
-  const { amount, lessonId, lessonName} = req.query
+  const { amount, lessonId, lessonName, orderId } = req.query
   //綠界全方位金流技術文件：
   // https://developers.ecpay.com.tw/?p=2856
   // 信用卡測試卡號：4311-9522-2222-2222 安全碼 222

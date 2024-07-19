@@ -13,6 +13,7 @@ export default function Checkout() {
 
   const handlePayment = async () => {
     try {
+      // 向後端發起付款請求，並把課程價格、課程id一起傳給後端
       const response = await axios.get(
         `http://localhost:3001/payment?amount=${lesson.lesson_price}&lessonId=${
           lesson.lesson_id

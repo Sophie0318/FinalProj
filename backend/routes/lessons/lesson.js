@@ -241,10 +241,11 @@ router.get("/api/:id", async (req, res) => {
     }
   });
 
+  // 處理前端所發送的創建訂單請求，並將訂單狀態設為預設值pending
   router.post("/create-order", async (req, res) => {
     const { member_id, lesson_id } = req.body;
     try {
-      const sql = "INSERT INTO LessonOrders (member_id, lesson_id, order_status) VALUES (?, ?, 'pending')";
+      const sql = "INSERT INTO LessonOrders (member_id, lesson_id, order_status) VALUES (?, ?, 'paid')";
       const [result] = await db.query(sql, [member_id, lesson_id]);
       res.json({ success: true, orderId: result.insertId });
     } catch (error) {
@@ -254,15 +255,27 @@ router.get("/api/:id", async (req, res) => {
   });
 
   router.post("/update-order", async (req, res) => {
-    const { order_id, status } = req.body;
+    const { order_number } = req.body;
+    console.log('接收到的 order_number:', order_number);
+  
+    if (!order_number) {
+      return res.status(400).json({ success: false, message: '缺少 order_number' });
+    }
+  
     try {
-      const sql = "UPDATE LessonOrders SET order_status = ?, payment_date = NOW() WHERE order_id = ?";
-      await db.query(sql, [status, order_id]);
-      res.json({ success: true });
+      const sql = "UPDATE LessonOrders SET order_status = 'paid', payment_date = NOW() WHERE order_number = ?";
+      const [result] = await db.query(sql, [order_number]);
+      
+      console.log('更新結果:', result);
+  
+      if (result.affectedRows > 0) {
+        res.json({ success: true, message: '訂單狀態更新成功' });
+      } else {
+        res.status(404).json({ success: false, message: '未找到訂單或狀態未更改' });
+      }
     } catch (error) {
       console.error('更新訂單狀態時發生錯誤:', error);
       res.status(500).json({ success: false, message: '伺服器錯誤' });
     }
   });
-
 export default router;
