@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import Layout3 from '@/components/layout/layout3'
 import styles from './gyms.module.css'
 import SearchBar from '@/components/common/searchbar/searchbar'
@@ -6,71 +6,96 @@ import Switch from '@/components/common/switch/switch'
 import MapErea from '@/components/gyms/map-erea'
 import GymFilters from './gymfilter'
 import ResultCards from '@/components/gyms/gymCard'
+import { useRouter } from 'next/router'
 
 export default function Gyms() {
-  // 功能寫在這
-
-  
-  const gymsData = [
-    {
-      id: 1,
-      name: '原力覺醒健身房',
-      address: '台北市中正區杭州南路二段308號',
-      businessHours: '上午9:00 - 下午11:00',
-      features: ['重量訓練', '有氧運動', '瑜伽課程'],
-      distance: 500,
-      images: [
-        '/gym1.jpg',
-        '/gym1.jpg',
-        '/gym1.jpg',
-        '/gym1.jpg',
-        '/gym1.jpg',
-        '/gym1.jpg',
-      ],
-      phoneNumber: '02-1234-5678',
-    },
-    {
-      id: 2,
-      name: '極限挑戰健身中心',
-      address: '台北市信義區松仁路100號',
-      businessHours: '24小時營業',
-      features: ['CrossFit', '格鬥訓練', '游泳池'],
-      distance: 1200,
-      images: ['/gym1.jpg', '/gym1.jpg', '/gym1.jpg', '/gym1.jpg'],
-      phoneNumber: '02-2345-6789',
-    },
-    {
-      id: 3,
-      name: '靜心瑜伽館',
-      address: '台北市大安區敦化南路一段233號',
-      businessHours: '上午6:00 - 晚上9:00',
-      features: ['熱瑜伽', '冥想課程', '芳療按摩'],
-      distance: 800,
-      images: ['/gym1.jpg', '/gym1.jpg', '/gym1.jpg'],
-      phoneNumber: '02-3456-7890',
-    },
-    {
-      id: 4,
-      name: '巔峰體能訓練營',
-      address: '台北市內湖區成功路四段188號',
-      businessHours: '上午7:00 - 晚上10:00',
-      features: ['團體課程', '私人教練', '營養諮詢'],
-      distance: 1500,
-      images: ['/gym1.jpg', '/gym1.jpg', '/gym1.jpg', '/gym1.jpg', '/gym1.jpg'],
-      phoneNumber: '02-4567-8901',
-    },
-    {
-      id: 5,
-      name: '都會運動俱樂部',
-      address: '台北市松山區南京東路五段250號',
-      businessHours: '上午8:00 - 晚上11:00',
-      features: ['室內跑道', '攀岩牆', '桑拿浴室'],
-      distance: 350,
-      images: ['/gym1.jpg', '/gym1.jpg', '/gym1.jpg', '/gym1.jpg'],
-      phoneNumber: '02-5678-9012',
-    },
-  ]
+  const router = useRouter()
+  const [gymsData, setGymsData] = useState([])
+  const [selectedFeatures, setSelectedFeatures] = useState([])
+  const [searchTerm, setSearchTerm] = useState('')
   const [boo, setBoo] = useState(true) //switch 的外觀state
+  const [isComposing, setIsComposing] = useState(false)
+  
+  //用fetch請後端搜尋資料的函式
+  const handleCompositionChange = (composing) => {
+    setIsComposing(composing)
+  }
+
+  const fetchGymsData = () => {
+    const qq = new URLSearchParams(router.query)
+    console.log(qq)
+    const url = `http://localhost:3001/gyms/api?keyword=${searchTerm}&features=${selectedFeatures}`
+    if (router.isReady) {
+      fetch(url)
+        .then((response) => response.json())
+        .then((data) => {
+          setGymsData(data.processedRows)
+        })
+    }
+  }
+
+  //處理checkbox狀態改變的函式
+  const handleCheckboxChange = (feature) => {
+    setSelectedFeatures((prev) => {
+      if (prev.includes(feature)) {
+        return prev.filter((f) => f !== feature)
+      } else {
+        return [...prev, feature]
+      }
+    })
+  }
+
+  // 清除所有checkbox函式
+  const clearAllCheckboxes = () => {
+    setSelectedFeatures([])
+  }
+
+  //更新URL
+  // const query = searchTerm ? { gym_name: searchTerm } : {}
+  // router.push(
+  //   {
+  //     pathname: '/gyms',
+  //     query,
+  //   },
+  //   undefined,
+  //   { shallow: true }
+  // )
+
+
+  const handleSearch = (e) => {
+    console.log(isComposing,searchTerm)
+    // if(!isComposing){
+      router.push({
+        pathname: '/gyms',
+        query: { ...router.query, gym_name: searchTerm },
+      })
+    // }
+      
+    }
+  
+
+  // 從URL取得搜尋關鍵字
+  useEffect(() => {
+    if (router.isReady) {
+      if (!isComposing) {
+        // fetch資料
+        fetchGymsData()
+      }
+      // checkbox的動態選染hook
+      const query = selectedFeatures.length
+        ? { feature_list: selectedFeatures.join('-') }
+        : {}
+      router.push(
+        {
+          pathname: '/gyms',
+          query:{...router.query,features:selectedFeatures.join('-')},
+        },
+        undefined,
+        { scroll:false }
+      )
+    }
+  }, [router.isReady, searchTerm, selectedFeatures, isComposing])
+
   return (
     <Layout3 title="尋找場館" pageName="gyms">
       <div className={styles.indexContainer}>
@@ -81,6 +106,13 @@ export default function Gyms() {
                 className=""
                 placeholder="輸入地址查詢最近場館..."
                 maxWidth="789px"
+                setSearchTerm={setSearchTerm}
+                searchTerm={searchTerm}
+                gymsData={gymsData}
+                onCompositionChange={handleCompositionChange}
+                handleSearch={handleSearch}
+                
+                
               />
               <div
                 title="switch"
@@ -90,13 +122,17 @@ export default function Gyms() {
               </div>
             </div>
           </div>
-          <GymFilters />
+          <GymFilters
+            selectedFeatures={selectedFeatures}
+            handleCheckboxChange={handleCheckboxChange}
+            clearAllCheckboxes={clearAllCheckboxes}
+          />
         </div>
         <div className={styles.flexRow}>
           <div className={styles.mapContainerStyle}>
-            <MapErea />
+            <MapErea gymsData={gymsData} />
           </div>
-          <ResultCards gyms={gymsData} />
+          <ResultCards gyms={gymsData} selectedFeatures={selectedFeatures} />
         </div>
       </div>
     </Layout3>

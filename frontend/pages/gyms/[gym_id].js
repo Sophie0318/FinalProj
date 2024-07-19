@@ -51,7 +51,7 @@ const {gym_id} = router.query
 
   return (
     <div>
-      <Layout3>
+      <Layout3 title="場館細節" pageName="gyms">
         <div className={`container ${styles.container}`}>
           <div className="row">
             <div className={`col-md-6 ${styles.imgContainerPC}`}>

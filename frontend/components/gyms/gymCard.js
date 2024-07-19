@@ -22,7 +22,7 @@ const GymCard = ({ data }) => {
       <div className={styles.imageContainer}>
         {isWideScreen ? (
           <Image
-            src={data.images[0]}
+            src={data.image_list[0]}
             alt="場館照片"
             width={120}
             height={120}
@@ -30,7 +30,7 @@ const GymCard = ({ data }) => {
             loading="lazy"
           />
         ) : (
-          data.images.map((src, i) => {
+          data.image_list.map((src, i) => {
             return (
               <Image
                 key={i}
@@ -47,14 +47,14 @@ const GymCard = ({ data }) => {
       </div>
       <div className={styles.textBtn}>
         <div className={styles.content}>
-          <Link href="/gyms/[gym_id]" as={`/gyms/${data.id}`}>
-            <h5 className={styles.title}>{data.name}</h5>
+          <Link href="/gyms/[gym_id]" as={`/gyms/${data.gym_id}`}>
+            <h5 className={styles.title}>{data.gym_name}</h5>
           </Link>
           <div className="cardInfo">
-            <p className={styles.smallFont}>{data.address}</p>
-            <p className={styles.smallFont}>營業時間 | {data.businessHours}</p>
+            <p className={styles.smallFont}>{data.gym_address}</p>
+            <p className={styles.smallFont}>營業時間 | {data.business_hours}</p>
             <div className={styles.badgeRow}>
-              {data.features.map((feature, i) => (
+              {data.feature_list.map((feature, i) => (
                 <span key={i} className={styles.badge}>
                   {feature}
                 </span>
@@ -64,7 +64,7 @@ const GymCard = ({ data }) => {
             </div>
           </div>
         </div>
-        <Link href="/gyms/[gym_id]/gym-reservation" as={`/gyms/${data.id}/gym-reservation`} className={styles.bookButton}>
+        <Link href="/gyms/[gym_id]/gym-reservation" as={`/gyms/${data.gym_id}/gym-reservation`} className={styles.bookButton}>
           <IoCall />
           預約
         </Link>
@@ -73,7 +73,13 @@ const GymCard = ({ data }) => {
   )
 }
 
-const ResultCards = ({ gyms }) => {
+const ResultCards = ({ gyms,selectedFeatures }) => {
+  const filteredGyms = gyms.filter((gym) => {
+    if (selectedFeatures.length === 0) {
+      return true
+    }
+    return selectedFeatures.some((feature) => gym.feature_list.includes(feature))
+  })
   const [isScrolled, setIsScrolled] = useState(false)
   const containerRef = useRef(null)
   useEffect(() => {
@@ -99,8 +105,8 @@ const ResultCards = ({ gyms }) => {
   }
   return (
     <div className={styles.resultCards}>
-      {Array.isArray(gyms) && gyms.length > 0 ? (
-        gyms.map((gym, i) => <GymCard key={i} data={gym} />)
+      {Array.isArray(filteredGyms) && filteredGyms.length > 0 ? (
+        filteredGyms.map((gym, i) => <GymCard key={i} data={gym} />)
       ) : (
         <p>沒有接收到gyms資料，檢查是不是陣列</p>
       )}
