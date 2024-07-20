@@ -19,6 +19,7 @@ import usersRouter from "./routes/users/users.js";
 import gymRouter from "./routes/gyms/gyms.js";
 import paymentRouter from "./routes/payment/payment.js";
 import shipmentRouter from "./routes/product/shipment.js";
+import productPayment from "./routes/payment/product-payment.js";
 
 const app = express();
 
@@ -70,7 +71,7 @@ app.use("/users", usersRouter);
 app.use("/gyms", gymRouter);
 app.use("/payment", paymentRouter);
 app.use("/shipment", shipmentRouter);
-
+app.use("/product-payment", productPayment); //前端:進入後端的路由
 //google login
 app.use("/google-login", googleLoginRouter);
 

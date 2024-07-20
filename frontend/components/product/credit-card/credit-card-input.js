@@ -5,7 +5,7 @@ import CreditCardCtn from '../button/credit-card-btn'
 export default function CreditCardInput() {
   return (
     <>
-      <div className="col-12 col-md-6 mt-5 h6 text-center">
+      {/* <div className="col-12 col-md-6 mt-5 h6 text-center">
         選擇付款方式
         <div>
           <select
@@ -27,9 +27,6 @@ export default function CreditCardInput() {
               信用卡/金融卡{' '}
             </option>
             <option value="" className="text-center">
-              Apple Pay
-            </option>
-            <option value="" className="text-center">
               line Pay
             </option>
             <option value="" className="text-center">
@@ -38,50 +35,8 @@ export default function CreditCardInput() {
             <option value="" className="text-center"></option>
           </select>
         </div>
-        {/* <div className={`col-12 col-md-12 text-center ${styles.eee}`}>
-          <span className={styles.must}>必填</span>
-          <span
-            style={{
-              paddingTop: '11px',
-              marginLeft: '11px',
-            }}
-          >
-            卡號
-          </span>
-        </div>
-        <div className={`col-12 col-md-12 ${styles.ccc}`}>
-          <input type="text" className={styles.inputSize} />
-        </div>
-        <div className={`col-12 col-md-12 ${styles.eee}`}>
-          <span className={styles.must}>必填</span>
-          <span
-            style={{
-              paddingTop: '11px',
-              marginLeft: '11px',
-            }}
-          >
-            有效日期
-          </span>
-        </div>
-        <div className={`col-12 col-md-12 ${styles.ccc}`}>
-          <input type="text" className={styles.inputSize} />
-        </div>
-        <div className={`col-12 col-md-12 ${styles.eee}`}>
-          <span className={styles.must}>必填</span>
-          <span
-            style={{
-              paddingTop: '11px',
-              marginLeft: '11px',
-            }}
-          >
-            驗證碼
-          </span>
-        </div>
-        <div className={`col-12 col-md-12 ${styles.ccc}`}>
-          <input type="text" className={styles.inputSize} />
-        </div> */}
         <CreditCardCtn />
-      </div>
+      </div> */}
     </>
   )
 }
