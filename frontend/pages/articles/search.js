@@ -9,8 +9,6 @@ import SearchSection from '@/components/articles/search-section'
 import BS5Pagination from '@/components/product/Pagination/bs5-pagination'
 import styles from './type.module.css'
 
-// const articleList = Array(12).fill(1)
-
 export default function ArticleType() {
   const renderCard = useRenderCards('articles')
   const [articleList, setArticleList] = useState([])
@@ -72,7 +70,11 @@ export default function ArticleType() {
               <div
                 className={`${styles.titleRow} col-12 d-flex justify-content-between align-items-center`}
               >
-                <h4 className="text-primary">關於“搜尋結果”的文章...</h4>
+                <h4 className="text-primary">
+                  關於“
+                  {router.query.keyword ? router.query.keyword : '搜雄結果'}
+                  ”的文章...
+                </h4>
                 <div className={styles.searchbarPC}>
                   <SearchBar
                     maxWidth="351px"

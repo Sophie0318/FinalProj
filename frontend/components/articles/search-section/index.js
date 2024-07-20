@@ -4,7 +4,7 @@ import useArticleSearch from '@/hooks/article-search/useArticleSearch'
 import styles from './search-section.module.css'
 
 export default function SearchSection() {
-  const { keyword, setKeyword, handleKeyDown } = useArticleSearch()
+  const { keyword, setKeyword, handleKeyDown } = useArticleSearch(true)
 
   return (
     <>
