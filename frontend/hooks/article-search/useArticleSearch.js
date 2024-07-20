@@ -12,4 +12,5 @@ export default function useArticleSearch() {
       })
     }
   }
+  return { keyword, setKeyword, handleKeyDown }
 }

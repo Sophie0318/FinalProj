@@ -1,19 +1,12 @@
 import { useState } from 'react'
 import { useRouter } from 'next/router'
 import SearchBar from '@/components/common/searchbar/searchbar'
+import useArticleSearch from '@/hooks/article-search/useArticleSearch'
 import styles from './search-section.module.css'
 
 export default function SearchSection() {
-  const [keyword, setKeyword] = useState('')
-  const router = useRouter()
-  const handleKeyDown = (e) => {
-    if (e.key === 'Enter' && keyword) {
-      router.push({
-        pathname: '/articles/search',
-        query: { keyword: keyword },
-      })
-    }
-  }
+  const { keyword, setKeyword, handleKeyDown } = useArticleSearch()
+
   return (
     <>
       <div className={`${styles.search}`}>
