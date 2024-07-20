@@ -4,6 +4,7 @@ import styles from '../../../styles/user-edit.module.css'
 import { useAuth } from '../../../context/auth-context'
 import { useRouter } from 'next/router'
 import UserModal from '../../../components/users/UserModal'
+import MyPasswordInput from '@/components/users/MyPasswordInput'
 
 export default function LessonsOrders() {
   const router = useRouter()
@@ -82,6 +83,7 @@ export default function LessonsOrders() {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+
     if (password !== confirmPassword) {
       setErrorMessage('密碼不一致')
       return
@@ -95,7 +97,11 @@ export default function LessonsOrders() {
       address,
       city: selectedCity,
       district: selectedDistrict,
-      password,
+    }
+
+    // 只有在有輸入密碼時才包含密碼欄位
+    if (password) {
+      updateProfile.password = password
     }
 
     try {
@@ -282,12 +288,12 @@ export default function LessonsOrders() {
                     <label htmlFor="password">
                       <p>密碼:</p>
                     </label>
-                    <input
-                      type="password"
+                    <MyPasswordInput
+                      password={password}
+                      setPassword={setPassword}
                       id="new_password"
                       name="password"
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
+                      placeholder="請輸入新密碼"
                     />
                   </div>
                   <div
@@ -297,26 +303,13 @@ export default function LessonsOrders() {
                     <label htmlFor="confirm_password">
                       <p>請再輸入一次密碼:</p>
                     </label>
-                    <div className={styles.input_container}>
-                      <input
-                        className={styles.myinput}
-                        type="password"
-                        id="confirm_password"
-                        name="confirm_password"
-                        value={confirmPassword}
-                        onChange={(e) => setConfirmPassword(e.target.value)}
-                      />
-                      <div className={styles.myicon}>
-                        <a href="#">
-                          <i className="fa-solid fa-eye-slash"></i>
-                        </a>
-                      </div>
-                    </div>
-                    {errorMessage && (
-                      <div className={styles.error_message}>
-                        <p>{errorMessage}</p>
-                      </div>
-                    )}
+                    <MyPasswordInput
+                      password={confirmPassword}
+                      setPassword={setConfirmPassword}
+                      id="confirm_password"
+                      name="confirm_password"
+                      placeholder="請再次輸入新密碼"
+                    />
                   </div>
                 </div>
               </div>
