@@ -125,6 +125,12 @@ export default function Edit() {
     //檢查密碼是否一致
     if (password !== confirmPassword) {
       setErrorMessage('密碼不一致')
+      setAlertMessage('輸入錯誤')
+      setUserMessage('兩次輸入的密碼並不一致')
+      setIsModalOpen(true)
+      setTimeout(() => {
+        setIsModalOpen(false)
+      }, 1000)
       return
     }
 
