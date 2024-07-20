@@ -3,6 +3,7 @@ import LayoutUser from '@/components/layout/user-layout3'
 import styles from '../../../styles/user-edit.module.css'
 import { useAuth } from '../../../context/auth-context'
 import { useRouter } from 'next/router'
+import UserModal from '../../../components/users/UserModal'
 
 export default function LessonsOrders() {
   const router = useRouter()
@@ -19,6 +20,10 @@ export default function LessonsOrders() {
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const [errorMessage, setErrorMessage] = useState('')
+
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [alertMessage, setAlertMessage] = useState('')
+  const [userMessage, setUserMessage] = useState('')
 
   console.log('auth.id:', auth.id)
 
@@ -135,13 +140,23 @@ export default function LessonsOrders() {
         setErrorMessage('') // 清除錯誤訊息
 
         if (updatedData.isPasswordChange) {
-          alert('密碼已更新，請重新登入')
+          setAlertMessage('更新成功')
+          setUserMessage('密碼已更新，請重新登入')
+          setIsModalOpen(true)
+          setTimeout(() => {
+            setIsModalOpen(false)
+          }, 1000)
           // 呼叫登出函數
           logout()
           // 導向登入頁面
           router.push('/users/sign_in')
         } else {
-          alert('個人資料更新成功')
+          setAlertMessage('更新成功')
+          setUserMessage('個人資料已成功更新')
+          setIsModalOpen(true)
+          setTimeout(() => {
+            setIsModalOpen(false)
+          }, 1000)
           //回到頂部
           window.scrollTo(0, 0)
         }
@@ -154,164 +169,176 @@ export default function LessonsOrders() {
     }
   }
   return (
-    <LayoutUser title="myProfile">
-      <div className={styles.userinfo_edit}>
-        <div className={styles.user_title}>
-          <h4>我的檔案</h4>
-        </div>
-        <form onSubmit={handleSubmit}>
-          <div className={styles.user_details}>
-            {/* Personal Information */}
-            <div className={styles.information}>
-              <h5>個人資料</h5>
-              <div className={styles.form_group}>
-                <label htmlFor="name">
-                  <p>姓名:</p>
-                </label>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                />
-              </div>
-              <div className={styles.form_group}>
-                <label htmlFor="nickname">
-                  <p>暱稱:</p>
-                </label>
-                <input
-                  type="text"
-                  id="nickname"
-                  name="nickname"
-                  value={nickName}
-                  onChange={(e) => setNickName(e.target.value)}
-                />
-              </div>
-              <div className={styles.form_group}>
-                <label htmlFor="mobile">
-                  <p>手機:</p>
-                </label>
-                <input
-                  type="text"
-                  id="mobile"
-                  name="mobile"
-                  value={mobile}
-                  onChange={(e) => setMobile(e.target.value)}
-                />
-              </div>
-            </div>
-
-            {/* Address */}
-            <div className={styles.address}>
-              <h5>地址</h5>
-              <div className={styles.form_group}>
-                <label htmlFor="city">
-                  <p>縣市:</p>
-                </label>
-                <select
-                  id="city"
-                  name="city"
-                  value={selectedCity}
-                  onChange={handleCityChange}
-                >
-                  <option value="0">--請選擇--</option>
-                  {city.map((c) => (
-                    <option key={c.code_id} value={c.code_id}>
-                      {c.code_desc}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div className={styles.form_group}>
-                <label htmlFor="district">
-                  <p>行政區:</p>
-                </label>
-                <select
-                  id="district"
-                  name="district"
-                  value={selectedDistrict}
-                  onChange={(e) =>
-                    setSelectedDistrict(parseInt(e.target.value))
-                  }
-                >
-                  <option value="0">--請選擇--</option>
-                  {districts.map((d) => (
-                    <option key={d.code_id} value={d.code_id}>
-                      {d.code_desc}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div className={styles.form_group}>
-                <label htmlFor="address">
-                  <p>地址:</p>
-                </label>
-                <input
-                  type="text"
-                  id="address"
-                  name="address"
-                  style={{ width: '300px' }}
-                  value={address}
-                  onChange={(e) => setAddress(e.target.value)}
-                />
-              </div>
-            </div>
-
-            {/* Change Password */}
-            <div className={styles.change_password}>
-              <h5>更改密碼</h5>
-              <div className={styles.flex}>
-                <div className={styles.form_groupMb}>
-                  <label htmlFor="password">
-                    <p>密碼:</p>
+    <>
+      <LayoutUser title="myProfile">
+        <div className={styles.userinfo_edit}>
+          <div className={styles.user_title}>
+            <h4>我的檔案</h4>
+          </div>
+          <form onSubmit={handleSubmit}>
+            <div className={styles.user_details}>
+              {/* Personal Information */}
+              <div className={styles.information}>
+                <h5>個人資料</h5>
+                <div className={styles.form_group}>
+                  <label htmlFor="name">
+                    <p>姓名:</p>
                   </label>
                   <input
-                    type="password"
-                    id="new_password"
-                    name="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
+                    type="text"
+                    id="name"
+                    name="name"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
                   />
                 </div>
-                <div className={styles.form_groupMb} style={{ width: '350px' }}>
-                  <label htmlFor="confirm_password">
-                    <p>請再輸入一次密碼:</p>
+                <div className={styles.form_group}>
+                  <label htmlFor="nickname">
+                    <p>暱稱:</p>
                   </label>
-                  <div className={styles.input_container}>
+                  <input
+                    type="text"
+                    id="nickname"
+                    name="nickname"
+                    value={nickName}
+                    onChange={(e) => setNickName(e.target.value)}
+                  />
+                </div>
+                <div className={styles.form_group}>
+                  <label htmlFor="mobile">
+                    <p>手機:</p>
+                  </label>
+                  <input
+                    type="text"
+                    id="mobile"
+                    name="mobile"
+                    value={mobile}
+                    onChange={(e) => setMobile(e.target.value)}
+                  />
+                </div>
+              </div>
+
+              {/* Address */}
+              <div className={styles.address}>
+                <h5>地址</h5>
+                <div className={styles.form_group}>
+                  <label htmlFor="city">
+                    <p>縣市:</p>
+                  </label>
+                  <select
+                    id="city"
+                    name="city"
+                    value={selectedCity}
+                    onChange={handleCityChange}
+                  >
+                    <option value="0">--請選擇--</option>
+                    {city.map((c) => (
+                      <option key={c.code_id} value={c.code_id}>
+                        {c.code_desc}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div className={styles.form_group}>
+                  <label htmlFor="district">
+                    <p>行政區:</p>
+                  </label>
+                  <select
+                    id="district"
+                    name="district"
+                    value={selectedDistrict}
+                    onChange={(e) =>
+                      setSelectedDistrict(parseInt(e.target.value))
+                    }
+                  >
+                    <option value="0">--請選擇--</option>
+                    {districts.map((d) => (
+                      <option key={d.code_id} value={d.code_id}>
+                        {d.code_desc}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div className={styles.form_group}>
+                  <label htmlFor="address">
+                    <p>地址:</p>
+                  </label>
+                  <input
+                    type="text"
+                    id="address"
+                    name="address"
+                    style={{ width: '300px' }}
+                    value={address}
+                    onChange={(e) => setAddress(e.target.value)}
+                  />
+                </div>
+              </div>
+
+              {/* Change Password */}
+              <div className={styles.change_password}>
+                <h5>更改密碼</h5>
+                <div className={styles.flex}>
+                  <div className={styles.form_groupMb}>
+                    <label htmlFor="password">
+                      <p>密碼:</p>
+                    </label>
                     <input
-                      className={styles.myinput}
                       type="password"
-                      id="confirm_password"
-                      name="confirm_password"
-                      value={confirmPassword}
-                      onChange={(e) => setConfirmPassword(e.target.value)}
+                      id="new_password"
+                      name="password"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
                     />
-                    <div className={styles.myicon}>
-                      <a href="#">
-                        <i className="fa-solid fa-eye-slash"></i>
-                      </a>
-                    </div>
                   </div>
-                  {errorMessage && (
-                    <div className={styles.error_message}>
-                      <p>{errorMessage}</p>
+                  <div
+                    className={styles.form_groupMb}
+                    style={{ width: '350px' }}
+                  >
+                    <label htmlFor="confirm_password">
+                      <p>請再輸入一次密碼:</p>
+                    </label>
+                    <div className={styles.input_container}>
+                      <input
+                        className={styles.myinput}
+                        type="password"
+                        id="confirm_password"
+                        name="confirm_password"
+                        value={confirmPassword}
+                        onChange={(e) => setConfirmPassword(e.target.value)}
+                      />
+                      <div className={styles.myicon}>
+                        <a href="#">
+                          <i className="fa-solid fa-eye-slash"></i>
+                        </a>
+                      </div>
                     </div>
-                  )}
+                    {errorMessage && (
+                      <div className={styles.error_message}>
+                        <p>{errorMessage}</p>
+                      </div>
+                    )}
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-          <div className={styles.edit_btn}>
-            <a href="./edit.html" className={styles.btn_md}>
-              <div className={styles.h6_font}>取消更新</div>
-            </a>
-            <button type="submit" className={styles.btn_md}>
-              <div className={styles.h6_font}>資料更新</div>
-            </button>
-          </div>
-        </form>
-      </div>
-    </LayoutUser>
+            <div className={styles.edit_btn}>
+              <a href="./edit.html" className={styles.btn_md}>
+                <div className={styles.h6_font}>取消更新</div>
+              </a>
+              <button type="submit" className={styles.btn_md}>
+                <div className={styles.h6_font}>資料更新</div>
+              </button>
+            </div>
+          </form>
+        </div>
+      </LayoutUser>
+      {isModalOpen && (
+        <UserModal
+          onClose={() => setIsModalOpen(false)}
+          alertMessage={alertMessage}
+          userMessage={userMessage}
+        />
+      )}
+    </>
   )
 }
