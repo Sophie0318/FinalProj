@@ -6,7 +6,7 @@ import { useRouter } from 'next/router'
 import UserModal from '../../../components/users/UserModal'
 import MyPasswordInput from '@/components/users/MyPasswordInput'
 
-export default function LessonsOrders() {
+export default function Edit() {
   const router = useRouter()
   const { auth, setAuth, logout } = useAuth()
   const [city, setCity] = useState([])
@@ -20,6 +20,7 @@ export default function LessonsOrders() {
   const [address, setAddress] = useState(auth.address || '')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
+  const [originalUserData, setOriginalUserData] = useState({}) //保存原始資料
   const [errorMessage, setErrorMessage] = useState('')
 
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -28,7 +29,18 @@ export default function LessonsOrders() {
 
   console.log('auth.id:', auth.id)
 
+  //當auth被更新時保存原先的資料
   useEffect(() => {
+    //保存原始資料
+    setOriginalUserData({
+      name: auth.name || '',
+      nick_name: auth.nick_name || '',
+      mobile: auth.mobile || '',
+      address: auth.address || '',
+      city: auth.city || 0,
+      district: auth.district || 0,
+    })
+    //更新的資料
     setName(auth.name || '')
     setNickName(auth.nick_name || '')
     setMobile(auth.mobile || '')
@@ -81,9 +93,36 @@ export default function LessonsOrders() {
     setSelectedDistrict(0)
   }
 
+  // 檢查是否有資烙更新
+  const isDataChanged = () => {
+    return (
+      name !== originalUserData.name ||
+      nickName !== originalUserData.nick_name ||
+      mobile !== originalUserData.mobile ||
+      address !== originalUserData.address ||
+      selectedCity !== originalUserData.city ||
+      selectedDistrict !== originalUserData.district ||
+      password !== '' || // 如果輸入了新密碼，視為有更新
+      confirmPassword !== ''
+    )
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault()
 
+    // 檢查是否有資料更新
+    if (!isDataChanged()) {
+      setAlertMessage('尚無資料更新')
+      setUserMessage('沒有資料異動')
+      setIsModalOpen(true)
+      setTimeout(() => {
+        setIsModalOpen(false)
+      }, 1000)
+      //回到頂部
+      window.scrollTo(0, 0)
+      return
+    }
+    //檢查密碼是否一致
     if (password !== confirmPassword) {
       setErrorMessage('密碼不一致')
       return
@@ -318,7 +357,7 @@ export default function LessonsOrders() {
               <a href="./edit.html" className={styles.btn_md}>
                 <div className={styles.h6_font}>取消更新</div>
               </a>
-              <button type="submit" className={styles.btn_md}>
+              <button type="submit" className={styles.btn_md} formNoValidate>
                 <div className={styles.h6_font}>資料更新</div>
               </button>
             </div>
