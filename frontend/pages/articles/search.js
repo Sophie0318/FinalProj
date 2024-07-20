@@ -1,10 +1,68 @@
-import React from 'react'
+import { useState, useEffect } from 'react'
+import { useRouter } from 'next/router'
+import useArticleSearch from '@/hooks/article-search/useArticleSearch'
+
 import Layout3 from '@/components/layout/layout3'
+import useRenderCards from '@/hooks/cards/cards'
+import SearchBar from '@/components/common/searchbar/searchbar'
+import SearchSection from '@/components/articles/search-section'
+import BS5Pagination from '@/components/product/Pagination/bs5-pagination'
 import styles from './type.module.css'
 
-const articleList = Array(12).fill(1)
+// const articleList = Array(12).fill(1)
 
 export default function ArticleType() {
+  const renderCard = useRenderCards('articles')
+  const [articleList, setArticleList] = useState([])
+  const [totalPages, setTotalPages] = useState(0)
+  const { keyword, setKeyword, handleKeyDown } = useArticleSearch()
+  const router = useRouter()
+
+  const onPageChange = (e) => {
+    const pageNum = e.selected + 1
+    router.push({ query: { ...router.query, page: pageNum } }, undefined, {
+      scroll: false,
+    })
+  }
+
+  const getList = async (url) => {
+    let res = ''
+    let resData = ''
+    try {
+      res = await fetch(url)
+      resData = await res.json()
+    } catch (error) {
+      console.log('database fetch data error: ', error)
+    }
+    if (resData.success) {
+      if (resData.redirect) {
+        console.log(resData.redirect)
+        router.push(
+          {
+            pathname: router.pathname,
+            query: { ...router.query, ...resData.redirect },
+          },
+          undefined,
+          { shallow: true }
+        )
+        console.log(router.query)
+      }
+    } else {
+      console.log(resData.success)
+    }
+    setArticleList(resData.rows)
+    setTotalPages(resData.totalPages)
+  }
+
+  useEffect(() => {
+    if (router.isReady) {
+      const baseURL = 'http://localhost:3001/articles/api/listData?'
+      const query = new URLSearchParams(router.query)
+
+      const url = `${baseURL}${query}`
+      getList(url)
+    }
+  }, [router])
   return (
     <>
       <Layout3 title="搜尋文章" pageName="articles">
@@ -15,15 +73,15 @@ export default function ArticleType() {
                 className={`${styles.titleRow} col-12 d-flex justify-content-between align-items-center`}
               >
                 <h4 className="text-primary">關於“搜尋結果”的文章...</h4>
-                <div
-                  style={{
-                    backgroundColor: '#bbb',
-                    height: '60px',
-                    width: '351px',
-                    borderRadius: '50px',
-                  }}
-                >
-                  searchbar
+                <div className={styles.searchbarPC}>
+                  <SearchBar
+                    maxWidth="351px"
+                    placeholder="輸入關鍵字搜尋文章..."
+                    searchTerm={keyword}
+                    setSearchTerm={setKeyword}
+                    handleKeyDown={handleKeyDown}
+                    handleSearch={() => {}}
+                  />
                 </div>
               </div>
               {articleList.map((v, i) => {
@@ -32,17 +90,7 @@ export default function ArticleType() {
                     className={`${styles.card} col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12`}
                     key={i}
                   >
-                    <div
-                      className="d-flex justify-content-center align-items-center"
-                      style={{
-                        backgroundColor: '#bbb',
-                        height: '392px',
-                        width: '100%',
-                        borderRadius: '40px',
-                      }}
-                    >
-                      {v}
-                    </div>
+                    {renderCard(v)}
                   </div>
                 )
               })}
@@ -50,17 +98,19 @@ export default function ArticleType() {
                 className={`${styles.page} col-12 d-flex justify-content-center`}
               >
                 <div
-                  style={{
-                    backgroundColor: '#bbb',
-                    height: '50px',
-                    width: '370px',
-                  }}
+                  className={`${styles.page} col-12 d-flex justify-content-center`}
                 >
-                  pagination
+                  <BS5Pagination
+                    totalPages={totalPages}
+                    onPageChange={onPageChange}
+                  />
                 </div>
               </div>
             </div>
           </div>
+        </section>
+        <section className={styles.searchbarSP}>
+          <SearchSection />
         </section>
       </Layout3>
     </>

@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
+import useArticleSearch from '@/hooks/article-search/useArticleSearch'
+
 import useRenderCards from '@/hooks/cards/cards'
 import Layout3 from '@/components/layout/layout3'
 import SearchBar from '@/components/common/searchbar/searchbar'
@@ -11,7 +13,7 @@ export default function ArticleType() {
   const [articleList, setArticleList] = useState([])
   const [totalPages, setTotalPages] = useState(0)
   const [pageCategory, setPageCategory] = useState('文章列表')
-  const [keyword, setKeyword] = useState('')
+  const { keyword, setKeyword, handleKeyDown } = useArticleSearch()
   const renderCard = useRenderCards('articles')
   const router = useRouter()
   const categoryMap = {
@@ -56,15 +58,6 @@ export default function ArticleType() {
     setTotalPages(resData.totalPages)
   }
 
-  const handleSearch = (value) => {
-    setKeyword(value)
-
-    // let query = { ...router.query, serachBy: 'article_title', keyword: keyword }
-    // console.log(query)
-    // const newQuery = new URLSearchParams(query)
-    // router.push(newQuery)
-  }
-
   useEffect(() => {
     if (router.isReady) {
       const baseURL = 'http://localhost:3001/articles/api/listData?'
@@ -89,8 +82,11 @@ export default function ArticleType() {
                 <div className={styles.searchbarPC}>
                   <SearchBar
                     maxWidth="351px"
+                    placeholder="輸入關鍵字搜尋文章..."
                     searchTerm={keyword}
-                    setSearchTerm={handleSearch}
+                    setSearchTerm={setKeyword}
+                    handleKeyDown={handleKeyDown}
+                    handleSearch={() => {}}
                   />
                 </div>
               </div>
