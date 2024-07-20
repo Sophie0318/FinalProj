@@ -79,16 +79,31 @@ export default function ArticleSidebar({
         `}
       >
         <div className={styles.sidebarWrapper}>
-          <button className={styles.sidebarBtn}>
+          <button
+            className={styles.sidebarBtn}
+            onClick={() => {
+              handleFontSize()
+            }}
+          >
             <img src="/articles-img/font-size-dark.svg" />
           </button>
           <button className={styles.sidebarBtn}>
             <IoHeart />
           </button>
-          <button className={styles.sidebarBtn}>
+          <button
+            className={styles.sidebarBtn}
+            onClick={() => {
+              handleScroll()
+            }}
+          >
             <IoChatbubbleEllipses />
           </button>
-          <button className={styles.sidebarBtn}>
+          <button
+            className={styles.sidebarBtn}
+            onClick={() => {
+              linkToClipBoard()
+            }}
+          >
             <IoShareSocialSharp />
           </button>
           <button className={styles.sidebarBtn}>

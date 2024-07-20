@@ -117,7 +117,7 @@ export default function ArticlePage() {
 
         <section className={`${styles.author} bg-secondary`}>
           <div className="container fixed-960 p-0">
-            <div className="row g-0 justify-content-md-between justify-content-center mx-3">
+            <div className="row g-0 justify-content-md-between justify-content-center mx-0">
               <div className={`${styles.authorImg} col-md-5 col-12`}>
                 <img src={author.author_image} />
               </div>
@@ -146,7 +146,7 @@ export default function ArticlePage() {
                     bgColor="midnightgreen"
                     width="100%"
                     maxWidth="173px"
-                    btnOrLink={author.author_id ? 'link' : 'button'}
+                    btnOrLink="link"
                     hrefURL={
                       author.author_id
                         ? `/coaches/${author.author_id}`
