@@ -73,8 +73,9 @@ export default function Gyms() {
 
   const handleSearch = (e) => {
     // if(!isComposing){
+
     router.push({
-      pathname: '/gyms',
+      pathname: router.pathname,
       query: { ...router.query, gym_name: searchTerm },
     })
     // }
@@ -87,14 +88,17 @@ export default function Gyms() {
         // fetch資料
         fetchGymsData()
       }
-      // checkbox的動態選染hook
-      const query = selectedFeatures.length
-        ? { feature_list: selectedFeatures.join('-') }
-        : {}
+      // 更新URL--checkbox
+      const newQuery = {
+        ...router.query,
+        features: selectedFeatures,
+      }
+      const cleanQuery = Object.fromEntries(Object.entries(newQuery).filter(([_, value]) => value !== ''))
+
       router.push(
         {
-          pathname: '/gyms',
-          query: { ...router.query, features: selectedFeatures.join('-') },
+          pathname: router.path,
+          query: cleanQuery,
         },
         undefined,
         { scroll: false }
@@ -136,7 +140,7 @@ export default function Gyms() {
         </div>
         <div className={styles.flexRow}>
           <div className={styles.mapContainerStyle}>
-            <MapErea gymsData={gymsData} searchTerm={searchTerm}/>
+            <MapErea gymsData={gymsData} searchTerm={searchTerm} />
           </div>
           <ResultCards gyms={gymsData} selectedFeatures={selectedFeatures} />
         </div>

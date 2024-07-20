@@ -1,9 +1,11 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
+import GymCardSpot from './gymCard-spot'
 import {
   Autocomplete,
   GoogleMap,
   useJsApiLoader,
   Marker,
+  InfoWindow,
 } from '@react-google-maps/api'
 
 export default function MapErea({ gymsData, searchTerm }) {
@@ -15,6 +17,7 @@ export default function MapErea({ gymsData, searchTerm }) {
     lat: 25.04510954594513,
     lng: 121.52343310812854,
   })
+  const [selectedMarker, setSelectedMarker] = useState("")
 
   // useEffect(() => {
   //   handleSearch()
@@ -62,8 +65,8 @@ export default function MapErea({ gymsData, searchTerm }) {
           gym_price: gym.gym_price,
           gym_equipment: gym.gym_equipment,
           is_elderly: gym.is_elderly,
-          feature_list: gym.feature_list,
-          image_list: gym.image_list,
+          features: gym.feature_list,
+          images: gym.image_list,
         },
         geometry: {
           type: 'Point',
@@ -123,7 +126,12 @@ export default function MapErea({ gymsData, searchTerm }) {
         fullscreenControl: false,
       }}
     >
-      <Marker position={center} />
+      <Marker position={center} options={{
+        icon: {
+          url: '/map-marker-smile-fill.svg',
+          scaledSize: new window.google.maps.Size(50, 50),
+        },
+      }} />
       {geoJsonData.features.map((feature) => (
         <Marker
           key={feature.properties.gym_id}
@@ -131,9 +139,18 @@ export default function MapErea({ gymsData, searchTerm }) {
             lat: feature.geometry.coordinates[1],
             lng: feature.geometry.coordinates[0],
           }}
+          onClick={()=>setSelectedMarker(feature)}
           title={feature.properties.gym_name}
+          options={{
+            icon: {
+              url: '/fi-sr-marker.svg',
+              scaledSize: new window.google.maps.Size(50, 50),
+            },
+          }}
         />
-      ))}
+      ))}{selectedMarker && <InfoWindow position={{lat:selectedMarker.geometry.coordinates[1],lng:selectedMarker.geometry.coordinates[0]}}>
+        <GymCardSpot data={selectedMarker.properties} />
+        </InfoWindow>}
     </GoogleMap>
   ) : (
     <>
