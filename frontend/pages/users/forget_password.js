@@ -13,7 +13,7 @@ export default function ForgetPassword() {
   const [userMessage, setUserMessage] = useState('')
 
   const lastRequestTime = useRef(0) //上次發送驗證信的時間
-  const MIN_INTERVAL = 60000 //現在設定1分鐘內不得重複發送驗證信
+  const MIN_INTERVAL = 180000 //現在設定3分鐘內不得重複發送驗證信
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -21,7 +21,7 @@ export default function ForgetPassword() {
     const sendMailNow = Date.now()
     if (sendMailNow - lastRequestTime.current < MIN_INTERVAL) {
       setAlertMessage('操作太頻繁，請稍後再試')
-      setUserMessage('請於1分鐘後再申請一次')
+      setUserMessage('請於3分鐘後再申請一次')
       setIsModalOpen(true)
       return
     }
