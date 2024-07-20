@@ -1,24 +1,54 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import styles from '../../styles/sign-in.module.css'
 import { FaEye, FaEyeSlash, FaExclamationCircle } from 'react-icons/fa'
+import { z } from 'zod'
 
-const MyPasswordInput = ({ password, setPassword, id, name, placeholder }) => {
+const MyPasswordInput = ({
+  password,
+  setPassword,
+  id,
+  name,
+  placeholder,
+  errorMessage,
+  setErrorMessage,
+}) => {
   const [showPassword, setShowPassword] = useState(false)
-  const [errorMessage, setErrorMessage] = useState('')
+  const [timer, setTimer] = useState(null)
+  const [isFocused, setIsFocused] = useState(false)
+
+  const passwordSchema = z.string().min(5, { message: '密碼至少要有5個字元' })
+
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value)
+    setErrorMessage('') // 清除之前的錯誤信息
+  }
+
+  const handleBlur = () => {
+    setIsFocused(false)
+    if (password) {
+      setTimer(
+        setTimeout(() => {
+          const result = passwordSchema.safeParse(password)
+          if (!result.success) {
+            setErrorMessage(result.error.errors[0].message)
+          } else {
+            setErrorMessage('')
+          }
+        }, 100)
+      )
+    }
+  }
+
+  useEffect(() => {
+    if (timer) {
+      clearTimeout(timer)
+    }
+
+    return () => clearTimeout(timer)
+  }, [password])
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword)
-  }
-
-  const handlePasswordChange = (e) => {
-    const newPassword = e.target.value
-    setPassword(newPassword)
-
-    if (newPassword.length < 3) {
-      setErrorMessage('請填入至少3位以上的密碼')
-    } else {
-      setErrorMessage('')
-    }
   }
 
   const renderIcon = () => {
@@ -43,7 +73,9 @@ const MyPasswordInput = ({ password, setPassword, id, name, placeholder }) => {
         required
         value={password}
         onChange={handlePasswordChange}
+        onBlur={handleBlur}
         placeholder={placeholder}
+        onFocus={() => setIsFocused(true)}
       />
       <div
         className={`${styles.myicon} ${errorMessage ? styles.myiconError : ''}`}

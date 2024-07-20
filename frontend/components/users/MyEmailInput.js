@@ -1,33 +1,57 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import styles from '../../styles/sign-in.module.css'
 import { FaCheckCircle, FaExclamationCircle } from 'react-icons/fa'
+import { z } from 'zod'
 
-const MyEmailInput = ({ email, setEmail, style }) => {
-  const [errorMessage, setErrorMessage] = useState('')
+const MyEmailInput = ({
+  email,
+  setEmail,
+  errorMessage,
+  setErrorMessage,
+  showSuccessIcon,
+}) => {
+  const [timer, setTimer] = useState(null)
+  const [isFocused, setIsFocused] = useState(false)
+
+  const emailSchema = z.string().email({ message: '電子信箱格式有誤' })
 
   const handleEmailChange = (e) => {
-    const newEmail = e.target.value
-    setEmail(newEmail)
+    setEmail(e.target.value)
+  }
 
-    if (!newEmail) {
-      setErrorMessage('此為必填欄位')
-    } else if (!checkIfMember(newEmail)) {
-      setErrorMessage('此電子信箱不存在')
-    } else {
-      setErrorMessage('')
+  const handleBlur = () => {
+    setIsFocused(false)
+    if (email) {
+      // Start timer when the input loses focus
+      setTimer(
+        setTimeout(() => {
+          const result = emailSchema.safeParse(email)
+          if (!result.success) {
+            setErrorMessage(result.error.errors[0].message)
+          } else {
+            setErrorMessage('')
+          }
+        }, 100)
+      )
     }
   }
 
-  const checkIfMember = (email) => {
-    return email === 'example@example.com'
-  }
+  useEffect(() => {
+    if (timer) {
+      clearTimeout(timer)
+    }
+
+    return () => clearTimeout(timer)
+  }, [email])
 
   const renderIcon = () => {
-    if (!email) return null
     if (errorMessage) {
       return <FaExclamationCircle className={styles.myiconError} />
     }
-    return <FaCheckCircle />
+    if (showSuccessIcon && email && !errorMessage) {
+      return <FaCheckCircle />
+    }
+    return null
   }
 
   return (
@@ -42,7 +66,9 @@ const MyEmailInput = ({ email, setEmail, style }) => {
         required
         value={email}
         onChange={handleEmailChange}
+        onBlur={handleBlur}
         placeholder="example@example.com"
+        onFocus={() => setIsFocused(true)}
       />
       <div
         className={`${styles.myicon} ${errorMessage ? styles.myiconError : ''}`}
