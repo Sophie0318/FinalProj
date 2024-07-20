@@ -8,7 +8,8 @@ export default function SearchBar({
   size = '60px',
   setSearchTerm,
   searchTerm = '',
-  handleSearch,
+  paddingLeft = '9px',
+  handleSearch = () => {},
   onCompositionChange = () => {},
   handleKeyDown = () => {},
 
@@ -69,7 +70,7 @@ export default function SearchBar({
         className={styles.search_input}
         style={{
           height: size,
-          paddingLeft: `calc(${size} + 9px)`,
+          paddingLeft: `calc(${size} + ${paddingLeft})`,
         }}
         placeholder={placeholder}
       />

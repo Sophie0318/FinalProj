@@ -5,6 +5,7 @@ import {
   IoChatbubbleEllipses,
   IoShareSocialSharp,
 } from 'react-icons/io5'
+import SearchBar from '@/components/common/searchbar/searchbar'
 import styles from './article-sidebar.module.css'
 
 export default function ArticleSidebar({
@@ -46,7 +47,10 @@ export default function ArticleSidebar({
             handleFontSize()
           }}
         >
-          <img src="/articles-img/font-size.svg" />
+          <img
+            className={styles.fontSizeImg}
+            src="/articles-img/font-size.svg"
+          />
         </button>
         <button className={styles.sidebarBtn}>
           <IoHeart />
@@ -67,9 +71,10 @@ export default function ArticleSidebar({
         >
           <IoShareSocialSharp />
         </button>
-        <button className={styles.sidebarBtn}>
+        <SearchBar maxWidth="60px" paddingLeft="-3px" />
+        {/* <button className={styles.sidebarBtn}>
           <IoSearch />
-        </button>
+        </button> */}
       </div>
 
       <div
