@@ -20,17 +20,7 @@ const getArticleList = async (req) => {
   let categoryID = 1;
   let keyword = req.query.keyword || "";
   let later_than = req.query.later_than || "";
-  // 處理關鍵字搜尋參數
-  let searchBy = [];
-  if (req.query.searchBy) {
-    if (typeof req.query.searchBy === "string") {
-      // 單一關鍵字參數時 query 會是 string, 把它變成陣列
-      searchBy[0] = req.query.searchBy
-    } else {
-      // 多重關鍵字參數時 query 會是 array
-      searchBy = req.query.searchBy
-    }
-  }
+  
 
   // 預設 WHERE 子句
   let q_sql = " WHERE 1 ";
@@ -64,23 +54,9 @@ const getArticleList = async (req) => {
 
 
   // 判斷有沒有指定關鍵字搜尋
-  if (searchBy && keyword) {
-    let q_sql_segment = ''
-    let searchByArr = [...searchBy]
+  if (keyword) {
     const keyword_ = db.escape(`%${keyword}%`)
-    if (searchByArr.includes('article_content')) {
-      q_sql_segment += ` ${element} LIKE ${keyword_} `
-    }
-
-    searchBy.forEach((element) => {
-      
-      if (searchBy.indexOf(element) === 0) {
-        q_sql_segment += ` ${element} LIKE ${keyword_} `
-      } else {
-        q_sql_segment += ` OR ${element} LIKE ${keyword_} `
-      }
-    })
-    q_sql += ` AND (${q_sql_segment}) `
+    q_sql += ` AND (article_title LIKE ${keyword_} OR article_desc LIKE ${keyword_} OR article_content LIKE ${keyword_}) `;
   }
 
   // 判斷有沒有時間篩選
