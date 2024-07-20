@@ -1,3 +1,4 @@
+use midTermDB;
 -- 暫時禁用外鍵約束
 SET foreign_key_checks = 0;
 
@@ -34,19 +35,12 @@ INSERT INTO Gyms (gym_name, gym_subtitle, gym_address, gym_phone, business_hours
 -- Features (Gym的類型)
 INSERT INTO Features (feature_name) VALUES
 ('重量訓練'),
-('CrossFit'),
-('格鬥訓練'),
+('瑜珈伸展'),
 ('游泳池'),
-('熱瑜伽'),
-('冥想課程'),
 ('芳療按摩'),
 ('團體課程'),
 ('私人教練'),
-('營養諮詢'),
-('室內跑道'),
-('攀岩牆'),
-('桑拿浴室'),
-('紅繩訓練'),
+('紅繩核心'),
 ('皮拉提斯');
 
 
@@ -54,6 +48,9 @@ INSERT INTO Features (feature_name) VALUES
 -- 利用 MySQL 的內建函數來生成隨機數據並插入到 GymFeatures 表中
 -- 使用一個存儲過程來插入隨機數據。
 -- 這個過程會在 gym_id 1 到 30 之間隨機插入 feature_id 1 到 14 的數據，每個 gym 最少1項，最多3項
+
+-- 檢查並刪除現有的存儲過程
+DROP PROCEDURE IF EXISTS InsertRandomGymFeatures;
 
 DELIMITER $$
 
@@ -69,7 +66,7 @@ BEGIN
         SET j = 0;
         WHILE j < rand_feature_count DO
             REPEAT
-                SET rand_feature_id = FLOOR(1 + RAND() * 14);  -- 隨機選擇1到14之間的特徵ID
+                SET rand_feature_id = FLOOR(1 + RAND() * 8);  -- 隨機選擇1到14之間的特徵ID
             UNTIL NOT EXISTS (SELECT 1 FROM GymFeatures WHERE gym_id = i AND feature_id = rand_feature_id)
             END REPEAT;
             INSERT INTO GymFeatures (gym_id, feature_id) VALUES (i, rand_feature_id);
@@ -85,7 +82,45 @@ CALL InsertRandomGymFeatures();
 
 
 -- GymImages （1對多連接表）資料加入
+-- 創建臨時表來存儲gym_id和照片名稱的組合
+CREATE TEMPORARY TABLE temp_gym_images (
+    gym_id INT,
+    image_filename VARCHAR(255)
+);
 
+-- 插入1-30的gym_id,確保每個id至少出現一次
+INSERT INTO temp_gym_images (gym_id, image_filename)
+SELECT 
+    n,
+    CONCAT('gym', n, '.jpg')
+FROM 
+    (SELECT 1 AS n UNION SELECT 2 UNION SELECT 3 UNION SELECT 4 UNION SELECT 5 UNION SELECT 6 UNION SELECT 7 UNION SELECT 8 UNION SELECT 9 UNION SELECT 10
+     UNION SELECT 11 UNION SELECT 12 UNION SELECT 13 UNION SELECT 14 UNION SELECT 15 UNION SELECT 16 UNION SELECT 17 UNION SELECT 18 UNION SELECT 19 UNION SELECT 20
+     UNION SELECT 21 UNION SELECT 22 UNION SELECT 23 UNION SELECT 24 UNION SELECT 25 UNION SELECT 26 UNION SELECT 27 UNION SELECT 28 UNION SELECT 29 UNION SELECT 30) numbers
+ORDER BY RAND()
+LIMIT 30;
+
+-- 插入剩餘的2張照片,隨機分配給1-30的gym_id
+INSERT INTO temp_gym_images (gym_id, image_filename)
+SELECT 
+    FLOOR(1 + (RAND() * 30)),
+    CONCAT('gym', n, '.jpg')
+FROM 
+    (SELECT 31 AS n UNION SELECT 32) numbers
+ORDER BY RAND();
+
+-- 將數據從臨時表插入到實際的表中
+INSERT INTO GymImages (gym_id, image_filename, image_description)
+SELECT 
+    gym_id,
+    image_filename,
+    CONCAT('Description for ', image_filename)
+FROM 
+    temp_gym_images
+ORDER BY RAND();
+
+-- 刪除臨時表
+DROP TEMPORARY TABLE temp_gym_images;
 desc GymImages;
 select * from GymImages;
 

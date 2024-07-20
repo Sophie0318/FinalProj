@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
-import 'bootstrap/dist/css/bootstrap.min.css'
 import styles from '../../styles/sign-in.module.css'
 import styles2 from '../../styles/user-sign-up.module.css'
 import UserSignup from '@/components/layout/user-layout2'
