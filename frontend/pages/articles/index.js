@@ -6,7 +6,6 @@ import Layout3 from '@/components/layout/layout3'
 import SearchSection from '@/components/articles/search-section'
 import IndexCarousel from '@/components/swiperCarousel/indexCarousel'
 import useRenderCards from '@/hooks/cards/cards'
-import ArticleCard from '@/components/articles/article-card'
 import styles from './articles.module.css'
 
 export default function Articles() {
