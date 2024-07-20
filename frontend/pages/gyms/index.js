@@ -15,7 +15,17 @@ export default function Gyms() {
   const [searchTerm, setSearchTerm] = useState('')
   const [boo, setBoo] = useState(true) //switch 的外觀state
   const [isComposing, setIsComposing] = useState(false)
-  
+
+  const searchBarRef = useRef(null)
+
+  const handleClick = () => {
+    const yOffset = -50 // 50px offset above the target
+    const element = searchBarRef.current
+    const y = element.getBoundingClientRect().top + window.scrollY + yOffset
+
+    window.scrollTo({ top: y, behavior: 'smooth' })
+  }
+
   //用fetch請後端搜尋資料的函式
   const handleCompositionChange = (composing) => {
     setIsComposing(composing)
@@ -23,7 +33,7 @@ export default function Gyms() {
 
   const fetchGymsData = () => {
     const qq = new URLSearchParams(router.query)
-    console.log(qq)
+    // console.log(qq)
     const url = `http://localhost:3001/gyms/api?keyword=${searchTerm}&features=${selectedFeatures}`
     if (router.isReady) {
       fetch(url)
@@ -61,18 +71,14 @@ export default function Gyms() {
   //   { shallow: true }
   // )
 
-
   const handleSearch = (e) => {
-    console.log(isComposing,searchTerm)
     // if(!isComposing){
-      router.push({
-        pathname: '/gyms',
-        query: { ...router.query, gym_name: searchTerm },
-      })
+    router.push({
+      pathname: '/gyms',
+      query: { ...router.query, gym_name: searchTerm },
+    })
     // }
-      
-    }
-  
+  }
 
   // 從URL取得搜尋關鍵字
   useEffect(() => {
@@ -88,10 +94,10 @@ export default function Gyms() {
       router.push(
         {
           pathname: '/gyms',
-          query:{...router.query,features:selectedFeatures.join('-')},
+          query: { ...router.query, features: selectedFeatures.join('-') },
         },
         undefined,
-        { scroll:false }
+        { scroll: false }
       )
     }
   }, [router.isReady, searchTerm, selectedFeatures, isComposing])
@@ -111,8 +117,8 @@ export default function Gyms() {
                 gymsData={gymsData}
                 onCompositionChange={handleCompositionChange}
                 handleSearch={handleSearch}
-                
-                
+                handleClick={handleClick}
+                ref={searchBarRef}
               />
               <div
                 title="switch"
@@ -130,7 +136,7 @@ export default function Gyms() {
         </div>
         <div className={styles.flexRow}>
           <div className={styles.mapContainerStyle}>
-            <MapErea gymsData={gymsData} />
+            <MapErea gymsData={gymsData} searchTerm={searchTerm}/>
           </div>
           <ResultCards gyms={gymsData} selectedFeatures={selectedFeatures} />
         </div>

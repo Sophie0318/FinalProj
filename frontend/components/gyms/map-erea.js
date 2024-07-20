@@ -6,16 +6,40 @@ import {
   Marker,
 } from '@react-google-maps/api'
 
-export default function MapErea({ gymsData }) {
+export default function MapErea({ gymsData, searchTerm }) {
   const mapStyles = {
     height: '100%',
     width: '100%',
   }
-  const center = {
+  const [center, setCenter] = useState({
     lat: 25.04510954594513,
     lng: 121.52343310812854,
-  } //TAIPEI 25.04510954594513, 121.52343310812854
-  
+  })
+
+  // useEffect(() => {
+  //   handleSearch()
+  // }, [searchTerm])
+
+  const handleSearch = () => {
+    if (isLoaded) {
+      const geocoder = new window.google.maps.Geocoder()
+      geocoder.geocode({ address: searchTerm }, (results, status) => {
+        if (status === 'OK') {
+          const { lat, lng } = results[0].geometry.location
+          setCenter({ lat: lat(), lng: lng() })
+          if (map) {
+            map.panTo({ lat: lat(), lng: lng() })
+          }
+        } else {
+          console.log(
+            'Geocode was not successful for the following reason: ' + status
+            
+          )
+        }
+      })
+    }
+  }
+
   const gymsDatatoGeoJson = (gymsData) => {
     if (!Array.isArray(gymsData)) {
       console.error('Invalid gymsData Structure .應該要是 Array', gymsData)
@@ -55,7 +79,8 @@ export default function MapErea({ gymsData }) {
     if (gymsData) {
       const covertedData = gymsDatatoGeoJson(gymsData)
       setGeoJsonData(covertedData)
-      console.log(geoJsonData, 'geoJsonData')
+      // console.log(geoJsonData, 'geoJsonData')
+      handleSearch()
     }
   }, [gymsData])
 
@@ -98,6 +123,7 @@ export default function MapErea({ gymsData }) {
         fullscreenControl: false,
       }}
     >
+      <Marker position={center} />
       {geoJsonData.features.map((feature) => (
         <Marker
           key={feature.properties.gym_id}

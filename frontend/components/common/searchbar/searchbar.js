@@ -1,47 +1,54 @@
-import React, { useCallback, useRef, useState } from 'react'
+import React, {
+  useCallback,
+  useRef,
+  useState,
+  useForwardRef,
+  forwardRef,
+} from 'react'
 import { IoSearch } from 'react-icons/io5'
 import styles from './searchbar.module.css'
 
+const SearchBar = forwardRef(function SearchBar(props, searchBarRef) {
+  const {
+    placeholder = '請輸入地址搜尋...',
+    maxWidth = '600px',
+    size = '60px',
+    setSearchTerm,
+    searchTerm = '',
+    handleSearch,
+    handleClick,
+    onCompositionChange = () => {},
+    
+  } = props
 
-export default function SearchBar({
-  placeholder = '請輸入地址搜尋...',
-  maxWidth = '600px',
-  size = '60px',
-  setSearchTerm,
-  searchTerm = '',
-  handleSearch,
-  onCompositionChange = () => {},
   
-  
-  // 增加props mainColor or 設定Theme
-}) {
-  const searchBarRef = useRef(null)
 
-  const handleScroll = () => {
-    if(searchBarRef.current){
-      searchBarRef.current.scrollIntoView({ behavior: 'smooth',block: 'start' })}
-  }
+  // const handleScroll = () => {
+  //   if (searchBarRef.current) {
+  //     searchBarRef.current.scrollIntoView({
+  //       behavior: 'smooth',
+  //       block: 'start',
+  //     })
+  //   }
+  // }
 
-  const handleClick = () => {
-    const yOffset = -50; // 50px offset above the target
-    const element = searchBarRef.current;
-    const y = element.getBoundingClientRect().top + window.scrollY + yOffset;
+  // const handleClick = () => {
+  //   const yOffset = -50 // 50px offset above the target
+  //   const element = searchBarRef.current
+  //   const y = element.getBoundingClientRect().top + window.scrollY + yOffset
 
-    window.scrollTo({top: y, behavior: 'smooth'});
-  };
+  //   window.scrollTo({ top: y, behavior: 'smooth' })
+  // }
 
   const handleCompositionStart = () => {
-    onCompositionChange(true);
-  };
+    onCompositionChange(true)
+  }
 
   const handleCompositionEnd = (e) => {
-    console.log(handleSearch,'handleSearch')
-    onCompositionChange(false);
+    onCompositionChange(false)
     handleSearch()
-  };
-  
+  }
 
-  
   return (
     <div className={styles.search} style={{ maxWidth }}>
       <div
@@ -57,7 +64,9 @@ export default function SearchBar({
         type="text"
         name="search_input"
         value={searchTerm}
-        onClick={()=>{handleClick()}}
+        onClick={() => {
+          handleClick()
+        }}
         ref={searchBarRef}
         onChange={(e) => setSearchTerm(e.target.value)}
         onCompositionStart={handleCompositionStart}
@@ -68,8 +77,9 @@ export default function SearchBar({
           paddingLeft: `calc(${size} + 9px)`,
         }}
         placeholder={placeholder}
-        
       />
     </div>
   )
-}
+})
+
+export default SearchBar
