@@ -17,10 +17,22 @@ export default function ArticleSidebar({
   commentRef,
 }) {
   const [showSearchbar, setShowSearchbar] = useState(false)
+  const [keyword, setKeyword] = useState('')
   const handleShowSearch = (e) => {
     console.log(e)
     if (e.type === 'click') {
       setShowSearchbar(!showSearchbar)
+    }
+    if (showSearchbar && e.key === 'Escape') {
+      setShowSearchbar(false)
+    }
+    if (!showSearchbar && e.key === 'Enter') {
+      setShowSearchbar(true)
+    }
+  }
+  const handleSearch = (e) => {
+    if (e.target.value) {
+      console.log(keyword, e.target.value)
     }
   }
 
@@ -85,18 +97,20 @@ export default function ArticleSidebar({
             showSearchbar ? styles.showSearch : styles.hideSearch
           }`}
           onClick={handleShowSearch}
-          onKeyDown={() => {}}
+          onKeyDown={handleShowSearch}
           role="button"
           tabIndex={0}
         >
           <SidebarSearch
-            handleKeyDown={() => {
-              console.log('searchbar entered')
+            showSearchbar={showSearchbar}
+            value={`${keyword}`}
+            onChange={(e) => {
+              setKeyword(e.target.value)
             }}
-            paddingLeft={showSearchbar ? '9px' : '-9px'}
             onClick={(e) => {
               e.stopPropagation()
             }}
+            onKeyDown={handleSearch}
           />
         </div>
       </div>
