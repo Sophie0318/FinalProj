@@ -1,4 +1,4 @@
-import React from 'react'
+import { useState } from 'react'
 import {
   IoHeart,
   IoSearch,
@@ -6,6 +6,7 @@ import {
   IoShareSocialSharp,
 } from 'react-icons/io5'
 import SearchBar from '@/components/common/searchbar/searchbar'
+import SidebarSearch from './sidebar-search'
 import styles from './article-sidebar.module.css'
 
 export default function ArticleSidebar({
@@ -15,6 +16,14 @@ export default function ArticleSidebar({
   setFontSize = () => {},
   commentRef,
 }) {
+  const [showSearchbar, setShowSearchbar] = useState(false)
+  const handleShowSearch = (e) => {
+    console.log(e)
+    if (e.type === 'click') {
+      setShowSearchbar(!showSearchbar)
+    }
+  }
+
   const handleFontSize = () => {
     if (fontSize === 2) {
       setFontSize(0)
@@ -71,10 +80,25 @@ export default function ArticleSidebar({
         >
           <IoShareSocialSharp />
         </button>
-        <SearchBar maxWidth="60px" paddingLeft="-3px" />
-        {/* <button className={styles.sidebarBtn}>
-          <IoSearch />
-        </button> */}
+        <div
+          className={`${styles.sidebarSearch} ${
+            showSearchbar ? styles.showSearch : styles.hideSearch
+          }`}
+          onClick={handleShowSearch}
+          onKeyDown={() => {}}
+          role="button"
+          tabIndex={0}
+        >
+          <SidebarSearch
+            handleKeyDown={() => {
+              console.log('searchbar entered')
+            }}
+            paddingLeft={showSearchbar ? '9px' : '-9px'}
+            onClick={(e) => {
+              e.stopPropagation()
+            }}
+          />
+        </div>
       </div>
 
       <div

@@ -22,7 +22,7 @@
 
 /* 文章資訊區塊樣式 */
 .articleTitle {
-  margin-bottom: 25px;
+  margin: 0 15px 25px 15px;
 }
 
 .articleInfo {
