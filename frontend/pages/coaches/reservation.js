@@ -244,6 +244,7 @@ export default function Reservation() {
           onClose={handleCloseModal}
           formData={formData}
           selectedCoach={selectedCoach}
+          isLoggedIn={!!auth.token} //確認是否已登入
         />
       )}
     </>

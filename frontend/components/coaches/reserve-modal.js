@@ -2,12 +2,16 @@ import React from 'react'
 import styles from '@/styles/reserveModal.module.css'
 import { useRouter } from 'next/router'
 
-function ReserveModal({ onClose, formData, selectedCoach }) {
+function ReserveModal({ onClose, formData, selectedCoach, isLoggedIn }) {
   const router = useRouter()
 
   const handleReturnToCoaches = () => {
     onClose()
     router.push('/coaches')
+  }
+
+  const joinMember = () => {
+    router.push('/users/sign_in')
   }
 
   return (
@@ -58,7 +62,12 @@ function ReserveModal({ onClose, formData, selectedCoach }) {
             參觀時請提早10分鐘報到，並且穿著舒服好動的衣服，攜帶水壺以及毛巾唷！
             <br />
             期待見到您｜Join us, Be a Healthier !{' '}
-            <button className={styles.join}>加入會員</button>
+            {/* 如果沒有登入就顯示加入會員btn */}
+            {!isLoggedIn && (
+              <button className={styles.join} onClick={joinMember}>
+                加入會員
+              </button>
+            )}
           </div>
         </div>
         <div className={styles.btns}>
