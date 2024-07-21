@@ -125,6 +125,7 @@ export default function SignIn() {
                 setErrorMessage={setEmailError}
                 setShowSuccessIcon={setShowSuccessIcon}
                 showSuccessIcon={false}
+                checkEmailExists={false} //登入頁中不需要檢查 email 是否已存在
               />
             </div>
           </div>
@@ -138,7 +139,6 @@ export default function SignIn() {
                 setPassword={setPassword}
                 errorMessage={passwordError}
                 setErrorMessage={setPasswordError}
-                checkEmailExists={false} //登入頁中不需要檢查 email 是否已存在
               />
             </div>
           </div>

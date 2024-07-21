@@ -11,6 +11,7 @@ const MyPasswordInput = ({
   placeholder,
   errorMessage,
   setErrorMessage,
+  type = 'password',
 }) => {
   const [showPassword, setShowPassword] = useState(false)
   const [timer, setTimer] = useState(null)
