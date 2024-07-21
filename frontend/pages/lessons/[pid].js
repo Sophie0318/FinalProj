@@ -86,7 +86,7 @@ export default function Detail() {
       if (auth.token && pid) {
         try {
           const response = await axios.get(
-            `http://localhost:3001/users/check-favorite/${auth.id}/${pid}`,
+            `http://localhost:3001/users/check-favoriteLesson/${auth.id}/${pid}`,
             {
               headers: { Authorization: `Bearer ${auth.token}` },
             }

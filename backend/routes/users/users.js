@@ -202,7 +202,7 @@ router.delete("/remove-lesson-favorite", async (req, res) => {
 
 
 // 檢查收藏狀態
-router.get("/check-favorite/:userId/:lessonId", async (req, res) => {
+router.get("/check-favoriteLesson/:userId/:lessonId", async (req, res) => {
     const { userId, lessonId } = req.params;
     try {
       const sql = "SELECT COUNT(*) as count FROM FavLesson WHERE member_id = ? AND lesson_id = ?";
