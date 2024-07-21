@@ -17,7 +17,7 @@ export default function Checkout3Order() {
 
   //處理付款
   const handlePayment = async () => {
-    // console.log('Order ID:', router.query.order_id)
+    console.log('Order ID:', router.query.order_id)
     try {
       const amount = orderDetail.reduce(
         (acc, item) =>

@@ -2,11 +2,12 @@ import React from 'react'
 import styles from '@/styles/product-success.module.css'
 import Layout3 from '@/components/layout/layout3'
 import { useEffect } from 'react'
+import Link from 'next/link'
 
 export default function ProductSuccess() {
   useEffect(() => {
     // 清空 localStorage 裡的商品
-    localStorage.removeItem('shoppingCart') // 假設你的商品存儲在 'cartItems' 鍵裡
+    localStorage.removeItem('shoppingCart')
   }, [])
   return (
     <div>
@@ -27,7 +28,9 @@ export default function ProductSuccess() {
             </div>
             <div className={styles.btns}>
               <button className={styles.btnBack}>檢視訂單</button>
-              <button className={styles.btnFin}>回到課程頁</button>
+              <Link href="/product" legacyBehavior>
+                <a className={styles.btnFin}>回到商城頁</a>
+              </Link>
             </div>
           </div>
         </div>

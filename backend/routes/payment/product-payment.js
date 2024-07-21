@@ -23,7 +23,7 @@ router.get("/", function (req, res, next) {
   const TradeDesc = "商店線上付款";
   const ItemName = Product_name || "商品付款";
   const ReturnURL = `http://localhost:3001/product/payment-result?order_id=${order_id}`;
-  const OrderResultURL = `http://localhost:3000/product/product-success?order_id=${order_id}`; //前端成功頁面
+  const OrderResultURL = `http://localhost:3000/product/product-success?`; //前端成功頁面
   const ChoosePayment = "ALL";
 
   ////////////////////////以下參數不用改////////////////////////

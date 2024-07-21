@@ -13,7 +13,7 @@
   border-radius: 40px;
   gap: 30px;
   padding: 12px 10px;
-  margin-bottom: 400px;
+  margin-bottom: 350px;
 }
 
 .success {
@@ -121,6 +121,8 @@
   color: var(--color-whitesmoke);
   border: var(--color-midnight-green);
   background-color: var(--color-midnight-green);
+  padding-left: 10px;
+  padding-top: 5px;
 }
 
 .btnClose {
