@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import GymCardSpot from './gymCard-spot'
+import styles from './map-erea.module.css'
 import {
   Autocomplete,
   GoogleMap,
@@ -17,12 +18,14 @@ export default function MapErea({ gymsData, searchTerm }) {
     lat: 25.04510954594513,
     lng: 121.52343310812854,
   })
-  const [selectedMarker, setSelectedMarker] = useState("")
+  const [selectedMarker, setSelectedMarker] = useState('')
 
   // useEffect(() => {
   //   handleSearch()
   // }, [searchTerm])
-
+  const handleMapClick = () => {
+    setSelectedMarker(null);
+  };
   const handleSearch = () => {
     if (isLoaded) {
       const geocoder = new window.google.maps.Geocoder()
@@ -36,7 +39,6 @@ export default function MapErea({ gymsData, searchTerm }) {
         } else {
           console.log(
             'Geocode was not successful for the following reason: ' + status
-            
           )
         }
       })
@@ -56,11 +58,11 @@ export default function MapErea({ gymsData, searchTerm }) {
         type: 'Feature',
         properties: {
           gym_id: gym.gym_id,
-          gym_name: gym.gym_name,
-          gym_subtitle: gym.gym_subtitle,
-          gym_address: gym.gym_address,
-          gym_phone: gym.gym_phone,
-          business_hours: gym.business_hours,
+          name: gym.gym_name,
+          subtitle: gym.gym_subtitle,
+          address: gym.gym_address,
+          phone: gym.gym_phone,
+          businessHours: gym.business_hours,
           gym_info: gym.gym_info,
           gym_price: gym.gym_price,
           gym_equipment: gym.gym_equipment,
@@ -117,6 +119,7 @@ export default function MapErea({ gymsData, searchTerm }) {
       mapContainerStyle={mapStyles}
       zoom={13}
       center={center}
+      onClick={handleMapClick}
       onLoad={(map) => setMap(map)}
       onUnmount={onUnmount}
       options={{
@@ -126,12 +129,15 @@ export default function MapErea({ gymsData, searchTerm }) {
         fullscreenControl: false,
       }}
     >
-      <Marker position={center} options={{
-        icon: {
-          url: '/map-marker-smile-fill.svg',
-          scaledSize: new window.google.maps.Size(50, 50),
-        },
-      }} />
+      <Marker
+        position={center}
+        options={{
+          icon: {
+            url: '/map-marker-smile-fill.svg',
+            scaledSize: new window.google.maps.Size(50, 50),
+          },
+        }}
+      />
       {geoJsonData.features.map((feature) => (
         <Marker
           key={feature.properties.gym_id}
@@ -139,7 +145,8 @@ export default function MapErea({ gymsData, searchTerm }) {
             lat: feature.geometry.coordinates[1],
             lng: feature.geometry.coordinates[0],
           }}
-          onClick={()=>setSelectedMarker(feature)}
+          onClick={() => setSelectedMarker(feature)}
+          
           title={feature.properties.gym_name}
           options={{
             icon: {
@@ -148,9 +155,25 @@ export default function MapErea({ gymsData, searchTerm }) {
             },
           }}
         />
-      ))}{selectedMarker && <InfoWindow position={{lat:selectedMarker.geometry.coordinates[1],lng:selectedMarker.geometry.coordinates[0]}}>
-        <GymCardSpot data={selectedMarker.properties} />
-        </InfoWindow>}
+      ))}
+      {selectedMarker && (
+        <InfoWindow
+          position={{
+            lat: selectedMarker.geometry.coordinates[1],
+            lng: selectedMarker.geometry.coordinates[0],
+          }}
+          onCloseClick={() => setSelectedMarker(null)}
+          options={{
+            pixelOffset: new window.google.maps.Size(0, -40),
+            // className: styles.infoWindow,
+          }}
+        >
+          <div className={styles.infoWindow}>
+            <GymCardSpot data={selectedMarker.properties} />
+          </div>
+        </InfoWindow>
+      )}
+      {/* {console.log(selectedMarker.properties)} */}
     </GoogleMap>
   ) : (
     <>
