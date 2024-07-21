@@ -18,5 +18,10 @@ export default function useArticleSearch(scroll = false) {
       )
     }
   }
-  return { keyword, setKeyword, handleKeyDown }
+
+  return {
+    keyword,
+    setKeyword,
+    handleKeyDown,
+  }
 }

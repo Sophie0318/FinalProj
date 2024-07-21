@@ -1,11 +1,12 @@
 import { useState } from 'react'
+import useContentSearch from '@/hooks/article-search/useContentSearch'
+
 import {
   IoHeart,
   IoSearch,
   IoChatbubbleEllipses,
   IoShareSocialSharp,
 } from 'react-icons/io5'
-import SearchBar from '@/components/common/searchbar/searchbar'
 import SidebarSearch from './sidebar-search'
 import styles from './article-sidebar.module.css'
 
@@ -15,11 +16,17 @@ export default function ArticleSidebar({
   fontSize = 0,
   setFontSize = () => {},
   commentRef,
+  content = '',
+  setContent = () => {},
 }) {
   const [showSearchbar, setShowSearchbar] = useState(false)
   const [keyword, setKeyword] = useState('')
+  const contentSearch = useContentSearch(
+    (content = { content }),
+    (setContent = { setContent })
+  )
   const handleShowSearch = (e) => {
-    console.log(e)
+    // console.log(e)
     if (e.type === 'click') {
       setShowSearchbar(!showSearchbar)
     }
@@ -28,11 +35,6 @@ export default function ArticleSidebar({
     }
     if (!showSearchbar && e.key === 'Enter') {
       setShowSearchbar(true)
-    }
-  }
-  const handleSearch = (e) => {
-    if (e.target.value) {
-      console.log(keyword, e.target.value)
     }
   }
 
@@ -110,7 +112,7 @@ export default function ArticleSidebar({
             onClick={(e) => {
               e.stopPropagation()
             }}
-            onKeyDown={handleSearch}
+            onKeyDown={contentSearch}
           />
         </div>
       </div>

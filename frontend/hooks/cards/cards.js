@@ -7,7 +7,7 @@ import CardList from '@/components/product/card-list/card-list'
 import CardDetail from '@/components/product/card-detail/card-detail'
 import GymCardSpot from '@/components/gyms/gymCard-spot'
 
-export default function useRenderCards(cardType = 'articles') {
+export default function useRenderCards(cardType = 'articles', auth = {}) {
   const renderArticleCard = (item) => {
     return (
       <ArticleCard
@@ -16,6 +16,8 @@ export default function useRenderCards(cardType = 'articles') {
         update_at={item.update_at}
         imgSrc={item.article_cover}
         idURL={item.article_id}
+        member_id={item.member_id_fk}
+        auth={auth}
       />
     )
   }

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import { useAuth } from '@/context/auth-context'
 
 import Layout3 from '@/components/layout/layout3'
 import SearchSection from '@/components/articles/search-section'
@@ -10,27 +11,48 @@ import styles from './articles.module.css'
 
 export default function Articles() {
   const router = useRouter()
+  const { auth } = useAuth()
   const [latest, setLatest] = useState([])
   const [hottest, setHottest] = useState([])
-  const renderCard = useRenderCards('articles')
+  const renderCard = useRenderCards('articles', auth)
 
-  useEffect(() => {
-    console.log(router.isReady)
-    if (router.isReady) {
-      fetch('http://localhost:3001/articles/api/articleIndex')
-        .then((r) => r.json())
-        .then((data) => {
-          if (data.latestList) {
-            setLatest(data.latestList)
-          }
-          if (data.hotList) {
-            setHottest(data.hotList)
-          }
-          console.log(data.success)
+  const getIndexList = async (url, token) => {
+    let res = ''
+    let resData = ''
+    try {
+      if (token) {
+        res = await fetch(url, {
+          headers: { Authorization: `Bearer ${token}` },
         })
-        .catch((ex) => console.log(ex))
+        resData = await res.json()
+      } else {
+        res = await fetch(url)
+        resData = await res.json()
+      }
+    } catch (error) {
+      console.log('database fetch data error: ', error)
     }
-  }, [router.isReady])
+    if (resData.latestList) {
+      setLatest(resData.latestList)
+    }
+    if (resData.hotList) {
+      setHottest(resData.hotList)
+    }
+    if (!resData.success) {
+      console.log('database fetch error')
+    }
+  }
+
+  // TODO: solve 2 useEffect contained in article index page, affects carousel data and insert favarticle
+  useEffect(() => {
+    if (router.isReady) {
+      const url = 'http://localhost:3001/articles/api/articleIndex'
+      const token = localStorage.getItem('suan-auth')
+        ? JSON.parse(localStorage.getItem('suan-auth')).token
+        : ''
+      getIndexList(url, token)
+    }
+  }, [router])
 
   return (
     <>

@@ -20,10 +20,18 @@ const getArticleList = async (req) => {
   let categoryID = 1;
   let keyword = req.query.keyword || "";
   let later_than = req.query.later_than || "";
-  
 
-  // 預設 WHERE 子句
+
+  // 預設 WHERE & JOIN 子句
   let q_sql = " WHERE 1 ";
+  let j_sql = ''
+  let column_sql = ''
+  if(req.my_jwt) {
+    j_sql = `LEFT JOIN FavArticles AS FavA ON FavA.article_id_fk = Articles.article_id AND FavA.member_id_fk = ${req.my_jwt.id}`
+    column_sql = 'article_id, article_title, update_at, code_desc, article_cover, FavA.member_id_fk'
+  } else {
+    column_sql = 'article_id, article_title, update_at, code_desc, article_cover'
+  }
 
   // 先判斷有沒有類別
   if (category) {
@@ -51,8 +59,6 @@ const getArticleList = async (req) => {
     q_sql += ` AND code_id = ${categoryID} `;
   }
 
-
-
   // 判斷有沒有指定關鍵字搜尋
   if (keyword) {
     const keyword_ = db.escape(`%${keyword}%`)
@@ -73,7 +79,7 @@ const getArticleList = async (req) => {
   let totalRows = 0;
   let rows = [];
   // 得知篩選資料總筆數
-  let t_sql = `SELECT COUNT(1) totalRows FROM Articles JOIN CommonType ON CommonType.code_type = 9 AND CommonType.code_id = Articles.code_id_fk ${q_sql}`;
+  let t_sql = `SELECT COUNT(1) totalRows FROM Articles JOIN CommonType ON CommonType.code_type = 9 AND CommonType.code_id = Articles.code_id_fk ${j_sql} ${q_sql}`;
   try {
     [[{ totalRows }]] = await db.query(t_sql);
     if (totalRows) {
@@ -94,7 +100,7 @@ const getArticleList = async (req) => {
   }
 
   // 從資料庫拿文章列表
-  const sql = `SELECT article_id, article_title, update_at, code_desc, article_cover FROM Articles JOIN CommonType AS CT ON CT.code_type = 9 AND CT.code_id = Articles.code_id_fk ${q_sql} ORDER BY update_at DESC LIMIT ${(page - 1) * perPage}, ${perPage};`;
+  const sql = `SELECT ${column_sql} FROM Articles JOIN CommonType AS CT ON CT.code_type = 9 AND CT.code_id = Articles.code_id_fk ${j_sql} ${q_sql} ORDER BY update_at DESC LIMIT ${(page - 1) * perPage}, ${perPage};`;
 
   try {
     [rows] = await db.query(sql);
@@ -179,7 +185,7 @@ router.get("/api/listData", async (req, res) => {
 router.get("/api/articleIndex", async (req, res) => {
   // 定義最新文章及熱門文章
   let latestQuery = { ...req, query: { later_than: "2024-01-01" } };
-  let hotQuery = { ...req, query: { searchBy: "article_title", keyword: "挑戰" } };
+  let hotQuery = { ...req, query: { keyword: "挑戰" } };
   // debug 用參數, 存列表的參數
   let success = false;
   let latestList = [];
@@ -216,6 +222,15 @@ router.get("/api/entry/:article_id", async (req, res) => {
     authorInfo: {}
   }
 
+  let j_sql = ''
+  let column_sql = ''
+  if(req.my_jwt) {
+    j_sql = `LEFT JOIN FavArticles AS FavA ON FavA.article_id_fk = Articles.article_id AND FavA.member_id_fk = ${req.my_jwt.id}`
+    column_sql = 'article_id, article_title, author_id, author_is_coach, update_at, code_id, article_cover, article_desc, article_content, FavA.member_id_fk'
+  } else {
+    column_sql = 'article_id, article_title, author_id, author_is_coach, update_at, code_id, article_cover, article_desc, article_content'
+  }
+
   const article_id = +req.params.article_id || 0;
   if (!article_id) {
     return res.json(output)
@@ -225,7 +240,7 @@ router.get("/api/entry/:article_id", async (req, res) => {
   let category = '';
   let author_id = 0;
   let author_is_coach = 0;
-  const sql = `SELECT article_id, article_title, author_id, author_is_coach, update_at, code_id, article_cover, article_desc, article_content FROM Articles JOIN CommonType AS CT ON CT.code_type = 9 AND CT.code_id = Articles.code_id_fk JOIN Authors ON author_id_fk = author_id WHERE article_id = ${article_id}`;
+  const sql = `SELECT ${column_sql} FROM Articles JOIN CommonType AS CT ON CT.code_type = 9 AND CT.code_id = Articles.code_id_fk JOIN Authors ON author_id_fk = author_id ${j_sql} WHERE article_id = ${article_id}`;
 
   try {
     [[output.result]] = await db.query(sql);
@@ -268,9 +283,9 @@ router.get("/api/entry/:article_id", async (req, res) => {
       }
     }
 
-    const queryParam = { query: { category: category } }
+    const req2 = {...req, query: {category:category}}
 
-    const listData = await getArticleList(queryParam)
+    const listData = await getArticleList(req2)
     if (listData.success) {
       output.furtherReading = listData.rows
       output.furtherReading.forEach((element) => {
@@ -298,103 +313,90 @@ router.get("/api/entry/:article_id", async (req, res) => {
   res.json(output)
 })
 
-router.post("/add", async (req, res) => {
-  const sql = "INSERT INTO Articles SET ?";
-
-  const m = moment(req.body.article_publish_date);
-  req.body.article_publish_date = m.isValid() ? m.format(dateFormat) : null;
-
-  let body = { ...req.body };
-  body.update_at = new Date();
-  const [result] = await db.query(sql, [body]);
-
-  // const sql = 'INSERT INTO Articles (article_title, update_at, article_desc, article_content, article_publish_date) VALUES(?,?,?,?,NOW())';
-
-  // const [result] = await db.query(sql, [
-  //   req.body.article_title,
-  //   req.body.update_at,
-  //   req.body.article_desc,
-  //   req.body.article_email,
-  // ]);
-
-  res.json({
-    result,
-    success: !!result.affectedRows,
-  });
-  //   {
-  //     "fieldCount": 0,
-  //     "affectedRows": 1,
-  //     "insertId": 28,
-  //     "info": "",
-  //     "serverStatus": 2,
-  //     "warningStatus": 0,
-  //     "changedRows": 0
-  // }
-});
-
-router.delete("/api/:article_id", async (req, res) => {
+router.post('/api/addfavarticle', async (req, res) => {
+  const member_id_fk = +req.body.member_id || 0;
+  const article_id_fk = +req.body.article_id || 0;
   const output = {
     success: false,
-    code: 0,
-    result: "",
-  };
-  const article_id = +req.params.article_id || 0;
-  if (!article_id) {
-    return res.json(output);
   }
 
-  const sql = `DELETE FROM Articles WHERE article_id = ${article_id}`;
-  const [result] = await db.query(sql);
-  output.result = result;
-  output.success = !!result.affectedRows;
-
-  res.json(output);
-});
-
-router.get("/edit/:article_id", async (req, res) => {
-  const article_id = +req.params.article_id || 0;
-  if (!article_id) {
-    return res.redirect("/articles");
+  if (member_id_fk && article_id_fk) {
+    const sql = `INSERT INTO FavArticles (member_id_fk, article_id_fk) VALUES(?, ?);`;
+    try {
+    const [result] = await db.query(sql, [member_id_fk, article_id_fk])
+      output.success = !!result.affectedRows
+    } catch (error) {
+      output.error = `database insert error: ${error}`
+    }
   }
+  res.json(output)
+})
 
-  const sql = `SELECT * FROM Articles WHERE article_id = ${article_id}`;
-  const [rows] = await db.query(sql);
-  if (!rows.length) {
-    return res.redirect("/article-book");
-  }
-
-  let m = moment(rows[0].article_publish_date);
-  rows[0].article_publish_date = m.format(dateFormat);
-
-  // res.json(rows[0]);
-  res.render("articles/edit", rows[0]);
-});
-
-router.put("/api/:article_id", upload.none(), async (req, res) => {
+router.delete('/api/removefavarticle', async (req,res)=>{
+  const member_id_fk = +req.body.member_id || 0;
+  const article_id_fk = +req.body.article_id || 0;
   const output = {
     success: false,
-    code: 0,
-    result: "",
-  };
-  const article_id = +req.params.article_id || 0;
-  if (!article_id) {
-    return res.json(output);
   }
 
-  try {
-    const sql = `UPDATE Articles SET ? WHERE article_id=${article_id}`;
-    let body = { ...req.body };
-    const [result] = await db.query(sql, [body, article_id]);
-
-    output.result = result;
-    output.body = req.body;
-    output.success = !!(result.affectedRows && result.changedRows);
-  } catch (error) {
-    output.error = error;
+  if (member_id_fk && article_id_fk) {
+    const q_sql = `WHERE member_id_fk = ? AND article_id_fk = ?`
+    const sql = `DELETE FROM FavArticles ${q_sql};`;
+    try {
+    const [result] = await db.query(sql, [member_id_fk, article_id_fk])
+      output.success = !!result.affectedRows
+    } catch (error) {
+      output.error = `database delete error: ${error}`
+    }
   }
+  res.json(output)
+})
 
-  res.json(output);
-});
+
+// router.get("/edit/:article_id", async (req, res) => {
+//   const article_id = +req.params.article_id || 0;
+//   if (!article_id) {
+//     return res.redirect("/articles");
+//   }
+
+//   const sql = `SELECT * FROM Articles WHERE article_id = ${article_id}`;
+//   const [rows] = await db.query(sql);
+//   if (!rows.length) {
+//     return res.redirect("/article-book");
+//   }
+
+//   let m = moment(rows[0].article_publish_date);
+//   rows[0].article_publish_date = m.format(dateFormat);
+
+//   // res.json(rows[0]);
+//   res.render("articles/edit", rows[0]);
+// });
+
+// router.put("/api/:article_id", upload.none(), async (req, res) => {
+//   const output = {
+//     success: false,
+//     code: 0,
+//     result: "",
+//   };
+//   const article_id = +req.params.article_id || 0;
+//   if (!article_id) {
+//     return res.json(output);
+//   }
+
+//   try {
+//     const sql = `UPDATE Articles SET ? WHERE article_id=${article_id}`;
+//     let body = { ...req.body };
+//     const [result] = await db.query(sql, [body, article_id]);
+
+//     output.result = result;
+//     output.body = req.body;
+//     output.success = !!(result.affectedRows && result.changedRows);
+//   } catch (error) {
+//     output.error = error;
+//   }
+
+//   res.json(output);
+// });
 
 // const getArticleCategory = async (req) => {
 //   let success = false;

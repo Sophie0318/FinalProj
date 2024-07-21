@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useRouter } from 'next/router'
 import Link from 'next/link'
 import { IoHeart } from 'react-icons/io5'
 import styles from './article-card.module.css'
@@ -9,12 +10,58 @@ const ArticleCard = ({
   update_at = '',
   imgSrc = '/defaultImg.png',
   idURL = '',
+  member_id = '',
+  auth = '',
 }) => {
-  const [isClicked, setIsClicked] = useState(false)
+  const router = useRouter()
+  const [isClicked, setIsClicked] = useState(member_id === auth.id)
+
+  const addFavArticle = async () => {
+    const url = `http://localhost:3001/articles/api/addfavarticle`
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${auth.token}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ member_id: `${auth.id}`, article_id: `${idURL}` }),
+    })
+    const resData = await res.json()
+    if (resData.success) {
+      setIsClicked(true)
+    }
+  }
+
+  const removeFavArticle = async () => {
+    const url = `http://localhost:3001/articles/api/removefavarticle`
+    const res = await fetch(url, {
+      method: 'DELETE',
+      headers: {
+        Authorization: `Bearer ${auth.token}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ member_id: `${auth.id}`, article_id: `${idURL}` }),
+    })
+    const resData = await res.json()
+    if (resData.success) {
+      setIsClicked(false)
+    }
+  }
+
   const handleClick = (e) => {
     e.preventDefault()
     e.stopPropagation()
-    setIsClicked(!isClicked)
+    if (!auth.id) {
+      if (confirm('要先登入才能加入收藏喔~')) {
+        router.push('/users/sign_in')
+      }
+    } else {
+      if (!isClicked) {
+        addFavArticle()
+      } else {
+        removeFavArticle()
+      }
+    }
   }
 
   return (

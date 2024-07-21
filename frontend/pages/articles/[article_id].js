@@ -1,6 +1,7 @@
 // 功能類
 import { useEffect, useState, useRef } from 'react'
 import { useRouter } from 'next/router'
+import { useAuth } from '@/context/auth-context'
 
 // 元件 + 樣式
 import Layout3 from '@/components/layout/layout3'
@@ -13,6 +14,7 @@ import MarkdownContent from '@/components/articles/content'
 import styles from './articleId.module.css'
 
 export default function ArticlePage() {
+  const { auth } = useAuth()
   const router = useRouter()
   const [showSidebar, setShowSidebar] = useState(false)
   const [content, setContent] = useState({})
@@ -23,7 +25,7 @@ export default function ArticlePage() {
   const commentRef = useRef(null)
 
   // 顯示卡片的hook
-  const renderCard = useRenderCards('articles')
+  const renderCard = useRenderCards('articles', auth)
   // 決定字體大小的 class map
   const fontSizeMap = {
     0: 'fontSize0',
@@ -37,7 +39,12 @@ export default function ArticlePage() {
     const param = router.query.article_id
     try {
       // get individual article
-      const res = await fetch(`${baseURL}entry/${param}`)
+      const res = await fetch(`${baseURL}entry/${param}`, {
+        headers: {
+          Authorization: `Bearer ${auth.token}`,
+          'Content-Type': 'application/json',
+        },
+      })
       const resData = await res.json()
       setContent(resData.result)
       setAuthor(resData.authorInfo)
@@ -86,6 +93,8 @@ export default function ArticlePage() {
               fontSize={fontSize}
               setFontSize={setFontSize}
               commentRef={commentRef}
+              content={content}
+              setContent={setContent}
             />
           </aside>
           <article className={styles[fontSizeMap[fontSize]]}>
