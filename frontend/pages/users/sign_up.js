@@ -21,9 +21,11 @@ export default function SignUp() {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [alertMessage, setAlertMessage] = useState('')
   const [userMessage, setUserMessage] = useState('')
+
   const handleSubmit = async (e) => {
     e.preventDefault()
 
+    // Password 驗證
     if (password !== confirmPassword) {
       setAlertMessage('資料錯誤')
       setUserMessage('兩次輸入的密碼不一致')
