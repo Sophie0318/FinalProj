@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useRouter } from 'next/router'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import styles from '../../styles/sign-in.module.css'
@@ -21,15 +21,25 @@ export default function SignUp() {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [alertMessage, setAlertMessage] = useState('')
   const [userMessage, setUserMessage] = useState('')
+  const [isEmailExists, setIsEmailExists] = useState(false)
 
   const handleSubmit = async (e) => {
     e.preventDefault()
 
+    //email驗證
+    if (isEmailExists) {
+      setAlertMessage('資料錯誤')
+      setUserMessage('請檢查電子信箱')
+      setIsModalOpen(true)
+      console.log('此信箱已存在於資料庫之中')
+      return
+    }
     // Password 驗證
     if (password !== confirmPassword) {
       setAlertMessage('資料錯誤')
       setUserMessage('兩次輸入的密碼不一致')
       setIsModalOpen(true)
+      console.log('輸入的密碼不相符')
       return
     }
 
@@ -37,6 +47,7 @@ export default function SignUp() {
       setAlertMessage('資料錯誤')
       setUserMessage('請輸入密碼')
       setIsModalOpen(true)
+      console.log('輸入密碼以及確認密碼是必須的')
       return
     }
 
@@ -70,10 +81,17 @@ export default function SignUp() {
       setAlertMessage('資料錯誤')
       setUserMessage('請輸入電子信箱')
       setIsModalOpen(true)
+      console.log('email未填')
     } else if (step === 2 && !name) {
       setAlertMessage('資料錯誤')
       setUserMessage('請輸入名字')
       setIsModalOpen(true)
+      console.log('姓名未填')
+    } else if (step === 1 && isEmailExists) {
+      setAlertMessage('資料錯誤')
+      setUserMessage('請檢查電子信箱')
+      setIsModalOpen(true)
+      console.log('信箱已存在')
     } else {
       setCurrentStep(currentStep + 1)
       setStep(step + 1)
@@ -86,6 +104,11 @@ export default function SignUp() {
     setStep(step - 1)
   }
 
+  const handleEmailCheck = (exists) => {
+    console.log('檢查email是否存於資料庫:', exists)
+    setIsEmailExists(exists)
+  }
+
   return (
     <UserSignup
       title="建立一個帳戶"
@@ -93,7 +116,14 @@ export default function SignUp() {
       currentStep={currentStep} //目前的狀態
     >
       <form className={styles2.form} onSubmit={handleSubmit} noValidate>
-        {step === 1 && <StepOne email={email} setEmail={setEmail} />}
+        {step === 1 && (
+          <StepOne
+            email={email}
+            setEmail={setEmail}
+            checkEmailExists={true}
+            onEmailCheck={handleEmailCheck}
+          />
+        )}
         {step === 2 && <StepTwo name={name} setName={setName} />}
         {step === 3 && (
           <StepThree

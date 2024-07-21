@@ -11,7 +11,7 @@ const MyEmailInput = ({
   showSuccessIcon,
   setShowSuccessIcon,
   checkEmailExists,
-  onEmailCheck, // 這是一個把註冊表單中需要檢查 email 是否已存在的結果傳到signup頁
+  onEmailCheck, //這是一個傳送給其他元件是否需要送出檢查email是否已存在的屬性
 }) => {
   const [timer, setTimer] = useState(null)
   const [isFocused, setIsFocused] = useState(false)
@@ -32,6 +32,7 @@ const MyEmailInput = ({
           const result = emailSchema.safeParse(email)
           if (!result.success) {
             setErrorMessage(result.error.errors[0].message)
+            console.log('email格式錯誤:', result.error.errors[0].message)
             if (onEmailCheck) {
               onEmailCheck(false) // 不傳給註冊表單
             }
@@ -52,15 +53,18 @@ const MyEmailInput = ({
               )
               //若是用戶輸入的mail是被註冊過的，給個模糊的錯誤提示
               const data = await res.json()
+              console.log('後端回傳:', data)
               if (data.exists) {
                 setErrorMessage('資料錯誤，無法使用此電子郵件')
+                console.log('此信箱已存在於資料庫之中')
                 if (onEmailCheck) {
-                  onEmailCheck(false) // 不傳給註冊表單
+                  onEmailCheck(true) // 傳給註冊表單
                 }
               } else {
                 setShowSuccessIcon(true)
+                console.log('此信箱沒有存在於資料庫之中')
                 if (onEmailCheck) {
-                  onEmailCheck(true) // 傳給註冊表單
+                  onEmailCheck(false) // 不傳給註冊表單
                 }
               }
             }

@@ -3,7 +3,7 @@ import styles from '../../styles/sign-in.module.css'
 import styles2 from '../../styles/user-sign-up.module.css'
 import MyEmailInput from './MyEmailInput'
 
-const StepOne = ({ email, setEmail }) => {
+const StepOne = ({ email, setEmail, onEmailCheck }) => {
   const [emailError, setEmailError] = useState('')
   const [showSuccessIcon, setShowSuccessIcon] = useState(false)
 
@@ -30,6 +30,7 @@ const StepOne = ({ email, setEmail }) => {
               showSuccessIcon={showSuccessIcon}
               setShowSuccessIcon={setShowSuccessIcon}
               checkEmailExists={true} // 在註冊表單中需要檢查 email 是否已存在
+              onEmailCheck={onEmailCheck} // 傳遞 onEmailCheck 的屬性
             />
           </div>
         </div>
