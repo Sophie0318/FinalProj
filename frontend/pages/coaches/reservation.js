@@ -15,6 +15,7 @@ export default function Reservation() {
     timeSlot: '',
   })
   const [selectedCoach, setSelectedCoach] = useState(null)
+  const [errors, setErrors] = useState({})
   const [showModal, setShowModal] = useState(false)
   const router = useRouter()
   const { auth } = useAuth()
@@ -45,10 +46,32 @@ export default function Reservation() {
       ...prevData,
       [name]: value,
     }))
+    // 當用戶輸入時，清除該欄位的錯誤
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      [name]: '',
+    }))
+  }
+
+  // 表單驗證
+  const validateForm = () => {
+    // 創建newErrors來儲存錯誤訊息
+    const newErrors = {}
+    // 去除首尾空格後檢查是否為空
+    if (!formData.name.trim()) newErrors.name = '請填寫姓名'
+    if (!formData.phone.trim()) newErrors.phone = '請填寫電話'
+    if (!formData.email.trim()) newErrors.email = '請填寫信箱'
+    // 檢查是否有選擇時段
+    if (!formData.timeSlot) newErrors.timeSlot = '請選擇時段'
+    // 重新設定錯誤訊息
+    setErrors(newErrors)
+    return Object.keys(newErrors).length === 0
   }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    // 如果表單驗證失敗，直接返回
+    if (!validateForm()) return
     try {
       // 根據選擇的時間段獲取正確的日期時間字符串
       const timeSlotMap = {
@@ -144,7 +167,11 @@ export default function Reservation() {
                   id="name"
                   value={formData.name}
                   onChange={handleInputChange}
+                  className={errors.name ? styles.errorInput : ''}
                 />
+                {errors.name && (
+                  <div className={styles.errorMsg}>{errors.name}</div>
+                )}
 
                 <div className={styles.formLabel}>手機</div>
                 <input
@@ -153,7 +180,11 @@ export default function Reservation() {
                   id="phone"
                   value={formData.phone}
                   onChange={handleInputChange}
+                  className={errors.phone ? styles.errorInput : ''}
                 />
+                {errors.phone && (
+                  <div className={styles.errorMsg}>{errors.phone}</div>
+                )}
 
                 <div className={styles.formLabel}>聯絡信箱</div>
                 <input
@@ -162,11 +193,17 @@ export default function Reservation() {
                   id="email"
                   value={formData.email}
                   onChange={handleInputChange}
+                  className={errors.email ? styles.errorInput : ''}
                 />
+                {errors.email && (
+                  <div className={styles.errorMsg}>{errors.email}</div>
+                )}
 
                 <div className={styles.formLabel}>選擇時段</div>
                 <select
-                  className={styles.timeSelect}
+                  className={`${styles.timeSelect} ${
+                    errors.timeSlot ? styles.errorInput : ''
+                  }`}
                   name="timeSlot"
                   value={formData.timeSlot}
                   onChange={handleInputChange}
@@ -177,6 +214,10 @@ export default function Reservation() {
                   <option value="3">2024/12/31 14:00</option>
                   <option value="4">2024/12/31 15:00</option>
                 </select>
+                {errors.timeSlot && (
+                  <div className={styles.errorMsg}>{errors.timeSlot}</div>
+                )}
+
                 <div className={styles.formLabel}>預約教練</div>
                 <div className={styles.cardContainer}>
                   <div className={styles.resCoach}>
