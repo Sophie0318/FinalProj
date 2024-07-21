@@ -5,7 +5,8 @@ const router = express.Router();
 
 /* GET home page. */
 router.get("/", function (req, res, next) {
-  const { amount, order_id, Product_name } = req.query;
+  const { amount, orderId, order_id, Product_name, orderdeatil_id } = req.query;
+
   //綠界全方位金流技術文件：
   // https://developers.ecpay.com.tw/?p=2856
   // 信用卡測試卡號：4311-9522-2222-2222 安全碼 222
@@ -21,8 +22,8 @@ router.get("/", function (req, res, next) {
   const TotalAmount = Number(amount);
   const TradeDesc = "商店線上付款";
   const ItemName = Product_name || "商品付款";
-  const ReturnURL = `http://localhost:3001/orderdetail/payment-result?order_id=${order_id}`;
-  const OrderResultURL = `http://localhost:3000/orderdetail/success?order_id=${order_id}`; //前端成功頁面
+  const ReturnURL = `http://localhost:3001/product/payment-result?order_id=${order_id}`;
+  const OrderResultURL = `http://localhost:3000/product?order_id=${order_id}`; //前端成功頁面
   const ChoosePayment = "ALL";
 
   ////////////////////////以下參數不用改////////////////////////

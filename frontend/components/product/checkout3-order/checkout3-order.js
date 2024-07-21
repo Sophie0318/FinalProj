@@ -17,6 +17,7 @@ export default function Checkout3Order() {
 
   //處理付款
   const handlePayment = async () => {
+    // console.log('Order ID:', router.query.order_id)
     try {
       const amount = orderDetail.reduce(
         (acc, item) =>
@@ -25,6 +26,7 @@ export default function Checkout3Order() {
             item.OrdersDetail_unit_price_at_time,
         0
       )
+
       const response = await axios.get(
         `http://localhost:3001/product-payment?amount=${amount}&orderId=${router.query.order_id}`
       )
@@ -54,12 +56,12 @@ export default function Checkout3Order() {
         .then((response) => response.json())
         .then((data) => {
           // console.log(data)
-          setOrderDetail(data.orderDetail)
+          setOrderDetail(data.orderDetail || [])
           console.log(orderDetail[0])
         })
       // console.log(router.query.order_id)
     }
-  }, [router.isReady])
+  }, [router.isReady, router.query.order_id])
 
   //計算總數量
   const calcTotalQty = () => {
