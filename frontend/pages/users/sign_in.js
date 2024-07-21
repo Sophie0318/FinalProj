@@ -19,6 +19,7 @@ export default function SignIn() {
   const [emailError, setEmailError] = useState('')
   const [passwordError, setPasswordError] = useState('')
   const [error, setError] = useState('')
+  const [showSuccessIcon, setShowSuccessIcon] = useState(false)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [alertMessage, setAlertMessage] = useState('')
   const [userMessage, setUserMessage] = useState('')
@@ -122,6 +123,7 @@ export default function SignIn() {
                 setEmail={setEmail}
                 errorMessage={emailError}
                 setErrorMessage={setEmailError}
+                setShowSuccessIcon={setShowSuccessIcon}
                 showSuccessIcon={false}
               />
             </div>
@@ -136,6 +138,7 @@ export default function SignIn() {
                 setPassword={setPassword}
                 errorMessage={passwordError}
                 setErrorMessage={setPasswordError}
+                checkEmailExists={false} //登入頁中不需要檢查 email 是否已存在
               />
             </div>
           </div>

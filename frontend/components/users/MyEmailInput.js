@@ -9,6 +9,8 @@ const MyEmailInput = ({
   errorMessage,
   setErrorMessage,
   showSuccessIcon,
+  setShowSuccessIcon,
+  checkEmailExists,
 }) => {
   const [timer, setTimer] = useState(null)
   const [isFocused, setIsFocused] = useState(false)
@@ -17,19 +19,41 @@ const MyEmailInput = ({
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value)
+    setShowSuccessIcon(false) //初始化成功icon
   }
 
   const handleBlur = () => {
     setIsFocused(false)
     if (email) {
-      // Start timer when the input loses focus
+      // 當輸入框失去焦點時，開始計時
       setTimer(
-        setTimeout(() => {
+        setTimeout(async () => {
           const result = emailSchema.safeParse(email)
           if (!result.success) {
             setErrorMessage(result.error.errors[0].message)
           } else {
             setErrorMessage('')
+
+            if (checkEmailExists) {
+              // 發送請求檢查 email 是否已存在
+              const res = await fetch(
+                `http://localhost:3001/users/check-email`,
+                {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify({ email }),
+                }
+              )
+              //若是用戶輸入的mail是被註冊過的，給個模糊的錯誤提示
+              const data = await res.json()
+              if (data.exists) {
+                setErrorMessage('資料錯誤，無法使用此電子郵件')
+              } else {
+                setShowSuccessIcon(true)
+              }
+            }
           }
         }, 100)
       )
