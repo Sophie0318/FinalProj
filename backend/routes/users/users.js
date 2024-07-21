@@ -366,6 +366,9 @@ router.get("/bookings/:userId", async (req, res) => {
     }
 });
 
+//處理會員在登入頁面時檢查輸入的email是否存在於資料庫當中的路由
+router.post("/cheak_email", userController.cheakEmail);
+
 //忘記密碼的路由
 router.post("/test_forget_password", userController.forgotPassword);
 //驗證重設密碼的路由
