@@ -5,6 +5,7 @@ import MyEmailInput from './MyEmailInput'
 
 const StepOne = ({ email, setEmail }) => {
   const [emailError, setEmailError] = useState('')
+  const [showSuccessIcon, setShowSuccessIcon] = useState(false)
 
   return (
     <>
@@ -26,7 +27,9 @@ const StepOne = ({ email, setEmail }) => {
               setEmail={setEmail}
               errorMessage={emailError}
               setErrorMessage={setEmailError}
-              showSuccessIcon={false}
+              showSuccessIcon={showSuccessIcon}
+              setShowSuccessIcon={setShowSuccessIcon}
+              checkEmailExists={true} // 在註冊表單中需要檢查 email 是否已存在
             />
           </div>
         </div>
