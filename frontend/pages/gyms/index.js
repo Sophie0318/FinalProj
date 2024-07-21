@@ -26,11 +26,11 @@ export default function Gyms() {
     window.scrollTo({ top: y, behavior: 'smooth' })
   }
 
-  //用fetch請後端搜尋資料的函式
+  
   const handleCompositionChange = (composing) => {
     setIsComposing(composing)
   }
-
+//用fetch請後端搜尋資料的函式
   const fetchGymsData = () => {
     const qq = new URLSearchParams(router.query)
     // console.log(qq)

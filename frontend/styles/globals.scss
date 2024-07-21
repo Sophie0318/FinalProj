@@ -340,6 +340,11 @@ p,
 // Google Maps InfoWindow 樣式
 .gm-style {
   
+  .gm-style-iw {
+     font-weight: 400; 
+     font-size: 15px; 
+    overflow: hidden;
+}
   
   .gm-style-iw-c {
     padding: 0px !important;
