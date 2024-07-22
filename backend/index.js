@@ -73,6 +73,8 @@ app.use("/payment", paymentRouter);
 app.use("/shipment", shipmentRouter);
 app.use("/updateProfile", updateProfileRouter);
 
+app.use("/product-Payment", productPayment);
+
 //google login
 app.use("/google-login", googleLoginRouter);
 
@@ -111,7 +113,7 @@ app.post("/avatar-upload", imgUpload.single("avatar"), async (req, res) => {
       // 如果舊頭像不是默認頭像，則刪除它
       if (oldAvatar && oldAvatar !== "default_avatar.jpg") {
         const oldAvatarPath = path.join("public/users", oldAvatar);
-        await fs.unlink(oldAvatarPath).catch(() => {});
+        await fs.unlink(oldAvatarPath).catch(() => { });
       }
 
       res.json({
