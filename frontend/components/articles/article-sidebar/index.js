@@ -1,10 +1,13 @@
-import React from 'react'
+import { useState } from 'react'
+import useContentSearch from '@/hooks/article-search/useContentSearch'
+
 import {
   IoHeart,
   IoSearch,
   IoChatbubbleEllipses,
   IoShareSocialSharp,
 } from 'react-icons/io5'
+import SidebarSearch from './sidebar-search'
 import styles from './article-sidebar.module.css'
 
 export default function ArticleSidebar({
@@ -13,7 +16,28 @@ export default function ArticleSidebar({
   fontSize = 0,
   setFontSize = () => {},
   commentRef,
+  content = '',
+  setContent = () => {},
 }) {
+  const [showSearchbar, setShowSearchbar] = useState(false)
+  const [keyword, setKeyword] = useState('')
+  const contentSearch = useContentSearch(
+    (content = { content }),
+    (setContent = { setContent })
+  )
+  const handleShowSearch = (e) => {
+    // console.log(e)
+    if (e.type === 'click') {
+      setShowSearchbar(!showSearchbar)
+    }
+    if (showSearchbar && e.key === 'Escape') {
+      setShowSearchbar(false)
+    }
+    if (!showSearchbar && e.key === 'Enter') {
+      setShowSearchbar(true)
+    }
+  }
+
   const handleFontSize = () => {
     if (fontSize === 2) {
       setFontSize(0)
@@ -46,7 +70,10 @@ export default function ArticleSidebar({
             handleFontSize()
           }}
         >
-          <img src="/articles-img/font-size.svg" />
+          <img
+            className={styles.fontSizeImg}
+            src="/articles-img/font-size.svg"
+          />
         </button>
         <button className={styles.sidebarBtn}>
           <IoHeart />
@@ -67,9 +94,27 @@ export default function ArticleSidebar({
         >
           <IoShareSocialSharp />
         </button>
-        <button className={styles.sidebarBtn}>
-          <IoSearch />
-        </button>
+        {/* <div
+          className={`${styles.sidebarSearch} ${
+            showSearchbar ? styles.showSearch : styles.hideSearch
+          }`}
+          onClick={handleShowSearch}
+          onKeyDown={handleShowSearch}
+          role="button"
+          tabIndex={0}
+        >
+          <SidebarSearch
+            showSearchbar={showSearchbar}
+            value={`${keyword}`}
+            onChange={(e) => {
+              setKeyword(e.target.value)
+            }}
+            onClick={(e) => {
+              e.stopPropagation()
+            }}
+            onKeyDown={contentSearch}
+          />
+        </div> */}
       </div>
 
       <div
@@ -79,21 +124,36 @@ export default function ArticleSidebar({
         `}
       >
         <div className={styles.sidebarWrapper}>
-          <button className={styles.sidebarBtn}>
+          <button
+            className={styles.sidebarBtn}
+            onClick={() => {
+              handleFontSize()
+            }}
+          >
             <img src="/articles-img/font-size-dark.svg" />
           </button>
           <button className={styles.sidebarBtn}>
             <IoHeart />
           </button>
-          <button className={styles.sidebarBtn}>
+          <button
+            className={styles.sidebarBtn}
+            onClick={() => {
+              handleScroll()
+            }}
+          >
             <IoChatbubbleEllipses />
           </button>
-          <button className={styles.sidebarBtn}>
+          <button
+            className={styles.sidebarBtn}
+            onClick={() => {
+              linkToClipBoard()
+            }}
+          >
             <IoShareSocialSharp />
           </button>
-          <button className={styles.sidebarBtn}>
+          {/* <button className={styles.sidebarBtn}>
             <IoSearch />
-          </button>
+          </button> */}
         </div>
       </div>
     </>

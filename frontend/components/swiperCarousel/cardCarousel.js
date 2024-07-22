@@ -9,12 +9,12 @@ const initlist = Array(12).fill(1)
 
 export default function CardCarousel({
   arrow = true,
-  data = initlist,
+  data = [],
   width = '100%',
   cardMaxWidth = '350px',
   cardWidth = '100%',
   gap = '20px',
-  renderItem,
+  renderItem = () => {},
   children,
 }) {
   const swiperRef = useRef(null)
@@ -53,12 +53,13 @@ export default function CardCarousel({
     }
   }
 
-  // 加上抓 database 除錯訊息
-  if ((data.length === 0) | (data === null) | (data === undefined)) {
-    data = initlist
-    console.log('輪播 data 沒抓到')
-  }
+  // 抓 database 除錯訊息
+  // if ((data.length === 0) | (data === null) | (data === undefined)) {
+  //   const output = { datalength: data.length, datacontent: data }
+  //   console.log('輪播 data 沒抓到', output)
+  // }
 
+  // console.log(data)
   useEffect(() => {
     register()
 
@@ -83,7 +84,7 @@ export default function CardCarousel({
 
     Object.assign(swiperRef.current, params)
     swiperRef.current.initialize()
-  }, [])
+  }, [data])
 
   return (
     <>

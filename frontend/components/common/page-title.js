@@ -2,7 +2,11 @@ import React from 'react'
 import Breadcrumb from './breadcrumb'
 import styles from './layout.module.css'
 
-export default function PageTitle({ pageName = 'index', height = '229px' }) {
+export default function PageTitle({
+  pageName = 'index',
+  height = '229px',
+  marginTop = '0px',
+}) {
   // 列出所有可能的副標題, 由 prop 決定副標題要用哪一個
   const pageList = {
     index: {
@@ -58,7 +62,10 @@ export default function PageTitle({ pageName = 'index', height = '229px' }) {
 
   return (
     <>
-      <section className={styles.intro} style={{ height: height }}>
+      <section
+        className={styles.intro}
+        style={{ height: height, marginTop: marginTop }}
+      >
         <div className={`${styles.info}`}>
           <div className={styles.bread}>
             <Breadcrumb pageName={pageName} />

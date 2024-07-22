@@ -43,10 +43,14 @@ const SearchBar = forwardRef(function SearchBar(props, searchBarRef) {
   const handleCompositionStart = () => {
     onCompositionChange(true)
   }
+    onCompositionChange(true)
+  }
 
   const handleCompositionEnd = (e) => {
     onCompositionChange(false)
     handleSearch()
+  }
+
   }
 
   return (
@@ -67,14 +71,18 @@ const SearchBar = forwardRef(function SearchBar(props, searchBarRef) {
         onClick={() => {
           handleClick()
         }}
+        onClick={() => {
+          handleClick()
+        }}
         ref={searchBarRef}
         onChange={(e) => setSearchTerm(e.target.value)}
         onCompositionStart={handleCompositionStart}
         onCompositionEnd={handleCompositionEnd}
+        onKeyDown={handleKeyDown}
         className={styles.search_input}
         style={{
           height: size,
-          paddingLeft: `calc(${size} + 9px)`,
+          paddingLeft: `calc(${size} + ${paddingLeft})`,
         }}
         placeholder={placeholder}
       />

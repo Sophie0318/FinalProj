@@ -1,18 +1,22 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
+import useArticleSearch from '@/hooks/article-search/useArticleSearch'
+import { useAuth } from '@/context/auth-context'
+
 import useRenderCards from '@/hooks/cards/cards'
 import Layout3 from '@/components/layout/layout3'
-import SearchBar from '@/components/common/searchbar/searchbar'
+import SidebarSearch from '@/components/articles/article-sidebar/sidebar-search'
 import SearchSection from '@/components/articles/search-section'
 import BS5Pagination from '@/components/product/Pagination/bs5-pagination'
 import styles from '../type.module.css'
 
 export default function ArticleType() {
+  const { auth } = useAuth()
   const [articleList, setArticleList] = useState([])
   const [totalPages, setTotalPages] = useState(0)
   const [pageCategory, setPageCategory] = useState('文章列表')
-  const [keyword, setKeyword] = useState('')
-  const renderCard = useRenderCards('articles')
+  const { keyword, setKeyword, handleKeyDown } = useArticleSearch()
+  const renderCard = useRenderCards('articles', auth)
   const router = useRouter()
   const categoryMap = {
     fitness: '體能鍛鍊',
@@ -24,21 +28,29 @@ export default function ArticleType() {
 
   const onPageChange = (e) => {
     const pageNum = e.selected + 1
-    router.push({ query: { ...router.query, page: pageNum } })
+    router.push({ query: { ...router.query, page: pageNum } }, undefined, {
+      scroll: false,
+    })
   }
 
-  const getList = async (url) => {
+  const getList = async (url, token) => {
     let res = ''
     let resData = ''
     try {
-      res = await fetch(url)
-      resData = await res.json()
+      if (token) {
+        res = await fetch(url, {
+          headers: { Authorization: `Bearer ${token}` },
+        })
+        resData = await res.json()
+      } else {
+        res = await fetch(url)
+        resData = await res.json()
+      }
     } catch (error) {
       console.log('database fetch data error: ', error)
     }
     if (resData.success) {
       if (resData.redirect) {
-        console.log(resData.redirect)
         router.push(
           {
             pathname: router.pathname,
@@ -47,31 +59,26 @@ export default function ArticleType() {
           undefined,
           { shallow: true }
         )
-        console.log(router.query)
       }
+      setArticleList(resData.rows)
+      setTotalPages(resData.totalPages)
     } else {
-      console.log(resData.success)
+      // console.log(resData.success)
     }
-    setArticleList(resData.rows)
-    setTotalPages(resData.totalPages)
-  }
-
-  const handleSearch = (value) => {
-    setKeyword(value)
-
-    // let query = { ...router.query, serachBy: 'article_title', keyword: keyword }
-    // console.log(query)
-    // const newQuery = new URLSearchParams(query)
-    // router.push(newQuery)
   }
 
   useEffect(() => {
     if (router.isReady) {
       const baseURL = 'http://localhost:3001/articles/api/listData?'
       const query = new URLSearchParams(router.query)
+      const loginStatus = localStorage.getItem('suan-auth')
+      let token = ''
+      if (loginStatus) {
+        token = JSON.parse(loginStatus).token
+      }
 
       const url = `${baseURL}${query}`
-      getList(url)
+      getList(url, token)
       setPageCategory(categoryMap[router.query.category])
     }
   }, [router])
@@ -87,10 +94,15 @@ export default function ArticleType() {
               >
                 <h4 className="text-primary">{pageCategory}</h4>
                 <div className={styles.searchbarPC}>
-                  <SearchBar
+                  <SidebarSearch
                     maxWidth="351px"
-                    searchTerm={keyword}
-                    setSearchTerm={handleSearch}
+                    placeholder="輸入關鍵字搜尋文章..."
+                    showSearchbar={true}
+                    value={`${keyword}`}
+                    onChange={(e) => {
+                      setKeyword(e.target.value)
+                    }}
+                    onKeyDown={handleKeyDown}
                   />
                 </div>
               </div>

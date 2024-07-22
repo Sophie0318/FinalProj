@@ -1,3 +1,33 @@
+// 處理關鍵字搜尋參數 (暫存)
+  // let searchBy = [];
+  // if (req.query.searchBy) {
+  //   if (typeof req.query.searchBy === "string") {
+  //     // 單一關鍵字參數時 query 會是 string, 把它變成陣列
+  //     searchBy[0] = req.query.searchBy
+  //   } else {
+  //     // 多重關鍵字參數時 query 會是 array
+  //     searchBy = req.query.searchBy
+  //   }
+  // }
+  // if (searchBy && keyword) {
+  //   let q_sql_segment = ''
+  //   let searchByArr = [...searchBy]
+  //   const keyword_ = db.escape(`%${keyword}%`)
+  //   if (searchByArr.includes('article_content')) {
+  //     q_sql_segment += ` ${element} LIKE ${keyword_} `
+  //   }
+
+  //   searchBy.forEach((element) => {
+      
+  //     if (searchBy.indexOf(element) === 0) {
+  //       q_sql_segment += ` ${element} LIKE ${keyword_} `
+  //     } else {
+  //       q_sql_segment += ` OR ${element} LIKE ${keyword_} `
+  //     }
+  //   })
+  //   q_sql += ` AND (${q_sql_segment}) `
+  // }
+
 const getFullListData = async (req) => {
   let success = false;
 

@@ -24,7 +24,12 @@ import { useCart } from '@/hooks/product/use-cart'
 
 // TODO: header logo offsets when toggle offcanvas, 可以參考kacco
 // 也可以用看看 bootstrap offcanvas body scrollable
-export default function Navbar({ hideLogo = false }) {
+export default function Navbar({
+  hideLogo = false,
+  position = 'relative',
+  zIndex = '0',
+  width = '100%',
+}) {
   const { auth, logout } = useAuth()
   const router = useRouter()
   const {
@@ -81,7 +86,14 @@ export default function Navbar({ hideLogo = false }) {
 
   return (
     <>
-      <header className={`${styles.navbarPC}`}>
+      <header
+        className={`${styles.navbarPC}`}
+        style={{
+          position: `${position}`,
+          zIndex: `${zIndex}`,
+          width: `${width}`,
+        }}
+      >
         <div className="logo">
           <Link href="/">
             <img src="/logo.png" alt="" className={`${styles.logoPhoto}`} />

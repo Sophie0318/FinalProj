@@ -3,6 +3,7 @@
   position: relative;
   align-items: center;
   width: 100%;
+  cursor: pointer;
 }
 
 .searchIcon {
@@ -19,8 +20,6 @@
 }
 
 .search_input {
-  
-  /* padding-left: calc(60px + 9px); */
   border: 3px solid var(--color-midnight-green);
   border-radius: 50px;
   box-sizing: border-box;
@@ -33,13 +32,12 @@
 .search_input:focus {
   background-color: white;
   outline: none;
-  /* box-shadow: 0 0 0 3px rgba(0, 73, 83, 0.3); */
 }
 
 .search:hover .searchIcon {
-  background-color:var(--color-hover-blue);
-  
+  background-color: var(--color-hover-blue);
 }
 
 .search_input:hover {
-  border: 3px solid var(--color-hover-blue);}
+  border: 3px solid var(--color-hover-blue);
+}
