@@ -11,7 +11,7 @@ export default function ProductSuccess() {
   }, [])
   return (
     <div>
-      <Layout3>
+      <Layout3 title="付款">
         <div className={styles.modalOverlay}>
           <div className={styles.modal}>
             <div className={styles.success}>付款成功！</div>

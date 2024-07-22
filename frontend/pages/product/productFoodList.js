@@ -77,7 +77,7 @@ export default function ProductList() {
     updateProductData()
   }, [router, page, perpage])
   return (
-    <Layout3 pageName="products">
+    <Layout3 pageName="products" title="健康食品">
       <main className={styles.mainWithMargin}>
         <div className={styles.container}>
           <div className="row">

@@ -1,17 +1,24 @@
 'use client'
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useState } from 'react'
 import { IoCloseSharp, IoAddSharp, IoRemove, IoCart } from 'react-icons/io5'
 import styles from '../common/layout.module.css'
-import { useState } from 'react'
+import buttonStyles from './shopping-btn.module.css'
 import { useCart } from '@/hooks/product/use-cart'
 import withReactContent from 'sweetalert2-react-content'
 import Swal from 'sweetalert2'
+import Link from 'next/link'
 
 export default function ShoppingCart() {
   const { item, increaseItem, decreaseItem, removeItem, shoppingList, total } =
     useCart()
-
   const MySwal = withReactContent(Swal)
+
+  // 确保组件仅在客户端渲染时进行交互
+  const [isClient, setIsClient] = useState(false)
+  useEffect(() => {
+    setIsClient(true)
+  }, [])
+
   const notifyAndRemove = (itemName, itemId) => {
     MySwal.fire({
       title: '你確定要刪除嗎?',
@@ -23,11 +30,10 @@ export default function ShoppingCart() {
       cancelButtonText: '取消',
       confirmButtonText: '確定刪除!',
       willOpen: () => {
-        // 在彈出視窗打開時改變背景顏色
         const swalPopup = document.querySelector('.swal2-popup')
         if (swalPopup) {
-          swalPopup.style.backgroundColor = '#FFF7E9' // 自定義背景顏色
-          swalPopup.style.color = '#1a394a' // 自定義文字顏色
+          swalPopup.style.backgroundColor = '#FFF7E9'
+          swalPopup.style.color = '#1a394a'
           swalPopup.style.borderRadius = '50px'
         }
       },
@@ -38,11 +44,10 @@ export default function ShoppingCart() {
           text: itemName + '已被刪除',
           icon: 'success',
           willOpen: () => {
-            // 在彈出視窗打開時改變背景顏色
             const swalPopup = document.querySelector('.swal2-popup')
             if (swalPopup) {
-              swalPopup.style.backgroundColor = '#FFF7E9' // 自定義背景顏色
-              swalPopup.style.color = '#1a394a' // 自定義文字顏色
+              swalPopup.style.backgroundColor = '#FFF7E9'
+              swalPopup.style.color = '#1a394a'
             }
           },
         })
@@ -51,12 +56,16 @@ export default function ShoppingCart() {
     })
   }
 
+  if (!isClient) {
+    return null // 确保服务器端不渲染此部分
+  }
+
   return (
     <>
       <li>
         <a href="#">
           <IoCart
-            className={`${styles.cart}`}
+            className={styles.cart}
             data-bs-toggle="offcanvas"
             data-bs-target="#offcanvasRight"
             aria-controls="offcanvasRight"
@@ -69,7 +78,6 @@ export default function ShoppingCart() {
           >
             <div className="offcanvas-header">
               <h5 id="offcanvasRightLabel">
-                {' '}
                 <IoCart /> 您的購物車
               </h5>
               <button
@@ -91,7 +99,7 @@ export default function ShoppingCart() {
                       style={{
                         display: 'flex',
                         gap: '5px',
-                        marginBottom: `50px`,
+                        marginBottom: '50px',
                         justifyContent: 'space-between',
                       }}
                     >
@@ -99,7 +107,6 @@ export default function ShoppingCart() {
                         src={`/product-img/${v.Product_photo}`}
                         alt=""
                         style={{ width: '35%', borderRadius: '25px' }}
-                        // className="w-50"
                       />
                       <ul>
                         <li
@@ -126,7 +133,7 @@ export default function ShoppingCart() {
                             marginLeft: '76px',
                           }}
                           onClick={() => {
-                            notifyAndRemove(v.Product_name, v.Product_id) // 傳遞商品名稱和ID
+                            notifyAndRemove(v.Product_name, v.Product_id)
                           }}
                         />
                         <div
@@ -178,7 +185,7 @@ export default function ShoppingCart() {
                               onClick={() => {
                                 const nextQty = v.qty - 1
                                 if (nextQty === 0) {
-                                  notifyAndRemove(v.Product_name, v.Product_id) // 傳遞商品名稱和ID
+                                  notifyAndRemove(v.Product_name, v.Product_id)
                                 } else {
                                   decreaseItem(v.Product_id)
                                 }
@@ -209,25 +216,18 @@ export default function ShoppingCart() {
                 justifyContent: 'center',
                 alignItems: 'center',
                 marginTop: '50px',
+                marginBottom: '50px',
               }}
             >
-              <button
-                style={{
-                  backgroundColor: '#1a394a',
-                  borderRadius: '50px',
-                  fontSize: '18px',
-                  width: '265px',
-                  height: '65px',
-                  color: 'white',
-                  marginBottom: '40px',
-                }}
-                className={`${styles.move}`}
-                onClick={() => {
-                  window.location.href = '../product/product-order'
-                }}
-              >
-                前往付款
-              </button>
+              <Link href="/product/product-order" legacyBehavior passHref>
+                <a className={buttonStyles.btn}>
+                  <span>前往付款</span>
+                  <svg width="13px" height="10px" viewBox="0 0 13 10">
+                    <path d="M1,5 L11,5"></path>
+                    <polyline points="8 1 12 5 8 9"></polyline>
+                  </svg>
+                </a>
+              </Link>
             </div>
           </div>
         </a>

@@ -8,10 +8,5 @@
   position: absolute;
   color: white;
   opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 1s ease-out, transform 0.5s ease-out;
-}
-
-.image {
-  transform-origin: center center;
+  transform: translateY(50px) scale(0.5) rotate(0deg);
 }

@@ -8,7 +8,12 @@ import React, {
 import { IoSearch } from 'react-icons/io5'
 import styles from './searchbar.module.css'
 
-const SearchBar = forwardRef(function SearchBar(props, searchBarRef) {
+const SearchBar = forwardRef(function SearchBar(
+  props,
+  searchBarRef,
+  handleKeyDown,
+  paddingLeft = '9px'
+) {
   const {
     placeholder = '請輸入地址搜尋...',
     maxWidth = '600px',
@@ -18,10 +23,7 @@ const SearchBar = forwardRef(function SearchBar(props, searchBarRef) {
     handleSearch,
     handleClick,
     onCompositionChange = () => {},
-    
   } = props
-
-  
 
   // const handleScroll = () => {
   //   if (searchBarRef.current) {
@@ -43,14 +45,10 @@ const SearchBar = forwardRef(function SearchBar(props, searchBarRef) {
   const handleCompositionStart = () => {
     onCompositionChange(true)
   }
-    onCompositionChange(true)
-  }
 
   const handleCompositionEnd = (e) => {
     onCompositionChange(false)
     handleSearch()
-  }
-
   }
 
   return (
@@ -68,9 +66,6 @@ const SearchBar = forwardRef(function SearchBar(props, searchBarRef) {
         type="text"
         name="search_input"
         value={searchTerm}
-        onClick={() => {
-          handleClick()
-        }}
         onClick={() => {
           handleClick()
         }}
