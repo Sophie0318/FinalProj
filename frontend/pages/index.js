@@ -36,13 +36,15 @@ export default function Home() {
 
   const renderLessonCard = (lesson) => {
     return (
-      <LessonCard
-        title={lesson.lesson_name}
-        price={`NT$ ${lesson.lesson_price}`}
-        gym={lesson.gym_name}
-        category={lesson.categories}
-        imgSrc={lesson.lesson_img || '/defaultImg.png'}
-      />
+      <Link href={`/lessons/${lesson.lesson_id}`}>
+        <LessonCard
+          title={lesson.lesson_name}
+          price={`NT$ ${lesson.lesson_price}`}
+          gym={lesson.gym_name}
+          category={lesson.categories}
+          imgSrc={lesson.lesson_img || '/defaultImg.png'}
+        />
+      </Link>
     )
   }
 
