@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import styles from '../../styles/user-edit.module.css'
 import { FaCheckCircle, FaExclamationCircle } from 'react-icons/fa'
-import { z } from 'zod'
 
 const MyTextInput = ({
   id,
@@ -9,42 +8,45 @@ const MyTextInput = ({
   label,
   value,
   onChange,
-  mySchema,
+  schema,
   errorMessage,
+  setErrorMessage,
   style,
 }) => {
   const [timer, setTimer] = useState(null)
-  const [isFocused, setIsFocused] = useState(false)
 
   const handleChange = (e) => {
-    onChange(e.target.value) // Call the onChange function passed as a prop
-    setErrorMessage('') // Clear the error message when the user types
+    onChange(e.target.value)
+    // 不要在這裡清除錯誤訊息，讓驗證決定是否需要顯示錯誤
   }
 
   const handleBlur = () => {
-    setIsFocused(false)
     if (value) {
-      // Start a timer when the input loses focus
+      console.log('Blur event triggered, setting timeout for validation')
       setTimer(
         setTimeout(() => {
-          const result = mySchema.safeParse(value)
+          console.log('Validating input:', value)
+          const result = schema.safeParse(value)
           if (!result.success) {
-            // Set error message if validation fails
+            console.log('Validation failed:', result.error.errors[0].message)
             setErrorMessage(result.error.errors[0].message)
           } else {
+            console.log('Validation passed')
             setErrorMessage('')
           }
-        }, 500) // Increased timeout for better UX
+        }, 500)
       )
     }
   }
 
   useEffect(() => {
-    if (timer) {
-      clearTimeout(timer)
+    return () => {
+      if (timer) {
+        console.log('Clearing timeout')
+        clearTimeout(timer)
+      }
     }
-    return () => clearTimeout(timer)
-  }, [value, timer])
+  }, [timer])
 
   const renderIcon = () => {
     if (errorMessage) {

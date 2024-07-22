@@ -110,7 +110,7 @@
   background-color: var(--color-dark-gray);
   color: var(--color-white);
 }
-.erro_message {
+.error_message {
   color: var(--color-tomato);
   display: none;
   position: absolute;

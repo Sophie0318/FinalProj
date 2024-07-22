@@ -6,6 +6,8 @@ import { useRouter } from 'next/router'
 import UserModal from '../../../components/users/UserModal'
 import UserConfirm from '@/components/users/userConfirm'
 import MyPasswordInput from '@/components/users/MyPasswordInput'
+import { z } from 'zod'
+import MyNameInput from '@/components/users/MyNameInput'
 
 export default function Edit() {
   const router = useRouter()
@@ -33,6 +35,28 @@ export default function Edit() {
   const [isCancelModalOpen, setIsCancelModalOpen] = useState(false)
   const [confirmMessage, setConfirmMessage] = useState('')
   const [userConfirmMessage, setUserConfirmMessage] = useState('')
+
+  const [nameError, setNameError] = useState('')
+  const [nickNameError, setNickNameError] = useState('')
+  const [mobileError, setMobileError] = useState('')
+  const [addressError, setAddressError] = useState('')
+
+  // Zod schemas
+  const nameSchema = z.string().max(10, '姓名不能超過10個字')
+  const nickNameSchema = z.string().max(10, '暱稱不能超過10個字')
+  const mobileSchema = z.string().regex(/^09\d{8}$/, '手機號碼格式不正確')
+  const addressSchema = z.string().refine(
+    (value) => {
+      const cityName = city.find((c) => c.code_id === selectedCity)?.code_desc
+      const districtName = districts.find(
+        (d) => d.code_id === selectedDistrict
+      )?.code_desc
+      return !value.includes(cityName) && !value.includes(districtName)
+    },
+    {
+      message: '地址不應包含已選擇的縣市或行政區',
+    }
+  )
 
   console.log('auth.id:', auth.id)
 
@@ -274,42 +298,36 @@ export default function Edit() {
               {/* Personal Information */}
               <div className={styles.information}>
                 <h5>個人資料</h5>
-                <div className={styles.form_group}>
-                  <label htmlFor="name">
-                    <p>姓名:</p>
-                  </label>
-                  <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                  />
-                </div>
-                <div className={styles.form_group}>
-                  <label htmlFor="nickname">
-                    <p>暱稱:</p>
-                  </label>
-                  <input
-                    type="text"
-                    id="nickname"
-                    name="nickname"
-                    value={nickName}
-                    onChange={(e) => setNickName(e.target.value)}
-                  />
-                </div>
-                <div className={styles.form_group}>
-                  <label htmlFor="mobile">
-                    <p>手機:</p>
-                  </label>
-                  <input
-                    type="text"
-                    id="mobile"
-                    name="mobile"
-                    value={mobile}
-                    onChange={(e) => setMobile(e.target.value)}
-                  />
-                </div>
+                <MyNameInput
+                  id="name"
+                  name="name"
+                  label="姓名:"
+                  value={name}
+                  onChange={setName}
+                  schema={nameSchema}
+                  errorMessage={nameError}
+                  setErrorMessage={setNameError}
+                />
+                <MyNameInput
+                  id="nickname"
+                  name="nickname"
+                  label="暱稱:"
+                  value={nickName}
+                  onChange={setNickName}
+                  schema={nickNameSchema}
+                  errorMessage={nickNameError}
+                  setErrorMessage={setNickNameError}
+                />
+                <MyNameInput
+                  id="mobile"
+                  name="mobile"
+                  label="手機:"
+                  value={mobile}
+                  onChange={setMobile}
+                  schema={mobileSchema}
+                  errorMessage={mobileError}
+                  setErrorMessage={setMobileError}
+                />
               </div>
 
               {/* Address */}
@@ -353,19 +371,17 @@ export default function Edit() {
                     ))}
                   </select>
                 </div>
-                <div className={styles.form_group}>
-                  <label htmlFor="address">
-                    <p>地址:</p>
-                  </label>
-                  <input
-                    type="text"
-                    id="address"
-                    name="address"
-                    style={{ width: '300px' }}
-                    value={address}
-                    onChange={(e) => setAddress(e.target.value)}
-                  />
-                </div>
+                <MyNameInput
+                  id="address"
+                  name="address"
+                  label="地址:"
+                  value={address}
+                  onChange={setAddress}
+                  schema={addressSchema}
+                  errorMessage={addressError}
+                  setErrorMessage={setAddressError}
+                  style={{ width: '300px' }}
+                />
               </div>
 
               {/* Change Password */}
