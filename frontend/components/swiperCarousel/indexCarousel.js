@@ -7,7 +7,7 @@ export default function IndexCarousel({
   title,
   data = [],
   renderItem = () => {},
-  cardMaxWidth = 'fit-content',
+  cardMaxWidth = '270px',
   showBtn = true,
   separator = true,
 }) {
