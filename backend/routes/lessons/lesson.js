@@ -222,7 +222,7 @@ router.get("/api/hotLessons", async (req, res) => {
       JOIN 
         Gyms g ON l.gym_id = g.gym_id
       WHERE 
-        l.lesson_id BETWEEN 1 AND 10
+       lesson_price<1000
       GROUP BY 
         l.lesson_id
       ORDER BY 

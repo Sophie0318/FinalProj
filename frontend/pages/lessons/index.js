@@ -19,7 +19,7 @@ export default function Index({ lessons }) {
     return (
       <LessonCard
         title={data.lesson_name}
-        price={data.lesson_price}
+        price={`NT$ ${data.lesson_price}`}
         gym={data.gym_name}
         category={data.categories}
         imgSrc={data.lesson_img || '/defaultImg.png'}
