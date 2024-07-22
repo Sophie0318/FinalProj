@@ -2,6 +2,7 @@ import React from 'react'
 import CoachCard from './coachCard'
 import styles from '@/styles/coach.module.css'
 import Link from 'next/link'
+import Loader from '../loader'
 
 const CoachList = ({ coaches, favorites = [], onFavoriteToggle }) => {
   const handleFavoriteToggle = (coachId) => {
@@ -31,7 +32,7 @@ const CoachList = ({ coaches, favorites = [], onFavoriteToggle }) => {
           </div>
         ))
       ) : (
-        <p>沒有符合的教練</p>
+        <Loader />
       )}
     </div>
   )

@@ -5,6 +5,7 @@ import { IoCart, IoHeart } from 'react-icons/io5'
 import axios from 'axios'
 import { useRouter } from 'next/router'
 import { useAuth } from '@/context/auth-context'
+import Loader from '@/components/loader'
 
 export default function Detail() {
   const [isLiked, setIsLiked] = useState(false)
@@ -130,7 +131,11 @@ export default function Detail() {
   }
 
   if (isLoading) {
-    return <div>Loading...</div>
+    return (
+      <div>
+        <Loader />
+      </div>
+    )
   }
 
   if (!lesson) {

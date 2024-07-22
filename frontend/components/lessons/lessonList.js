@@ -2,6 +2,7 @@ import React from 'react'
 import LessonCard from './lessonCard'
 import styles from '@/styles/lesson.module.css'
 import Link from 'next/link'
+import Loader from '../loader'
 
 const LessonList = ({ lessons }) => {
   console.log('Lessons in LessonList:', lessons)
@@ -22,7 +23,7 @@ const LessonList = ({ lessons }) => {
           </div>
         ))
       ) : (
-        <p>沒有符合的課程</p>
+        <Loader />
       )}
     </div>
   )
