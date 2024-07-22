@@ -72,6 +72,7 @@ app.use("/gyms", gymRouter);
 app.use("/payment", paymentRouter);
 app.use("/shipment", shipmentRouter);
 app.use("/updateProfile", updateProfileRouter);
+app.use("/product-Payment", productPayment);
 
 //google login
 app.use("/google-login", googleLoginRouter);

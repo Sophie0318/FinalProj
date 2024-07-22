@@ -18,10 +18,9 @@ const SearchBar = forwardRef(function SearchBar(props, searchBarRef) {
     handleSearch,
     handleClick,
     onCompositionChange = () => {},
-    
+    paddingLeft = '9px',
+    handleKeyDown = () => {},
   } = props
-
-  
 
   // const handleScroll = () => {
   //   if (searchBarRef.current) {
@@ -43,14 +42,10 @@ const SearchBar = forwardRef(function SearchBar(props, searchBarRef) {
   const handleCompositionStart = () => {
     onCompositionChange(true)
   }
-    onCompositionChange(true)
-  }
 
   const handleCompositionEnd = (e) => {
     onCompositionChange(false)
     handleSearch()
-  }
-
   }
 
   return (
@@ -68,9 +63,6 @@ const SearchBar = forwardRef(function SearchBar(props, searchBarRef) {
         type="text"
         name="search_input"
         value={searchTerm}
-        onClick={() => {
-          handleClick()
-        }}
         onClick={() => {
           handleClick()
         }}

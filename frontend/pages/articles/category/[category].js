@@ -85,7 +85,7 @@ export default function ArticleType() {
 
   return (
     <>
-      <Layout3 title="體能鍛鍊" pageName="articles" section="whiteSection">
+      <Layout3 title={pageCategory} pageName="articles" section="whiteSection">
         <section className={styles.padding80}>
           <div className="container-fluid p-0 overflow-visible">
             <div className="row px-0 mx-0">

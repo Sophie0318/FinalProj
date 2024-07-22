@@ -11,12 +11,9 @@ import IndexCarousel from '@/components/swiperCarousel/indexCarousel'
 import useRenderCards from '@/hooks/cards/cards'
 import styles from '@/styles/home.module.css'
 
-// 測試用data
 import ArticleData from '@/data/FakeArticles.json'
-// import LessonData from '@/data/FavLessons.json'
 import LessonCard from '@/components/lessons/lessonCard'
 import CoachCard from '@/components/coaches/coachCard'
-// import CoachData from '@/data/FavCoaches.json'
 
 import axios from 'axios'
 import { useAuth } from '@/context/auth-context'
