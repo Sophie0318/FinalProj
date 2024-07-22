@@ -242,6 +242,49 @@ router.get('/categories', async (req, res) => {
     }
   });
 
+  router.get("/api/hotCoach", async (req, res) => {
+  try{
+    let sql = `
+    SELECT 
+        c.coach_id,
+        c.coach_name,
+        c.coach_phone,
+        c.coach_gender,
+        c.coach_info,
+        c.coach_price,
+        c.create_date,
+        c.update_at,
+        GROUP_CONCAT(DISTINCT ct.code_desc ORDER BY ct.code_desc SEPARATOR '/') AS skills,
+        ci.coach_img,
+        g.gym_name AS gym
+    FROM 
+        Coaches c
+    JOIN 
+        CoachSkills cs ON c.coach_id = cs.coach_id
+    JOIN 
+        CommonType ct ON cs.commontype_id = ct.commontype_id
+    JOIN 
+        CoachImgs ci ON c.coachImgs_id = ci.coachImgs_id
+    JOIN 
+        Gyms g ON c.gym_id = g.gym_id
+    WHERE c.coach_id<=8
+    group by c.coach_id
+  `;
+  const [rows] = await db.query(sql);
+
+  if (rows.length > 0) {
+      res.json({ success: true, hotCoaches: rows });
+  } else {
+      res.status(404).json({ success: false, message: 'No hot coaches found' });
+  }
+  }catch(error){
+    console.error('Error fetching hot coaches:', error);
+      res.status(500).json({ success: false, message: 'Server error' });
+  }
+    
+  });
+
+
 router.get("/api/:id", async (req, res) => {
     const { id } = req.params;
     try {
