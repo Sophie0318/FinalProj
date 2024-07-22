@@ -3,7 +3,7 @@ import styles from './checkout3-order.module.css'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
 import { useAuth } from '@/context/auth-context' // useAuth 的鉤子
-
+import axios from 'axios'
 
 export default function Checkout3Order() {
   const [orderDetail, setOrderDetail] = useState([
@@ -15,6 +15,39 @@ export default function Checkout3Order() {
   // console.log(orderDetail)
   const router = useRouter()
 
+  //處理付款
+  const handlePayment = async () => {
+    console.log('Order ID:', router.query.order_id)
+    try {
+      const amount = orderDetail.reduce(
+        (acc, item) =>
+          acc +
+          item.OrdersDetail_product_quantity *
+            item.OrdersDetail_unit_price_at_time,
+        0
+      )
+
+      const response = await axios.get(
+        `http://localhost:3001/product-payment?amount=${amount}&orderId=${router.query.order_id}`
+      )
+      if (response.data.htmlContent) {
+        const tempDiv = document.createElement('div')
+        tempDiv.innerHTML = response.data.htmlContent
+        const form = tempDiv.querySelector('form')
+        if (form) {
+          document.body.appendChild(form)
+          form.submit()
+        } else {
+          console.error('找不到支付表單')
+        }
+      } else {
+        console.error('無效的回應格式')
+      }
+    } catch (error) {
+      console.error('發生錯誤:', error)
+    }
+  }
+
   useEffect(() => {
     if (router.isReady) {
       fetch(
@@ -23,21 +56,12 @@ export default function Checkout3Order() {
         .then((response) => response.json())
         .then((data) => {
           // console.log(data)
-          setOrderDetail(data.orderDetail)
+          setOrderDetail(data.orderDetail || [])
           console.log(orderDetail[0])
         })
       // console.log(router.query.order_id)
     }
-    // if (typeof window !== 'undefined') {
-    //   const savedItems = localStorage.getItem('shoppingCart')
-    //   // console.log('Saved items:', savedItems)
-    //   if (savedItems) {
-    //     setOrderDetail(JSON.parse(savedItems))
-    //   }
-    // }
-
-    //${queryParams.toString()
-  }, [router.isReady])
+  }, [router.isReady, router.query.order_id])
 
   //計算總數量
   const calcTotalQty = () => {
@@ -56,7 +80,7 @@ export default function Checkout3Order() {
         <p
           style={{
             marginTop: '20px',
-            color: '#FFC800',
+            color: '#1A394A',
             fontSize: '30px',
           }}
         >
@@ -100,6 +124,44 @@ export default function Checkout3Order() {
               // 這樣，最終 reduce 方法返回累加器的值，即所有商品的總數量。
             )}
           </span>
+        </div>
+      </div>
+      <div className="col-12 col-md-6 mt-5 h6 text-center">
+        選擇付款方式
+        <div>
+          <select
+            id=""
+            name=""
+            className={styles.customSelect}
+            aria-label="Default select example"
+            style={{
+              width: '70%',
+              height: '50px',
+              borderRadius: '50px',
+              marginTop: '30px',
+              marginBottom: '20px',
+              marginLeft: '30px',
+            }}
+          >
+            <option className="text-center">請選擇</option>
+            <option value="" className="text-center">
+              信用卡/金融卡{' '}
+            </option>
+            <option value="" className="text-center">
+              line Pay
+            </option>
+            <option value="" className="text-center">
+              貨到付款
+            </option>
+            <option value="" className="text-center"></option>
+          </select>
+        </div>
+        <div
+          className={`con-12 col-md-12 text-center d-flex justify-content-center align-items-center`}
+        >
+          <button className={styles.btn} type="botton" onClick={handlePayment}>
+            完成付款
+          </button>
         </div>
       </div>
     </>

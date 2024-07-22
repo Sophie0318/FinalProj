@@ -37,6 +37,8 @@ export default function Index() {
             color: '#1A394A',
             // width: '200px',
             marginBottom: '10px',
+            width: '10%',
+            borderRadius: '20px',
           }}
         >
           選擇門市
@@ -47,10 +49,21 @@ export default function Index() {
           type="text"
           value={store711.storename}
           disabled
-          style={{ marginBottom: '20px' }}
+          style={{
+            marginBottom: '20px',
+            width: '30%',
+            borderRadius: '20px',
+            paddingLeft: '8px',
+          }}
         />
         <br />
-        門市地址: <input type="text" value={store711.storeaddress} disabled />
+        門市地址:{' '}
+        <input
+          type="text"
+          value={store711.storeaddress}
+          disabled
+          style={{ width: '30%', borderRadius: '20px', paddingLeft: '8px' }}
+        />
       </p>
       {/* <hr />
       <h3>以下為測試</h3>
