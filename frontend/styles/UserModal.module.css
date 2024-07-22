@@ -34,8 +34,13 @@
   .reminder {
     font-family: 'Gensen', sans-serif;
     font-size: 32px;
-    /* font-weight: 700; */
     letter-spacing: 5px;
+  }
+  .reminderConfirm {
+    font-family: 'Gensen', sans-serif;
+    font-size: 32px;
+    letter-spacing: 5px;
+    padding: 0 30px;
   }
   
   .reserveInfo {
@@ -142,6 +147,18 @@
     border: var(--color-midnight-green);
     background-color: var(--color-midnight-green);
   }
+  .btnClose2 {
+    width: 40%;
+    height: 40px;
+    font-family: 'Gensen', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    border-radius: 50px;
+    color: var(--color-whitesmoke);
+    border: var(--color-dark-gray);
+    background-color: var(--color-dark-gray);
+  }
   
   @media (max-width: 900px) {
     .modal {
@@ -163,6 +180,12 @@
       font-size: 24px;
       font-weight: 700;
       letter-spacing: 2.4px;
+    }
+    .reminderConfirm {
+      font-family: 'Gensen', sans-serif;
+      font-size: 24px;
+      letter-spacing: 2.4px;
+      font-weight: 700;
     }
   
     .label {

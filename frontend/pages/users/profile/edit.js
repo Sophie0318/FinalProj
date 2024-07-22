@@ -4,6 +4,7 @@ import styles from '../../../styles/user-edit.module.css'
 import { useAuth } from '../../../context/auth-context'
 import { useRouter } from 'next/router'
 import UserModal from '../../../components/users/UserModal'
+import UserConfirm from '@/components/users/userConfirm'
 import MyPasswordInput from '@/components/users/MyPasswordInput'
 
 export default function Edit() {
@@ -20,18 +21,24 @@ export default function Edit() {
   const [address, setAddress] = useState(auth.address || '')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
-  const [originalUserData, setOriginalUserData] = useState({}) //保存原始資料
+  const [originalUserData, setOriginalUserData] = useState({}) // 保存原始資料
   const [errorMessage, setErrorMessage] = useState('')
+  const [confirmPasswordErrorMessage, setConfirmPasswordErrorMessage] =
+    useState('')
 
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [alertMessage, setAlertMessage] = useState('')
   const [userMessage, setUserMessage] = useState('')
 
+  const [isCancelModalOpen, setIsCancelModalOpen] = useState(false)
+  const [confirmMessage, setConfirmMessage] = useState('')
+  const [userConfirmMessage, setUserConfirmMessage] = useState('')
+
   console.log('auth.id:', auth.id)
 
-  //當auth被更新時保存原先的資料
+  // 當auth被更新時保存原先的資料
   useEffect(() => {
-    //保存原始資料
+    // 保存原始資料
     setOriginalUserData({
       name: auth.name || '',
       nick_name: auth.nick_name || '',
@@ -40,7 +47,7 @@ export default function Edit() {
       city: auth.city || 0,
       district: auth.district || 0,
     })
-    //更新的資料
+    // 更新的資料
     setName(auth.name || '')
     setNickName(auth.nick_name || '')
     setMobile(auth.mobile || '')
@@ -93,7 +100,7 @@ export default function Edit() {
     setSelectedDistrict(0)
   }
 
-  // 檢查是否有資烙更新
+  // 檢查是否有資料更新
   const isDataChanged = () => {
     return (
       name !== originalUserData.name ||
@@ -118,11 +125,11 @@ export default function Edit() {
       setTimeout(() => {
         setIsModalOpen(false)
       }, 1000)
-      //回到頂部
+      // 回到頂部
       window.scrollTo(0, 0)
       return
     }
-    //檢查密碼是否一致
+    // 檢查密碼是否一致
     if (password !== confirmPassword) {
       setErrorMessage('密碼不一致')
       setAlertMessage('輸入錯誤')
@@ -183,42 +190,69 @@ export default function Edit() {
             address: address,
             city: selectedCity,
             district: selectedDistrict,
+            password: password || auth.password,
           })
-        } else {
-          console.error('setAuth is not a function')
         }
-
-        setErrorMessage('') // 清除錯誤訊息
-
-        if (updatedData.isPasswordChange) {
-          setAlertMessage('更新成功')
-          setUserMessage('密碼已更新，請重新登入')
-          setIsModalOpen(true)
-          setTimeout(() => {
-            setIsModalOpen(false)
-          }, 1000)
-          // 呼叫登出函數
-          logout()
-          // 導向登入頁面
-          router.push('/users/sign_in')
-        } else {
-          setAlertMessage('更新成功')
-          setUserMessage('個人資料已成功更新')
-          setIsModalOpen(true)
-          setTimeout(() => {
-            setIsModalOpen(false)
-          }, 1000)
-          //回到頂部
-          window.scrollTo(0, 0)
-        }
+        setAlertMessage('更新成功')
+        setUserMessage('個人資料已成功更新')
+        setIsModalOpen(true)
+        setTimeout(() => {
+          setIsModalOpen(false)
+        }, 1000)
+        // 回到頂部
+        window.scrollTo(0, 0)
       } else {
         throw new Error('更新失敗')
       }
     } catch (error) {
-      console.error('Failed to update profile:', error)
-      setErrorMessage('更新失敗，請稍後再試')
+      console.error('發生錯誤:', error.message)
+      setAlertMessage('發生錯誤')
+      setUserMessage('無法更新您的資料，請稍後再試')
+      setIsModalOpen(true)
+      setTimeout(() => {
+        setIsModalOpen(false)
+      }, 1000)
+      window.scrollTo(0, 0)
     }
   }
+
+  const handleCancel = (e) => {
+    e.preventDefault()
+    //資料沒有變化時
+    if (!isDataChanged()) {
+      setAlertMessage('尚無資料更新')
+      setUserMessage('沒有資料異動')
+      setIsModalOpen(true)
+      setTimeout(() => {
+        setIsModalOpen(false)
+      }, 1000)
+      window.scrollTo(0, 0)
+      return
+    }
+    //有輸入但最後按下取消時，先確認是否取消
+    //設定userConfirm modal
+    setConfirmMessage('確定嗎?')
+    setUserConfirmMessage('您的變更尚未儲存，確定要取消嗎？')
+    setIsCancelModalOpen(true)
+  }
+  const confirmCancel = () => {
+    // 重置表單數據
+    setName(originalUserData.name)
+    setNickName(originalUserData.nick_name)
+    setMobile(originalUserData.mobile)
+    setAddress(originalUserData.address)
+    setSelectedCity(originalUserData.city)
+    setSelectedDistrict(originalUserData.district)
+    setPassword('')
+    setConfirmPassword('')
+    setErrorMessage('')
+    setConfirmPasswordErrorMessage('')
+    setIsCancelModalOpen(false)
+
+    // 回到頂部
+    window.scrollTo(0, 0)
+  }
+
   return (
     <>
       <LayoutUser title="myProfile">
@@ -339,6 +373,8 @@ export default function Edit() {
                       id="new_password"
                       name="password"
                       placeholder="請輸入新密碼"
+                      errorMessage={errorMessage}
+                      setErrorMessage={setErrorMessage}
                     />
                   </div>
                   <div
@@ -354,13 +390,15 @@ export default function Edit() {
                       id="confirm_password"
                       name="confirm_password"
                       placeholder="請再次輸入新密碼"
+                      errorMessage={confirmPasswordErrorMessage}
+                      setErrorMessage={setConfirmPasswordErrorMessage}
                     />
                   </div>
                 </div>
               </div>
             </div>
             <div className={styles.edit_btn}>
-              <a href="./edit.html" className={styles.btn_md}>
+              <a href="#" className={styles.btn_md} onClick={handleCancel}>
                 <div className={styles.h6_font}>取消更新</div>
               </a>
               <button type="submit" className={styles.btn_md} formNoValidate>
@@ -375,6 +413,14 @@ export default function Edit() {
           onClose={() => setIsModalOpen(false)}
           alertMessage={alertMessage}
           userMessage={userMessage}
+        />
+      )}
+      {isCancelModalOpen && (
+        <UserConfirm
+          onClose={() => setIsCancelModalOpen(false)}
+          onConfirm={confirmCancel}
+          confirmMessage={confirmMessage}
+          userConfirmMessage={userConfirmMessage}
         />
       )}
     </>
