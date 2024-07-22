@@ -51,6 +51,10 @@ export default function Success() {
     return <div>載入中...</div>
   }
 
+  const handleToOrder = () => {
+    router.push('/users/lessons_orders')
+  }
+
   return (
     <div>
       <Layout3>
@@ -80,7 +84,9 @@ export default function Success() {
               <div>NT${lesson.lesson_price}</div>
             </div>
             <div className={styles.btns}>
-              <button className={styles.btnBack}>檢視訂單</button>
+              <button className={styles.btnBack} onClick={handleToOrder}>
+                檢視訂單
+              </button>
               <button className={styles.btnFin} onClick={handleReturnToLessons}>
                 回到課程頁
               </button>
