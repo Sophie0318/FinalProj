@@ -18,7 +18,6 @@ import productRouter from "./routes/product/product-traning-list.js";
 import usersRouter from "./routes/users/users.js";
 import gymRouter from "./routes/gyms/gyms.js";
 import paymentRouter from './routes/payment/payment.js'
-// import updateProfileRouter from "./routes/users/updateProfile.js";
 import shipmentRouter from "./routes/product/shipment.js";
 
 const app = express();

@@ -1,8 +1,9 @@
-
+use midTermDB;
 -- 前端gym sql查詢語
 SELECT 
     gyms.*, 
-    GROUP_CONCAT(DISTINCT features.feature_name) AS feature_list,
+    GROUP_CONCAT(DISTINCT  features.feature_id) AS feature_id,
+    GROUP_CONCAT(DISTINCT  features.feature_name) AS feature_list,
     GROUP_CONCAT( gym_images.image_filename) AS image_list
 FROM 
     Gyms gyms

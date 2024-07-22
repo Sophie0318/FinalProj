@@ -322,7 +322,6 @@ p,
     font-size: 20px;
     letter-spacing: 1px;
   }
-
 }
 
 // 試著調整switch/toggle 的大小 用覆蓋scss的方式
@@ -337,3 +336,56 @@ p,
   padding-left: var(--form-switch-padding-start);
   border-radius: var(--form-switch-border-radius);
 }
+
+// Google Maps InfoWindow 樣式
+.gm-style {
+  
+  .gm-style-iw {
+     font-weight: 400; 
+     font-size: 15px; 
+    overflow: hidden;
+}
+  
+  .gm-style-iw-c {
+    padding: 0px !important;
+    margin: 0 !important;
+    border-radius: 50px !important;
+    background-color: none !important;
+    box-shadow: 0 2px 7px 1px rgba(0, 0, 0, 0.3) !important;
+    max-height: fit-content !important;
+
+    .gm-style-iw-d {
+      overflow: hidden !important;
+      max-height: none !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      box-sizing: border-box;
+
+      &::-webkit-scrollbar-track,
+      &::-webkit-scrollbar-track-piece {
+        background: #d70404 !important;
+      }
+    }
+  }
+
+  .gm-style-iw-t::after {
+    background: linear-gradient(
+      45deg,
+      rgba(255, 255, 255, 1) 50%,
+      rgba(255, 255, 255, 0) 51%,
+      rgba(255, 255, 255, 0) 100%
+    ) !important;
+    box-shadow: none !important;
+  }
+
+  // 關閉按鈕樣式
+  .gm-ui-hover-effect {
+    top: 65px;
+    right: 18px;
+    background-color: var(--color-white) !important;
+    border-radius: 50%;
+    z-index: 999;
+  }
+}
+
+

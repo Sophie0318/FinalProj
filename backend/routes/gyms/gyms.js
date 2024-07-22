@@ -77,6 +77,57 @@ const getFullGymData = async (req) => {
   console.log("有收到資料SQL:", sql);
 };
 
+const getOneGymData = async (req, res) => {
+  const gymId = +req.params.gym_id || 0;
+  console.log(gymId);
+  if (!gymId) {
+    // return res.json({success:false, error:"無此場館"})
+  }
+  try {
+    const sql = `SELECT 
+    gyms.*, 
+    GROUP_CONCAT(DISTINCT  features.feature_id) AS feature_id,
+    GROUP_CONCAT(DISTINCT  features.feature_name) AS feature_list,
+    GROUP_CONCAT( gym_images.image_filename) AS image_list
+FROM 
+    Gyms gyms
+LEFT JOIN 
+    GymFeatures gym_features ON gyms.gym_id = gym_features.gym_id
+LEFT JOIN 
+    Features features ON gym_features.feature_id = features.feature_id
+LEFT JOIN 
+    GymImages gym_images ON gyms.gym_id = gym_images.gym_id
+WHERE gyms.gym_id = ?
+GROUP BY 
+    gyms.gym_id;`;
+    const [row] = await db.query(sql, [gymId]);
+    // 對每一行數據進行處理
+    const processedRow = row.map((row) => {
+      return {
+        ...row, // 保留原有的所有屬性
+        gym_price: row.gym_price.split(", ").map((price) => {
+          const [type, amount] = price.split("NT$");
+          return {
+            type: type.trim(),
+            amount: parseFloat(amount.replace(/,/g, "")), // 移除逗號並轉換為數字
+          };
+        }),
+        gym_equipment: row.gym_equipment.split("、"),
+        feature_id: row.feature_id.split(","),
+        feature_list: row.feature_list.split(","), // 將 feature_list 轉換為陣列.
+        image_list: row.image_list.split(","), // 將 image_list 轉換為陣列
+      };
+    });
+
+    // console.log(processedRow);
+    return {
+      processedRow,
+    };
+  } catch (error) {
+    console.error("Error fetching gyms:", error);
+  }
+};
+
 //獲取場館頁面
 router.get("/api", async (req, res) => {
   let data = "";
@@ -109,6 +160,18 @@ router.get("/features", async (req, res) => {
     console.error("Route error:", error);
     res.status(500).json({ success: false, error: "Internal Server Error" });
   }
+});
+
+//得到單個Gym詳情
+router.get("/api/:gym_id", async (req, res) => {
+  let data = "";
+  try {
+    data = await getOneGymData(req);
+  } catch (error) {
+    console.error("Route error:", error);
+    res.status(500).json({ success: false, error: "Internal Server Error" });
+  }
+  res.json(data);
 });
 
 export default router;

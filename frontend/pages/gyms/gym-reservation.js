@@ -5,7 +5,8 @@ import AutofillCheckbox from '@/components/gyms/auto-fill-checkbox'
 import FormField from '@/components/common/form-field/form-field'
 import GymCardSpot from '@/components/gyms/gymCard-spot'
 import GymReservationModal from '@/components/gyms/gym-reservation-modal'
-
+import { useRouter } from 'next/router'
+import { useAuth } from '@/context/auth-context'
 // 假資料
 const gymData = {
   id: 1,
@@ -45,9 +46,37 @@ const memberData = {
   phone: '0912345678',
   // ... 其他會員資料
 }
+
 export default function GymReservation() {
-  const handleAutofill = (data) => {
-    console.log('Autofilled data:', data)
+  const router = useRouter()
+  const { auth } = useAuth()
+
+const fetchGymData = async () => {
+  const { gymId } = router.query
+  if (gymId) {
+    try {
+      const response = await fetch(`http://localhost:3001/gyms/api/${gymId}`)
+    } catch (error) {
+      
+    }
+  }
+}
+
+
+
+
+
+
+
+
+
+
+  const handleAutofill = (e) => {
+    if(e.target.checked) {
+      if(!auth.token){
+
+      }
+    }
     // 在這裡處理自動填充的資料，例如更新表單狀態等
   }
 

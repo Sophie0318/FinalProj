@@ -9,8 +9,7 @@ DROP TABLE IF EXISTS GymImages;
 DROP TABLE IF EXISTS GymFeatures;
 DROP TABLE IF EXISTS Features;
 DROP TABLE IF EXISTS Gyms;
--- 如果 CommonType 表格是您要管理的一部分，也可以加上：
--- DROP TABLE IF EXISTS CommonType;
+
 
 -- 建立主要的 Gyms 表格
 CREATE TABLE Gyms (
@@ -30,15 +29,7 @@ CREATE TABLE Gyms (
     update_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
--- 建立 CommonType 表格（如果需要）
--- 如果 CommonType 表格是您要管理的一部分，取消以下注釋：
-/*
-CREATE TABLE CommonType (
-    commontype_id INT PRIMARY KEY AUTO_INCREMENT,
-    type_name VARCHAR(50) NOT NULL,
-    type_value VARCHAR(100) NOT NULL
-);
-*/
+
 
 
 -- 建立 Features 表格 （即CommonType 將之分開比較好使用）
