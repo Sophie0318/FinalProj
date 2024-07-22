@@ -12,6 +12,7 @@ import styles from '@/styles/user-profile.module.css'
 
 import axios from 'axios'
 import { useAuth } from '@/context/auth-context'
+import Link from 'next/link'
 
 export default function Favorites() {
   const { auth } = useAuth()
@@ -139,14 +140,16 @@ export default function Favorites() {
             <h5>收藏的教練</h5>
             {coachFavorites.map((coach) => (
               <div className="resultGrid" key={coach.coach_id}>
-                <CoachCard
-                  key={coach.coach_id}
-                  name={coach.coach_name}
-                  skill={coach.skills}
-                  imgSrc={`/${coach.coach_img}`}
-                  isLiked={true}
-                  onHeartClick={() => handleRemoveFavorite(coach.coach_id)}
-                />
+                <Link href={`/coaches/${coach.coach_id}`}>
+                  <CoachCard
+                    key={coach.coach_id}
+                    name={coach.coach_name}
+                    skill={coach.skills}
+                    imgSrc={`/${coach.coach_img}`}
+                    isLiked={true}
+                    onHeartClick={() => handleRemoveFavorite(coach.coach_id)}
+                  />
+                </Link>
               </div>
             ))}
           </div>
@@ -155,14 +158,16 @@ export default function Favorites() {
             <h5>收藏的課程</h5>
             {lessonFavorites.map((lesson) => (
               <div className="resultGrid" key={lesson.lesson_id}>
-                <LessonCard
-                  key={lesson.lesson_id}
-                  title={lesson.lesson_name}
-                  price={`NT$ ${lesson.lesson_price}`}
-                  gym={lesson.gym}
-                  category={lesson.skills}
-                  imgSrc={`/${lesson.lesson_img}`}
-                />
+                <Link href={`/lessons/${lesson.lesson_id}`}>
+                  <LessonCard
+                    key={lesson.lesson_id}
+                    title={lesson.lesson_name}
+                    price={`NT$ ${lesson.lesson_price}`}
+                    gym={lesson.gym}
+                    category={lesson.skills}
+                    imgSrc={`/${lesson.lesson_img}`}
+                  />
+                </Link>
               </div>
             ))}
           </div>
