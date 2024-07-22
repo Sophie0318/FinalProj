@@ -10,7 +10,8 @@ export default function Breadcrumb({ pageName = 'index' }) {
     lessons: { main: '課程', path: '/lessons' },
     products: { main: '商城', path: '/products' },
     articles: { main: '文章', path: '/articles' },
-    users: { main: '會員', path: '/users' },
+    users: { main: '會員', path: '/users/profile' },
+    // 'users/profile': { main: '會員', path: '/users/profile' },
   }
 
   const currentPage = pageList[pageName] || pageList.index

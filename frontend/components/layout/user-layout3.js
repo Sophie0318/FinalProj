@@ -72,7 +72,7 @@ export default function LayoutUser({ children, title = 'myProfile' }) {
       <Navbar />
       <div className={styles.layout}>
         <nav className={styles.bread} aria-label="breadcrumb">
-          <Breadcrumb />
+          <Breadcrumb pageName="users" />
         </nav>
         <div className={styles.warp}>
           <div className={styles.menu}>
