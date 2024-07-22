@@ -1,4 +1,4 @@
-import React from 'react'
+import { useState, useEffect } from 'react'
 import Navbar from '../common/navbar'
 import Footer from '../common/footer'
 import PageTitle from '../common/page-title'
@@ -22,12 +22,33 @@ export default function Layout4({
   height = '229px',
   section = 'whiteSection',
 }) {
+  // 樣式設定
   const sectionMap = {
     whiteSection: 'whiteSection',
     flatSection: 'flatSection',
   }
-
   const sectionResult = styles[sectionMap[section]] || styles.whiteSection
+
+  // 動畫設定
+  const [slide, setSlide] = useState(0)
+  const [hasScrolled, setHasScrolled] = useState(false)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!hasScrolled) {
+        setHasScrolled(true)
+      } else return
+
+      const userScroll = window.scrollY
+      const slideParam = -0.38
+      setSlide(Math.ceil(slideParam * userScroll))
+    }
+    window.addEventListener('scroll', handleScroll)
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+    }
+  }, [])
 
   return (
     <>
@@ -44,8 +65,12 @@ export default function Layout4({
           }}
         >
           <div style={{ width: '100%', position: 'fixed', zIndex: '-1' }}>
-            <Navbar />
-            <PageTitle pageName={pageName} height={height} />
+            <Navbar position="fixed" zIndex="-2" />
+            <PageTitle
+              pageName={pageName}
+              height={height}
+              marginTop={`calc(111px + ${slide}px)`}
+            />
           </div>
         </div>
 
