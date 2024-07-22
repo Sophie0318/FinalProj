@@ -26,11 +26,10 @@ export default function Gyms() {
     window.scrollTo({ top: y, behavior: 'smooth' })
   }
 
-  
   const handleCompositionChange = (composing) => {
     setIsComposing(composing)
   }
-//用fetch請後端搜尋資料的函式
+  //用fetch請後端搜尋資料的函式
   const fetchGymsData = () => {
     const qq = new URLSearchParams(router.query)
     // console.log(qq)
@@ -93,7 +92,9 @@ export default function Gyms() {
         ...router.query,
         features: selectedFeatures,
       }
-      const cleanQuery = Object.fromEntries(Object.entries(newQuery).filter(([_, value]) => value !== ''))
+      const cleanQuery = Object.fromEntries(
+        Object.entries(newQuery).filter(([_, value]) => value !== '')
+      )
 
       router.push(
         {
