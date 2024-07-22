@@ -13,28 +13,55 @@ import styles from '@/styles/home.module.css'
 
 // 測試用data
 import ArticleData from '@/data/FakeArticles.json'
-import LessonData from '@/data/FavLessons.json'
+// import LessonData from '@/data/FavLessons.json'
+import LessonCard from '@/components/lessons/lessonCard'
 import CoachData from '@/data/FavCoaches.json'
 
+import axios from 'axios'
 // TODO: carousel 的 separater 的右邊緣要對其 joinMember card
 // TODO: 之後來優化 keyVisualPC 的結構
 
 export default function Home() {
   const [articleData, setArticleData] = useState([])
-  const [lessonData, setLessonData] = useState([])
+  const [hotLesson, setHotLesson] = useState([])
   const [coachData, setCoachData] = useState([])
   const renderArticleCard = useRenderCards('articles')
   const renderCoachCard = useRenderCards('coaches')
-  const renderLessonCard = useRenderCards('lessons')
+  // const renderLessonCard = useRenderCards('lessons')
   const [hasScrolled, setHasScrolled] = useState(false)
   const [hideHero, setHideHero] = useState(false)
   const [slideOne, setSlideOne] = useState('0')
   const [slideTwo, setSlideTwo] = useState('0')
   const pageWrapRef = useRef(null)
 
+  const renderLessonCard = (lesson) => {
+    return (
+      <LessonCard
+        title={lesson.lesson_name}
+        price={`NT$ ${lesson.lesson_price}`}
+        gym={lesson.gym_name}
+        category={lesson.categories}
+        imgSrc={lesson.lesson_img || '/defaultImg.png'}
+      />
+    )
+  }
+
   useEffect(() => {
     setArticleData(ArticleData)
-    setLessonData(LessonData)
+    const fetchHotLessons = async () => {
+      try {
+        const response = await axios.get(
+          'http://localhost:3001/lessons/api/hotLessons'
+        )
+        if (response.data.success) {
+          setHotLesson(response.data.hotLessons)
+        }
+      } catch (error) {
+        console.error('Error fetching hot lessons:', error)
+      }
+    }
+
+    fetchHotLessons()
     setCoachData(CoachData)
 
     const options = {
@@ -299,7 +326,7 @@ export default function Home() {
             <section className={styles.popular}>
               <IndexCarousel
                 title="熱門課程"
-                data={LessonData}
+                data={hotLesson}
                 renderItem={renderLessonCard}
               />
             </section>
