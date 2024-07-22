@@ -68,7 +68,7 @@ export default function Edit() {
       return true
     },
     {
-      message: '請輸入詳細地址，不包含已選擇的縣市或行政區',
+      message: '地址不需包含已選擇的縣市或行政區',
     }
   )
 
