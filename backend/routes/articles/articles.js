@@ -352,7 +352,29 @@ router.delete('/api/removefavarticle', async (req,res)=>{
   res.json(output)
 })
 
+const getComment = async (req) => {
+  const article_id = +req.query.article_id || 0;
+  const group = !+req.query.group || +req.query.group < 0 ? 1 : +req.query.group;
+  const perGroup = 3;
+  let totalGroup = 0;
+  let totalRows = 0;
 
+  
+  const t_sql = 'SELECT COUNT(main) AS totalRows FROM Comments WHERE article_id_fk = ? AND sub = 0 GROUP BY article_id_fk;';
+  [[totalRows]] = await db.query(t_sql, [article_id]);
+
+  totalGroup = Math.ceil(totalRows.totalRows / perGroup)
+  return totalGroup;
+}
+
+router.get('/api/comment', async(req,res)=>{
+  const output = {
+    success:false,
+    main:[]
+  }
+  output.result = await getComment(req)
+  res.json(output)
+})
 // router.get("/edit/:article_id", async (req, res) => {
 //   const article_id = +req.params.article_id || 0;
 //   if (!article_id) {
