@@ -7,6 +7,7 @@ import { IoSearch } from 'react-icons/io5'
 import LessonCard from '@/components/lessons/lessonCard'
 import LessonList from '@/components/lessons/lessonList'
 import axios from 'axios'
+import Link from 'next/link'
 
 export default function Index({ lessons }) {
   const [allLessons, setAllLessons] = useState([])
@@ -17,13 +18,15 @@ export default function Index({ lessons }) {
 
   const renderLessonCard = (data) => {
     return (
-      <LessonCard
-        title={data.lesson_name}
-        price={`NT$ ${data.lesson_price}`}
-        gym={data.gym_name}
-        category={data.categories}
-        imgSrc={data.lesson_img || '/defaultImg.png'}
-      />
+      <Link href={`/lessons/${data.lesson_id}`}>
+        <LessonCard
+          title={data.lesson_name}
+          price={`NT$ ${data.lesson_price}`}
+          gym={data.gym_name}
+          category={data.categories}
+          imgSrc={data.lesson_img || '/defaultImg.png'}
+        />
+      </Link>
     )
   }
 
