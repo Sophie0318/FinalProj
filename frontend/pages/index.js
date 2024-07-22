@@ -19,6 +19,8 @@ import CoachCard from '@/components/coaches/coachCard'
 // import CoachData from '@/data/FavCoaches.json'
 
 import axios from 'axios'
+import { useAuth } from '@/context/auth-context'
+import { useRouter } from 'next/router'
 // TODO: carousel 的 separater 的右邊緣要對其 joinMember card
 // TODO: 之後來優化 keyVisualPC 的結構
 
@@ -26,6 +28,9 @@ export default function Home() {
   const [articleData, setArticleData] = useState([])
   const [hotLesson, setHotLesson] = useState([])
   const [hotCoach, setHotCoach] = useState([])
+  const [favoriteCoach, setFavoriteCoach] = useState([])
+  const { auth } = useAuth()
+  const router = useRouter()
   const renderArticleCard = useRenderCards('articles')
   // const renderCoachCard = useRenderCards('coaches')
   // const renderLessonCard = useRenderCards('lessons')
@@ -48,6 +53,51 @@ export default function Home() {
       </Link>
     )
   }
+  const fetchFavorites = async () => {
+    if (auth.token) {
+      try {
+        const response = await axios.get(
+          `http://localhost:3001/users/favorites/${auth.id}`,
+          {
+            headers: { Authorization: `Bearer ${auth.token}` },
+          }
+        )
+        if (response.data.success) {
+          setFavoriteCoach(
+            response.data.favorites.map((coach) => coach.coach_id)
+          )
+        }
+      } catch (error) {
+        console.error('Error fetching favorites:', error)
+      }
+    }
+  }
+
+  const handleFavoriteToggle = async (coachId) => {
+    if (!auth.token) {
+      router.push('/users/sign_in')
+      return
+    }
+
+    try {
+      if (favoriteCoach.includes(coachId)) {
+        await axios.delete('http://localhost:3001/users/remove-favorite', {
+          data: { member_id: auth.id, coach_id: coachId },
+          headers: { Authorization: `Bearer ${auth.token}` },
+        })
+        setFavoriteCoach(favoriteCoach.filter((id) => id !== coachId))
+      } else {
+        await axios.post(
+          'http://localhost:3001/users/add-favorite',
+          { member_id: auth.id, coach_id: coachId },
+          { headers: { Authorization: `Bearer ${auth.token}` } }
+        )
+        setFavoriteCoach([...favoriteCoach, coachId])
+      }
+    } catch (error) {
+      console.error('Error toggling favorite:', error)
+    }
+  }
 
   const renderCoachCard = (coach) => {
     return (
@@ -56,7 +106,8 @@ export default function Home() {
           name={coach.coach_name}
           skill={coach.skills}
           imgSrc={coach.coach_img || '/defaultImg.png'}
-          showHeart={false}
+          isLiked={favoriteCoach.includes(coach.coach_id)}
+          onHeartClick={() => handleFavoriteToggle(coach.coach_id)}
         />
       </Link>
     )
