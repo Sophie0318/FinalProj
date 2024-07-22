@@ -1,9 +1,22 @@
 import React from 'react'
 import Swal from 'sweetalert2'
+import 'animate.css'
 import styles from './login-alert.module.css'
 
 export default function LoginAlert() {
   const LoginAlert = Swal.mixin({
+    showClass: {
+      popup: `
+      animate__animated
+      animate__fadeInDown
+    `,
+    },
+    hideClass: {
+      popup: `
+      animate__animated
+      animate__fadeOutUp
+    `,
+    },
     customClass: {
       popup: `${styles.popup}`,
       title: `${styles.title}`,
