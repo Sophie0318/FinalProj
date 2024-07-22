@@ -15,7 +15,8 @@ import styles from '@/styles/home.module.css'
 import ArticleData from '@/data/FakeArticles.json'
 // import LessonData from '@/data/FavLessons.json'
 import LessonCard from '@/components/lessons/lessonCard'
-import CoachData from '@/data/FavCoaches.json'
+import CoachCard from '@/components/coaches/coachCard'
+// import CoachData from '@/data/FavCoaches.json'
 
 import axios from 'axios'
 // TODO: carousel 的 separater 的右邊緣要對其 joinMember card
@@ -24,9 +25,9 @@ import axios from 'axios'
 export default function Home() {
   const [articleData, setArticleData] = useState([])
   const [hotLesson, setHotLesson] = useState([])
-  const [coachData, setCoachData] = useState([])
+  const [hotCoach, setHotCoach] = useState([])
   const renderArticleCard = useRenderCards('articles')
-  const renderCoachCard = useRenderCards('coaches')
+  // const renderCoachCard = useRenderCards('coaches')
   // const renderLessonCard = useRenderCards('lessons')
   const [hasScrolled, setHasScrolled] = useState(false)
   const [hideHero, setHideHero] = useState(false)
@@ -48,6 +49,19 @@ export default function Home() {
     )
   }
 
+  const renderCoachCard = (coach) => {
+    return (
+      <Link href={`/coaches/${coach.coach_id}`}>
+        <CoachCard
+          name={coach.coach_name}
+          skill={coach.skills}
+          imgSrc={coach.coach_img || '/defaultImg.png'}
+          showHeart={false}
+        />
+      </Link>
+    )
+  }
+
   useEffect(() => {
     setArticleData(ArticleData)
     const fetchHotLessons = async () => {
@@ -64,7 +78,20 @@ export default function Home() {
     }
 
     fetchHotLessons()
-    setCoachData(CoachData)
+
+    const fetchHotCoaches = async () => {
+      try {
+        const response = await axios.get(
+          'http://localhost:3001/coaches/api/hotCoach'
+        )
+        if (response.data.success) {
+          setHotCoach(response.data.hotCoaches)
+        }
+      } catch (error) {
+        console.error('Error fetching hot coaches:', error)
+      }
+    }
+    fetchHotCoaches()
 
     const options = {
       root: null,
@@ -336,7 +363,7 @@ export default function Home() {
             <section className={styles.popular}>
               <IndexCarousel
                 title="熱門教練"
-                data={CoachData}
+                data={hotCoach}
                 renderItem={renderCoachCard}
               />
             </section>

@@ -2,7 +2,14 @@ import React from 'react'
 import styles from '@/styles/coachCard.module.css'
 import { IoHeart } from 'react-icons/io5'
 
-const CoachCard = ({ name, skill, imgSrc, isLiked, onHeartClick }) => {
+const CoachCard = ({
+  name,
+  skill,
+  imgSrc,
+  isLiked,
+  onHeartClick,
+  showHeart = true,
+}) => {
   const handleClick = (e) => {
     e.preventDefault()
     e.stopPropagation()
@@ -17,12 +24,14 @@ const CoachCard = ({ name, skill, imgSrc, isLiked, onHeartClick }) => {
       <div className={styles.overlay}>
         <div className={styles.coach}>
           <div className={styles.coachName}>{name}</div>
-          <div
-            className={`${styles.heart} ${isLiked ? styles.clicked : ''}`}
-            onClick={handleClick}
-          >
-            <IoHeart />
-          </div>
+          {showHeart && (
+            <div
+              className={`${styles.heart} ${isLiked ? styles.clicked : ''}`}
+              onClick={handleClick}
+            >
+              <IoHeart />
+            </div>
+          )}
         </div>
         <div className={styles.coachSkill}>
           {Array.isArray(skill) ? skill.join(', ') : skill}
