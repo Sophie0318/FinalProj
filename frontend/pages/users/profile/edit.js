@@ -7,7 +7,7 @@ import UserModal from '../../../components/users/UserModal'
 import UserConfirm from '@/components/users/userConfirm'
 import MyPasswordInput from '@/components/users/MyPasswordInput'
 import { z } from 'zod'
-import MyNameInput from '@/components/users/MyNameInput'
+import MyTextInput from '@/components/users/MyNameInput'
 
 export default function Edit() {
   const router = useRouter()
@@ -51,10 +51,24 @@ export default function Edit() {
       const districtName = districts.find(
         (d) => d.code_id === selectedDistrict
       )?.code_desc
-      return !value.includes(cityName) && !value.includes(districtName)
+
+      // 檢查是否選擇了縣市和行政區
+      const isLocationSelected = selectedCity !== 0 && selectedDistrict !== 0
+
+      // 如果選擇了位置，地址不能為空，且不能包含已選擇的縣市或行政區
+      if (isLocationSelected) {
+        return (
+          value.trim() !== '' &&
+          !value.includes(cityName) &&
+          !value.includes(districtName)
+        )
+      }
+
+      // 如果沒有選擇位置，則不進行驗證
+      return true
     },
     {
-      message: '地址不應包含已選擇的縣市或行政區',
+      message: '請輸入詳細地址，不包含已選擇的縣市或行政區',
     }
   )
 
@@ -298,7 +312,7 @@ export default function Edit() {
               {/* Personal Information */}
               <div className={styles.information}>
                 <h5>個人資料</h5>
-                <MyNameInput
+                <MyTextInput
                   id="name"
                   name="name"
                   label="姓名:"
@@ -308,7 +322,7 @@ export default function Edit() {
                   errorMessage={nameError}
                   setErrorMessage={setNameError}
                 />
-                <MyNameInput
+                <MyTextInput
                   id="nickname"
                   name="nickname"
                   label="暱稱:"
@@ -318,10 +332,11 @@ export default function Edit() {
                   errorMessage={nickNameError}
                   setErrorMessage={setNickNameError}
                 />
-                <MyNameInput
+                <MyTextInput
                   id="mobile"
                   name="mobile"
                   label="手機:"
+                  placeholder="格式為0912345678"
                   value={mobile}
                   onChange={setMobile}
                   schema={mobileSchema}
@@ -371,7 +386,7 @@ export default function Edit() {
                     ))}
                   </select>
                 </div>
-                <MyNameInput
+                <MyTextInput
                   id="address"
                   name="address"
                   label="地址:"
