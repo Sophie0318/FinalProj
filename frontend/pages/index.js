@@ -53,52 +53,6 @@ export default function Home() {
       </Link>
     )
   }
-  const fetchFavorites = async () => {
-    if (auth.token) {
-      try {
-        const response = await axios.get(
-          `http://localhost:3001/users/favorites/${auth.id}`,
-          {
-            headers: { Authorization: `Bearer ${auth.token}` },
-          }
-        )
-        if (response.data.success) {
-          setFavoriteCoach(
-            response.data.favorites.map((coach) => coach.coach_id)
-          )
-        }
-      } catch (error) {
-        console.error('Error fetching favorites:', error)
-      }
-    }
-  }
-
-  const handleFavoriteToggle = async (coachId) => {
-    if (!auth.token) {
-      router.push('/users/sign_in')
-      return
-    }
-
-    try {
-      if (favoriteCoach.includes(coachId)) {
-        await axios.delete('http://localhost:3001/users/remove-favorite', {
-          data: { member_id: auth.id, coach_id: coachId },
-          headers: { Authorization: `Bearer ${auth.token}` },
-        })
-        setFavoriteCoach(favoriteCoach.filter((id) => id !== coachId))
-      } else {
-        await axios.post(
-          'http://localhost:3001/users/add-favorite',
-          { member_id: auth.id, coach_id: coachId },
-          { headers: { Authorization: `Bearer ${auth.token}` } }
-        )
-        setFavoriteCoach([...favoriteCoach, coachId])
-      }
-    } catch (error) {
-      console.error('Error toggling favorite:', error)
-    }
-  }
-
   const renderCoachCard = (coach) => {
     return (
       <Link href={`/coaches/${coach.coach_id}`}>
@@ -106,8 +60,7 @@ export default function Home() {
           name={coach.coach_name}
           skill={coach.skills}
           imgSrc={coach.coach_img || '/defaultImg.png'}
-          isLiked={favoriteCoach.includes(coach.coach_id)}
-          onHeartClick={() => handleFavoriteToggle(coach.coach_id)}
+          showHeart={false}
         />
       </Link>
     )
