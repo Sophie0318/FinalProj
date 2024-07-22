@@ -27,7 +27,7 @@ import { useCart } from '@/hooks/product/use-cart'
 export default function Navbar({
   hideLogo = false,
   position = 'relative',
-  zIndex = '0',
+  // zIndex = '0',
   width = '100%',
 }) {
   const { auth, logout } = useAuth()
@@ -90,7 +90,7 @@ export default function Navbar({
         className={`${styles.navbarPC}`}
         style={{
           position: `${position}`,
-          zIndex: `${zIndex}`,
+          // zIndex: `${zIndex}`,
           width: `${width}`,
         }}
       >

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from './gymCard-spot.module.css'
 import { IoHeart } from 'react-icons/io5'
 
@@ -8,13 +8,15 @@ const GymCardSpot = ({ data }) => {
   const handleClick = () => {
     setIsClicked(!isClicked)
   }
-
+  useEffect(() => {
+    console.log(data)
+  }, [])
   return (
     <div className={styles.card}>
       <div className={styles.imageContainer}>
         {data.images.length > 0 && (
           <img
-            src={data.images[0]}
+            src={`/${data.images[0]}`}
             alt="場館圖片"
             className={styles.image}
             loading="lazy"

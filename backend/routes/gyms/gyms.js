@@ -116,6 +116,8 @@ GROUP BY
         feature_id: row.feature_id.split(","),
         feature_list: row.feature_list.split(","), // 將 feature_list 轉換為陣列.
         image_list: row.image_list.split(","), // 將 image_list 轉換為陣列
+        features: row.feature_list.split(","), // 將 feature_list 轉換為陣列.
+        images: row.image_list.split(","), // 將 image_list 轉換為陣列
       };
     });
 

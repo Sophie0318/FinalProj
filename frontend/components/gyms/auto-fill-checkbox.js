@@ -1,18 +1,13 @@
 import React, { useState } from 'react'
 import styles from './g-component.module.css'
 
-const AutofillCheckbox = ({ memberData, onAutofill }) => {
+const AutofillCheckbox = ({ onAutofill }) => {
   const [isChecked, setIsChecked] = useState(false)
 
   const handleChange = () => {
     const newCheckedState = !isChecked
     setIsChecked(newCheckedState)
-
-    if (newCheckedState) {
-      onAutofill(memberData)
-    } else {
-      onAutofill({})
-    }
+    onAutofill(newCheckedState)
   }
 
   return (

@@ -152,6 +152,7 @@ export default function GymDetail({ gymId }) {
                   <button
                     onClick={handleReservation}
                     className={styles.btnReserve}
+                    
                   >
                     <IoCall /> 預約
                   </button>
