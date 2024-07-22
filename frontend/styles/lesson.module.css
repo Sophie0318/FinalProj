@@ -248,10 +248,11 @@
   text-overflow: ellipsis;
 }
 
-.popular {
+/* .popular {
   padding-top: 110px;
-  /* padding-bottom: 56px; */
-}
+  padding-bottom: 56px;
+} */
+
 .popular > div:nth-child(odd) {
   margin-bottom: 86px;
 }
@@ -271,7 +272,7 @@
 
 @media (max-width: 775px) {
   .popular {
-    padding-top: 0;
+    padding-top: 50px;
     padding-bottom: 50px;
   }
 } 

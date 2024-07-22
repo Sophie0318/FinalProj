@@ -96,7 +96,7 @@ export default function Index({ lessons }) {
               </div>
               <div className="col-md-9 ps-3 py-5 overflow-hidden">
                 <CardCarousel
-                  cardMaxWidth="fit-content"
+                  cardMaxWidth="270px"
                   data={hotLessons}
                   renderItem={renderLessonCard}
                 />
