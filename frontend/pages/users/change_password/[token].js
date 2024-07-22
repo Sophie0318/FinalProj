@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import styles from '../../../styles/forgot-password.module.css'
 import UserSignin from '../../../components/layout/user-layout1'
-import TestMyPasswordInput from '@/components/users/test_MyPasswordInput'
-import TestMyBtn from '@/components/users/test_MyBtn'
+import MyPasswordInput from '@/components/users/MyPasswordInput'
+import MyBtn from '@/components/users/MyBtn'
 import UserModal from '../../../components/users/UserModal'
 
 export default function ForgetPassword() {
@@ -93,7 +93,7 @@ export default function ForgetPassword() {
                 <label className={styles.user_label} htmlFor="password">
                   <p className={styles.p}>輸入您的新密碼</p>
                 </label>
-                <TestMyPasswordInput
+                <MyPasswordInput
                   password={newPassword}
                   setPassword={setNewPassword}
                 />
@@ -102,13 +102,13 @@ export default function ForgetPassword() {
                 <label className={styles.user_label} htmlFor="passowrd">
                   <p className={styles.p}>確認新密碼</p>
                 </label>
-                <TestMyPasswordInput
+                <MyPasswordInput
                   password={confirmPassword}
                   setPassword={setConfirmPassword}
                 />
               </div>
             </div>
-            <TestMyBtn buttonText="送出" />
+            <MyBtn buttonText="送出" />
           </form>
         </div>
       </UserSignin>

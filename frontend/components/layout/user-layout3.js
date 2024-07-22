@@ -52,7 +52,12 @@ export default function LayoutUser({ children, title = 'myProfile' }) {
       }
 
       const data = await response.json()
-      setAuth((prev) => ({ ...prev, avatar: data.avatar }))
+
+      setAuth((prev) => {
+        const newAuth = { ...prev, avatar: data.avatar }
+        localStorage.setItem('suan-auth', JSON.stringify(newAuth)) // 更新 localStorage
+        return newAuth
+      })
     } catch (error) {
       console.error('Error uploading avatar:', error)
     } finally {

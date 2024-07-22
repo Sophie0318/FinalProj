@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from 'react'
-import { JWT_LOGIN_POST } from '../configs/api-path'
+import { JWT_LOGIN_POST, GOOGLE_LOGIN_POST } from '../configs/api-path'
 import { useRouter } from 'next/router'
 
 const AuthContext = createContext()
@@ -53,6 +53,38 @@ export function AuthContextProvider({ children }) {
       return false
     }
   }
+  //GOOLGE 登入
+  const googleLogin = async (googleData) => {
+    try {
+      const r = await fetch(GOOGLE_LOGIN_POST, {
+        method: 'POST',
+        body: JSON.stringify({
+          providerId: 'google.com',
+          uid: googleData.uid,
+          memberName: googleData.displayName,
+          email: googleData.email,
+          nick_name: null,
+          avatar: googleData.avatar,
+          mobile: null,
+          city: null,
+          district: null,
+          address: null,
+        }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+      const result = await r.json()
+      if (result.success) {
+        localStorage.setItem(storageKey, JSON.stringify(result.data))
+        setAuth(result.data)
+      }
+      return result.success
+    } catch (ex) {
+      console.log(ex)
+      return false
+    }
+  }
 
   //登出
   //清除狀態
@@ -91,7 +123,7 @@ export function AuthContextProvider({ children }) {
 
   return (
     <AuthContext.Provider
-      value={{ login, logout, auth, setAuth, getAuthHeader }}
+      value={{ login, logout, googleLogin, auth, setAuth, getAuthHeader }}
     >
       {children}
     </AuthContext.Provider>

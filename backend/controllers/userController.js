@@ -128,7 +128,23 @@ const userController = {
             console.log(ex);
             res.status(500).json({ message: '伺服器內部錯誤' });
         }
+    },
+
+    //處理會員在登入頁面時檢查輸入的email是否存在於資料庫當中
+    cheakEmail: async (req, res) => {
+        const { email } = req.body; // 從 body 中獲取 email
+        if (!email) {
+            return res.status(400).json({ error: '必須填入email' });
+        }
+        try {
+            const [rows] = await db.query('SELECT * FROM members WHERE member_email = ?', [email]);
+            res.json({ exists: rows.length > 0 });
+        } catch (error) {
+            console.error('Error checking email:', error);
+            res.status(500).json({ error: 'Internal server error' });
+        }
     }
+
 };
 
 export default userController;
