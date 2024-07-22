@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
+import LoginAlert from '@/hooks/login-alert/login-alert'
 import { IoHeart } from 'react-icons/io5'
 import styles from './article-card.module.css'
 
@@ -15,6 +16,7 @@ const ArticleCard = ({
 }) => {
   const router = useRouter()
   const [isClicked, setIsClicked] = useState(member_id === auth.id)
+  const loginAlert = LoginAlert()
 
   const addFavArticle = async () => {
     const url = `http://localhost:3001/articles/api/addfavarticle`
@@ -52,9 +54,9 @@ const ArticleCard = ({
     e.preventDefault()
     e.stopPropagation()
     if (!auth.id) {
-      if (confirm('要先登入才能加入收藏喔~')) {
-        router.push('/users/sign_in')
-      }
+      loginAlert.fire().then((result) => {
+        result.isConfirmed ? router.push('/users/sign_in') : ''
+      })
     } else {
       if (!isClicked) {
         addFavArticle()

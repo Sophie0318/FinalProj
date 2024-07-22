@@ -1,0 +1,83 @@
+.popup {
+  padding-top: 20px;
+  border-radius: 50px;
+}
+
+.title {
+  color: var(--color-midnight-green);
+  font-family: 'Gensen', sans-serif;
+  font-size: 40px;
+  font-weight: 700;
+  letter-spacing: 6px;
+}
+
+.icon {
+  margin-top: 0;
+}
+
+.closeButton {
+  height: fit-content;
+  width: fit-content;
+  padding-right: 25px;
+}
+
+.closeButton img {
+  height: 40px;
+  width: 40px;
+  opacity: 1;
+}
+
+.closeButton:hover img {
+  opacity: 0.5;
+}
+
+.icon {
+  color: var(--color-black);
+  background-color: --color-black;
+}
+
+.confirmButton, .cancelButton{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 100px;
+  height: 65px;
+  font-family: 'Gensen', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  line-height: 100%;
+  padding: 0 0 0 3px;
+}
+.confirmButton {
+  width: 100px;
+}
+.cancelButton {
+  width: 150px;
+}
+.midnightgreen {
+  background-color: var(--color-midnight-green);
+  color: var(--color-white);
+  border: 0;
+}
+.midnightgreen:hover,
+.midnightgreen:active,
+.midnightgreen:active:focus,
+.midnightgreen:focus {
+  background-color: #16303f;
+  color: var(--color-white);
+  border: 0;
+}
+.gray50 {
+  background-color: var(--color-gray-50);
+  color: var(--color-white);
+  border: 0;
+}
+.gray50:hover,
+.gray50:active,
+.gray50:active:focus,
+.gray50:focus {
+  background-color: #9d9b96;
+  color: var(--color-white);
+  border: 0;
+}

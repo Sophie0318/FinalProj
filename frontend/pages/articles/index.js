@@ -43,7 +43,6 @@ export default function Articles() {
     }
   }
 
-  // TODO: solve 2 useEffect contained in article index page, affects carousel data and insert favarticle
   useEffect(() => {
     if (router.isReady) {
       const url = 'http://localhost:3001/articles/api/articleIndex'
