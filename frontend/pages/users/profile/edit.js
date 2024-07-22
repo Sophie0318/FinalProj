@@ -113,6 +113,14 @@ export default function Edit() {
       confirmPassword !== ''
     )
   }
+  // 檢查確認密碼是否一致
+  useEffect(() => {
+    if (confirmPassword !== '' && confirmPassword !== password) {
+      setConfirmPasswordErrorMessage('兩次輸入的密碼不一致')
+    } else {
+      setConfirmPasswordErrorMessage('')
+    }
+  }, [password, confirmPassword])
 
   const handleSubmit = async (e) => {
     e.preventDefault()
