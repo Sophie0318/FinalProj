@@ -94,7 +94,7 @@ export default function ArticleSidebar({
         >
           <IoShareSocialSharp />
         </button>
-        <div
+        {/* <div
           className={`${styles.sidebarSearch} ${
             showSearchbar ? styles.showSearch : styles.hideSearch
           }`}
@@ -114,7 +114,7 @@ export default function ArticleSidebar({
             }}
             onKeyDown={contentSearch}
           />
-        </div>
+        </div> */}
       </div>
 
       <div
@@ -151,9 +151,9 @@ export default function ArticleSidebar({
           >
             <IoShareSocialSharp />
           </button>
-          <button className={styles.sidebarBtn}>
+          {/* <button className={styles.sidebarBtn}>
             <IoSearch />
-          </button>
+          </button> */}
         </div>
       </div>
     </>

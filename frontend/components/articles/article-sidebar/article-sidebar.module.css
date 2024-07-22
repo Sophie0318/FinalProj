@@ -18,7 +18,8 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  height: 375px;
+  /* height: 375px; */
+  height: 300px;
   overflow: visible;
 }
 
@@ -44,6 +45,50 @@
   border-radius: 50px;
   margin-bottom: 15px;
 }
+
+.sidebarBtn::after {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  transform: translateY(-50%);
+  left: 70px; 
+  background-color: var(--color-old-lace);
+  border: 2px solid var(--color-black);
+  border-radius: 10px;
+  height: 50px;
+  width: 100px;
+}
+
+.sidebarBtn:nth-child(1)::after {
+  top: calc(30px);
+  width: 120px;
+  content: '調整字體大小';
+  display: none;
+}
+
+.sidebarBtn:nth-child(2)::after {
+  top: calc(30px + (60px + 15px) * 1);
+  content: '加入收藏';
+  display: none;
+}
+
+.sidebarBtn:nth-child(3)::after {
+  top: calc(30px + (60px + 15px) * 2);
+  content: '前往留言';
+  display: none;
+}
+
+.sidebarBtn:nth-child(4)::after {
+  top: calc(30px + (60px + 15px) * 3);
+  content: '複製連結';
+  display: none;
+}
+
+.sidebarBtn:hover::after {
+  display: flex;
+}
+
 .sidebarSearch {
   position: absolute;
   bottom: 15px;
@@ -86,7 +131,9 @@
 
   .sidebarWrapper {
     display: flex;
-    justify-content: space-between;
+    /* justify-content: space-between; */
+    justify-content: center;
+    gap: 30px;
     max-width: 460px;
     width: 100%;
   }
