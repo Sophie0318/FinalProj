@@ -7,12 +7,14 @@ import { useAuth } from '@/context/auth-context'
 import Loader from '@/components/loader'
 
 export default function LessonsOrders() {
-  const [bookings, setBookings] = useState([])
+  const [allBookings, setAllBookings] = useState([])
+  const [filteredBookings, setFilteredBookings] = useState([])
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState(null)
   const { auth } = useAuth()
   const [selectedMonth, setSelectedMonth] = useState(null)
   const [selectedDate, setSelectedDate] = useState(null)
+  const [availableDates, setAvailableDates] = useState([])
 
   const fetchBookings = useCallback(async () => {
     if (!auth.id) return
@@ -25,7 +27,7 @@ export default function LessonsOrders() {
         `http://localhost:3001/users/bookings/${auth.id}`
       )
       if (response.data.success) {
-        setBookings(response.data.bookings)
+        setAllBookings(response.data.bookings)
       } else {
         throw new Error('Failed to fetch bookings')
       }
@@ -42,19 +44,34 @@ export default function LessonsOrders() {
   }, [fetchBookings])
 
   useEffect(() => {
+    if (selectedMonth) {
+      const datesInMonth = allBookings
+        .filter((booking) => {
+          const bookingDate = new Date(booking.reserve_time)
+          return bookingDate.getMonth() + 1 === selectedMonth
+        })
+        .map((booking) => new Date(booking.reserve_time).getDate())
+      setAvailableDates([...new Set(datesInMonth)]) // 去重
+      setSelectedDate(null) // 重置選中的日期
+      setFilteredBookings([]) // 清空已過濾的預約
+    } else {
+      setAvailableDates([])
+      setFilteredBookings([])
+    }
+  }, [selectedMonth, allBookings])
+
+  useEffect(() => {
     if (selectedMonth && selectedDate) {
-      const filtered = bookings.filter((booking) => {
+      const filtered = allBookings.filter((booking) => {
         const bookingDate = new Date(booking.reserve_time)
         return (
           bookingDate.getMonth() + 1 === selectedMonth &&
           bookingDate.getDate() === selectedDate
         )
       })
-      setBookings(filtered)
-    } else {
-      setBookings(bookings)
+      setFilteredBookings(filtered)
     }
-  }, [selectedMonth, selectedDate, bookings])
+  }, [selectedDate, selectedMonth, allBookings])
 
   if (isLoading)
     return (
@@ -83,27 +100,36 @@ export default function LessonsOrders() {
             </div>
           ))}
         </div>
-        <div className={styles.date_card}>
-          {[22, 23, 24, 25].map((date, index) => (
-            <div
-              key={date}
-              className={`${styles.card} ${
-                selectedDate === date ? styles.active : ''
-              }`}
-              onClick={() => setSelectedDate(date)}
-            >
-              <div className={styles.num}>{date}</div>
-              <div className={styles.week}>
-                <h4>星期{['三', '四', '五', '六'][index]}</h4>
+        {selectedMonth && (
+          <div className={styles.date_card}>
+            {availableDates.map((date, index) => (
+              <div
+                key={date}
+                className={`${styles.card} ${
+                  selectedDate === date ? styles.active : ''
+                }`}
+                onClick={() => setSelectedDate(date)}
+              >
+                <div className={styles.num}>{date}</div>
+                <div className={styles.week}>
+                  <h4>
+                    星期
+                    {
+                      ['日', '一', '二', '三', '四', '五', '六'][
+                        new Date(2024, selectedMonth - 1, date).getDay()
+                      ]
+                    }
+                  </h4>
+                </div>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
         <div className={styles.schedule}>
-          {bookings.length === 0 ? (
-            <p>目前沒有預約。</p>
+          {filteredBookings.length === 0 ? (
+            <p></p>
           ) : (
-            bookings.map((booking, index) => (
+            filteredBookings.map((booking, index) => (
               <div key={index} className={styles.schedule_item}>
                 <img
                   src="/users-img/icon-notebook.svg"
