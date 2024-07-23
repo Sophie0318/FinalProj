@@ -176,7 +176,12 @@ export default function Home() {
                   <div
                     className={`${styles.heroImage} col-12 d-flex justify-content-end`}
                   >
-                    <img src="/index-img/hero-img.svg" />
+                    <img
+                      src="/index-img/hero-img.svg"
+                      className={`${styles.heroImgBig} ${
+                        heroImageVisible ? styles['slide-in-right'] : ''
+                      }`}
+                    />
                   </div>
                 </div>
               </div>
