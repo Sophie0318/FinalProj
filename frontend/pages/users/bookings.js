@@ -51,9 +51,12 @@ export default function LessonsOrders() {
           return bookingDate.getMonth() + 1 === selectedMonth
         })
         .map((booking) => new Date(booking.reserve_time).getDate())
-      setAvailableDates([...new Set(datesInMonth)]) // 去重
-      setSelectedDate(null) // 重置選中的日期
-      setFilteredBookings([]) // 清空已過濾的預約
+
+      // 對日期進行排序並去重
+      setAvailableDates([...new Set(datesInMonth)].sort((a, b) => a - b))
+
+      setSelectedDate(null)
+      setFilteredBookings([])
     } else {
       setAvailableDates([])
       setFilteredBookings([])
@@ -62,13 +65,15 @@ export default function LessonsOrders() {
 
   useEffect(() => {
     if (selectedMonth && selectedDate) {
-      const filtered = allBookings.filter((booking) => {
-        const bookingDate = new Date(booking.reserve_time)
-        return (
-          bookingDate.getMonth() + 1 === selectedMonth &&
-          bookingDate.getDate() === selectedDate
-        )
-      })
+      const filtered = allBookings
+        .filter((booking) => {
+          const bookingDate = new Date(booking.reserve_time)
+          return (
+            bookingDate.getMonth() + 1 === selectedMonth &&
+            bookingDate.getDate() === selectedDate
+          )
+        })
+        .sort((a, b) => new Date(a.reserve_time) - new Date(b.reserve_time))
       setFilteredBookings(filtered)
     }
   }, [selectedDate, selectedMonth, allBookings])
