@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import styles from '@/styles/lessonCheckout.module.css'
 import { useRouter } from 'next/router'
 import axios from 'axios'
+import Loader from '@/components/loader'
 
 export default function Checkout() {
   const [lesson, setLesson] = useState(null)
@@ -77,7 +78,11 @@ export default function Checkout() {
   // }
 
   if (!lesson) {
-    return <div>Loading...</div>
+    return (
+      <div>
+        <Loader />
+      </div>
+    )
   }
 
   return (
