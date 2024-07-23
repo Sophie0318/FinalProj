@@ -78,14 +78,28 @@ export default function LayoutUser({ children, title = 'myProfile' }) {
           <div className={styles.menu}>
             <div className={styles.user}>
               {/* <img src="/users-img/user_avator.png" alt="" /> */}
-              <img
-                src={`${defaultAvatar}${auth.avatar}`}
-                className={`${styles.memberAvatar}  ${
-                  isUploading ? styles.uploading : ''
-                }`}
+              <div
+                className={`${styles.memberAvatarContainer}`}
                 onClick={handAvatarClick}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault()
+                    handAvatarClick()
+                  }
+                }}
+                role="button"
+                tabIndex={0}
                 style={{ cursor: 'pointer' }}
-              />
+              >
+                <img
+                  src={`${defaultAvatar}${auth.avatar}`}
+                  className={`${styles.memberAvatar} ${
+                    isUploading ? styles.uploading : ''
+                  }`}
+                  alt="avatar" // 提供替代文字描述圖片
+                />
+              </div>
+
               <input
                 type="file"
                 ref={fileInput}
