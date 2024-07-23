@@ -69,10 +69,16 @@ export default function Success() {
                   <div className={styles.name}>{orderNumber}</div>
                 </div>
               </div> */}
+              {/* 修改版 */}
               <div className={styles.infoRow}>
-                <div className={styles.label}>{lesson.lesson_name}</div>
+                <div className={styles.label}>
+                  課程名稱 <br />
+                  所在場館 <br />
+                  課程日期
+                </div>
                 <div className={styles.details}>
                   <div className={styles.lessonInfo}>
+                    {lesson.lesson_name} <br />
                     {lesson.gym_name} <br />
                     {lesson.lesson_date}
                   </div>
