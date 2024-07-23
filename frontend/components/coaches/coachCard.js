@@ -28,6 +28,9 @@ const CoachCard = ({
             <div
               className={`${styles.heart} ${isLiked ? styles.clicked : ''}`}
               onClick={handleClick}
+              onKeyDown={handleClick}
+              role="button"
+              tabIndex={0}
             >
               <IoHeart />
             </div>

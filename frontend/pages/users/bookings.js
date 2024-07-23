@@ -100,6 +100,13 @@ export default function LessonsOrders() {
                 selectedMonth === month ? styles.active : ''
               }`}
               onClick={() => setSelectedMonth(month)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  setSelectedMonth(month)
+                }
+              }}
+              role="button"
+              tabIndex="0"
             >
               {month}月
             </div>
@@ -114,6 +121,13 @@ export default function LessonsOrders() {
                   selectedDate === date ? styles.active : ''
                 }`}
                 onClick={() => setSelectedDate(date)}
+                onKeyDown={(e) => {
+                  if (e.key === ' ') {
+                    setSelectedMonth(date)
+                  }
+                }}
+                role="button"
+                tabIndex="0"
               >
                 <div className={styles.num}>{date}</div>
                 <div className={styles.week}>

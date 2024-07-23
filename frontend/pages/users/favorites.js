@@ -137,16 +137,36 @@ export default function Favorites() {
             <h4>我的收藏</h4>
           </div>
           <div className={styles.card_2}>
-            <div onClick={() => handleBranchClick('lessons')}>
+            <div
+              onClick={() => handleBranchClick('lessons')}
+              onKeyDown={() => handleBranchClick('lessons')}
+              role="button"
+              tabIndex={0}
+            >
               <BranchCard branch="lessons" />
             </div>
-            <div onClick={() => handleBranchClick('coaches')}>
+            <div
+              onClick={() => handleBranchClick('coaches')}
+              onKeyDown={() => handleBranchClick('coaches')}
+              role="button"
+              tabIndex={0}
+            >
               <BranchCard branch="coaches" />
             </div>
-            <div onClick={() => handleBranchClick('gyms')}>
+            <div
+              onClick={() => handleBranchClick('gyms')}
+              onKeyDown={() => handleBranchClick('gyms')}
+              role="button"
+              tabIndex={0}
+            >
               <BranchCard branch="gyms" />
             </div>
-            <div onClick={() => handleBranchClick('articles')}>
+            <div
+              onClick={() => handleBranchClick('articles')}
+              onKeyDown={() => handleBranchClick('articles')}
+              role="button"
+              tabIndex={0}
+            >
               <BranchCard branch="articles" />
             </div>
           </div>
