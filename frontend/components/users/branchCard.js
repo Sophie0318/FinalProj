@@ -44,16 +44,14 @@ export default function BranchCard({ branch = 'myLessons', hrefURL = '/' }) {
   return (
     <>
       <div className={`${styles.card} card`}>
-        <Link href={hrefURL}>
-          <div className={styles.card_body2}>
-            <h6 className={styles.h6_font}>{`[${titleResult}]`}</h6>
-            <img
-              style={{ width: `${widthResult}` }}
-              src={`/users-img/${iconResult}`}
-              alt={`${titleResult.slice(1, -1)}圖片`}
-            />
-          </div>
-        </Link>
+        <div className={styles.card_body2}>
+          <h6 className={styles.h6_font}>{`[${titleResult}]`}</h6>
+          <img
+            style={{ width: `${widthResult}` }}
+            src={`/users-img/${iconResult}`}
+            alt={`${titleResult.slice(1, -1)}圖片`}
+          />
+        </div>
       </div>
     </>
   )

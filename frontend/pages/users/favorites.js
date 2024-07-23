@@ -18,6 +18,7 @@ export default function Favorites() {
   const { auth } = useAuth()
   const [coachFavorites, setCoachFavorites] = useState([])
   const [lessonFavorites, setLessonFavorites] = useState([])
+  const [activeTab, setActiveTab] = useState(null) // 新增狀態來控制當前顯示的內容
   // 決定要用哪一個分支的卡片, 參數 branch=分支名稱, data=Array.map的v
 
   useEffect(() => {
@@ -123,6 +124,11 @@ export default function Favorites() {
     }
   }
 
+  // 新增處理 BranchCard 點擊的函數
+  const handleBranchClick = (branch) => {
+    setActiveTab(branch)
+  }
+
   return (
     <>
       <LayoutUser title="myFavs">
@@ -131,46 +137,59 @@ export default function Favorites() {
             <h4>我的收藏</h4>
           </div>
           <div className={styles.card_2}>
-            <BranchCard branch="lessons" />
-            <BranchCard branch="coaches" />
-            <BranchCard branch="gyms" />
-            <BranchCard branch="articles" />
-          </div>
-          <div className={styles.fav_search}>
-            <h5>收藏的教練</h5>
-            {coachFavorites.map((coach) => (
-              <div className="resultGrid" key={coach.coach_id}>
-                <Link href={`/coaches/${coach.coach_id}`}>
-                  <CoachCard
-                    key={coach.coach_id}
-                    name={coach.coach_name}
-                    skill={coach.skills}
-                    imgSrc={`/${coach.coach_img}`}
-                    isLiked={true}
-                    onHeartClick={() => handleRemoveFavorite(coach.coach_id)}
-                  />
-                </Link>
-              </div>
-            ))}
+            <div onClick={() => handleBranchClick('lessons')}>
+              <BranchCard branch="lessons" />
+            </div>
+            <div onClick={() => handleBranchClick('coaches')}>
+              <BranchCard branch="coaches" />
+            </div>
+            <div onClick={() => handleBranchClick('gyms')}>
+              <BranchCard branch="gyms" />
+            </div>
+            <div onClick={() => handleBranchClick('articles')}>
+              <BranchCard branch="articles" />
+            </div>
           </div>
 
-          <div className={styles.fav_search}>
-            <h5>收藏的課程</h5>
-            {lessonFavorites.map((lesson) => (
-              <div className="resultGrid" key={lesson.lesson_id}>
-                <Link href={`/lessons/${lesson.lesson_id}`}>
-                  <LessonCard
-                    key={lesson.lesson_id}
-                    title={lesson.lesson_name}
-                    price={`NT$ ${lesson.lesson_price}`}
-                    gym={lesson.gym}
-                    category={lesson.skills}
-                    imgSrc={`/${lesson.lesson_img}`}
-                  />
-                </Link>
-              </div>
-            ))}
-          </div>
+          {activeTab === 'coaches' && (
+            <div className={styles.fav_search}>
+              <h5>收藏的教練</h5>
+              {coachFavorites.map((coach) => (
+                <div className="resultGrid" key={coach.coach_id}>
+                  <Link href={`/coaches/${coach.coach_id}`}>
+                    <CoachCard
+                      key={coach.coach_id}
+                      name={coach.coach_name}
+                      skill={coach.skills}
+                      imgSrc={`/${coach.coach_img}`}
+                      isLiked={true}
+                      onHeartClick={() => handleRemoveFavorite(coach.coach_id)}
+                    />
+                  </Link>
+                </div>
+              ))}
+            </div>
+          )}
+
+          {activeTab === 'lessons' && (
+            <div className={styles.fav_search}>
+              <h5>收藏的課程</h5>
+              {lessonFavorites.map((lesson) => (
+                <div className="resultGrid" key={lesson.lesson_id}>
+                  <Link href={`/lessons/${lesson.lesson_id}`}>
+                    <LessonCard
+                      key={lesson.lesson_id}
+                      title={lesson.lesson_name}
+                      price={`NT$ ${lesson.lesson_price}`}
+                      gym={lesson.gym}
+                      category={lesson.skills}
+                      imgSrc={`/${lesson.lesson_img}`}
+                    />
+                  </Link>
+                </div>
+              ))}
+            </div>
+          )}
 
           <div className={styles.pagination}>
             <div
