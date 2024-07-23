@@ -59,8 +59,16 @@ export default function Reservation() {
     const newErrors = {}
     // 去除首尾空格後檢查是否為空
     if (!formData.name.trim()) newErrors.name = '請填寫姓名'
-    if (!formData.phone.trim()) newErrors.phone = '請填寫電話'
-    if (!formData.email.trim()) newErrors.email = '請填寫信箱'
+    if (!formData.phone.trim()) {
+      newErrors.phone = '請填寫電話'
+    } else if (!/^09\d{8}$/.test(formData.phone)) {
+      newErrors.phone = '電話格式錯誤'
+    }
+    if (!formData.email.trim()) {
+      newErrors.email = '請填寫信箱'
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      newErrors.email = '信箱格式錯誤'
+    }
     // 檢查是否有選擇時段
     if (!formData.timeSlot) newErrors.timeSlot = '請選擇時段'
     // 重新設定錯誤訊息
