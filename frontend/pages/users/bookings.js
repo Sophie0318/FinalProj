@@ -4,12 +4,15 @@ import Select from '@/components/common/select/select'
 import styles from '@/styles/user-bookings.module.css'
 import axios from 'axios'
 import { useAuth } from '@/context/auth-context'
+import Loader from '@/components/loader'
 
 export default function LessonsOrders() {
   const [bookings, setBookings] = useState([])
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState(null)
   const { auth } = useAuth()
+  const [selectedMonth, setSelectedMonth] = useState(null)
+  const [selectedDate, setSelectedDate] = useState(null)
 
   const fetchBookings = useCallback(async () => {
     if (!auth.id) return
@@ -38,7 +41,27 @@ export default function LessonsOrders() {
     fetchBookings()
   }, [fetchBookings])
 
-  if (isLoading) return <div>加載中...</div>
+  useEffect(() => {
+    if (selectedMonth && selectedDate) {
+      const filtered = bookings.filter((booking) => {
+        const bookingDate = new Date(booking.reserve_time)
+        return (
+          bookingDate.getMonth() + 1 === selectedMonth &&
+          bookingDate.getDate() === selectedDate
+        )
+      })
+      setBookings(filtered)
+    } else {
+      setBookings(bookings)
+    }
+  }, [selectedMonth, selectedDate, bookings])
+
+  if (isLoading)
+    return (
+      <div>
+        <Loader />
+      </div>
+    )
   if (error) return <div>錯誤: {error}</div>
 
   return (
@@ -47,46 +70,34 @@ export default function LessonsOrders() {
         <div className={styles.user_select}>
           {/* <Select options={options} /> */}
         </div>
-        <div className={styles.year_num}>2024年</div>
         <div className={styles.month}>
-          <div className={styles.num}>1月</div>
-          <div className={styles.num}>2月</div>
-          <div className={styles.num}>3月</div>
-          <div className={styles.num}>4月</div>
-          <div className={styles.num}>5月</div>
-          <div className={styles.num}>6月</div>
-          <div className={styles.num}>7月</div>
-          <div className={styles.num}>8月</div>
-          <div className={styles.num}>9月</div>
-          <div className={styles.num}>10月</div>
-          <div className={styles.num}>11月</div>
-          <div className={styles.num}>12月</div>
+          {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((month) => (
+            <div
+              key={month}
+              className={`${styles.num} ${
+                selectedMonth === month ? styles.active : ''
+              }`}
+              onClick={() => setSelectedMonth(month)}
+            >
+              {month}月
+            </div>
+          ))}
         </div>
         <div className={styles.date_card}>
-          <div className={styles.card}>
-            <div className={styles.num}>22</div>
-            <div className={styles.week}>
-              <h4>星期三</h4>
+          {[22, 23, 24, 25].map((date, index) => (
+            <div
+              key={date}
+              className={`${styles.card} ${
+                selectedDate === date ? styles.active : ''
+              }`}
+              onClick={() => setSelectedDate(date)}
+            >
+              <div className={styles.num}>{date}</div>
+              <div className={styles.week}>
+                <h4>星期{['三', '四', '五', '六'][index]}</h4>
+              </div>
             </div>
-          </div>
-          <div className={styles.card}>
-            <div className={styles.num}>22</div>
-            <div className={styles.week}>
-              <h4>星期三</h4>
-            </div>
-          </div>
-          <div className={styles.card}>
-            <div className={styles.num}>22</div>
-            <div className={styles.week}>
-              <h4>星期三</h4>
-            </div>
-          </div>
-          <div className={styles.card}>
-            <div className={styles.num}>22</div>
-            <div className={styles.week}>
-              <h4>星期三</h4>
-            </div>
-          </div>
+          ))}
         </div>
         <div className={styles.schedule}>
           {bookings.length === 0 ? (
