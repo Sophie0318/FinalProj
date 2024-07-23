@@ -110,6 +110,7 @@ export default function LessonsOrders() {
                         hour: '2-digit',
                         minute: '2-digit',
                         hour12: false,
+                        hourCycle: 'h23',
                       })}
                     </h6>
                     <h6>{booking.gym_name}</h6>
