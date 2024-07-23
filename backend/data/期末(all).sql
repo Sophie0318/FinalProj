@@ -785,7 +785,87 @@ offensiveword_id int primary key auto_increment,
 offensiveword_name varchar(50),
 code_id_fk int -- offensive type link to commontype: code_type_id 12 code_id 1~4
 );
-use midTermDB;
+
+DELIMITER //
+CREATE TRIGGER before_insert_comments
+BEFORE INSERT ON Comments
+FOR EACH ROW
+BEGIN
+    DECLARE article_exists INT;
+    DECLARE main_exists INT;
+    DECLARE sub_exists INT;
+    DECLARE max_main INT;
+    DECLARE max_sub INT;
+
+    -- Check if article_id_fk exists in the Comments table
+    SELECT COUNT(*) INTO article_exists
+    FROM Comments
+    WHERE article_id_fk = NEW.article_id_fk;
+
+    IF article_exists > 0 THEN
+        -- Article exists, check if the inserted main exists
+        IF NEW.main IS NOT NULL THEN
+            SELECT COUNT(*) INTO main_exists
+            FROM Comments
+            WHERE article_id_fk = NEW.article_id_fk AND main = NEW.main;
+
+            IF main_exists > 0 THEN
+                -- Main exists, CHANGE CONDITION TO CHECK FOR SUB EXISTS, NO THEN ERROR
+                SELECT COUNT(*) INTO sub_exists
+                FROM Comments
+                WHERE article_id_fk = NEW.article_id_fk AND main = NEW.main AND sub = NEW.sub;
+
+                IF sub_exists > 0 THEN
+                    -- Sub value error
+					SIGNAL SQLSTATE '45000'
+					SET MESSAGE_TEXT = 'sub value error: duplicate sub';
+				ELSE 
+                    SELECT COALESCE(MAX(sub), 0) INTO max_sub
+                    FROM Comments
+                    WHERE article_id_fk = NEW.article_id_fk AND main = NEW.main;
+                
+                    IF NEW.sub != max_sub + 1 THEN
+					-- Main value error
+					SIGNAL SQLSTATE '45000'
+					SET MESSAGE_TEXT = 'sub value error: not max_sub + 1';
+                    END IF;
+                END IF;
+            ELSE
+				-- Article found but no main, check if main value = max_main > 1
+                SELECT COALESCE(MAX(main), 0) INTO max_main
+                FROM Comments
+                WHERE article_id_fk = NEW.article_id_fk;
+                
+                IF NEW.main != max_main + 1 THEN
+					-- Main value error
+					SIGNAL SQLSTATE '45000'
+					SET MESSAGE_TEXT = 'main value error: not max_main + 1';
+				END IF;
+            END IF;
+        ELSE
+            -- Main not provided, raise an error
+            SIGNAL SQLSTATE '45000'
+            SET MESSAGE_TEXT = 'Error: Main value must be provided for existing articles';
+        END IF;
+    ELSE
+        -- Article doesn't exist in ArticleComments, this is a new entry
+        SET NEW.main = 1;
+        SET NEW.sub = 0;
+    END IF;
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE TRIGGER ValidateReportComments
+BEFORE INSERT ON ReportedComments
+FOR EACH ROW
+BEGIN
+	IF NEW.reportedcomment_note IS NULL AND NEW.code_id_fk IS NULL THEN
+		SIGNAL SQLSTATE '45000'
+		SET MESSAGE_TEXT = 'either note or commontype_id_fk must be provided';
+    END IF;
+END //
+DELIMITER ;
 
 INSERT INTO Authors (author_is_coach) VALUES
 (1),(2),(3),(4),(5);

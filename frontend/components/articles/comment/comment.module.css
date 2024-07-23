@@ -8,81 +8,26 @@
 .mainComment {
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  padding: 20px 40px;
+  /* gap: 20px; */
+  padding: 40px 40px 20px 40px;
 }
 
-.userCommentTitle {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-}
-
-.userAvatar img {
-  height: 50px;
-  width: 50px;
-  object-fit: cover;
+.commentAreaBox {
   border-radius: 50px;
-  overflow: hidden;
-}
-
-.userCommentInfo {
-  display: flex;
-  flex-direction: column;
-}
-.userName {
-  font-family: 'Gensen', sans-serif;
-  font-size: 18px;
-  font-weight: 700;
-  letter-spacing: 3px;
-}
-
-.userComment{
-  width: 100%;
-}
-
-.userComment textarea {
-  width: 100%;
-  height: 100px;
   background-color: var(--color-old-lace);
-  border: 2px solid black;
-  border-radius: 25px;
-  padding: 10px 20px;
-  resize: none;
 }
-
-.userCommentBtn {
-  display: flex;
-  justify-content: flex-end;
-  gap: 20px;
-}
-
-.wordCount {
-  font-family: 'Gensen', sans-serif;
-  font-size: 22px;
-  line-height: 46px;
-  letter-spacing: 3px;
-}
-
-.submitBtn {
-  width: 100%;
-  max-width: 94px;
-}
-
 .commentArea{
   display: flex;
   flex-direction: column;
   gap: 20px;
   border: 0;
-  border-radius: 50px;
-  background-color: var(--color-old-lace);
-  padding: 0 40px;
+  padding: 20px 40px;
 }
 
 .togglePrevComment {
   height: fit-content;
-  width: 100%;
-  padding: 10px 20px 0px 20px;
+  padding-left: 40px;
+  padding-bottom: 10px;
 }
 
 .togglePrevComment button {
@@ -94,10 +39,14 @@
 }
 
 .replyComment {
-  padding: 20px 20px 0 20px;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 20px 20px 20px;
   margin-left: 30px;
-  margin-top: -20px;
-  margin-bottom: 20px;
+  margin-top: -10px;
+  /* margin-bottom: 20px; */
+  /* gap: 20px; */
   background-color: var(--color-white);
   border-radius: 40px;
 }
+

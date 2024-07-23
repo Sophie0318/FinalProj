@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
+import { ArticlesAddFav, ArticlesRemoveFav } from '@/configs/articles'
 import LoginAlert from '@/hooks/login-alert/login-alert'
 import { IoHeart } from 'react-icons/io5'
 import styles from './article-card.module.css'
@@ -19,8 +20,7 @@ const ArticleCard = ({
   const loginAlert = LoginAlert()
 
   const addFavArticle = async () => {
-    const url = `http://localhost:3001/articles/api/addfavarticle`
-    const res = await fetch(url, {
+    const res = await fetch(ArticlesAddFav, {
       method: 'POST',
       headers: {
         Authorization: `Bearer ${auth.token}`,
@@ -35,8 +35,7 @@ const ArticleCard = ({
   }
 
   const removeFavArticle = async () => {
-    const url = `http://localhost:3001/articles/api/removefavarticle`
-    const res = await fetch(url, {
+    const res = await fetch(ArticlesRemoveFav, {
       method: 'DELETE',
       headers: {
         Authorization: `Bearer ${auth.token}`,

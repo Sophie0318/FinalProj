@@ -2,6 +2,7 @@
 import { useEffect, useState, useRef } from 'react'
 import { useRouter } from 'next/router'
 import { useAuth } from '@/context/auth-context'
+import { ArticlesEntry } from '@/configs/articles'
 
 // 元件 + 樣式
 import Layout3 from '@/components/layout/layout3'
@@ -35,11 +36,10 @@ export default function ArticlePage() {
 
   // 後端 fetch 單篇文章資料
   const getArticle = async () => {
-    const baseURL = 'http://localhost:3001/articles/api/'
     const param = router.query.article_id
     try {
       // get individual article
-      const res = await fetch(`${baseURL}entry/${param}`, {
+      const res = await fetch(`${ArticlesEntry}/${param}`, {
         headers: {
           Authorization: `Bearer ${auth.token}`,
           'Content-Type': 'application/json',

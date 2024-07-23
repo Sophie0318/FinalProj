@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import useArticleSearch from '@/hooks/article-search/useArticleSearch'
 import { useAuth } from '@/context/auth-context'
+import { ArticlesListData } from '@/configs/articles'
 
 import useRenderCards from '@/hooks/cards/cards'
 import Layout3 from '@/components/layout/layout3'
@@ -69,7 +70,6 @@ export default function ArticleType() {
 
   useEffect(() => {
     if (router.isReady) {
-      const baseURL = 'http://localhost:3001/articles/api/listData?'
       const query = new URLSearchParams(router.query)
       const loginStatus = localStorage.getItem('suan-auth')
       let token = ''
@@ -77,7 +77,7 @@ export default function ArticleType() {
         token = JSON.parse(loginStatus).token
       }
 
-      const url = `${baseURL}${query}`
+      const url = `${ArticlesListData}?${query}`
       getList(url, token)
       setPageCategory(categoryMap[router.query.category])
     }

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useAuth } from '@/context/auth-context'
+import { ArticlesIndex } from '@/configs/articles'
 
 import Layout3 from '@/components/layout/layout3'
 import SearchSection from '@/components/articles/search-section'
@@ -45,7 +46,7 @@ export default function Articles() {
 
   useEffect(() => {
     if (router.isReady) {
-      const url = 'http://localhost:3001/articles/api/articleIndex'
+      const url = `${ArticlesIndex}`
       const token = localStorage.getItem('suan-auth')
         ? JSON.parse(localStorage.getItem('suan-auth')).token
         : ''
