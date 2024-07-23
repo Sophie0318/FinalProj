@@ -12,6 +12,7 @@ const MyPasswordInput = ({
   errorMessage,
   setErrorMessage,
   type = 'password',
+  disabled, //如果是第三方登入的會員就不需要編輯密碼
 }) => {
   const [showPassword, setShowPassword] = useState(false)
   const [timer, setTimer] = useState(null)
@@ -77,6 +78,7 @@ const MyPasswordInput = ({
         onBlur={handleBlur}
         placeholder={placeholder}
         onFocus={() => setIsFocused(true)}
+        disabled={disabled} //如果是第三方登入的會員就不需要編輯密碼
       />
       <div
         className={`${styles.myicon} ${errorMessage ? styles.myiconError : ''}`}

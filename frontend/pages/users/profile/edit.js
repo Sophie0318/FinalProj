@@ -94,6 +94,10 @@ export default function Edit() {
     setSelectedDistrict(auth.district || 0)
   }, [auth])
 
+  //判斷是不是使用第三方登入進來的會員
+  const isGoogleUser = Boolean(auth.google_uid)
+  console.log('isGoogleUser:', isGoogleUser)
+
   useEffect(() => {
     // Fetch city data
     const fetchCity = async () => {
@@ -415,6 +419,7 @@ export default function Edit() {
                       placeholder="請輸入新密碼"
                       errorMessage={errorMessage}
                       setErrorMessage={setErrorMessage}
+                      disabled={isGoogleUser} //如果是第三方登入的會員就不能改密碼
                     />
                   </div>
                   <div
@@ -432,6 +437,7 @@ export default function Edit() {
                       placeholder="請再次輸入新密碼"
                       errorMessage={confirmPasswordErrorMessage}
                       setErrorMessage={setConfirmPasswordErrorMessage}
+                      disabled={isGoogleUser} //如果是第三方登入的會員就不能改密碼
                     />
                   </div>
                 </div>

@@ -137,6 +137,11 @@
 .myiconError {
   color: var(--color-tomato);
 }
+/* 第三方登入的會員不用填寫密碼 */
+.disabled {
+  background-color: var(--color-gray-50);
+  cursor: not-allowed;
+}
 @media screen and (max-width: 1080px) {
   .edit_btn {
     justify-content: center;
