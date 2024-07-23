@@ -59,7 +59,7 @@ export default function Checkout3Order() {
           setOrderDetail(data.orderDetail || [])
           console.log(orderDetail[0])
         })
-      // console.log(router.query.order_id)
+      console.log(router.query.order_id)
     }
   }, [router.isReady, router.query.order_id])
 
@@ -73,6 +73,48 @@ export default function Checkout3Order() {
   }
 
   // console.log(orderDetail)
+  //處理訂單時間
+  // const formatOrderTime = (time) => {
+  //   if (!time) return '無效日期'
+  //   const date = new Date(time)
+  //   if (isNaN(date.getTime())) {
+  //     return '無效日期'
+  //   }
+  //   return date.toLocaleString('zh-TW', {
+  //     year: 'numeric',
+  //     month: '2-digit',
+  //     day: '2-digit',
+  //     hour: '2-digit',
+  //     minute: '2-digit',
+  //     second: '2-digit',
+  //   })
+  // }
+  // 處理訂單時間
+  // const formatOrderTime = (time) => {
+  //   if (!time) return '無效日期'
+  //   const date = new Date(time)
+  //   if (isNaN(date.getTime())) {
+  //     return '無效日期'
+  //   }
+  //   return date.toLocaleString('zh-TW', {
+  //     year: 'numeric',
+  //     month: '2-digit',
+  //     day: '2-digit',
+  //     hour: '2-digit',
+  //     minute: '2-digit',
+  //     second: '2-digit',
+  //這段代碼的目的是將日期和時間格式化為台灣地區的標準格式，顯示四位數字年份、兩位數字月份、兩位數字日期，以及24小時制的兩位數字小時、分鐘和秒。這樣做可以確保顯示的日期和時間符合台灣地區用戶的習慣和期望。
+  //   })
+  // }
+  //時間insert在DB的 productorders Table裡
+  // 獲取第一張圖片
+  // 確認 orderDetail 是否有數據
+  if (orderDetail.length === 0 || !orderDetail[0].Product_photo) {
+    return <div>Loading...</div>
+  }
+
+  // 獲取第一張圖片
+  const firstPhoto = orderDetail[0].Product_photo.split(',')[0].trim()
 
   return (
     <>
@@ -90,7 +132,18 @@ export default function Checkout3Order() {
           訂單編號:{orderDetail[0].orderDetail_number}
         </p>
         <p style={{ fontSize: '25px' }}>
+          下訂時間: {orderDetail[0].orderDetail_time}
+        </p>
+        <p style={{ fontSize: '25px' }}>
           訂購人:{orderDetail[0].ProductOrders_recipient_name}
+        </p>
+        <p style={{ fontSize: '25px' }}>
+          照片{' '}
+          <img
+            src={`../../product-img/${firstPhoto}`} // 確保這裡的路徑正確
+            alt="Product"
+            style={{ width: '100px', height: '100px' }} // 根據需要調整圖片大小
+          />
         </p>
         <div className={styles.place}>
           <span style={{ fontSize: '25px' }}>商品:</span>

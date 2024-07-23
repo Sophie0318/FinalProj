@@ -123,7 +123,7 @@ export default function ShoppingCart() {
                             fontSize: '20px',
                           }}
                         >
-                          價格: {v.Product_price}
+                          價格: <br /> {v.Product_price}
                         </li>
                       </ul>
 
