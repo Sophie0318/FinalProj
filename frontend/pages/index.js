@@ -40,6 +40,12 @@ export default function Home() {
   const [slideTwo, setSlideTwo] = useState('0')
   const pageWrapRef = useRef(null)
 
+  const [heroImageVisible, setHeroImageVisible] = useState(false)
+
+  // useEffect(() => {
+  //   setHeroImageVisible(true)
+  // }, [])
+
   const renderLessonCard = (lesson) => {
     return (
       <Link href={`/lessons/${lesson.lesson_id}`}>
@@ -125,6 +131,8 @@ export default function Home() {
 
     window.addEventListener('scroll', handleScroll)
 
+    setHeroImageVisible(true)
+
     return () => {
       if (pageWrapRef.current) {
         observer.unobserve(pageWrapRef.current)
@@ -154,11 +162,15 @@ export default function Home() {
                   <div className={`${styles.heroText} col-md-8 col-10`}>
                     <img
                       src="/index-img/heroBig.png"
-                      className={styles.heroImgBig}
+                      className={`${styles.heroImgBig} ${
+                        heroImageVisible ? styles['fade-in'] : ''
+                      }`}
                     />
                     <img
                       src="/index-img/heroMid.png"
-                      className={styles.heroImgMid}
+                      className={`${styles.heroImgMid} ${
+                        heroImageVisible ? styles['fade-in'] : ''
+                      }`}
                     />
                   </div>
                   <div
