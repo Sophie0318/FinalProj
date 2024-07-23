@@ -5,6 +5,7 @@ import BranchCard from '@/components/users/branchCard'
 import styles from '@/styles/user-profile.module.css'
 import { useAuth } from '../../../context/auth-context'
 import { useRouter } from 'next/router'
+import { Link } from 'react-ionicons'
 
 export default function Profile() {
   const { auth } = useAuth()
@@ -42,18 +43,17 @@ export default function Profile() {
               .map((v, i) => {
                 return <ReserveCard key={i} />
               })}
-
             <div className={styles.more}>
-              <a href="#">
+              <a href="../users/bookings">
                 <p className={styles.p_font}>點我看更多</p>
               </a>
             </div>
           </div>
           <div className={styles.card_2}>
-            <BranchCard branch="myLessons" />
-            <BranchCard branch="myOrders" />
-            <BranchCard branch="myReserves" />
-            <BranchCard branch="myFavs" />
+            <BranchCard branch="myLessons" hrefURL="/users/lessons_orders" />
+            <BranchCard branch="myOrders" hrefURL="/users/orders" />
+            <BranchCard branch="myReserves" hrefURL="/users/bookings" />
+            <BranchCard branch="myFavs" hrefURL="/users/favorites" />
           </div>
         </div>
       </LayoutUser>
