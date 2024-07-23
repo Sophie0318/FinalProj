@@ -57,7 +57,7 @@ export default function Success() {
 
   return (
     <div>
-      <Layout3>
+      <Layout3 title="課程付款成功" pageName="lessons">
         <div className={styles.modalOverlay}>
           <div className={styles.modal}>
             <div className={styles.success}>付款成功！</div>
