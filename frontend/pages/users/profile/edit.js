@@ -7,7 +7,7 @@ import UserModal from '../../../components/users/UserModal'
 import UserConfirm from '@/components/users/userConfirm'
 import MyPasswordInput from '@/components/users/MyPasswordInput'
 import { z } from 'zod'
-import MyTextInput from '@/components/users/MyNameInput'
+import MyTextInput from '@/components/users/MyTextInput'
 
 export default function Edit() {
   const router = useRouter()
