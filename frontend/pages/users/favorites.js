@@ -153,7 +153,6 @@ export default function Favorites() {
 
           {activeTab === 'coaches' && (
             <div className={styles.fav_search}>
-              <h5>收藏的教練</h5>
               {coachFavorites.map((coach) => (
                 <div className="resultGrid" key={coach.coach_id}>
                   <Link href={`/coaches/${coach.coach_id}`}>
@@ -173,7 +172,6 @@ export default function Favorites() {
 
           {activeTab === 'lessons' && (
             <div className={styles.fav_search}>
-              <h5>收藏的課程</h5>
               {lessonFavorites.map((lesson) => (
                 <div className="resultGrid" key={lesson.lesson_id}>
                   <Link href={`/lessons/${lesson.lesson_id}`}>
