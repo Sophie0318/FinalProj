@@ -12,6 +12,7 @@ const MyEmailInput = ({
   setShowSuccessIcon,
   checkEmailExists,
   onEmailCheck, //這是一個傳送給其他元件是否需要送出檢查email是否已存在的屬性
+  checkEmailIsValid, //這是一個傳送給其他元件是否要送出email是否符合格式的屬性
 }) => {
   const [timer, setTimer] = useState(null)
   const [isFocused, setIsFocused] = useState(false)
@@ -33,12 +34,18 @@ const MyEmailInput = ({
           if (!result.success) {
             setErrorMessage(result.error.errors[0].message)
             console.log('email格式錯誤:', result.error.errors[0].message)
+            if (checkEmailIsValid) {
+              checkEmailIsValid(false)
+            } //通知父組件email格式錯誤
             if (onEmailCheck) {
-              onEmailCheck(false) // 不傳給註冊表單
-            }
+              onEmailCheck(false)
+            } // 不傳給註冊表單
           } else {
             setErrorMessage('')
-
+            // 通知父組件email格式正確
+            if (checkEmailIsValid) {
+              checkEmailIsValid(true)
+            }
             if (checkEmailExists) {
               // 發送請求檢查 email 是否已存在
               const res = await fetch(
@@ -57,6 +64,9 @@ const MyEmailInput = ({
               if (data.exists) {
                 setErrorMessage('資料錯誤，無法使用此電子郵件')
                 console.log('此信箱已存在於資料庫之中')
+                if (checkEmailIsValid) {
+                  checkEmailIsValid(false)
+                } //通知父組件email格式錯誤
                 if (onEmailCheck) {
                   onEmailCheck(true) // 傳給註冊表單
                 }

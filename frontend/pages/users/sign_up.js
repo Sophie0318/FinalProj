@@ -24,6 +24,7 @@ export default function SignUp() {
   const [userMessage, setUserMessage] = useState('')
 
   const [isEmailExists, setIsEmailExists] = useState(false)
+  const [isEmailValid, setIsEmailValid] = useState(false)
   const [isNameValid, setIsNameValid] = useState(false)
 
   const handleSubmit = async (e) => {
@@ -80,21 +81,29 @@ export default function SignUp() {
 
   const handleNextStep = (e) => {
     e.preventDefault()
-    if (step === 1 && !email) {
-      setAlertMessage('資料錯誤')
-      setUserMessage('請輸入電子信箱')
-      setIsModalOpen(true)
-      console.log('email未填')
+    if (step === 1) {
+      if (!email) {
+        setAlertMessage('資料錯誤')
+        setUserMessage('請輸入電子信箱')
+        setIsModalOpen(true)
+      } else if (!isEmailValid) {
+        setAlertMessage('資料錯誤')
+        setUserMessage('請檢查電子信箱格式')
+        setIsModalOpen(true)
+      } else if (isEmailExists) {
+        setAlertMessage('資料錯誤')
+        setUserMessage('請檢查電子信箱')
+        setIsModalOpen(true)
+        console.log('信箱已存在')
+      } else {
+        setCurrentStep(currentStep + 1)
+        setStep(step + 1)
+      }
     } else if (step === 2 && !name) {
       setAlertMessage('資料錯誤')
       setUserMessage('請輸入名字')
       setIsModalOpen(true)
       console.log('姓名未填')
-    } else if (step === 1 && isEmailExists) {
-      setAlertMessage('資料錯誤')
-      setUserMessage('請檢查電子信箱')
-      setIsModalOpen(true)
-      console.log('信箱已存在')
     } else {
       setCurrentStep(currentStep + 1)
       setStep(step + 1)
@@ -125,6 +134,7 @@ export default function SignUp() {
             setEmail={setEmail}
             checkEmailExists={true}
             onEmailCheck={handleEmailCheck}
+            setIsEmailValid={setIsEmailValid}
           />
         )}
         {step === 2 && (
