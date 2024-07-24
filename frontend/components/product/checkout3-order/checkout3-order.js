@@ -72,49 +72,15 @@ export default function Checkout3Order() {
     return total
   }
 
-  // console.log(orderDetail)
-  //處理訂單時間
-  // const formatOrderTime = (time) => {
-  //   if (!time) return '無效日期'
-  //   const date = new Date(time)
-  //   if (isNaN(date.getTime())) {
-  //     return '無效日期'
-  //   }
-  //   return date.toLocaleString('zh-TW', {
-  //     year: 'numeric',
-  //     month: '2-digit',
-  //     day: '2-digit',
-  //     hour: '2-digit',
-  //     minute: '2-digit',
-  //     second: '2-digit',
-  //   })
-  // }
-  // 處理訂單時間
-  // const formatOrderTime = (time) => {
-  //   if (!time) return '無效日期'
-  //   const date = new Date(time)
-  //   if (isNaN(date.getTime())) {
-  //     return '無效日期'
-  //   }
-  //   return date.toLocaleString('zh-TW', {
-  //     year: 'numeric',
-  //     month: '2-digit',
-  //     day: '2-digit',
-  //     hour: '2-digit',
-  //     minute: '2-digit',
-  //     second: '2-digit',
-  //這段代碼的目的是將日期和時間格式化為台灣地區的標準格式，顯示四位數字年份、兩位數字月份、兩位數字日期，以及24小時制的兩位數字小時、分鐘和秒。這樣做可以確保顯示的日期和時間符合台灣地區用戶的習慣和期望。
-  //   })
-  // }
   //時間insert在DB的 productorders Table裡
   // 獲取第一張圖片
   // 確認 orderDetail 是否有數據
-  if (orderDetail.length === 0 || !orderDetail[0].Product_photo) {
-    return <div>Loading...</div>
-  }
+  // if (orderDetail.length === 0 || !orderDetail[0].Product_photo) {
+  //   return <div>Loading...</div>
+  // }
 
   // 獲取第一張圖片
-  const firstPhoto = orderDetail[0].Product_photo.split(',')[0].trim()
+  // const firstPhoto = orderDetail[0].Product_photo.split(',')[0].trim()
 
   return (
     <>
@@ -123,31 +89,37 @@ export default function Checkout3Order() {
           style={{
             marginTop: '20px',
             color: '#1A394A',
-            fontSize: '30px',
+            fontSize: '25px',
+            // display: 'flex',
+            // justifyContent: 'center',
           }}
         >
           訂單明細
         </p>
-        <p style={{ fontSize: '25px' }}>
+        <div
+          className="d-flex"
+          style={{ display: 'flex', justifyContent: 'space-between' }}
+        >
+          <p style={{ fontSize: '20px' }}>
+            訂購人:{orderDetail[0].ProductOrders_recipient_name}
+          </p>
+          <p style={{ fontSize: '20px' }}>
+            下訂日期: {orderDetail[0].orderDetail_time}
+          </p>
+        </div>
+        <p
+          style={{
+            fontSize: '20px',
+            borderTop: '1px solid #1A394A',
+            borderBottom: '1px solid #1A394A',
+          }}
+        >
           訂單編號:{orderDetail[0].orderDetail_number}
         </p>
-        <p style={{ fontSize: '25px' }}>
-          下訂時間: {orderDetail[0].orderDetail_time}
-        </p>
-        <p style={{ fontSize: '25px' }}>
-          訂購人:{orderDetail[0].ProductOrders_recipient_name}
-        </p>
-        <p style={{ fontSize: '25px' }}>
-          照片{' '}
-          <img
-            src={`../../product-img/${firstPhoto}`} // 確保這裡的路徑正確
-            alt="Product"
-            style={{ width: '100px', height: '100px' }} // 根據需要調整圖片大小
-          />
-        </p>
-        <div className={styles.place}>
+        {/* ------------------------------------- */}
+        {/* <div className={styles.place}>
           <span style={{ fontSize: '25px' }}>商品:</span>
-          <span style={{ fontSize: '25px' }}>單個價錢:</span>
+          <span style={{ fontSize: '25px' }}>價錢:</span>
         </div>
         {orderDetail.map((v, i) => (
           <div key={i} className={styles.place}>
@@ -156,7 +128,37 @@ export default function Checkout3Order() {
             </span>
             <span>{v.OrdersDetail_unit_price_at_time}</span>
           </div>
-        ))}
+        ))} */}
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">商品</th>
+              <th scope="col">價格</th>
+            </tr>
+          </thead>
+          <tbody>
+            {orderDetail.map((v, i) => (
+              <tr key={i}>
+                <th scope="row">{i + 1}</th>
+                <td>
+                  {v.Product_name} x {v.OrdersDetail_product_quantity}
+                </td>
+                <td>{v.OrdersDetail_unit_price_at_time}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        {/* ------------------------------- */}
+
+        {/* <p style={{ fontSize: '25px' }}>
+          照片{' '}
+          <img
+            src={`../../product-img/${firstPhoto}`} // 確保這裡的路徑正確
+            alt="Product"
+            style={{ width: '100px', height: '100px' }} // 根據需要調整圖片大小
+          />
+        </p> */}
         <div className={styles.subtotal}>
           <span style={{ fontSize: '25px' }}>總數量:</span>
           <span style={{ fontSize: '25px' }}>{calcTotalQty()}</span>
