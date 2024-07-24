@@ -394,15 +394,20 @@ p,
 // DatePicker 覆蓋樣式
 .react-datepicker-wrapper {
   margin: auto;
+  width: 100%;
 }
 
 .react-datepicker__input-container input {
   height: 40px;
-  border: 2px solid var(--color-midnight-green);
-  border-radius: 50px;
   width: 100%;
-  padding-left: 9px;
-  padding-right: 80px;
-  margin-top: 24px;
+  max-width: 460px;
+
+  // max-width: 480px;
+  // min-width: 380px;
+  border: 2px solid var(--dark-gray, #464441);
+  border-radius: 50px;
+  padding: 0 20px;
+  // margin-top: 24px;
   background-color: var(--color-old-lace);
+  align-items: center;
 }

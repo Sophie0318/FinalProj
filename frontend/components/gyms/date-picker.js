@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, forwardRef } from 'react'
 import DatePicker from 'react-datepicker'
 import styles from './date-picker.module.css'
 import 'react-datepicker/dist/react-datepicker.css'
@@ -16,25 +16,39 @@ export default function GymDatePicker({
     return currentDate.getTime() < selectedDate.getTime()
   }
   const maxDate = addMonths(initializeDate(), 2) //2個月後的日期可以選擇
-
+  // const ExampleCustomInput = forwardRef(
+  //   ({ value, onClick, className }, ref) => (
+  //     <button className={styles.customInput} onClick={onClick} ref={ref}>
+  //       {value ? value : '請選擇預約時間'}
+  //     </button>
+  //   )
+  // )
   return (
-    <DatePicker
-      selected={startDate}
-      onChange={(date) => {
-        setStartDate(date)
-        handleDateChange(date)
-      }}
-      filterTime={filterPassedTime}
-      showTimeSelect
-      timeFormat="HH:mm"
-      timeIntervals={60}
-      timeCaption="time"
-      maxDate={maxDate}
-      minDate={initializeDate()}
-      minTime={setHours(setMinutes(new Date(), 0), 9)}
-      maxTime={setHours(setMinutes(new Date(), 0), 20)}
-      dateFormat="yyyy-MM-dd HH:mm"
-      className={styles.customDatePicker}
-    />
+    <div
+      className={styles.container}
+      style={{ margin: '21px 240px 110px 240px', width: '100%' }}
+    >
+      <p className={styles.label}>預約時間</p>
+      <DatePicker
+        selected={startDate}
+        onChange={(date) => {
+          setStartDate(date)
+          handleDateChange(date)
+        }}
+        filterTime={filterPassedTime}
+        showTimeSelect
+        timeFormat="HH:mm"
+        timeIntervals={60}
+        timeCaption="time"
+        maxDate={maxDate}
+        minDate={initializeDate()}
+        minTime={setHours(setMinutes(new Date(), 0), 9)}
+        maxTime={setHours(setMinutes(new Date(), 0), 20)}
+        dateFormat="yyyy-MM-dd HH:mm"
+        className={styles.customDatePicker}
+        placeholderText="請選擇預約時間"
+        // customInput={<ExampleCustomInput className="custom-input" />}
+      />
+    </div>
   )
 }

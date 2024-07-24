@@ -61,7 +61,7 @@ export default function GymReservation({}) {
     return date
   }
 
-  const [startDate, setStartDate] = useState(initializeDate)
+  const [startDate, setStartDate] = useState(null)
 
   const router = useRouter()
   const { auth } = useAuth()
