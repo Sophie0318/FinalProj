@@ -8,14 +8,16 @@ export default function FormField({
   id = '',
   options = [],
   placeholder = '',
-  value = {},
-  onChange = {},
+  value = '',
+  onChange = () => {},
+  error = '',
+  ref = () => {},
 }) {
   const renderInput = () => {
     switch (type) {
       case 'select':
         return (
-          <select name={name} id={id} className={styles.input}      >
+          <select name={name} id={id} className={styles.input}>
             {options.map((option, index) => (
               <option
                 key={index}
@@ -36,7 +38,21 @@ export default function FormField({
       case 'number':
       default:
         return (
-          <input type={type} name={name} id={id} className={styles.input} placeholder={placeholder} onChange = {onChange} value={value}/>
+          <div>
+            <input
+              type={type}
+              name={name}
+              id={id}
+              className={styles.input}
+              placeholder={placeholder}
+              onChange={onChange}
+              value={value}
+              ref={ref}
+            />
+            <div className={styles.errorContainer}>
+              {error && <p className={styles.errorMessage}>{error}</p>}
+            </div>
+          </div>
         )
     }
   }

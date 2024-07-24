@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import Layout3 from '@/components/layout/layout3'
 import styles from './gym-reservation.module.css'
 import AutofillCheckbox from '@/components/gyms/auto-fill-checkbox'
@@ -8,6 +8,10 @@ import GymReservationModal from '@/components/gyms/gym-reservation-modal'
 import { useRouter } from 'next/router'
 import { useAuth } from '@/context/auth-context'
 import GymDatePicker from '@/components/gyms/date-picker'
+import 'react-datepicker/dist/react-datepicker.css'
+import { setHours, setMinutes } from 'date-fns'
+import DatePicker from 'react-datepicker'
+import axios from 'axios'
 // 假資料
 // const gymData = {
 //   id: 1,
@@ -41,17 +45,29 @@ import GymDatePicker from '@/components/gyms/date-picker'
 //     '更衣室和淋浴設施：提供舒適的更衣和盥洗空間',
 //   ],
 // }
-const memberData = {
-  name: '張三',
-  email: 'zhangsan@example.com',
-  phone: '0912345678',
-  // ... 其他會員資料
-}
+// const memberData = {
+//   name: '張三',
+//   email: 'zhangsan@example.com',
+//   phone: '0912345678',
+//   // ... 其他會員資料
+// }
 
 export default function GymReservation({}) {
+  const formRef = useRef(null)
+  const initializeDate = () => {
+    const date = new Date() // 當前時間
+    date.setDate(date.getDate() + 1) // +1 天
+    date.setHours(9, 0, 0, 0) // 設定為早上 9:00
+    return date
+  }
+
+  const [startDate, setStartDate] = useState(initializeDate)
+
   const router = useRouter()
   const { auth } = useAuth()
+  const isLoggedIn = !auth.id ? false : true
   const [gymData, setGymData] = useState({
+    id: 0,
     name: '',
     images: [],
     address: '',
@@ -63,43 +79,36 @@ export default function GymReservation({}) {
     name: '',
     phone: '',
     email: '',
-    timeSlot: '',
+    reservationTime: null,
+    gym_id: gymData.id,
+    memberId: '',
+
     // ... 其他欄位
   })
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target
+  const [errors, setErrors] = useState({
+    name: '',
+    phone: '',
+    email: '',
+    reservationTime: '',
+    gymId: gymData.id,
+    memberId: auth.memberId,
+    memberId: auth.memberId,
+  })
+
+  // const isFormValid = () => {
+  //   return Object.values(errors).every((error) => error === '')
+  // }
+
+  const handleDateChange = (date) => {
+    setStartDate(date)
     setFormData((prevData) => ({
       ...prevData,
-      [name]: value,
+      reservationTime: date,
+
+      // reservationTime: '111',
     }))
-    // 當用戶輸入時，清除該欄位的錯誤
-    // setErrors((prevErrors) => ({
-    //   ...prevErrors,
-    //   [name]: '',
-    // }))
   }
-
-  // 表單驗證
-  const validateForm = () => {
-    // 創建newErrors來儲存錯誤訊息
-    const newErrors = {}
-    // 去除首尾空格後檢查是否為空
-    if (!formData.name.trim()) newErrors.name = '請填寫姓名'
-    if (!formData.phone.trim()) newErrors.phone = '請填寫電話'
-    if (!formData.email.trim()) newErrors.email = '請填寫信箱'
-    // 檢查是否有選擇時段
-    if (!formData.timeSlot) newErrors.timeSlot = '請選擇時段'
-    // 重新設定錯誤訊息
-    setErrors(newErrors)
-    return Object.keys(newErrors).length === 0
-  }
-
-  // const gymsDatatoGeoJson = (gymData) => {
-  //   if (!Array.isArray(gymData)) {
-  //     console.error('Invalid gymsData Structure .應該要是 Array', gymData)
-  //     return null
-  //   }
 
   // fetch 資料函式
   const fetchGymData = async (gymId) => {
@@ -109,10 +118,11 @@ export default function GymReservation({}) {
     try {
       const response = await fetch(url)
       const data = await response.json()
-      console.log('gymId', gymId)
+      // console.log('gymId', gymId)
       if (data && data.processedRow && data.processedRow.length > 0) {
-        console.log(data.processedRow[0])
+        // console.log(data.processedRow[0])
         setGymData({
+          id: data.processedRow[0].gym_id,
           name: data.processedRow[0].gym_name,
           images: data.processedRow[0].images,
           address: data.processedRow[0].gym_address,
@@ -121,12 +131,12 @@ export default function GymReservation({}) {
         })
       } else {
         console.error('API request was not successful:', data)
-        setError('無法獲取健身房數據')
+        setErrors('無法獲取健身房數據')
         return null
       }
     } catch (error) {
       console.error('Error fetching gym data:', error)
-      setError('載入數據時發生錯誤')
+      setErrors('載入數據時發生錯誤')
       return null
     }
   }
@@ -138,6 +148,7 @@ export default function GymReservation({}) {
       } else {
         setFormData((pervData) => ({
           ...pervData,
+          memberId: auth.id,
           name: auth.name || '',
           phone: auth.mobile || '', // 使用 mobile 或 phone，取決於您在後端返回的字段名
           email: auth.email || '',
@@ -154,21 +165,91 @@ export default function GymReservation({}) {
   }
 
   const [showModal, setShowModal] = useState(false)
+  const validateField = (name, value) => {
+    let error = ''
+    switch (name) {
+      case 'name':
+        if (!value.trim()) error = '請填寫聯絡人姓名'
+        break
+      case 'phone':
+        if (!value.trim()) error = '請填寫聯絡電話'
+        else if (!/^\d{10}$/.test(value)) error = '請輸入有效的10位電話號碼'
+        break
+      case 'email':
+        if (!value.trim()) error = '請填寫電子郵件'
+        else if (!/\S+@\S+\.\S+/.test(value)) error = '請輸入有效的電子郵件地址'
+        break
+      case 'reservationTime':
+        if (!value) error = '請選擇預約時間'
+        break
+      default:
+        break
+    }
+    return error
+  }
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target
+    console.log(gymData.id)
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+      gym_id: gymData.id,
+    }))
+
+    // 即時驗證
+
+    const error = validateField(name, value)
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      [name]: error,
+    }))
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    if (!validateForm()) return
-    try {
-      //處理預約的時間選項
+    //全面驗證
+    const newErrors = {}
+    let isValid = true
 
-      console.log(formData, 'Sending Data')
+    Object.keys(formData).forEach((key) => {
+      const error = validateField(key, formData[key])
+      console.log('key', key, 'error', error)
+      if (error) {
+        newErrors[key] = error
+        isValid = false
+      }
+    })
+
+    setErrors(newErrors)
+
+    if (!isValid) {
+      if (formRef.current) {
+        formRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      }
+      return
+    }
+
+    try {
+      // console.log(isValid)
+
+      //表單提交邏輯
+      console.log(gymData)
+      console.log('表單提交', formData)
 
       const response = await axios.post(
-        'http://localhost:3001/users/add/reservations/api',
+        'http://localhost:3001/gyms/add/reservation',
         formData
       )
-    } catch (error) {}
-    setShowModal(true)
+      setShowModal(true)
+      if (response.success) {
+        console.log(response.success)
+      } else {
+        // 預約沒有成功，show再試一次的modal => setOtherModal(true)
+      }
+    } catch (error) {
+      console.log('error', error)
+    }
   }
 
   const handleCloseModal = () => {
@@ -181,7 +262,7 @@ export default function GymReservation({}) {
       // console.log(Id)
 
       fetchGymData(Id)
-      console.log(gymData)
+      // console.log(gymData)
     }
   }, [router.isReady])
   return (
@@ -189,13 +270,10 @@ export default function GymReservation({}) {
       <Layout3 title="預約場館" pageName="gyms2">
         <div className={styles.container}>
           <div>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} ref={formRef}>
               <div className={styles.formTitle}>
                 <h4 className="">預約人資訊｜</h4>
-                <AutofillCheckbox
-                  // memberData={memberData}
-                  onAutofill={handleAutofill}
-                />
+                <AutofillCheckbox onAutofill={handleAutofill} />
               </div>
               <div className={styles.inputsContainer}>
                 <FormField
@@ -205,7 +283,9 @@ export default function GymReservation({}) {
                   placeholder="請輸入您的姓名"
                   value={formData.name}
                   onChange={handleInputChange}
+                  error={errors.name}
                 />
+
                 <FormField
                   label="手機"
                   type="tel"
@@ -214,7 +294,9 @@ export default function GymReservation({}) {
                   placeholder="請輸入您的手機號碼"
                   value={formData.phone}
                   onChange={handleInputChange}
+                  error={errors.phone}
                 />
+
                 <FormField
                   label="聯絡信箱"
                   type="email"
@@ -223,6 +305,7 @@ export default function GymReservation({}) {
                   placeholder="請輸入您的聯絡信箱"
                   value={formData.email}
                   onChange={handleInputChange}
+                  error={errors.email}
                 />
               </div>
               <h4 className="">預約場館｜</h4>
@@ -234,18 +317,12 @@ export default function GymReservation({}) {
                 )}
               </div>
               <div className={styles.inputsContainerGap0}>
-                {/* <FormField
-                  label="選擇時段"
-                  type="select"
-                  name="time"
-                  id="time"
-                  options={[
-                    { value: '1', label: '上午' },
-                    { value: '2', label: '下午' },
-                    { value: '3', label: '晚上' },
-                  ]}
-                /> */}
-                <GymDatePicker />
+                <GymDatePicker
+                  setStartDate={setStartDate}
+                  startDate={startDate}
+                  initializeDate={initializeDate}
+                  handleDateChange={handleDateChange}
+                />
                 <button type="submit" className={styles.button}>
                   預約
                 </button>
@@ -254,7 +331,14 @@ export default function GymReservation({}) {
           </div>
         </div>
       </Layout3>
-      {showModal && <GymReservationModal onClose={handleCloseModal} />}
+      {showModal && (
+        <GymReservationModal
+          onClose={handleCloseModal}
+          formData={formData}
+          gymData={gymData}
+          isLoggedIn={isLoggedIn}
+        />
+      )}
     </div>
   )
 }

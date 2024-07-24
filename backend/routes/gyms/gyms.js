@@ -1,5 +1,6 @@
 import express from "express";
 import db from "../../utils/connect-mysql.js";
+import moment from "moment-timezone";
 
 const router = express.Router();
 
@@ -176,4 +177,35 @@ router.get("/api/:gym_id", async (req, res) => {
   res.json(data);
 });
 
+router.post("/add/reservation", async (req, res) => {
+  try {
+    const sql =
+      "INSERT INTO GymReservations (reserve_name, reserve_phone, reserve_email, reserve_time, gym_id, member_id,is_member)VALUES (?, ?, ?, ?, ?, ?,CASE WHEN ? IS NOT NULL THEN 1 ELSE 0 END);";
+
+    const { name, phone, email, reservationTime, gym_id, memberId } = req.body;
+
+    if(!name || !phone || !email || !reservationTime || !gym_id ) {
+      return res.status(400).json({ success: false, message: "Missing required fields" });
+    }
+
+    const timeStamp = moment(reservationTime).format("YYYY-MM-DD HH:mm:ss");
+
+    const [result] = await db.query(sql, [
+      name,
+      phone,
+      email,
+      timeStamp,
+      gym_id,
+      memberId || null,
+      memberId, // 使用 member_id 來決定 is_member
+    ]);
+
+    res.json({ success: true, result });
+  } catch (error) {
+    console.error("Error adding reservation:", error);
+    res
+      .status(500)
+      .json({ success: false, message: "Error adding reservation" });
+  }
+});
 export default router;

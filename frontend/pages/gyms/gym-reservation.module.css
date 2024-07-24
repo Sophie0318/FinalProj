@@ -70,7 +70,9 @@
   letter-spacing: 5px;
 }
 
-
+.buttonDisabled {
+  background-color: var(--color-gray-25);
+}
 
 .timeSelect {
   height: 60px;
