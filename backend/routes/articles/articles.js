@@ -200,11 +200,11 @@ const getComment = async (req) => {
   if (main === 0 && sub === 0) {
     // get all main comment under an article
     t_sql = `SELECT COUNT(main) AS totalRows FROM Comments WHERE article_id_fk = ${article_id} AND sub = 0 GROUP BY article_id_fk;`;
-    sql = `SELECT c.article_id_fk, c.member_id_fk, member_name, c.create_at, c.update_at, c.comment_content, c.main, (SELECT COUNT(*) FROM Comments sub WHERE sub.article_id_fk = c.article_id_fk AND sub.main = c.main AND sub.sub != 0) AS sub_count FROM Comments C LEFT JOIN Members ON member_id_fk = member_id WHERE c.article_id_fk = ${article_id} AND c.sub = 0 GROUP BY c.article_id_fk, c.member_id_fk, member_name, c.create_at, c.update_at, c.comment_content, c.main ORDER BY main LIMIT ${perGroup * (group - 1)},${perGroup};`;
+    sql = `SELECT c.article_id_fk, c.member_id_fk, nick_name, avatar, c.comment_id, c.create_at, c.update_at, c.comment_content, c.main, (SELECT COUNT(*) FROM Comments sub WHERE sub.article_id_fk = c.article_id_fk AND sub.main = c.main AND sub.sub != 0) AS sub_count FROM Comments C LEFT JOIN Members ON member_id_fk = member_id WHERE c.article_id_fk = ${article_id} AND c.sub = 0 GROUP BY c.article_id_fk, c.member_id_fk, c.comment_id, nick_name, avatar, c.create_at, c.update_at, c.comment_content, c.main ORDER BY c.update_at DESC LIMIT ${perGroup * (group - 1)},${perGroup};`;
   } else if (sub < 0) {
     // get all sub reply under a main comment
     t_sql = `SELECT COUNT(CASE WHEN sub != 0 THEN 1 END) AS totalRows FROM Comments WHERE article_id_fk = ${article_id} AND main = ${main} GROUP BY article_id_fk;`;
-    sql = `SELECT c.article_id_fk, c.member_id_fk, member_name, c.create_at, c.update_at, c.comment_content, c.main, c.sub FROM Comments C LEFT JOIN Members ON member_id_fk = member_id WHERE c.article_id_fk = ${article_id} AND c.main = ${main} LIMIT ${1 + perGroup * (group - 1)},${perGroup};`;
+    sql = `SELECT c.article_id_fk, c.member_id_fk, nick_name, avatar, c.create_at, c.update_at, c.comment_content, c.main, c.sub FROM Comments C LEFT JOIN Members ON member_id_fk = member_id WHERE c.article_id_fk = ${article_id} AND c.main = ${main} ORDER BY c.update_at DESC LIMIT ${1 + perGroup * (group - 1)},${perGroup};`;
   } else if (main > 0 && sub === 0) {
     // get specific sub comment under specific main comment
     if (sub > 0) {
@@ -266,7 +266,7 @@ const getComment = async (req) => {
       }
     }
   } catch (error) {
-    message = `backend error: ${error}`
+    message = `getComment error: ${error}`
   }
 
   return { success, data, totalGroup, perGroup, totalRows, message };
@@ -474,6 +474,7 @@ router.delete('/api/removefavarticle', async (req, res) => {
 router.get('/api/comment', async (req, res) => {
   const output = { success: false }
   const { article_id, main, sub, group } = req.query
+
   if (isNaN(article_id) || article_id <= 0) {
     output.error = 'invalid article_id'
     return res.status(400).json(output)
@@ -518,6 +519,11 @@ router.post('/api/comment', async(req,res)=>{
     return res.status(400).json(output);
   }
 
+  if (!req.my_jwt) {
+    output.error = 'must login to leave comment'
+    return res.status(400).json(output)
+  }
+
   try {
     const [result] = await db.query(sql, [comment_content, article_id, member_id, main, sub])
     output.result = result
@@ -550,6 +556,11 @@ router.put('/api/comment/:comment_id', async (req, res) => {
   if (!comment_content || comment_content.trim() === '') {
     output.error = 'must provide comment content';
     return res.status(400).json(output);
+  }
+
+  if (!req.my_jwt) {
+    output.error = 'must login to update comment'
+    return res.status(400).json(output)
   }
 
   const sql = `UPDATE Comments SET comment_content = ?, update_at = NOW()
