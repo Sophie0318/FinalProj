@@ -4,7 +4,7 @@ import Btn from '../buttons_test'
 import LoginAlert from '@/hooks/login-alert/login-alert'
 import styles from './comment-input.module.css'
 
-export default function CommentInput() {
+export default function CommentInput({ showInput = true }) {
   const router = useRouter()
   const loginalert = LoginAlert('要登入才能留言喔~')
   const handleClick = () => {
@@ -16,21 +16,23 @@ export default function CommentInput() {
   }
   return (
     <>
-      <div className={styles.userComment}>
-        <textarea placeholder="輸入文字來留下你的看法..."></textarea>
-      </div>
-      <div className={styles.userCommentBtn}>
-        <div className={styles.wordCount}>剩餘字數(50/50)</div>
-        <div className={styles.submitBtn}>
-          <Btn
-            size="sm"
-            bgColor="midnightgreen"
-            maxWidth="94px"
-            width="100%"
-            onClick={handleClick}
-          >
-            送出
-          </Btn>
+      <div style={{ display: `${showInput ? 'block' : 'none'}` }}>
+        <div className={styles.userComment}>
+          <textarea placeholder="輸入文字來留下你的看法..."></textarea>
+        </div>
+        <div className={styles.userCommentBtn}>
+          <div className={styles.wordCount}>剩餘字數(50/50)</div>
+          <div className={styles.submitBtn}>
+            <Btn
+              size="sm"
+              bgColor="midnightgreen"
+              maxWidth="94px"
+              width="100%"
+              onClick={handleClick}
+            >
+              送出
+            </Btn>
+          </div>
         </div>
       </div>
     </>
