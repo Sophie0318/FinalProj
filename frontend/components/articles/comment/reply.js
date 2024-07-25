@@ -5,13 +5,10 @@ import CommentStrip from './comment-strip'
 import CommentInput from './comment-input'
 import styles from './reply.module.css'
 
-// TODO: delete seemingly unused state: hiddensub
 export default function Reply({ main = 1, article_id = 0, show }) {
   const { getSub } = useGetComment()
   const [info, setInfo] = useState({ success: false, totalGroup: 1 })
   const [sub, setSub] = useState([])
-  const [visibleSub, setVisibleSub] = useState([])
-  const [hiddenSub, sethiddenSub] = useState(0)
   const [group, setGroup] = useState(1)
   const [remain, setRemain] = useState(0)
 
@@ -19,10 +16,7 @@ export default function Reply({ main = 1, article_id = 0, show }) {
     const nextGroup = group + 1
     setGroup(nextGroup)
     getSub(article_id, nextGroup, main, remain).then((res) => {
-      const nextHiddenSub = hiddenSub - res.info.perGroup
       setSub([...sub, ...res.data])
-      sethiddenSub(nextHiddenSub)
-      setVisibleSub([...visibleSub, ...res.data])
       setInfo(res.info)
       setRemain(res.nextRemain)
     })
@@ -31,9 +25,8 @@ export default function Reply({ main = 1, article_id = 0, show }) {
   const toggleReplyArea = useToggleDisplay(
     group,
     setGroup,
-    visibleSub,
-    setVisibleSub,
-    remain,
+    sub,
+    setSub,
     setRemain,
     info.totalGroup,
     info.totalRows,
@@ -42,17 +35,11 @@ export default function Reply({ main = 1, article_id = 0, show }) {
   )
 
   useEffect(() => {
-    // sethiddenSub(subCount)
     if (show[main] && show[main] === 'reply') {
       getSub(article_id, group, main).then((res) => {
-        const nextHiddenSub = hiddenSub - res.info.perGroup
-        // const nextGroup = group + 1
         setSub(res.data)
-        sethiddenSub(nextHiddenSub)
-        setVisibleSub(res.data)
         setInfo(res.info)
         setRemain(res.nextRemain)
-        // setGroup(nextGroup)
       })
     }
   }, [show])
@@ -62,7 +49,7 @@ export default function Reply({ main = 1, article_id = 0, show }) {
       <>
         <div className={styles.replyComment} id={`reply${main}`}>
           <div className={styles.replyCommentArea}>
-            {visibleSub.map((v, i) => {
+            {sub.map((v, i) => {
               return (
                 <div key={i} className={styles.replyCommentBox}>
                   <CommentStrip data={v} reply={true} />

@@ -13,7 +13,6 @@ import {
 import { PiMapPinFill, PiLightbulbFilamentFill } from 'react-icons/pi'
 import { FaArrowRight, FaPersonRunning } from 'react-icons/fa6'
 import styles from './layout.module.css'
-import { IoAddSharp, IoRemove, IoCloseSharp } from 'react-icons/io5'
 import { useRouter } from 'next/router'
 import { useCallback } from 'react'
 import { useAuth } from '../../context/auth-context'

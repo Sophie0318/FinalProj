@@ -25,12 +25,9 @@ export default function Home() {
   const [articleData, setArticleData] = useState([])
   const [hotLesson, setHotLesson] = useState([])
   const [hotCoach, setHotCoach] = useState([])
-  const [favoriteCoach, setFavoriteCoach] = useState([])
   const { auth } = useAuth()
   const router = useRouter()
   const renderArticleCard = useRenderCards('articles')
-  // const renderCoachCard = useRenderCards('coaches')
-  // const renderLessonCard = useRenderCards('lessons')
   const [hasScrolled, setHasScrolled] = useState(false)
   const [hideHero, setHideHero] = useState(false)
   const [slideOne, setSlideOne] = useState('0')
@@ -372,7 +369,7 @@ export default function Home() {
             <section className={styles.popular}>
               <IndexCarousel
                 title="熱門文章"
-                data={ArticleData}
+                data={articleData}
                 renderItem={renderArticleCard}
                 cardMaxWidth="350px"
               />

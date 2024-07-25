@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-import { useRouter } from 'next/router'
 import { API_SERVER } from '@/configs/api-path'
 import { IoChatbubble } from 'react-icons/io5'
 import { IoEllipsisHorizontal } from 'react-icons/io5'

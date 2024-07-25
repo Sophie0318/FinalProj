@@ -1,10 +1,8 @@
-import React from 'react'
 import axios from 'axios'
 import { ArticlesComment } from '@/configs/articles'
 
 export default function useGetComment() {
   const calcRemain = (totalRows, group, perGroup, remain = undefined) => {
-    // third solution
     if (!remain || remain >= perGroup) {
       // if remain not given(1st time), or remain a lot(when toggle)
       const nextRemain = parseInt(totalRows) - group * perGroup
@@ -37,7 +35,6 @@ export default function useGetComment() {
   }
 
   const getSub = async (article_id, group, main, remain = undefined) => {
-    // const article_id = router.query.article_id
     const url = `${ArticlesComment}?article_id=${article_id}&main=${main}&sub=-1&group=${group}`
     try {
       const res = await axios.get(url)

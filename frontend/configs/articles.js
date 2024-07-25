@@ -14,7 +14,7 @@ export const ArticlesAddFav = `${ArticlesAPI}/addfavarticle`
 // DELETE 文章取消收藏
 export const ArticlesRemoveFav = `${ArticlesAPI}/removefavarticle`
 
-// POST 新增文章留言或回覆
+// POST 新增文章留言或回覆 / GET 列出文章留言或回覆
 export const ArticlesComment = `${ArticlesAPI}/comment`
 
 // UPDATE 更新文章留言或回覆

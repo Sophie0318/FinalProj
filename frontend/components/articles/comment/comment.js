@@ -12,7 +12,6 @@ export default function Comment() {
   const router = useRouter()
   const [info, setInfo] = useState({ success: false, totalGroup: 0 })
   const [main, setMain] = useState([])
-  const [visibleMain, setVisibleMain] = useState([])
   const [group, setGroup] = useState(1)
   const [remain, setRemain] = useState(0)
   const [replySect, setReplySect] = useState({ id: 'none' })
@@ -25,7 +24,6 @@ export default function Comment() {
     setGroup(nextGroup)
     getMain(router, nextGroup, remain).then((res) => {
       setMain([...main, ...res.data])
-      setVisibleMain([...visibleMain, ...res.data])
       setInfo(res.info)
       setRemain(res.nextRemain)
     })
@@ -34,9 +32,8 @@ export default function Comment() {
   const toggleComment = useToggleDisplay(
     group,
     setGroup,
-    visibleMain,
-    setVisibleMain,
-    remain,
+    main,
+    setMain,
     setRemain,
     info.totalGroup,
     info.totalRows,
@@ -49,7 +46,6 @@ export default function Comment() {
       getMain(router, group)
         .then((res) => {
           setMain(res.data)
-          setVisibleMain(res.data)
           setInfo(res.info)
           setRemain(res.nextRemain)
         })
@@ -57,16 +53,20 @@ export default function Comment() {
           console.log(error)
         })
     }
-  }, [router.isReady])
+  }, [router])
 
   return (
     <>
       <div className={styles.commentContainer}>
         <div className={styles.mainComment}>
-          <CommentInput />
+          <CommentInput
+            main={info.totalRows}
+            sub={0}
+            article_id={router.query.article_id || 0}
+          />
         </div>
         <div className={styles.commentArea}>
-          {visibleMain.map((v, i) => {
+          {main.map((v, i) => {
             return (
               <div className={styles.commentBox} key={i} id={v.main}>
                 <CommentStrip
@@ -82,7 +82,12 @@ export default function Comment() {
               </div>
             )
           })}
-          <div className={styles.togglePrevComment}>
+          <div
+            className={styles.togglePrevComment}
+            style={{
+              display: `${info.totalGroup === 1 ? 'none' : 'flex'}`,
+            }}
+          >
             <ToggleComment
               onClick={toggleComment}
               group={group}

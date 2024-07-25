@@ -22,7 +22,7 @@ export default function ToggleComment({
             display: `${group < totalGroup ? 'none' : 'flex'}`,
           }}
         >
-          隱藏所有留言
+          隱藏部分留言
         </span>
       </button>
     </>
