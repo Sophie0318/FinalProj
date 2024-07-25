@@ -14,9 +14,9 @@ export default function Comment() {
   const [visibleMain, setVisibleMain] = useState([])
   const [group, setGroup] = useState(1)
   const [remain, setRemain] = useState(0)
-  const [replySect, setReplySect] = useState('none')
+  const [replySect, setReplySect] = useState('')
   // fetch main comments hook
-  const getMain = useGetComment()
+  const { getMain } = useGetComment()
 
   const handleClick = () => {
     // TODO: try achieve no fetch everytime show prev fetched result
@@ -62,25 +62,23 @@ export default function Comment() {
         <div className={styles.mainComment}>
           <CommentInput />
         </div>
-        <div className={styles.commentAreaBox}>
-          <div className={styles.commentArea}>
-            {visibleMain.map((v, i) => {
-              return (
-                <div key={i}>
-                  <CommentStrip
-                    data={v}
-                    replySect={replySect}
-                    setReplySect={setReplySect}
-                  />
-                  <Reply
-                    totalGroup={info.totalGroup}
-                    group={group}
-                    show={replySect}
-                  />
-                </div>
-              )
-            })}
-          </div>
+        <div className={styles.commentArea}>
+          {visibleMain.map((v, i) => {
+            return (
+              <div className={styles.commentBox} key={i}>
+                <CommentStrip
+                  data={v}
+                  replySect={replySect}
+                  setReplySect={setReplySect}
+                />
+                <Reply
+                  article_id={v.article_id_fk}
+                  main={v.main}
+                  show={replySect}
+                />
+              </div>
+            )
+          })}
           <div className={styles.togglePrevComment}>
             <ToggleComment
               onClick={handleClick}

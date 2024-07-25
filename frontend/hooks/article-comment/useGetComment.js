@@ -32,5 +32,21 @@ export default function useGetComment() {
       console.log(error)
     }
   }
-  return getMain
+
+  const getSub = async (article_id, group, main) => {
+    // const article_id = router.query.article_id
+    const url = `${ArticlesComment}?article_id=${article_id}&main=${main}&sub=-1&group=${group}`
+    try {
+      const res = await axios.get(url)
+      if (res.data.success) {
+        const { data, ...info } = res.data
+        const nextRemain = calcRemain(info.totalRows, group, info.perGroup)
+        return { data, info, nextRemain }
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  return { getMain, getSub }
 }

@@ -1,9 +1,8 @@
 import { useEffect, useState } from 'react'
+import { useRouter } from 'next/router'
 import { API_SERVER } from '@/configs/api-path'
-import Reply from './reply'
 import { IoChatbubble } from 'react-icons/io5'
 import { IoEllipsisHorizontal } from 'react-icons/io5'
-import { TbThumbUpFilled } from 'react-icons/tb'
 import styles from './comment-strip.module.css'
 
 export default function CommentStrip({
@@ -19,8 +18,49 @@ export default function CommentStrip({
     sub_count: 0,
   },
   reply = false,
+  replySect = '',
+  setReplySect = () => {},
 }) {
   const [hiddenSubs, setHiddenSubs] = useState(0)
+
+  const toggleReplySect = (e) => {
+    // const newState =
+    //   e.currentTarget.id === replySect ? 'none' : e.currentTarget.id
+    // setReplySect(newState)
+
+    // if (newState === 'reply') {
+    //   if (hiddenSubs < 3) {
+    //     setHiddenSubs(0)
+    //   } else {
+    //     const nextHiddenSubs = hiddenSubs - 3
+    //     setHiddenSubs(nextHiddenSubs)
+    //   }
+    // } else if (newState === 'none' && e.currentTarget.id === 'reply') {
+    //   setHiddenSubs(data.sub_count)
+    // }
+
+    if (e.currentTarget.id === 'reply') {
+      setReplySect('reply')
+      // set hidden sub count to display
+      if (hiddenSubs < 3) {
+        setHiddenSubs(0)
+      } else {
+        const nextHiddenSubs = hiddenSubs - 3
+        setHiddenSubs(nextHiddenSubs)
+      }
+    } else if (e.currentTarget.id === 'replyInput') {
+      setReplySect('replyInput')
+    }
+    if (e.currentTarget.id === replySect) {
+      // if click the same toggle again, hide it
+      setReplySect('none')
+      if (e.currentTarget.id === 'reply') {
+        // if hide replies, update hiddenSubs to set replyBtn
+        setHiddenSubs(data.sub_count)
+      }
+    }
+  }
+
   useEffect(() => {
     setHiddenSubs(data.sub_count)
   }, [data])
@@ -49,9 +89,8 @@ export default function CommentStrip({
         <div className={styles.commentContent}>{data.comment_content}</div>
         <div className={styles.commentBtn}>
           <div className={styles.replyBtn}>
-            <button>
+            <button id="replyInput" onClick={toggleReplySect}>
               <IoChatbubble className={styles.replyBtnIcon} />
-              {/* <span>{data.sub_count ? `回覆(${data.sub_count})` : `回覆`}</span> */}
               <span>回覆</span>
             </button>
           </div>
@@ -59,8 +98,12 @@ export default function CommentStrip({
             className={styles.replyBtn}
             style={{ display: `${data.sub_count ? 'flex' : 'none'}` }}
           >
-            <button>
-              <span>查看{hiddenSubs}則回覆</span>
+            <button id="reply" onClick={toggleReplySect}>
+              {hiddenSubs < data.sub_count ? (
+                <span>隱藏回覆</span>
+              ) : (
+                <span>查看{hiddenSubs}則回覆</span>
+              )}
             </button>
           </div>
         </div>

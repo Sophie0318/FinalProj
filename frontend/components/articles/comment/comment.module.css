@@ -12,22 +12,20 @@
   padding: 30px 40px 20px 40px;
 }
 
-.commentAreaBox {
+.commentArea {
   border-radius: 50px;
   background-color: var(--color-old-lace);
-}
-.commentArea{
   display: flex;
   flex-direction: column;
   gap: 20px;
-  border: 0;
   padding: 20px 40px;
+}
+.commentBox {
+  margin-bottom: 20px;
 }
 
 .togglePrevComment {
   height: fit-content;
-  padding-left: 40px;
-  padding-bottom: 10px;
 }
 
 .togglePrevComment button {

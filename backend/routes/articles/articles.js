@@ -479,7 +479,7 @@ router.get('/api/comment', async (req, res) => {
     output.error = 'invalid article_id'
     return res.status(400).json(output)
   }
-  if (isNaN(main) || isNaN(sub) || isNaN(group) || main < 0 || sub < 0 || group <= 0) {
+  if (isNaN(main) || isNaN(sub) || isNaN(group) || main < 0 || group <= 0) {
     output.error = 'invalid main, sub, or group'
     return res.status(400).json(output)
   }
