@@ -13,7 +13,7 @@ export default function CommentInput({
   showInput = true,
   // article_id = 0,
   main = 0,
-  sub = 0,
+  sub = undefined,
 }) {
   const router = useRouter()
   const { auth } = useAuth()
@@ -65,14 +65,25 @@ export default function CommentInput({
           setError(true)
           setErrorText('留言不能是空的喔~')
         } else {
+          let insertMain = 0
+          let insertSub = 0
+
+          console.log(sub, main)
+          if (sub === undefined) {
+            insertMain = main + 1
+          } else if (sub >= 0) {
+            insertMain = main
+            insertSub = sub + 1
+          }
+
           const url = `${ArticlesComment}`
           axios
             .post(
               url,
               {
                 article_id: router.query.article_id,
-                main: main + 1,
-                sub: sub,
+                main: insertMain,
+                sub: insertSub,
                 member_id: auth.id,
                 comment_content: comment,
               },

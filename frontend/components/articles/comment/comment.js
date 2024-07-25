@@ -14,7 +14,7 @@ export default function Comment() {
   const [main, setMain] = useState([])
   const [group, setGroup] = useState(1)
   const [remain, setRemain] = useState(0)
-  const [replySect, setReplySect] = useState({ id: 'none' })
+  const [replySect, setReplySect] = useState({})
 
   // fetch main comments hook
   const { getMain } = useGetComment()
