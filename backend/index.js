@@ -104,17 +104,17 @@ app.post("/avatar-upload", imgUpload.single("avatar"), async (req, res) => {
 
       const oldAvatar = rows[0].avatar;
 
-      // 更新數據庫中的頭像
+      // 更新資料庫中的頭像
       await connection.execute(
         "UPDATE members SET avatar = ? WHERE member_id = ?",
         [req.file.filename, memberId]
       );
 
-      // 如果舊頭像不是默認頭像，則刪除它
-      if (oldAvatar && oldAvatar !== "default_avatar.png") {
-        const oldAvatarPath = path.join("public/users", oldAvatar);
-        await fs.unlink(oldAvatarPath).catch(() => { });
-      }
+      // 如果舊頭像不是默認頭像，則刪除它>>>>避免登出時沒有頭像
+      // if (oldAvatar && oldAvatar !== "default_avatar.png") {
+      //   const oldAvatarPath = path.join("public/users", oldAvatar);
+      //   await fs.unlink(oldAvatarPath).catch(() => { });
+      // }
 
       res.json({
         message: "圖片上傳成功",

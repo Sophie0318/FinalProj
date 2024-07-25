@@ -42,7 +42,12 @@ export default function Edit() {
   const [addressError, setAddressError] = useState('')
 
   // Zod schemas
-  const nameSchema = z.string().max(10, '姓名不能超過10個字')
+  const nameSchema = z
+    .string()
+    .min(1, '姓名不能為空白')
+    .min(2, '姓名至少要有2個字')
+    .max(10, '姓名不能超過10個字')
+    .trim()
   const nickNameSchema = z.string().max(10, '暱稱不能超過10個字')
   const mobileSchema = z.string().regex(/^09\d{8}$/, '手機號碼格式不正確')
   const addressSchema = z.string().refine(
