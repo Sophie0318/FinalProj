@@ -68,7 +68,7 @@ export default function Edit() {
       return false
     },
     {
-      message: '地址不須填寫縣市和行政區',
+      message: '地址格式不正確',
     }
   )
 
@@ -139,10 +139,44 @@ export default function Edit() {
   const handleCityChange = (e) => {
     const newCityId = parseInt(e.target.value)
     setSelectedCity(newCityId)
-    setSelectedDistrict(0) // 清空行政區選項
-    setAddress('') // 清空地址
-    setAddressError('') // 清空地址錯誤訊息
+    setSelectedDistrict(0)
+    setAddress('')
+
+    if (newCityId === 0) {
+      setAddressError('請選擇縣市')
+    } else {
+      setAddressError('') // 清空錯誤訊息，等待用戶重新選擇行政區
+    }
   }
+
+  const handleDistrictChange = (e) => {
+    const newDistrictId = parseInt(e.target.value)
+    setSelectedDistrict(newDistrictId)
+    setAddress('')
+
+    if (newDistrictId === 0) {
+      setAddressError('請選擇行政區')
+    } else {
+      setAddressError('請輸入詳細地址')
+    }
+  }
+
+  useEffect(() => {
+    // 只有當用戶開始填寫表單（選擇了縣市或行政區，或輸入了地址）時，才顯示錯誤訊息
+    if (selectedCity !== 0 || selectedDistrict !== 0 || address.trim() !== '') {
+      if (selectedCity === 0) {
+        setAddressError('請選擇縣市')
+      } else if (selectedDistrict === 0) {
+        setAddressError('請選擇行政區')
+      } else if (address.trim() === '') {
+        setAddressError('請輸入詳細地址')
+      } else {
+        setAddressError('')
+      }
+    } else {
+      setAddressError('') // 如果用戶沒有開始填寫，保持錯誤訊息為空
+    }
+  }, [selectedCity, selectedDistrict, address])
 
   // 檢查是否有資料更新
   const isDataChanged = () => {
@@ -380,9 +414,7 @@ export default function Edit() {
                     id="district"
                     name="district"
                     value={selectedDistrict}
-                    onChange={(e) =>
-                      setSelectedDistrict(parseInt(e.target.value))
-                    }
+                    onChange={handleDistrictChange}
                   >
                     <option value="0">--請選擇--</option>
                     {districts.map((d) => (
@@ -400,11 +432,10 @@ export default function Edit() {
                   onChange={(value) => {
                     setAddress(value)
                     // 當用戶開始輸入地址時，檢查是否已選擇縣市和行政區
-                    if (
-                      value &&
-                      (selectedCity === 0 || selectedDistrict === 0)
-                    ) {
+                    if (selectedCity === 0 || selectedDistrict === 0) {
                       setAddressError('請先選擇縣市和行政區')
+                    } else if (value.trim() === '') {
+                      setAddressError('地址不能為空白')
                     } else {
                       setAddressError('')
                     }
