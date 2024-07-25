@@ -3,6 +3,7 @@ import useGetComment from '@/hooks/article-comment/useGetComment'
 import useToggleDisplay from '@/hooks/article-comment/useToggleDisplay'
 import CommentStrip from './comment-strip'
 import CommentInput from './comment-input'
+import ToggleComment from './toggle-comment'
 import styles from './reply.module.css'
 
 export default function Reply({ main = 1, article_id = 0, show }) {
@@ -58,26 +59,13 @@ export default function Reply({ main = 1, article_id = 0, show }) {
               )
             })}
           </div>
-          <div className={styles.togglePrevComment}>
-            <button onClick={toggleReplyArea}>
-              {/* <span>查看{remain}則回覆</span> */}
-              <span
-                style={{
-                  display: `${group < info.totalGroup ? 'flex' : 'none'}`,
-                }}
-              >
-                ...查看其他{remain > info.perGroup ? info.perGroup : remain}
-                則留言
-              </span>
-              <span
-                style={{
-                  display: `${group < info.totalGroup ? 'none' : 'flex'}`,
-                }}
-              >
-                隱藏所有留言
-              </span>
-            </button>
-          </div>
+          <ToggleComment
+            onClick={toggleReplyArea}
+            group={group}
+            totalGroup={info.totalGroup}
+            perGroup={info.perGroup}
+            remain={remain}
+          />
         </div>
       </>
     )

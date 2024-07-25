@@ -21,8 +21,6 @@ export default function useToggleDisplay(
       const nextRemain = parseInt(totalRows) - nextGroup * perGroup
       setRemain(nextRemain)
     } else if (e.currentTarget.id === 'showMore') {
-      console.log(e.currentTarget.id)
-
       actionOnToggle()
     }
   }
