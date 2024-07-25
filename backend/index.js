@@ -111,7 +111,7 @@ app.post("/avatar-upload", imgUpload.single("avatar"), async (req, res) => {
       );
 
       // 如果舊頭像不是默認頭像，則刪除它
-      if (oldAvatar && oldAvatar !== "default_avatar.jpg") {
+      if (oldAvatar && oldAvatar !== "default_avatar.png") {
         const oldAvatarPath = path.join("public/users", oldAvatar);
         await fs.unlink(oldAvatarPath).catch(() => { });
       }
