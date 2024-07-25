@@ -85,7 +85,7 @@ export default function Reply({ main = 1, article_id = 0, show }) {
     return (
       <>
         <div className={styles.replyComment} id={`replyInput${main}`}>
-          <CommentInput main={main} sub={0} />
+          <CommentInput main={main} sub={info.totalRows ? info.totalRows : 0} />
         </div>
       </>
     )

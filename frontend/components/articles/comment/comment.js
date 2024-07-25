@@ -61,7 +61,6 @@ export default function Comment() {
         <div className={styles.mainComment}>
           <CommentInput
             main={info.totalRows}
-            sub={0}
             article_id={router.query.article_id || 0}
           />
         </div>
