@@ -1,4 +1,5 @@
 import React from 'react'
+import styles from './toggle-comment.module.css'
 
 export default function ToggleComment({
   onClick = () => {},
@@ -9,22 +10,26 @@ export default function ToggleComment({
 }) {
   return (
     <>
-      <button onClick={onClick}>
-        <span
+      <div className={styles.togglePrevComment}>
+        <button
+          id="showMore"
+          onClick={onClick}
           style={{
             display: `${group < totalGroup ? 'flex' : 'none'}`,
           }}
         >
-          ...查看其他{remain > perGroup ? perGroup : remain}則留言
-        </span>
-        <span
+          <span>...查看其他{remain > perGroup ? perGroup : remain}則留言</span>
+        </button>
+        <button
+          id="showLess"
+          onClick={onClick}
           style={{
-            display: `${group < totalGroup ? 'none' : 'flex'}`,
+            display: `${group >= 2 ? 'flex' : 'none'}`,
           }}
         >
-          隱藏部分留言
-        </span>
-      </button>
+          <span>隱藏部分留言</span>
+        </button>
+      </div>
     </>
   )
 }

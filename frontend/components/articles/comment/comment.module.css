@@ -24,18 +24,6 @@
   margin-bottom: 20px;
 }
 
-.togglePrevComment {
-  height: fit-content;
-}
-
-.togglePrevComment button {
-  background-color: transparent;
-  border: 0;
-  font-family: 'Gensen', sans-serif;
-  font-size: 22px;
-  line-height: 46px;
-}
-
 .commentStrip:not(:first-child)::before {
   content: ' ';
   /* margin-top: 15px; */

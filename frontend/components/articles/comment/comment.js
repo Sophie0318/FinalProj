@@ -82,7 +82,6 @@ export default function Comment() {
             )
           })}
           <div
-            className={styles.togglePrevComment}
             style={{
               display: `${info.totalGroup === 1 ? 'none' : 'flex'}`,
             }}

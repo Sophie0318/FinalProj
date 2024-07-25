@@ -9,25 +9,20 @@ export default function useToggleDisplay(
   perGroup = 3,
   actionOnToggle = () => {}
 ) {
-  const toggleOnClick = () => {
+  const toggleOnClick = (e) => {
     // TODO: try achieve no fetch everytime show prev fetched result
-    if (group === totalGroup) {
-      // if all comments are fetched, click to hide partial comments
-      let sliceIndex = perGroup
-      if (totalRows % perGroup) {
-        sliceIndex = -(totalRows % perGroup)
-      } else {
-        sliceIndex = -perGroup
-      }
+    let sliceIndex = perGroup
 
+    if (e.currentTarget.id === 'showLess') {
       const nextVisibleData = visibleData.slice(0, sliceIndex)
       setVisibleData(nextVisibleData)
-      const nextGroup = group - 1
+      const nextGroup = 1
       setGroup(nextGroup)
       const nextRemain = parseInt(totalRows) - nextGroup * perGroup
       setRemain(nextRemain)
-    } else {
-      // fetch the next array of data, defined in page.js
+    } else if (e.currentTarget.id === 'showMore') {
+      console.log(e.currentTarget.id)
+
       actionOnToggle()
     }
   }
