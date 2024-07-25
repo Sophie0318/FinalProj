@@ -25,7 +25,6 @@ export default function Gyms() {
 
     window.scrollTo({ top: y, behavior: 'smooth' })
   }
-
   
   const handleCompositionChange = (composing) => {
     setIsComposing(composing)
