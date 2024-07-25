@@ -64,11 +64,11 @@ export default function Edit() {
         )
       }
 
-      // 如果沒有選擇位置，則不進行驗證
-      return true
+      // 如果沒有選擇位置，則出現錯誤訊息
+      return false
     },
     {
-      message: '地址不需包含已選擇的縣市或行政區',
+      message: '地址不須填寫縣市和行政區',
     }
   )
 
@@ -139,7 +139,9 @@ export default function Edit() {
   const handleCityChange = (e) => {
     const newCityId = parseInt(e.target.value)
     setSelectedCity(newCityId)
-    setSelectedDistrict(0)
+    setSelectedDistrict(0) // 清空行政區選項
+    setAddress('') // 清空地址
+    setAddressError('') // 清空地址錯誤訊息
   }
 
   // 檢查是否有資料更新
@@ -395,7 +397,18 @@ export default function Edit() {
                   name="address"
                   label="地址:"
                   value={address}
-                  onChange={setAddress}
+                  onChange={(value) => {
+                    setAddress(value)
+                    // 當用戶開始輸入地址時，檢查是否已選擇縣市和行政區
+                    if (
+                      value &&
+                      (selectedCity === 0 || selectedDistrict === 0)
+                    ) {
+                      setAddressError('請先選擇縣市和行政區')
+                    } else {
+                      setAddressError('')
+                    }
+                  }}
                   schema={addressSchema}
                   errorMessage={addressError}
                   setErrorMessage={setAddressError}
