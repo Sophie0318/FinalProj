@@ -5,6 +5,7 @@ import CommentStrip from './comment-strip'
 import ToggleComment from './toggle-comment'
 import Reply from './reply'
 import useGetComment from '@/hooks/article-comment/useGetComment'
+import useToggleDisplay from '@/hooks/article-comment/useToggleDisplay'
 import styles from './comment.module.css'
 
 export default function Comment() {
@@ -14,32 +15,34 @@ export default function Comment() {
   const [visibleMain, setVisibleMain] = useState([])
   const [group, setGroup] = useState(1)
   const [remain, setRemain] = useState(0)
-  const [replySect, setReplySect] = useState('')
+  const [replySect, setReplySect] = useState({ id: 'none' })
+
   // fetch main comments hook
   const { getMain } = useGetComment()
 
-  const handleClick = () => {
-    // TODO: try achieve no fetch everytime show prev fetched result
-    if (group === info.totalGroup) {
-      // if all comments are fetched, click to hide partial comments
-      const nextVisibleMain = visibleMain.slice(0, -3)
-      setVisibleMain(nextVisibleMain)
-      const nextGroup = group - 1
-      setGroup(nextGroup)
-      const nextRemain = parseInt(info.totalRows) - nextGroup * info.perGroup
-      setRemain(nextRemain)
-    } else {
-      // fetch the next 3(info.perGroup) comments
-      const nextGroup = group + 1
-      setGroup(nextGroup)
-      getMain(router, nextGroup).then((res) => {
-        setMain([...main, ...res.data])
-        setVisibleMain([...visibleMain, ...res.data])
-        setInfo(res.info)
-        setRemain(res.nextRemain)
-      })
-    }
+  const actionOnToggle = () => {
+    const nextGroup = group + 1
+    setGroup(nextGroup)
+    getMain(router, nextGroup, remain).then((res) => {
+      setMain([...main, ...res.data])
+      setVisibleMain([...visibleMain, ...res.data])
+      setInfo(res.info)
+      setRemain(res.nextRemain)
+    })
   }
+
+  const toggleComment = useToggleDisplay(
+    group,
+    setGroup,
+    visibleMain,
+    setVisibleMain,
+    remain,
+    setRemain,
+    info.totalGroup,
+    info.totalRows,
+    info.perGroup,
+    actionOnToggle
+  )
 
   useEffect(() => {
     if (router.isReady) {
@@ -65,7 +68,7 @@ export default function Comment() {
         <div className={styles.commentArea}>
           {visibleMain.map((v, i) => {
             return (
-              <div className={styles.commentBox} key={i}>
+              <div className={styles.commentBox} key={i} id={v.main}>
                 <CommentStrip
                   data={v}
                   replySect={replySect}
@@ -81,9 +84,10 @@ export default function Comment() {
           })}
           <div className={styles.togglePrevComment}>
             <ToggleComment
-              onClick={handleClick}
+              onClick={toggleComment}
               group={group}
               totalGroup={info.totalGroup}
+              perGroup={info.perGroup}
               remain={remain}
             />
           </div>

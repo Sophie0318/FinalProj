@@ -203,8 +203,8 @@ const getComment = async (req) => {
     sql = `SELECT c.article_id_fk, c.member_id_fk, nick_name, avatar, c.comment_id, c.create_at, c.update_at, c.comment_content, c.main, (SELECT COUNT(*) FROM Comments sub WHERE sub.article_id_fk = c.article_id_fk AND sub.main = c.main AND sub.sub != 0) AS sub_count FROM Comments C LEFT JOIN Members ON member_id_fk = member_id WHERE c.article_id_fk = ${article_id} AND c.sub = 0 GROUP BY c.article_id_fk, c.member_id_fk, c.comment_id, nick_name, avatar, c.create_at, c.update_at, c.comment_content, c.main ORDER BY c.update_at DESC LIMIT ${perGroup * (group - 1)},${perGroup};`;
   } else if (sub < 0) {
     // get all sub reply under a main comment
-    t_sql = `SELECT COUNT(CASE WHEN sub != 0 THEN 1 END) AS totalRows FROM Comments WHERE article_id_fk = ${article_id} AND main = ${main} GROUP BY article_id_fk;`;
-    sql = `SELECT c.article_id_fk, c.member_id_fk, nick_name, avatar, c.create_at, c.update_at, c.comment_content, c.main, c.sub FROM Comments C LEFT JOIN Members ON member_id_fk = member_id WHERE c.article_id_fk = ${article_id} AND c.main = ${main} ORDER BY c.update_at DESC LIMIT ${1 + perGroup * (group - 1)},${perGroup};`;
+    t_sql = `SELECT COUNT(CASE WHEN sub != 0 THEN 1 END) AS totalRows FROM Comments WHERE article_id_fk = ${article_id} AND main = ${main} AND sub!= 0 GROUP BY article_id_fk;`;
+    sql = `SELECT c.article_id_fk, c.member_id_fk, nick_name, avatar, c.create_at, c.update_at, c.comment_content, c.main, c.sub FROM Comments C LEFT JOIN Members ON member_id_fk = member_id WHERE c.article_id_fk = ${article_id} AND c.main = ${main} AND sub!= 0 ORDER BY c.update_at DESC LIMIT ${perGroup * (group - 1)},${perGroup};`;
   } else if (main > 0 && sub === 0) {
     // get specific sub comment under specific main comment
     if (sub > 0) {

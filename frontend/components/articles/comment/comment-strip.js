@@ -15,32 +15,20 @@ export default function CommentStrip({
     create_at: '',
     update_at: '',
     comment_content: '',
+    main: 0,
     sub_count: 0,
   },
   reply = false,
-  replySect = '',
+  replySect = {},
   setReplySect = () => {},
 }) {
   const [hiddenSubs, setHiddenSubs] = useState(0)
+  const main = data.main
 
   const toggleReplySect = (e) => {
-    // const newState =
-    //   e.currentTarget.id === replySect ? 'none' : e.currentTarget.id
-    // setReplySect(newState)
-
-    // if (newState === 'reply') {
-    //   if (hiddenSubs < 3) {
-    //     setHiddenSubs(0)
-    //   } else {
-    //     const nextHiddenSubs = hiddenSubs - 3
-    //     setHiddenSubs(nextHiddenSubs)
-    //   }
-    // } else if (newState === 'none' && e.currentTarget.id === 'reply') {
-    //   setHiddenSubs(data.sub_count)
-    // }
-
     if (e.currentTarget.id === 'reply') {
-      setReplySect('reply')
+      const nextReplySect = { ...replySect, [main]: 'reply' }
+      setReplySect(nextReplySect)
       // set hidden sub count to display
       if (hiddenSubs < 3) {
         setHiddenSubs(0)
@@ -49,11 +37,14 @@ export default function CommentStrip({
         setHiddenSubs(nextHiddenSubs)
       }
     } else if (e.currentTarget.id === 'replyInput') {
-      setReplySect('replyInput')
+      const nextReplySect = { ...replySect, [main]: 'replyInput' }
+      setReplySect(nextReplySect)
     }
-    if (e.currentTarget.id === replySect) {
+    if (replySect[main] && e.currentTarget.id === replySect[main]) {
       // if click the same toggle again, hide it
-      setReplySect('none')
+      const nextReplySect = { ...replySect }
+      delete nextReplySect[main]
+      setReplySect(nextReplySect)
       if (e.currentTarget.id === 'reply') {
         // if hide replies, update hiddenSubs to set replyBtn
         setHiddenSubs(data.sub_count)
