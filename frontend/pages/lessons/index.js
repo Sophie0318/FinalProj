@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import Layout3 from '@/components/layout/layout3'
+import Layout4 from '@/components/layout/layout4'
 import CardCarousel from '@/components/swiperCarousel/cardCarousel'
 import CheckboxList from '@/components/lessons/checkboxList'
 import styles from '@/styles/lesson.module.css'
@@ -90,7 +90,7 @@ export default function Index({ lessons }) {
 
   return (
     <>
-      <Layout3 title="課程列表" pageName="lessons">
+      <Layout4 title="課程列表" pageName="lessons">
         <div className={styles.content}>
           <section className={`${styles.popular}`}>
             <div className="row px-0 mx-0 g-0">
@@ -139,7 +139,7 @@ export default function Index({ lessons }) {
             <LessonList lessons={filteredLessons} />
           </div>
         </div>
-      </Layout3>
+      </Layout4>
     </>
   )
 }
