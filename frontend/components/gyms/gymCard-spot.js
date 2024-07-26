@@ -26,6 +26,9 @@ const GymCardSpot = ({ data }) => {
         <div
           className={`${styles.heart} ${isClicked ? styles.clicked : ''}`}
           onClick={handleClick}
+          onKeyDown={handleClick}
+          role="button"
+          tabIndex={0}
         >
           <IoHeart />
         </div>
