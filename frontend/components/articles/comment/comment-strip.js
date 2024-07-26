@@ -15,41 +15,43 @@ export default function CommentStrip({
     update_at: '',
     comment_content: '',
     main: 0,
+    sub: 0,
     sub_count: 0,
   },
   reply = false,
   replySect = {},
   setReplySect = () => {},
+  handleToggle = () => {},
 }) {
   const [hiddenSubs, setHiddenSubs] = useState(0)
-  const main = data.main
+  // const main = data.main
 
-  const toggleReplySect = (e) => {
-    if (e.currentTarget.id === 'reply') {
-      const nextReplySect = { ...replySect, [main]: 'reply' }
-      setReplySect(nextReplySect)
-      // set hidden sub count to display
-      if (hiddenSubs < 3) {
-        setHiddenSubs(0)
-      } else {
-        const nextHiddenSubs = hiddenSubs - 3
-        setHiddenSubs(nextHiddenSubs)
-      }
-    } else if (e.currentTarget.id === 'replyInput') {
-      const nextReplySect = { ...replySect, [main]: 'replyInput' }
-      setReplySect(nextReplySect)
-    }
-    if (replySect[main] && e.currentTarget.id === replySect[main]) {
-      // if click the same toggle again, hide it
-      const nextReplySect = { ...replySect }
-      delete nextReplySect[main]
-      setReplySect(nextReplySect)
-      if (e.currentTarget.id === 'reply') {
-        // if hide replies, update hiddenSubs to set replyBtn
-        setHiddenSubs(data.sub_count)
-      }
-    }
-  }
+  // const toggleReplySect = (e) => {
+  //   if (e.currentTarget.id === 'reply') {
+  //     const nextReplySect = { ...replySect, [main]: 'reply' }
+  //     setReplySect(nextReplySect)
+  //     // set hidden sub count to display
+  //     if (hiddenSubs < 3) {
+  //       setHiddenSubs(0)
+  //     } else {
+  //       const nextHiddenSubs = hiddenSubs - 3
+  //       setHiddenSubs(nextHiddenSubs)
+  //     }
+  //   } else if (e.currentTarget.id === 'replyInput') {
+  //     const nextReplySect = { ...replySect, [main]: 'replyInput' }
+  //     setReplySect(nextReplySect)
+  //   }
+  //   if (replySect[main] && e.currentTarget.id === replySect[main]) {
+  //     // if click the same toggle again, hide it
+  //     const nextReplySect = { ...replySect }
+  //     delete nextReplySect[main]
+  //     setReplySect(nextReplySect)
+  //     if (e.currentTarget.id === 'reply') {
+  //       // if hide replies, update hiddenSubs to set replyBtn
+  //       setHiddenSubs(data.sub_count)
+  //     }
+  //   }
+  // }
 
   useEffect(() => {
     setHiddenSubs(data.sub_count)
@@ -79,7 +81,12 @@ export default function CommentStrip({
         <div className={styles.commentContent}>{data.comment_content}</div>
         <div className={styles.commentBtn}>
           <div className={styles.replyBtn}>
-            <button id="replyInput" onClick={toggleReplySect}>
+            <button
+              id="replyInput"
+              onClick={(e) => {
+                handleToggle(e, data)
+              }}
+            >
               <IoChatbubble className={styles.replyBtnIcon} />
               <span>回覆</span>
             </button>
@@ -88,7 +95,12 @@ export default function CommentStrip({
             className={styles.replyBtn}
             style={{ display: `${data.sub_count ? 'flex' : 'none'}` }}
           >
-            <button id="reply" onClick={toggleReplySect}>
+            <button
+              id="reply"
+              onClick={(e) => {
+                handleToggle(e, data)
+              }}
+            >
               {hiddenSubs < data.sub_count ? (
                 <span>隱藏回覆</span>
               ) : (

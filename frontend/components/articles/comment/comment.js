@@ -6,6 +6,7 @@ import ToggleComment from './toggle-comment'
 import Reply from './reply'
 import useGetComment from '@/hooks/article-comment/useGetComment'
 import useToggleDisplay from '@/hooks/article-comment/useToggleDisplay'
+import useToggleInput from '@/hooks/article-comment/useToggleInput'
 import styles from './comment.module.css'
 
 export default function Comment() {
@@ -15,6 +16,7 @@ export default function Comment() {
   const [group, setGroup] = useState(1)
   const [remain, setRemain] = useState(0)
   const [replySect, setReplySect] = useState({})
+  const [hiddenSubs, setHiddenSubs] = useState(0)
 
   // fetch main comments hook
   const { getMain } = useGetComment()
@@ -41,6 +43,13 @@ export default function Comment() {
     actionOnToggle
   )
 
+  const { toggleReplySect } = useToggleInput(
+    replySect,
+    setReplySect,
+    hiddenSubs,
+    setHiddenSubs
+  )
+
   useEffect(() => {
     if (router.isReady) {
       getMain(router, group)
@@ -60,27 +69,38 @@ export default function Comment() {
       <div className={styles.commentContainer}>
         <div className={styles.mainComment}>
           <CommentInput
+            showInput={true}
             main={info.totalRows}
             article_id={router.query.article_id || 0}
           />
         </div>
         <div className={styles.commentArea}>
-          {main.map((v, i) => {
-            return (
-              <div className={styles.commentBox} key={i} id={v.main}>
-                <CommentStrip
-                  data={v}
-                  replySect={replySect}
-                  setReplySect={setReplySect}
-                />
-                <Reply
-                  article_id={v.article_id_fk}
-                  main={v.main}
-                  show={replySect}
-                />
+          {main.length > 0 ? (
+            main.map((v, i) => {
+              return (
+                <div className={styles.commentBox} key={i} id={v.main}>
+                  <CommentStrip
+                    data={v}
+                    replySect={replySect}
+                    setReplySect={setReplySect}
+                    handleToggle={toggleReplySect}
+                  />
+                  <Reply
+                    article_id={v.article_id_fk}
+                    main={v.main}
+                    show={replySect}
+                  />
+                </div>
+              )
+            })
+          ) : (
+            <>
+              <div className={styles.noComment}>
+                <h5>這篇文章還沒有人留言喔~</h5>
+                <h5>動動手指讓這裡活絡起來吧~</h5>
               </div>
-            )
-          })}
+            </>
+          )}
           <div
             style={{
               display: `${info.totalGroup === 1 ? 'none' : 'flex'}`,

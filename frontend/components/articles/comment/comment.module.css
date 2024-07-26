@@ -33,3 +33,11 @@
   background-color: var(--color-white);
   border-radius: 5px;
 }
+
+.noComment{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 30px;
+}

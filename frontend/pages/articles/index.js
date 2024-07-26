@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { useAuth } from '@/context/auth-context'
 import { ArticlesIndex } from '@/configs/articles'
 
 import Layout3 from '@/components/layout/layout3'
@@ -12,10 +11,9 @@ import styles from './articles.module.css'
 
 export default function Articles() {
   const router = useRouter()
-  const { auth } = useAuth()
   const [latest, setLatest] = useState([])
   const [hottest, setHottest] = useState([])
-  const renderCard = useRenderCards('articles', auth)
+  const renderCard = useRenderCards('articles')
 
   const getIndexList = async (url, token) => {
     let res = ''

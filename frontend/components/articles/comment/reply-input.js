@@ -2,17 +2,14 @@ import { useState } from 'react'
 import { useRouter } from 'next/router'
 import { useAuth } from '@/context/auth-context'
 import useSubmitComment from '@/hooks/article-comment/useSubmitComment'
-import { ArticlesComment } from '@/configs/articles'
-import axios from 'axios'
 import CommentModal from '../comment-modal'
 import Btn from '../buttons_test'
 import LoginAlert from '@/hooks/login-alert/login-alert'
 import 'animate.css'
 import styles from './comment-input.module.css'
 
-export default function CommentInput({
+export default function ReplyInput({
   showInput = false,
-  // article_id = 0,
   main = 0,
   sub = undefined,
 }) {
@@ -61,61 +58,6 @@ export default function CommentInput({
     setComment(nextComment)
     setWordCount(nextWordCount)
   }
-
-  // const submitComment = (e) => {
-  //   if (e.type === 'click' || e.key === 'Enter') {
-  //     if (!auth.id) {
-  //       loginalert.fire().then((result) => {
-  //         if (result.isConfirmed) {
-  //           router.push('/users/sign_in')
-  //         }
-  //       })
-  //     } else {
-  //       if (!comment.trim()) {
-  //         setError(true)
-  //         setErrorText('留言不能是空的喔~')
-  //       } else {
-  //         let insertMain = 0
-  //         let insertSub = 0
-
-  //         console.log(sub, main)
-  //         if (sub === undefined) {
-  //           insertMain = main + 1
-  //         } else if (sub >= 0) {
-  //           insertMain = main
-  //           insertSub = sub + 1
-  //         }
-
-  //         const url = `${ArticlesComment}`
-  //         axios
-  //           .post(
-  //             url,
-  //             {
-  //               article_id: router.query.article_id,
-  //               main: insertMain,
-  //               sub: insertSub,
-  //               member_id: auth.id,
-  //               comment_content: comment,
-  //             },
-  //             {
-  //               headers: {
-  //                 Authorization: `Bearer ${auth.token}`,
-  //                 'Content-Type': 'application/json',
-  //               },
-  //             }
-  //           )
-  //           .then((res) => {
-  //             if (res.data.success) {
-  //               setShowModal(true)
-  //             }
-  //           })
-  //           .catch((error) => {
-  //             console.log(error)
-  //           })
-  //       }
-  //     }
-  //   }
-  // }
 
   const handleClick = () => {
     if (!auth.id) {

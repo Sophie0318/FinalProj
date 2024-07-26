@@ -347,6 +347,10 @@ router.get("/api/entry/:article_id", async (req, res) => {
       articleCategory = output.result.code_id;
       author_id = output.result.author_id;
       author_is_coach = output.result.author_is_coach;
+
+      if(req.my_jwt && output.result.member_id_fk === null) {
+        output.result.member_id_fk = 0
+      }
     } else {
       output.error = 'invalid article id'
       return res.status(404).json(output)

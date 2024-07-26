@@ -747,7 +747,8 @@ create table FavArticles(
 favarticle_id int primary key auto_increment,
 member_id_fk int,
 article_id_fk int, -- range 1~120
-create_at timestamp not null default NOW()
+create_at timestamp not null default NOW(),
+unique (member_id_fk, article_id_fk)
 );
 
 create table Comments(

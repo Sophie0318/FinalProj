@@ -1,4 +1,7 @@
-import React from 'react'
+import { useState, useEffect } from 'react'
+import { useRouter } from 'next/router'
+import { useAuth } from '@/context/auth-context'
+import useArticleFav from '@/hooks/article-fav/useArticleFav'
 
 import {
   IoHeart,
@@ -9,11 +12,25 @@ import styles from './article-sidebar.module.css'
 
 export default function ArticleSidebar({
   showSidebar = true,
-  pageLoaded = false,
+  // pageLoaded = false,
   fontSize = 0,
   setFontSize = () => {},
   commentRef,
+  member_id = 0,
+  article_id = undefined,
+  // auth = {},
 }) {
+  const { auth } = useAuth()
+  const router = useRouter()
+  const [shouldRender, setShouldRender] = useState(false)
+  const [isClicked, setIsClicked] = useState(member_id === auth.id)
+  const { toggleArticleFav } = useArticleFav(
+    auth,
+    article_id,
+    isClicked,
+    setIsClicked
+  )
+
   const handleFontSize = () => {
     if (fontSize === 2) {
       setFontSize(0)
@@ -36,7 +53,14 @@ export default function ArticleSidebar({
     }
   }
 
-  if (pageLoaded === false) return null
+  useEffect(() => {
+    if (router.isReady) {
+      setIsClicked(member_id === auth.id)
+      setShouldRender(true)
+    }
+  }, [router.isReady, member_id])
+
+  if (shouldRender === false) return null
   return (
     <>
       <div className={styles.sidebarPC}>
@@ -51,7 +75,10 @@ export default function ArticleSidebar({
             src="/articles-img/font-size.svg"
           />
         </button>
-        <button className={styles.sidebarBtn}>
+        <button
+          className={`${styles.sidebarBtn} ${isClicked ? styles.clicked : ''}`}
+          onClick={toggleArticleFav}
+        >
           <IoHeart />
         </button>
         <button
@@ -87,7 +114,12 @@ export default function ArticleSidebar({
           >
             <img src="/articles-img/font-size-dark.svg" />
           </button>
-          <button className={styles.sidebarBtn}>
+          <button
+            className={`${styles.sidebarBtn} ${
+              isClicked ? styles.clicked : ''
+            }`}
+            onClick={toggleArticleFav}
+          >
             <IoHeart />
           </button>
           <button

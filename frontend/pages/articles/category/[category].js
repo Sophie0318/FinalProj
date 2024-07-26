@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import useArticleSearch from '@/hooks/article-search/useArticleSearch'
-import { useAuth } from '@/context/auth-context'
 import { ArticlesListData } from '@/configs/articles'
 
 import useRenderCards from '@/hooks/cards/cards'
@@ -12,12 +11,11 @@ import BS5Pagination from '@/components/product/Pagination/bs5-pagination'
 import styles from '../type.module.css'
 
 export default function ArticleType() {
-  const { auth } = useAuth()
   const [articleList, setArticleList] = useState([])
   const [totalPages, setTotalPages] = useState(0)
   const [pageCategory, setPageCategory] = useState('文章列表')
   const { keyword, setKeyword, handleKeyDown } = useArticleSearch()
-  const renderCard = useRenderCards('articles', auth)
+  const renderCard = useRenderCards('articles')
   const router = useRouter()
   const categoryMap = {
     fitness: '體能鍛鍊',

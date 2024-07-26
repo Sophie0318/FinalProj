@@ -1,7 +1,15 @@
 import React from 'react'
-import { dotSpinner } from 'ldrs'
+import { useEffect } from 'react'
+// import { dotSpinner } from 'ldrs'
 
 export default function Loader() {
+  useEffect(() => {
+    async function getLoader() {
+      const { dotSpinner } = await import('ldrs')
+      dotSpinner.register()
+    }
+    getLoader()
+  }, [])
   // Default values shown
   return (
     <>
@@ -9,7 +17,5 @@ export default function Loader() {
     </>
   )
 }
-
-dotSpinner.register()
 
 // Default values shown
