@@ -36,9 +36,19 @@ export default function Reservation() {
         }
       }
     }
-
     fetchCoach()
   }, [router.query])
+
+  // 欄位填寫錯誤時滾動
+  useEffect(() => {
+    if (Object.keys(errors).length > 0) {
+      const firstErrorKey = Object.keys(errors)[0]
+      const errorElement = document.getElementById(firstErrorKey)
+      if (errorElement) {
+        errorElement.scrollIntoView({ behavior: 'smooth', block: 'center' })
+      }
+    }
+  }, [errors])
 
   const handleInputChange = (e) => {
     const { name, value } = e.target
@@ -169,62 +179,70 @@ export default function Reservation() {
             <div className={styles.formContainer}>
               <form className={styles.form} onSubmit={handleSubmit}>
                 <div className={styles.formLabel}>姓名</div>
-                <input
-                  type="text"
-                  name="name"
-                  id="name"
-                  value={formData.name}
-                  onChange={handleInputChange}
-                  className={errors.name ? styles.errorInput : ''}
-                />
-                {errors.name && (
-                  <div className={styles.errorMsg}>{errors.name}</div>
-                )}
+                <div className={styles.inputWrapper}>
+                  <input
+                    type="text"
+                    name="name"
+                    id="name"
+                    value={formData.name}
+                    onChange={handleInputChange}
+                    className={errors.name ? styles.errorInput : ''}
+                  />
+                  {errors.name && (
+                    <div className={styles.errorMsg}>{errors.name}</div>
+                  )}
+                </div>
 
                 <div className={styles.formLabel}>手機</div>
-                <input
-                  type="text"
-                  name="phone"
-                  id="phone"
-                  value={formData.phone}
-                  onChange={handleInputChange}
-                  className={errors.phone ? styles.errorInput : ''}
-                />
-                {errors.phone && (
-                  <div className={styles.errorMsg}>{errors.phone}</div>
-                )}
+                <div className={styles.inputWrapper}>
+                  <input
+                    type="text"
+                    name="phone"
+                    id="phone"
+                    value={formData.phone}
+                    onChange={handleInputChange}
+                    className={errors.phone ? styles.errorInput : ''}
+                  />
+                  {errors.phone && (
+                    <div className={styles.errorMsg}>{errors.phone}</div>
+                  )}
+                </div>
 
                 <div className={styles.formLabel}>聯絡信箱</div>
-                <input
-                  type="text"
-                  name="email"
-                  id="email"
-                  value={formData.email}
-                  onChange={handleInputChange}
-                  className={errors.email ? styles.errorInput : ''}
-                />
-                {errors.email && (
-                  <div className={styles.errorMsg}>{errors.email}</div>
-                )}
+                <div className={styles.inputWrapper}>
+                  <input
+                    type="text"
+                    name="email"
+                    id="email"
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    className={errors.email ? styles.errorInput : ''}
+                  />
+                  {errors.email && (
+                    <div className={styles.errorMsg}>{errors.email}</div>
+                  )}
+                </div>
 
                 <div className={styles.formLabel}>選擇時段</div>
-                <select
-                  className={`${styles.timeSelect} ${
-                    errors.timeSlot ? styles.errorInput : ''
-                  }`}
-                  name="timeSlot"
-                  value={formData.timeSlot}
-                  onChange={handleInputChange}
-                >
-                  <option value="">請選擇時段</option>
-                  <option value="1">2024/08/12 13:00</option>
-                  <option value="2">2024/08/12 14:00</option>
-                  <option value="3">2024/08/19 13:00</option>
-                  <option value="4">2024/08/19 14:00</option>
-                </select>
-                {errors.timeSlot && (
-                  <div className={styles.errorMsg}>{errors.timeSlot}</div>
-                )}
+                <div className={styles.inputWrapper}>
+                  <select
+                    className={`${styles.timeSelect} ${
+                      errors.timeSlot ? styles.errorInput : ''
+                    }`}
+                    name="timeSlot"
+                    value={formData.timeSlot}
+                    onChange={handleInputChange}
+                  >
+                    <option value="">請選擇時段</option>
+                    <option value="1">2024/08/12 13:00</option>
+                    <option value="2">2024/08/12 14:00</option>
+                    <option value="3">2024/08/19 13:00</option>
+                    <option value="4">2024/08/19 14:00</option>
+                  </select>
+                  {errors.timeSlot && (
+                    <div className={styles.errorMsg}>{errors.timeSlot}</div>
+                  )}
+                </div>
 
                 <div className={styles.formLabel}>預約教練</div>
                 <div className={styles.cardContainer}>

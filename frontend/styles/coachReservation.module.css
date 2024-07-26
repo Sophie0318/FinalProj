@@ -100,6 +100,7 @@
   font-size: 24px;
   font-weight: 700;
   letter-spacing: 5px;
+  margin-bottom: 10px; /* 添加標籤的下邊距 */
 }
 
 .form input {
@@ -123,7 +124,15 @@
 .errorMsg {
   color: var(--color-tomato);
   font-size: 14px;
-  margin-top: 5px;
+  position: absolute; /* 絕對定位 */
+  bottom: -25px; /* 調整位置，使其緊貼輸入框底部 */
+  left: 0;
+}
+
+.inputWrapper {
+  width: 100%;
+  margin-bottom: 45px; /* 為整個輸入區域添加下邊距 */
+  position: relative; /* 為錯誤訊息定位 */
 }
 
 .timeSelect {
