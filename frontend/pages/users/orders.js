@@ -53,12 +53,8 @@ export default function LessonsOrders() {
           {orders.map((order) => (
             <OrderRow
               key={order.orderDetail_number}
-              OrdersDetail_number={order.orderDetail_number}
-              first_item_imgSrc={order.first_item.imgSrc}
-              first_item_name={order.first_item.name}
-              first_item_quantity={order.first_item.quantity}
-              first_item_price={order.first_item.price}
-              other_items={order.other_items}
+              orderDetail_number={order.orderDetail_number}
+              items={order.items}
               totalQuantity={order.totalQuantity}
               totalPrice={order.totalPrice}
             />

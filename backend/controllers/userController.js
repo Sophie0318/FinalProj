@@ -173,23 +173,25 @@ const userController = {
 
             // 將訂單按 orderDetail_number 分組
             const groupedOrders = orders.reduce((acc, order) => {
+                // 只保留第一張商品圖片
+                const firstPhoto = order.Product_photo.split(',')[0];
                 if (!acc[order.orderDetail_number]) {
                     acc[order.orderDetail_number] = {
                         orderDetail_number: order.orderDetail_number,
-                        first_item: {
-                            imgSrc: order.Product_photo.split(',')[0],
+                        items: [{
+                            id: order.OrdersDetail_id,
+                            imgSrc: firstPhoto,
                             name: order.Product_name,
                             quantity: order.OrdersDetail_product_quantity,
                             price: order.OrdersDetail_unit_price_at_time
-                        },
-                        other_items: [],
+                        }],
                         totalQuantity: order.OrdersDetail_product_quantity,
                         totalPrice: order.OrdersDetail_product_quantity * order.OrdersDetail_unit_price_at_time
                     };
                 } else {
-                    acc[order.orderDetail_number].other_items.push({
+                    acc[order.orderDetail_number].items.push({
                         id: order.OrdersDetail_id,
-                        imgSrc: order.Product_photo.split(',')[0],
+                        imgSrc: firstPhoto,
                         name: order.Product_name,
                         quantity: order.OrdersDetail_product_quantity,
                         price: order.OrdersDetail_unit_price_at_time
@@ -208,6 +210,7 @@ const userController = {
             res.status(500).json({ success: false, message: '資料庫錯誤' });
         }
     },
+
 
 };
 
