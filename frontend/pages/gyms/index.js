@@ -33,7 +33,7 @@ export default function Gyms() {
   const fetchGymsData = () => {
     const qq = new URLSearchParams(router.query)
     // console.log(qq)
-    const url = `http://localhost:3001/gyms/api?keyword=${searchTerm}&features=${selectedFeatures}`
+    const url = `http://localhost:3001/gyms/api?keyword=${searchTerm}&features=${selectedFeatures}&friendly=${boo}`
     if (router.isReady) {
       fetch(url)
         .then((response) => response.json())
