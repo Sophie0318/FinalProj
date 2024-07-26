@@ -2,7 +2,11 @@ import ResponsiveCheckboxFilter from '@/components/gyms/ResposiveCheckboxFilter'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 
-export default function GymFilters({ selectedFeatures, handleCheckboxChange ,clearAllCheckboxes }) {
+export default function GymFilters({
+  selectedFeatures = [],
+  handleCheckboxChange,
+  clearAllCheckboxes,
+}) {
   const router = useRouter()
   const url = 'http://localhost:3001/gyms/features'
   const [filterOptions, setFilterOptions] = useState([])
