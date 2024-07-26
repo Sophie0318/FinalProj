@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import useArticleSearch from '@/hooks/article-search/useArticleSearch'
-import { useAuth } from '@/context/auth-context'
+import { ArticlesListData } from '@/configs/articles'
 
 import useRenderCards from '@/hooks/cards/cards'
 import Layout3 from '@/components/layout/layout3'
@@ -11,12 +11,11 @@ import BS5Pagination from '@/components/product/Pagination/bs5-pagination'
 import styles from '../type.module.css'
 
 export default function ArticleType() {
-  const { auth } = useAuth()
   const [articleList, setArticleList] = useState([])
   const [totalPages, setTotalPages] = useState(0)
   const [pageCategory, setPageCategory] = useState('文章列表')
   const { keyword, setKeyword, handleKeyDown } = useArticleSearch()
-  const renderCard = useRenderCards('articles', auth)
+  const renderCard = useRenderCards('articles')
   const router = useRouter()
   const categoryMap = {
     fitness: '體能鍛鍊',
@@ -69,7 +68,6 @@ export default function ArticleType() {
 
   useEffect(() => {
     if (router.isReady) {
-      const baseURL = 'http://localhost:3001/articles/api/listData?'
       const query = new URLSearchParams(router.query)
       const loginStatus = localStorage.getItem('suan-auth')
       let token = ''
@@ -77,7 +75,7 @@ export default function ArticleType() {
         token = JSON.parse(loginStatus).token
       }
 
-      const url = `${baseURL}${query}`
+      const url = `${ArticlesListData}?${query}`
       getList(url, token)
       setPageCategory(categoryMap[router.query.category])
     }
@@ -85,7 +83,7 @@ export default function ArticleType() {
 
   return (
     <>
-      <Layout3 title="體能鍛鍊" pageName="articles" section="whiteSection">
+      <Layout3 title={pageCategory} pageName="articles" section="whiteSection">
         <section className={styles.padding80}>
           <div className="container-fluid p-0 overflow-visible">
             <div className="row px-0 mx-0">

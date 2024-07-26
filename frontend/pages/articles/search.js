@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import useArticleSearch from '@/hooks/article-search/useArticleSearch'
 import { useAuth } from '@/context/auth-context'
+import { ArticlesListData } from '@/configs/articles'
 
 import Layout3 from '@/components/layout/layout3'
 import useRenderCards from '@/hooks/cards/cards'
@@ -12,7 +13,7 @@ import styles from './type.module.css'
 
 export default function ArticleType() {
   const { auth } = useAuth()
-  const renderCard = useRenderCards('articles', auth)
+  const renderCard = useRenderCards('articles')
   const [articleList, setArticleList] = useState([])
   const [totalPages, setTotalPages] = useState(0)
   const { keyword, setKeyword, handleKeyDown } = useArticleSearch()
@@ -61,11 +62,9 @@ export default function ArticleType() {
 
   useEffect(() => {
     if (router.isReady) {
-      const baseURL = 'http://localhost:3001/articles/api/listData?'
       const query = new URLSearchParams(router.query)
-      console.log(auth.token)
       const token = auth.id ? auth.token : ''
-      const url = `${baseURL}${query}`
+      const url = `${ArticlesListData}?${query}`
       getList(url, token)
     }
   }, [router])

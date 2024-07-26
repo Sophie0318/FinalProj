@@ -26,7 +26,7 @@ const getArticleList = async (req) => {
   let q_sql = " WHERE 1 ";
   let j_sql = ''
   let column_sql = ''
-  if(req.my_jwt) {
+  if (req.my_jwt) {
     j_sql = `LEFT JOIN FavArticles AS FavA ON FavA.article_id_fk = Articles.article_id AND FavA.member_id_fk = ${req.my_jwt.id}`
     column_sql = 'article_id, article_title, update_at, code_desc, article_cover, FavA.member_id_fk'
   } else {
@@ -177,6 +177,101 @@ const getAuthorData = async (author_id, author_is_coach) => {
   }
 }
 
+const getComment = async (req) => {
+  let success = false
+  let message = '';
+  const article_id = parseInt(req.article_id);
+  const main = parseInt(req.main);
+  const sub = parseInt(req.sub);
+  let group = parseInt(req.group);
+  const perGroup = 3;
+  let totalGroup = 0;
+  let totalRows = 0;
+  let t_sql = '';
+  let sql = '';
+  let data = [];
+
+  if (sub > 0) {
+    if (main <= 0) {
+      return { success, message: 'error main and sub' }
+    }
+  }
+
+  if (main === 0 && sub === 0) {
+    // get all main comment under an article
+    t_sql = `SELECT COUNT(main) AS totalRows FROM Comments WHERE article_id_fk = ${article_id} AND sub = 0 GROUP BY article_id_fk;`;
+    sql = `SELECT c.article_id_fk, c.member_id_fk, nick_name, avatar, c.comment_id, c.create_at, c.update_at, c.comment_content, c.main, (SELECT COUNT(*) FROM Comments sub WHERE sub.article_id_fk = c.article_id_fk AND sub.main = c.main AND sub.sub != 0) AS sub_count FROM Comments C LEFT JOIN Members ON member_id_fk = member_id WHERE c.article_id_fk = ${article_id} AND c.sub = 0 GROUP BY c.article_id_fk, c.member_id_fk, c.comment_id, nick_name, avatar, c.create_at, c.update_at, c.comment_content, c.main ORDER BY c.update_at DESC LIMIT ${perGroup * (group - 1)},${perGroup};`;
+  } else if (sub < 0) {
+    // get all sub reply under a main comment
+    t_sql = `SELECT COUNT(CASE WHEN sub != 0 THEN 1 END) AS totalRows FROM Comments WHERE article_id_fk = ${article_id} AND main = ${main} AND sub!= 0 GROUP BY article_id_fk;`;
+    sql = `SELECT c.article_id_fk, c.member_id_fk, nick_name, avatar, c.create_at, c.update_at, c.comment_content, c.main, c.sub FROM Comments C LEFT JOIN Members ON member_id_fk = member_id WHERE c.article_id_fk = ${article_id} AND c.main = ${main} AND sub!= 0 ORDER BY c.update_at DESC LIMIT ${perGroup * (group - 1)},${perGroup};`;
+  } else if (main > 0 && sub === 0) {
+    // get specific sub comment under specific main comment
+    if (sub > 0) {
+      return { success, message: 'yet to design get only one reply' }
+    }
+    // get only 1 main comment
+    return { success, message: 'yet to design get only one comment' }
+  }
+
+  [[{ totalRows }]] = await db.query(t_sql);
+
+  if (!totalRows) {
+    return message = 'the target has no comments'
+  }
+  totalGroup = Math.ceil(totalRows / perGroup)
+
+  if (group > totalGroup) {
+    group = totalGroup
+  }
+
+  try {
+    [data] = await db.query(sql);
+    // TODO: update database and backend to use UTC
+    if (data) {
+      success = true
+      const currentDateTime = moment()
+      for (let i of data) {
+        const m = moment(i.update_at);
+        const m_create = moment(i.create_at);
+        const duration = moment.duration(currentDateTime.diff(m));
+        let update_label = m > m_create ? '編輯' : ''
+
+        if (duration.asMonths() > 12) {
+          const update_at_ = Math.floor(duration.asYears())
+          i.update_at = `${update_at_}年前${update_label}`
+          continue;
+        }
+        if (duration.asMonths() < 12) {
+          if (duration.asMonths() < 1) {
+            const update_at_ = Math.ceil(duration.asDays())
+            i.update_at = `${update_at_}天前${update_label}`
+            continue;
+          } else {
+            const update_at_ = Math.floor(duration.asMonths())
+            i.update_at = `${update_at_}個月前${update_label}`
+            continue;
+          }
+        }
+        if (duration.asHours() < 60) {
+          const update_at_ = Math.floor(duration.asHours())
+          i.update_at = `${update_at_}小時前${update_label}`
+          continue;
+        }
+        if (duration.asMinutes() < 60) {
+          const update_at_ = Math.ceil(duration.asMinutes())
+          i.update_at = `${update_at_}分鐘前${update_label}`
+          continue;
+        }
+      }
+    }
+  } catch (error) {
+    message = `getComment error: ${error}`
+  }
+
+  return { success, data, totalGroup, perGroup, totalRows, message };
+}
+
 router.get("/api/listData", async (req, res) => {
   const data = await getArticleList(req);
   res.json(data);
@@ -215,25 +310,26 @@ router.get("/api/articleIndex", async (req, res) => {
 
 router.get("/api/entry/:article_id", async (req, res) => {
   const output = {
-    success: true,
+    success: false,
     code: 0,
     result: {},
     furtherReading: [],
     authorInfo: {}
   }
 
-  let j_sql = ''
-  let column_sql = ''
-  if(req.my_jwt) {
+  let j_sql = '';
+  let column_sql = '';
+  if (req.my_jwt) {
     j_sql = `LEFT JOIN FavArticles AS FavA ON FavA.article_id_fk = Articles.article_id AND FavA.member_id_fk = ${req.my_jwt.id}`
-    column_sql = 'article_id, article_title, author_id, author_is_coach, update_at, code_id, article_cover, article_desc, article_content, FavA.member_id_fk'
+    column_sql = 'article_id, article_title, author_id, author_is_coach, update_at, code_id, article_cover, article_desc, article_content, FavA.member_id_fk';
   } else {
-    column_sql = 'article_id, article_title, author_id, author_is_coach, update_at, code_id, article_cover, article_desc, article_content'
+    column_sql = 'article_id, article_title, author_id, author_is_coach, update_at, code_id, article_cover, article_desc, article_content';
   }
 
-  const article_id = +req.params.article_id || 0;
-  if (!article_id) {
-    return res.json(output)
+  const {article_id}= req.params;
+  if (isNaN(article_id) || article_id <= 0) {
+    output.error = 'invalid article id';
+    return res.status(404).json(output);
   }
 
   let articleCategory = 0;
@@ -244,18 +340,25 @@ router.get("/api/entry/:article_id", async (req, res) => {
 
   try {
     [[output.result]] = await db.query(sql);
-    output.success = !!output.result
+    output.success = !!output.result;
     if (output.success) {
-      const m = moment(output.result.update_at)
+      const m = moment(output.result.update_at);
       output.result.update_at = m.isValid() ? m.format(dateFormat) : "";
-      articleCategory = output.result.code_id
-      author_id = output.result.author_id
-      author_is_coach = output.result.author_is_coach
+      articleCategory = output.result.code_id;
+      author_id = output.result.author_id;
+      author_is_coach = output.result.author_is_coach;
+
+      if(req.my_jwt && output.result.member_id_fk === null) {
+        output.result.member_id_fk = 0
+      }
+    } else {
+      output.error = 'invalid article id'
+      return res.status(404).json(output)
     }
   } catch (error) {
     console.log('database fetch article error: ', error)
-    output.code = 400
-    output.message = `database fetch article error: ${error}`
+    output.error = `database fetch article error: ${error}`
+    return res.status(500).json(output)
   }
 
   try {
@@ -283,7 +386,7 @@ router.get("/api/entry/:article_id", async (req, res) => {
       }
     }
 
-    const req2 = {...req, query: {category:category}}
+    const req2 = { ...req, query: { category: category } }
 
     const listData = await getArticleList(req2)
     if (listData.success) {
@@ -314,130 +417,172 @@ router.get("/api/entry/:article_id", async (req, res) => {
 })
 
 router.post('/api/addfavarticle', async (req, res) => {
-  const member_id_fk = +req.body.member_id || 0;
-  const article_id_fk = +req.body.article_id || 0;
-  const output = {
-    success: false,
+  const output = { success: false, }
+  const { member_id, article_id } = req.body
+  const sql = `INSERT INTO FavArticles (member_id_fk, article_id_fk) VALUES(?, ?);`;
+
+  if (isNaN(member_id) || member_id <= 0) {
+    output.error = 'invalid member_id';
+    return res.status(400).json(output)
+  }
+  if (isNaN(article_id) || article_id <= 0) {
+    output.error = 'invalid article_id';
+    return res.status(400).json(output)
   }
 
-  if (member_id_fk && article_id_fk) {
-    const sql = `INSERT INTO FavArticles (member_id_fk, article_id_fk) VALUES(?, ?);`;
-    try {
-    const [result] = await db.query(sql, [member_id_fk, article_id_fk])
-      output.success = !!result.affectedRows
-    } catch (error) {
-      output.error = `database insert error: ${error}`
+  if (!req.my_jwt) {
+    output.error = 'must login to add favorite'
+    return res.status(400).json(output)
+  }
+
+  try {
+    const [result] = await db.query(sql, [member_id, article_id])
+    output.success = !!result.affectedRows
+    return res.status(200).json(output)
+  } catch (error) {
+    output.error = `database insert error: ${error}`
+    return res.status(500).json(output)
+  }
+})
+
+router.delete('/api/removefavarticle', async (req, res) => {
+  const output = { success: false };
+  const { member_id, article_id } = req.body;
+  const q_sql = `WHERE member_id_fk = ? AND article_id_fk = ?`
+  const sql = `DELETE FROM FavArticles ${q_sql};`;
+
+  if (isNaN(member_id) || member_id <= 0) {
+    output.error = 'invalid member_id';
+    return res.status(400).json(output)
+  }
+  if (isNaN(article_id) || article_id <= 0) {
+    output.error = 'invalid article_id';
+    return res.status(400).json(output)
+  }
+
+  if (!req.my_jwt) {
+    output.error = 'must login to delete favorite'
+    return res.status(400).json(output)
+  }
+
+  try {
+    const [result] = await db.query(sql, [member_id, article_id])
+    output.success = !!result.affectedRows
+    return res.json(output)
+  } catch (error) {
+    output.error = `database delete error: ${error}`
+    return res.json(output)
+  }
+})
+
+router.get('/api/comment', async (req, res) => {
+  const output = { success: false }
+  const { article_id, main, sub, group } = req.query
+
+  if (isNaN(article_id) || article_id <= 0) {
+    output.error = 'invalid article_id'
+    return res.status(400).json(output)
+  }
+  if (isNaN(main) || isNaN(sub) || isNaN(group) || main < 0 || group <= 0) {
+    output.error = 'invalid main, sub, or group'
+    return res.status(400).json(output)
+  }
+  const request = { article_id: article_id, main: main, sub: sub, group: group }
+
+  try {
+    const data = await getComment(request)
+    if (!data || data.message) {
+      output.data = data
+      output.error = 'fail to retrieve data'
+      return res.status(500).json(output)
     }
+    output.success = true
+    res.status(200).json(data)
+  } catch (error) {
+    output.error = 'backend error'
+    return res.status(500).json(output)
   }
-  res.json(output)
+
 })
 
-router.delete('/api/removefavarticle', async (req,res)=>{
-  const member_id_fk = +req.body.member_id || 0;
-  const article_id_fk = +req.body.article_id || 0;
-  const output = {
-    success: false,
+router.post('/api/comment', async(req,res)=>{
+  const output = { success: false };
+  const { article_id, main, sub, member_id, comment_content } = req.body;
+  const sql = `INSERT INTO Comments (comment_content, article_id_fk, member_id_fk, main, sub) VALUES (?, ?, ?, ?, ?);`;
+
+  if (isNaN(article_id) || article_id <= 0) {
+    output.error = 'invalid article_id';
+    return res.status(400).json(output);
+  }
+  if (isNaN(member_id) || member_id <= 0) {
+    output.error = 'invalid member_id';
+    return res.status(400).json(output);
+  }
+  if (isNaN(main) || isNaN(sub) || main <= 0 || sub < 0) {
+    output.error = 'invalid main or sub';
+    return res.status(400).json(output);
   }
 
-  if (member_id_fk && article_id_fk) {
-    const q_sql = `WHERE member_id_fk = ? AND article_id_fk = ?`
-    const sql = `DELETE FROM FavArticles ${q_sql};`;
-    try {
-    const [result] = await db.query(sql, [member_id_fk, article_id_fk])
-      output.success = !!result.affectedRows
-    } catch (error) {
-      output.error = `database delete error: ${error}`
+  if (!req.my_jwt) {
+    output.error = 'must login to leave comment'
+    return res.status(400).json(output)
+  }
+
+  try {
+    const [result] = await db.query(sql, [comment_content, article_id, member_id, main, sub])
+    output.result = result
+    output.success = !!result.affectedRows
+    if (output.success) {
+      return res.status(200).json(output)
+    } else {
+      output.error = 'database error'
+      return res.status(500).json(output)
     }
+  } catch (error) {
+    output.error = `database fetch error: ${error}`;
+    res.status(500).json(output);
   }
-  res.json(output)
+
 })
 
-const getComment = async (req) => {
-  const article_id = +req.query.article_id || 0;
-  const group = !+req.query.group || +req.query.group < 0 ? 1 : +req.query.group;
-  const perGroup = 3;
-  let totalGroup = 0;
-  let totalRows = 0;
-
-  
-  const t_sql = 'SELECT COUNT(main) AS totalRows FROM Comments WHERE article_id_fk = ? AND sub = 0 GROUP BY article_id_fk;';
-  [[totalRows]] = await db.query(t_sql, [article_id]);
-
-  totalGroup = Math.ceil(totalRows.totalRows / perGroup)
-  return totalGroup;
-}
-
-router.get('/api/comment', async(req,res)=>{
+router.put('/api/comment/:comment_id', async (req, res) => {
   const output = {
-    success:false,
-    main:[]
+    success: false
   }
-  output.result = await getComment(req)
-  res.json(output)
+  const { comment_id } = req.params;
+  const { comment_content } = req.body;
+
+  if (isNaN(comment_id) || comment_id <= 0) {
+    output.error = 'invalid comment_id';
+    return res.status(400).json(output);
+  }
+
+  if (!comment_content || comment_content.trim() === '') {
+    output.error = 'must provide comment content';
+    return res.status(400).json(output);
+  }
+
+  if (!req.my_jwt) {
+    output.error = 'must login to update comment'
+    return res.status(400).json(output)
+  }
+
+  const sql = `UPDATE Comments SET comment_content = ?, update_at = NOW()
+WHERE comment_id = ?;`;
+
+  try {
+    const [data] = await db.query(sql, [comment_content, comment_id]);
+    if (data.affectedRows === 0) {
+      output.error = 'error updating data in database or invalid comment_id';
+      return res.status(500).json(output);
+    }
+    output.success = true;
+    output.data = data;
+    res.status(200).json(output);
+  } catch (error) {
+    output.error = `database update fail: ${error}`
+    return res.status(500).json(output)
+  }
 })
-// router.get("/edit/:article_id", async (req, res) => {
-//   const article_id = +req.params.article_id || 0;
-//   if (!article_id) {
-//     return res.redirect("/articles");
-//   }
-
-//   const sql = `SELECT * FROM Articles WHERE article_id = ${article_id}`;
-//   const [rows] = await db.query(sql);
-//   if (!rows.length) {
-//     return res.redirect("/article-book");
-//   }
-
-//   let m = moment(rows[0].article_publish_date);
-//   rows[0].article_publish_date = m.format(dateFormat);
-
-//   // res.json(rows[0]);
-//   res.render("articles/edit", rows[0]);
-// });
-
-// router.put("/api/:article_id", upload.none(), async (req, res) => {
-//   const output = {
-//     success: false,
-//     code: 0,
-//     result: "",
-//   };
-//   const article_id = +req.params.article_id || 0;
-//   if (!article_id) {
-//     return res.json(output);
-//   }
-
-//   try {
-//     const sql = `UPDATE Articles SET ? WHERE article_id=${article_id}`;
-//     let body = { ...req.body };
-//     const [result] = await db.query(sql, [body, article_id]);
-
-//     output.result = result;
-//     output.body = req.body;
-//     output.success = !!(result.affectedRows && result.changedRows);
-//   } catch (error) {
-//     output.error = error;
-//   }
-
-//   res.json(output);
-// });
-
-// const getArticleCategory = async (req) => {
-//   let success = false;
-//   let categories = [];
-
-//   const sql = `SELECT code_id, code_desc FROM CommonType WHERE code_type = 9;`;
-//   [categories] = await db.query(sql);
-
-//   success = true;
-//   return {
-//     success,
-//     categories,
-//     qs: req.query,
-//   };
-// };
-// router.get("/api/categories", async (req, res) => {
-//   const data = await getArticleCategory(req);
-//   res.json(data);
-// });
-
 
 export default router;

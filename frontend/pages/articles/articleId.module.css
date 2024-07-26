@@ -396,6 +396,14 @@
   line-height: 160%;
 }
 
+/* loader 畫面 */
+.loaderBlock {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  height: 80vh;
+  width: 100%;
+}
 
 @media (max-width: 900px) {
   .sidebarTrack {
@@ -457,8 +465,7 @@
 
 @media (max-width: 576px) {
   .cta {
-    padding: 0 24px;
-    margin-bottom: 55px;
+    padding:55px 24px;
   }
 
   .ctaCard {
