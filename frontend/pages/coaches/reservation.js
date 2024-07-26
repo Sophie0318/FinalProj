@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import Layout3 from '@/components/layout/layout3'
+import Layout4 from '@/components/layout/layout4'
 import styles from '@/styles/coachReservation.module.css'
 import CoachCard from '@/components/coaches/coachCard'
 import ReserveModal from '@/components/coaches/reserve-modal'
@@ -150,7 +150,7 @@ export default function Reservation() {
 
   return (
     <>
-      <Layout3 title="教練預約" pageName="coaches">
+      <Layout4 title="教練預約" pageName="coaches">
         <div className={styles.content}>
           <div className={styles.reserveForm}>
             <div className={styles.formHead}>
@@ -246,7 +246,7 @@ export default function Reservation() {
             </div>
           </div>
         </div>
-      </Layout3>
+      </Layout4>
       {showModal && (
         <ReserveModal
           onClose={handleCloseModal}

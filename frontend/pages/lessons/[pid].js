@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import Layout3 from '@/components/layout/layout3'
+import Layout4 from '@/components/layout/layout4'
 import styles from '@/styles/lessonDetail.module.css'
 import { IoCart, IoHeart } from 'react-icons/io5'
 import axios from 'axios'
@@ -144,7 +144,7 @@ export default function Detail() {
 
   return (
     <>
-      <Layout3 title="課程列表" pageName="lessons">
+      <Layout4 title="課程列表" pageName="lessons">
         <div className={styles.content}>
           <div className={styles.lessson}>
             <div className={styles.imgContainer}>
@@ -185,7 +185,7 @@ export default function Detail() {
             </div>
           </div>
         </div>
-      </Layout3>
+      </Layout4>
     </>
   )
 }
