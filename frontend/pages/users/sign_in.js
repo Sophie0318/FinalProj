@@ -93,7 +93,7 @@ export default function SignIn() {
               console.log(returnUrl)
               router.push('/')
             }
-          }, 1000)
+          }, 5000)
         } else {
           setAlertMessage('登入失敗')
           setUserMessage('請檢查您的電子郵件和密碼')

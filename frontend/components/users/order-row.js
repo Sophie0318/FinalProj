@@ -60,7 +60,17 @@ export default function OrderRow({
             </div>
           ))}
         {items.length > 1 && (
-          <div className={styles.accordion} onClick={toggleAccordion}>
+          <div
+            className={styles.accordion}
+            onClick={toggleAccordion}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                toggleAccordion()
+              }
+            }}
+            role="button"
+            tabIndex="0"
+          >
             <p>{isExpanded ? '點擊收起' : '點擊展開已購買的商品'}</p>
           </div>
         )}
