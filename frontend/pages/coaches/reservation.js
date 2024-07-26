@@ -41,8 +41,9 @@ export default function Reservation() {
 
   // 欄位填寫錯誤時滾動
   useEffect(() => {
-    if (Object.keys(errors).length > 0) {
-      const firstErrorKey = Object.keys(errors)[0]
+    const errorKeys = Object.keys(errors)
+    if (errorKeys.length > 0) {
+      const firstErrorKey = errorKeys[0]
       const errorElement = document.getElementById(firstErrorKey)
       if (errorElement) {
         errorElement.scrollIntoView({ behavior: 'smooth', block: 'center' })
@@ -56,11 +57,30 @@ export default function Reservation() {
       ...prevData,
       [name]: value,
     }))
-    // 當用戶輸入時，清除該欄位的錯誤
-    setErrors((prevErrors) => ({
-      ...prevErrors,
-      [name]: '',
-    }))
+    // 只在該欄位的輸入有效時才清除錯誤
+    if (validateField(name, value)) {
+      setErrors((prevErrors) => {
+        const newErrors = { ...prevErrors }
+        delete newErrors[name]
+        return newErrors
+      })
+    }
+  }
+
+  // 新增這個函數來驗證單個欄位
+  const validateField = (name, value) => {
+    switch (name) {
+      case 'name':
+        return value.trim() !== ''
+      case 'phone':
+        return /^09\d{8}$/.test(value)
+      case 'email':
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)
+      case 'timeSlot':
+        return value !== ''
+      default:
+        return true
+    }
   }
 
   // 表單驗證
@@ -82,7 +102,7 @@ export default function Reservation() {
     // 檢查是否有選擇時段
     if (!formData.timeSlot) newErrors.timeSlot = '請選擇時段'
     // 重新設定錯誤訊息
-    setErrors(newErrors)
+    setErrors((prevErrors) => ({ ...prevErrors, ...newErrors }))
     return Object.keys(newErrors).length === 0
   }
 
