@@ -110,11 +110,11 @@ app.post("/avatar-upload", imgUpload.single("avatar"), async (req, res) => {
         [req.file.filename, memberId]
       );
 
-      // 如果舊頭像不是默認頭像，則刪除它>>>>避免登出時沒有頭像
-      // if (oldAvatar && oldAvatar !== "default_avatar.png") {
-      //   const oldAvatarPath = path.join("public/users", oldAvatar);
-      //   await fs.unlink(oldAvatarPath).catch(() => { });
-      // }
+      // 如果舊頭像不是默認頭像，則刪除它
+      if (oldAvatar && oldAvatar !== "default_avatar.png") {
+        const oldAvatarPath = path.join("public/users", oldAvatar);
+        await fs.unlink(oldAvatarPath).catch(() => { });
+      }
 
       res.json({
         message: "圖片上傳成功",
