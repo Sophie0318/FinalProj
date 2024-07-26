@@ -19,11 +19,13 @@ export default function CommentStrip({
     sub_count: 0,
   },
   reply = false,
-  handleToggle = () => {},
+  handleToggle = () => { },
   hiddenSubs = 0,
-  setHiddenSubs = () => {},
+  setHiddenSubs = () => { },
   // handleReplyToggle = () => {},
 }) {
+  const [isClicked, setIsClicked] = useState(false)
+
   // const [hiddenSubs, setHiddenSubs] = useState(0)
   // const main = data.main
 
@@ -55,8 +57,10 @@ export default function CommentStrip({
   // }
 
   useEffect(() => {
-    setHiddenSubs(data.sub_count)
-  }, [data])
+    // setHiddenSubs(data.sub_count)
+    console.log(data.sub_count, data.main)
+    console.log('hiddensub', hiddenSubs)
+  }, [data, hiddenSubs])
   return (
     <>
       <div
@@ -100,12 +104,13 @@ export default function CommentStrip({
               id="reply"
               onClick={(e) => {
                 handleToggle(e, data)
+                setIsClicked(!isClicked)
               }}
             >
-              {hiddenSubs < data.sub_count ? (
-                <span>隱藏回覆</span>
+              {!data.sub_count || !isClicked ? (
+                <span>查看{data.sub_count}則回覆</span>
               ) : (
-                <span>查看{hiddenSubs}則回覆</span>
+                <span>隱藏回覆</span>
               )}
             </button>
           </div>

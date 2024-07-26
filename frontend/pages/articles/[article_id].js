@@ -5,7 +5,7 @@ import { useAuth } from '@/context/auth-context'
 import { ArticlesEntry } from '@/configs/articles'
 
 // 元件 + 樣式
-import Layout3 from '@/components/layout/layout3'
+import Layout4 from '@/components/layout/layout4'
 import Btn from '@/components/articles/buttons_test'
 import ArticleSidebar from '@/components/articles/article-sidebar'
 import useRenderCards from '@/hooks/cards/cards'
@@ -81,7 +81,7 @@ export default function ArticlePage() {
 
   return (
     <>
-      <Layout3
+      <Layout4
         title={
           JSON.stringify(content) !== '{}'
             ? `找知識 - ${content.article_title}`
@@ -270,7 +270,7 @@ export default function ArticlePage() {
             <Loader />
           </div>
         )}
-      </Layout3>
+      </Layout4>
     </>
   )
 }
