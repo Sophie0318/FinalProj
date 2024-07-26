@@ -14,6 +14,10 @@ function ReserveModal({ onClose, formData, selectedCoach, isLoggedIn }) {
     router.push('/users/sign_in')
   }
 
+  const bindex = () => {
+    router.push('/')
+  }
+
   return (
     <div className={styles.modalOverlay}>
       <div className={styles.modal}>
@@ -71,8 +75,8 @@ function ReserveModal({ onClose, formData, selectedCoach, isLoggedIn }) {
           </div>
         </div>
         <div className={styles.btns}>
-          <button className={styles.btnBack} onClick={onClose}>
-            關閉視窗
+          <button className={styles.btnBack} onClick={bindex}>
+            回到首頁
           </button>
           <button className={styles.btnFin} onClick={handleReturnToCoaches}>
             繼續搜尋
