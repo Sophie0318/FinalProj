@@ -528,7 +528,7 @@ CREATE TABLE Members (
     member_password VARCHAR(70) NULL,-- 用第三方登入的人沒有密碼
     gender VARCHAR(10),
     nick_name VARCHAR(10),
-    avatar VARCHAR(200) NOT NULL DEFAULT 'default_avatar.jpg',-- 可以不放大頭貼，若不放會顯示一個預設圖示
+    avatar VARCHAR(200) NOT NULL DEFAULT 'default_avatar.png',-- 可以不放大頭貼，若不放會顯示一個預設圖示
     mobile VARCHAR(50) NULL,     -- 要驗證時需指定用戶輸入的格式避免0900-000-000
     city_id INT,
     district_id INT,
@@ -560,6 +560,116 @@ INSERT INTO Members (
     4,  -- city_id 對應基隆市的 code_id
     7,  -- district_id 對應暖暖區的 code_id
     '源遠路260巷36弄23號8樓'
+),
+(
+    'Hucky',
+    'hucky34@gmail.com',
+    '$2b$10$dm6J4ukAYXe3NIiTWI970OtW4B8rgYBbaHDzdltXTlTuAxymKirK2',
+    'female',
+    'hucky',
+    '0988888888',
+    4,  -- city_id 對應基隆市的 code_id
+    7,  -- district_id 對應暖暖區的 code_id
+    '源遠路260巷36弄23號2樓'
+),
+(
+    '林美玲',
+    'meiling123@gmail.com',
+    '$2b$10$dm6J4ukAYXe3NIiTWI970OtW4B8rgYBbaHDzdltXTlTuAxymKirK2',
+    'female',
+    '林美玲',
+    '0988888889',
+    4,  -- city_id 對應基隆市的 code_id
+    7,  -- district_id 對應暖暖區的 code_id
+    '源遠路260巷36弄23號3樓'
+),
+(
+    '王曉明',
+    'xiaoming123@gmail.com',
+    '$2b$10$dm6J4ukAYXe3NIiTWI970OtW4B8rgYBbaHDzdltXTlTuAxymKirK2',
+    'male',
+    '王曉明',
+    '0988888887',
+    4,  -- city_id 對應基隆市的 code_id
+    7,  -- district_id 對應暖暖區的 code_id
+    '源遠路260巷36弄23號4樓'
+),
+(
+    '張曉芳',
+    'xiaofang123@gmail.com',
+    '$2b$10$dm6J4ukAYXe3NIiTWI970OtW4B8rgYBbaHDzdltXTlTuAxymKirK2',
+    'female',
+    '張曉芳',
+    '0988888886',
+    4,  -- city_id 對應基隆市的 code_id
+    7,  -- district_id 對應暖暖區的 code_id
+    '源遠路260巷36弄23號5樓'
+),
+(
+    '朴正名',
+    'zhongming123@gmail.com',
+    '$2b$10$dm6J4ukAYXe3NIiTWI970OtW4B8rgYBbaHDzdltXTlTuAxymKirK2',
+    'male',
+    '朴正名',
+    '0988888885',
+    4,  -- city_id 對應基隆市的 code_id
+    7,  -- district_id 對應暖暖區的 code_id
+    '源遠路260巷36弄23號6樓'
+),
+(
+    '潘正男',
+    'zhengming123@gmail.com',
+    '$2b$10$dm6J4ukAYXe3NIiTWI970OtW4B8rgYBbaHDzdltXTlTuAxymKirK2',
+    'male',
+    '潘正男',
+    '0988888884',
+    4,  -- city_id 對應基隆市的 code_id
+    7,  -- district_id 對應暖暖區的 code_id
+    '源遠路260巷36弄23號7樓'
+),
+(
+    '潘蘋果',
+    'apple123@gmail.com',
+    '$2b$10$dm6J4ukAYXe3NIiTWI970OtW4B8rgYBbaHDzdltXTlTuAxymKirK2',
+    'female',
+    'Apple',
+    '0988888883',
+    4,  -- city_id 對應基隆市的 code_id
+    7,  -- district_id 對應暖暖區的 code_id
+    '源遠路260巷36弄23號8樓'
+),
+(
+    '林藍莓',
+    'blueberry123@gmail.com',
+    '$2b$10$dm6J4ukAYXe3NIiTWI970OtW4B8rgYBbaHDzdltXTlTuAxymKirK2',
+    'female',
+    '美美',
+    '0988888882',
+    4,  -- city_id 對應基隆市的 code_id
+    7,  -- district_id 對應暖暖區的 code_id
+    '源遠路260巷36弄22號8樓'
+),
+(
+    '林草莓',
+    'strawberry123@gmail.com',
+    '$2b$10$dm6J4ukAYXe3NIiTWI970OtW4B8rgYBbaHDzdltXTlTuAxymKirK2',
+    'female',
+    '草莓',
+    '0988888882',
+    4,  -- city_id 對應基隆市的 code_id
+    7,  -- district_id 對應暖暖區的 code_id
+    '源遠路260巷36弄22號8樓'
+),
+(
+    '林棗',
+    'plum123@gmail.com',
+    '$2b$10$dm6J4ukAYXe3NIiTWI970OtW4B8rgYBbaHDzdltXTlTuAxymKirK2',
+    'male',
+    '棗子',
+    '0988888882',
+    4,  -- city_id 對應基隆市的 code_id
+    7,  -- district_id 對應暖暖區的 code_id
+    '源遠路260巷36弄22號8樓'
 );
 
 
@@ -1747,8 +1857,8 @@ VALUES
 
 INSERT INTO Comments(article_id_fk, member_id_fk, main, sub, comment_content)
 VALUES
-(1, 2, 1, 1, "是不是!!!"),
-(1, 3, 1, 2, "+1"),
+(1, 1, 1, 1, "是不是!!!"),
+(1, 1, 1, 2, "+1"),
 (2, 2, 1, 1, "是不是!!!"),
 (2, 3, 1, 2, "+1"),
 (3, 2, 1, 1, "是不是!!!"),
@@ -1830,7 +1940,21 @@ CREATE TABLE Gyms (
     update_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
-
+-- 建立Gym_Reservations 表格 
+CREATE TABLE GymReservations (
+	reservation_id INT AUTO_INCREMENT PRIMARY KEY,
+    reserve_name VARCHAR(100) NOT NULL,
+    reserve_phone VARCHAR(13) NOT NULL,
+    reserve_email VARCHAR(100) NOT NULL,
+    reserve_time TIMESTAMP NOT NULL,
+    gym_id INT NOT NULL,
+    member_id INT,
+    is_member BOOLEAN NOT NULL DEFAULT FALSE,
+    create_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    update_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    employee_id INT,
+    CONSTRAINT check_phone CHECK (reserve_phone REGEXP '^[0-9]{10,13}$')
+);
 
 
 -- 建立 Features 表格 （即CommonType 將之分開比較好使用）
@@ -2280,6 +2404,31 @@ CREATE TABLE coachReserve (
   created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (coach_id) REFERENCES Coaches(coach_id)
 );
+
+INSERT INTO coachreserve(`coachReserve_id`, `reserve_name`, `reserve_phone`, `reserve_email`, `reserve_time`, `coach_id`, `created_at`) VALUES
+('1','劉冠廷','0911222333','dongdong123456@gmail','2024-12-11 19:30','10','2024-07-23 11:11:52'),
+('2','劉冠廷','0911222333','dongdong123456@gmail','2024-12-03 10:00','15','2024-07-23 11:11:52'),
+('3','劉冠廷','0911222333','dongdong123456@gmail','2024-11-03 10:00','15','2024-07-23 11:11:52'),
+('4','劉冠廷','0911222333','dongdong123456@gmail','2024-10-02 10:00','14','2024-07-23 11:11:52'),
+('5','劉冠廷','0911222333','dongdong123456@gmail','2024-10-17 15:00','14','2024-07-23 11:11:52'),
+('6','劉冠廷','0911222333','dongdong123456@gmail','2024-09-01 10:00','13','2024-07-23 11:11:52'),
+('7','劉冠廷','0911222333','dongdong123456@gmail','2024-09-30 19:00','12','2024-07-23 11:11:52'),
+('8','劉冠廷','0911222333','dongdong123456@gmail','2024-08-13 11:00','11','2024-07-23 11:11:52'),
+('9','劉冠廷','0911222333','dongdong123456@gmail','2024-08-27 13:00','10','2024-07-23 11:11:52'),
+('10','劉冠廷','0911222333','dongdong123456@gmail','2024-07-03 09:00','9','2024-07-23 11:11:52'),
+('11','劉冠廷','0911222333','dongdong123456@gmail','2024-06-18 10:30','8','2024-07-23 11:11:52'),
+('12','劉冠廷','0911222333','dongdong123456@gmail','2024-06-20 10:00','14','2024-07-23 11:11:52'),
+('13','劉冠廷','0911222333','dongdong123456@gmail','2024-05-02 09:00','1','2024-07-23 11:11:52'),
+('14','劉冠廷','0911222333','dongdong123456@gmail','2024-05-03 09:30','15','2024-07-23 11:11:52'),
+('15','劉冠廷','0911222333','dongdong123456@gmail','2024-05-04 10:00','15','2024-07-23 11:11:52'),
+('16','劉冠廷','0911222333','dongdong123456@gmail','2024-05-05 10:30','15','2024-07-23 11:11:52'),
+('17','劉冠廷','0911222333','dongdong123456@gmail','2024-04-06 09:00','7','2024-07-23 11:11:52'),
+('18','劉冠廷','0911222333','dongdong123456@gmail','2024-04-10 10:00','6','2024-07-23 11:11:52'),
+('19','劉冠廷','0911222333','dongdong123456@gmail','2024-03-03 09:30','5','2024-07-23 11:11:52'),
+('20','劉冠廷','0911222333','dongdong123456@gmail','2024-02-11 13:30','4','2024-07-23 11:11:52'),
+('21','劉冠廷','0911222333','dongdong123456@gmail','2024-02-21 10:00','3','2024-07-23 11:11:52'),
+('22','劉冠廷','0911222333','dongdong123456@gmail','2024-01-03 18:00','2','2024-07-23 11:11:52'),
+('23','劉冠廷','0911222333','dongdong123456@gmail','2024-01-20 10:00','1','2024-07-23 11:11:52')
 
 -- SELECT 
 --         l.lesson_id,
