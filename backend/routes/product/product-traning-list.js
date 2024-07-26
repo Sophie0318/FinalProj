@@ -257,7 +257,7 @@ JOIN
     rows.forEach((row) => {
       row.orderDetail_time = moment(row.orderDetail_time)
         .tz("Asia/Taipei")
-        .format("YYYY-MM-DD HH:mm:ss");
+        .format("YYYY-MM-DD");
     });
 
     res.json({
