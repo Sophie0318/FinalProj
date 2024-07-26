@@ -173,32 +173,29 @@ const userController = {
 
             // 將訂單按 orderDetail_number 分組
             const groupedOrders = orders.reduce((acc, order) => {
-                // 只保留第一張商品圖片
-                const firstPhoto = order.Product_photo.split(',')[0];
                 if (!acc[order.orderDetail_number]) {
                     acc[order.orderDetail_number] = {
                         orderDetail_number: order.orderDetail_number,
-                        items: [{
-                            id: order.OrdersDetail_id,
-                            imgSrc: firstPhoto,
-                            name: order.Product_name,
-                            quantity: order.OrdersDetail_product_quantity,
-                            price: order.OrdersDetail_unit_price_at_time
-                        }],
-                        totalQuantity: order.OrdersDetail_product_quantity,
-                        totalPrice: order.OrdersDetail_product_quantity * order.OrdersDetail_unit_price_at_time
+                        items: [],
+                        totalQuantity: 0,
+                        totalPrice: 0
                     };
-                } else {
-                    acc[order.orderDetail_number].items.push({
-                        id: order.OrdersDetail_id,
-                        imgSrc: firstPhoto,
-                        name: order.Product_name,
-                        quantity: order.OrdersDetail_product_quantity,
-                        price: order.OrdersDetail_unit_price_at_time
-                    });
-                    acc[order.orderDetail_number].totalQuantity += order.OrdersDetail_product_quantity;
-                    acc[order.orderDetail_number].totalPrice += order.OrdersDetail_product_quantity * order.OrdersDetail_unit_price_at_time;
                 }
+
+                // 只保留第一張商品圖片
+                const firstPhoto = order.Product_photo.split(',')[0];
+
+                acc[order.orderDetail_number].items.push({
+                    id: order.OrdersDetail_id,
+                    imgSrc: firstPhoto,
+                    name: order.Product_name,
+                    quantity: order.OrdersDetail_product_quantity,
+                    price: order.OrdersDetail_unit_price_at_time
+                });
+
+                acc[order.orderDetail_number].totalQuantity += order.OrdersDetail_product_quantity;
+                acc[order.orderDetail_number].totalPrice += order.OrdersDetail_product_quantity * order.OrdersDetail_unit_price_at_time;
+
                 return acc;
             }, {});
 

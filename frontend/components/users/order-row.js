@@ -7,6 +7,7 @@ export default function OrderRow({
   totalQuantity = '',
   totalPrice = '',
 }) {
+  console.log('OrderRow items:', items)
   const [isExpanded, setIsExpanded] = useState(false)
 
   const toggleAccordion = () => {
@@ -18,7 +19,7 @@ export default function OrderRow({
 
   return (
     <>
-      <div className={styles.order}>
+      <div className={`${styles.order} ${isExpanded ? styles.expanded : ''}`}>
         <div className={styles.ordernumber}>
           <p>訂單編號: {orderDetail_number}</p>
         </div>
@@ -40,20 +41,20 @@ export default function OrderRow({
         </div>
 
         {isExpanded &&
-          items.slice(1).map((v) => (
-            <div key={v.id} className={styles.other_item}>
+          items.slice(1).map((item) => (
+            <div key={item.id} className={styles.other_item}>
               <img
                 className={styles.product_image}
-                src={`/product-img/${v.imgSrc}`}
+                src={`/product-img/${item.imgSrc}`}
                 alt=""
               />
               <div className={styles.product_detail}>
                 <div className={styles.product_description}>
-                  <p className={styles.product_name}>{v.name}</p>
+                  <p className={styles.product_name}>{item.name}</p>
                 </div>
                 <div className={styles.product_price_warpper}>
-                  <p className={styles.quantity}>x{v.quantity}</p>
-                  <p className={styles.price}>${v.price}</p>
+                  <p className={styles.quantity}>x{item.quantity}</p>
+                  <p className={styles.price}>${item.price}</p>
                 </div>
               </div>
             </div>
