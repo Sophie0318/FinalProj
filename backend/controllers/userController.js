@@ -166,14 +166,41 @@ const userController = {
             JOIN 
                 Products p ON od.OrdersDetail_product_id_fk = p.Product_id 
             WHERE 
-                po.ProductOrders_m_id_fk = ?`,
+                po.ProductOrders_m_id_fk = ?
+            ORDER BY 
+                po.Productorders_orders_id DESC`,
                 [userId]);
 
-            // 資料庫Product_photo中，只拿第一張圖片
-            const processedOrders = orders.map(order => ({
-                ...order,
-                Product_photo: order.Product_photo.split(',')[0]
-            }));
+            // 將訂單按 orderDetail_number 分組
+            const groupedOrders = orders.reduce((acc, order) => {
+                if (!acc[order.orderDetail_number]) {
+                    acc[order.orderDetail_number] = {
+                        orderDetail_number: order.orderDetail_number,
+                        first_item: {
+                            imgSrc: order.Product_photo.split(',')[0],
+                            name: order.Product_name,
+                            quantity: order.OrdersDetail_product_quantity,
+                            price: order.OrdersDetail_unit_price_at_time
+                        },
+                        other_items: [],
+                        totalQuantity: order.OrdersDetail_product_quantity,
+                        totalPrice: order.OrdersDetail_product_quantity * order.OrdersDetail_unit_price_at_time
+                    };
+                } else {
+                    acc[order.orderDetail_number].other_items.push({
+                        id: order.OrdersDetail_id,
+                        imgSrc: order.Product_photo.split(',')[0],
+                        name: order.Product_name,
+                        quantity: order.OrdersDetail_product_quantity,
+                        price: order.OrdersDetail_unit_price_at_time
+                    });
+                    acc[order.orderDetail_number].totalQuantity += order.OrdersDetail_product_quantity;
+                    acc[order.orderDetail_number].totalPrice += order.OrdersDetail_product_quantity * order.OrdersDetail_unit_price_at_time;
+                }
+                return acc;
+            }, {});
+
+            const processedOrders = Object.values(groupedOrders);
 
             res.json({ success: true, orders: processedOrders });
         } catch (error) {
