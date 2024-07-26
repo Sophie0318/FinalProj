@@ -5,16 +5,6 @@ import { IoCall, IoHeart } from 'react-icons/io5'
 import Badges from '@/components/gyms/badges'
 import { useRouter } from 'next/router'
 import GymSwiper from '@/components/gyms/gym-swiper'
-import { Swiper, SwiperSlide } from 'swiper/react'
-
-// Import Swiper styles
-import 'swiper/css'
-import 'swiper/css/free-mode'
-import 'swiper/css/navigation'
-import 'swiper/css/thumbs'
-
-// import required modules
-import { FreeMode, Navigation, Thumbs } from 'swiper/modules'
 
 // const FakegymsData = [
 //   {
