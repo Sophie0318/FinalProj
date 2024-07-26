@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styles from './order-row.module.css'
 
 export default function OrderRow({
@@ -11,13 +11,17 @@ export default function OrderRow({
   totalQuantity = '預設',
   totalPrice = '預設',
 }) {
+  const [isExpanded, setIsExpanded] = useState(false)
+
+  const toggleAccordion = () => {
+    setIsExpanded(!isExpanded)
+  }
   return (
     <>
       <div className={styles.order}>
         <div className={styles.ordernumber}>
+          {/* 訂單編號尚未處理 */}
           <p>訂單編號:{`FJWLR65411${order_id}`}</p>
-          {/* 訂單狀態待資料庫假資料調整後決定 */}
-          <p>已完成</p>
         </div>
         <div className={styles.first_item}>
           <img
@@ -28,8 +32,6 @@ export default function OrderRow({
           <div className={styles.product_detail}>
             <div className={styles.product_description}>
               <p className={styles.product_name}>{first_item_name}</p>
-              {/* 規格待資料庫調整後決定 */}
-              <p className={styles.specifications}>規格:規格1</p>
             </div>
             <div className={styles.product_price_warpper}>
               <p className={styles.quantity}>x{first_item_quantity}</p>
@@ -49,7 +51,6 @@ export default function OrderRow({
               <div className={styles.product_detail}>
                 <div className={styles.product_description}>
                   <p className={styles.product_name}>{v.name}</p>
-                  <p className={styles.specifications}>規格:草莓口味</p>
                 </div>
                 <div className={styles.product_price_warpper}>
                   <p className={styles.quantity}>x{v.quantity}</p>
@@ -59,8 +60,8 @@ export default function OrderRow({
             </div>
           )
         })}
-        <div className={styles.accordion}>
-          <p>點擊展開已購買的商品</p>
+        <div className={styles.accordion} onClick={toggleAccordion}>
+          <p>{isExpanded ? '點擊收起' : '點擊展開已購買的商品'}</p>
         </div>
         <div className={styles.sum}>
           <p>總商品數:{totalQuantity}</p>

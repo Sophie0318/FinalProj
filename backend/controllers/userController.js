@@ -143,7 +143,44 @@ const userController = {
             console.error('Error checking email:', error);
             res.status(500).json({ error: 'Internal server error' });
         }
-    }
+    },
+    //處理會員個人資料頁的訂單
+    myOrders: async (req, res) => {
+        const { userId } = req.params;
+        try {
+            const [orders] = await db.query(`SELECT 
+                po.Productorders_orders_id,
+                po.ProductOrders_m_id_fk,
+                po.ProductOrders_recipient_name,
+                od.OrdersDetail_id,
+                od.OrdersDetail_product_quantity,
+                od.OrdersDetail_unit_price_at_time,
+                po.orderDetail_number,
+                p.Product_id,
+                p.Product_name,
+                p.Product_photo
+            FROM 
+                ProductOrders po
+            JOIN 
+                OrdersDetail od ON po.Productorders_orders_id = od.OrdersDetail_order_id_fk
+            JOIN 
+                Products p ON od.OrdersDetail_product_id_fk = p.Product_id 
+            WHERE 
+                po.ProductOrders_m_id_fk = ?`,
+                [userId]);
+
+            // 資料庫Product_photo中，只拿第一張圖片
+            const processedOrders = orders.map(order => ({
+                ...order,
+                Product_photo: order.Product_photo.split(',')[0]
+            }));
+
+            res.json({ success: true, orders: processedOrders });
+        } catch (error) {
+            console.error('獲取會員訂單時發生錯誤:', error);
+            res.status(500).json({ success: false, message: '資料庫錯誤' });
+        }
+    },
 
 };
 

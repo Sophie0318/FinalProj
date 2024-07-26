@@ -404,6 +404,9 @@ router.get("/bookings/:userId", async (req, res) => {
   }
 });
 
+//會員訂單頁
+router.get("/myOrders/:userId", userController.myOrders);
+
 //處理會員在登入頁面時檢查輸入的email是否存在於資料庫當中的路由
 router.post("/cheak_email", userController.cheakEmail);
 
