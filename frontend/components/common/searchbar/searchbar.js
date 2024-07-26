@@ -8,7 +8,12 @@ import React, {
 import { IoSearch } from 'react-icons/io5'
 import styles from './searchbar.module.css'
 
-const SearchBar = forwardRef(function SearchBar(props, searchBarRef) {
+const SearchBar = forwardRef(function SearchBar(
+  props,
+  searchBarRef,
+  handleKeyDown,
+  paddingLeft = '9px'
+) {
   const {
     placeholder = '請輸入地址搜尋...',
     maxWidth = '600px',

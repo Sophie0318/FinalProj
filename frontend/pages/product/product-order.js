@@ -115,7 +115,7 @@ export default function ProductOrder() {
                   <td>{item.Product_price}</td>
                   <td>
                     <IoClose
-                      style={{ fontSize: '40px' }}
+                      style={{ fontSize: '40px', cursor: 'pointer' }}
                       onClick={() => {
                         if (confirm('要刪除嗎?')) {
                           const newItems = [...orderItems]
@@ -133,20 +133,19 @@ export default function ProductOrder() {
               ))}
             </tbody>
           </table>
-          <div className="row">
+          <div className="row px-0 mx-0">
             <div
-              className={`col-12 col-md-12 d-flex justify-content-between ${styles.count}`}
+              className={`col-12 col-md-12 d-flex justify-content-between align-items-center ${styles.count}`}
             >
-              <h6>
+              <h6 style={{ paddingTop: '10px' }}>
                 小計: 總商品數{' '}
                 {orderItems.reduce((acc, item) => acc + item.qty, 0)}
               </h6>
-              <h6>
+              <h6 style={{ paddingTop: '10px' }}>
                 總金額: NT$
-                {orderItems.reduce(
-                  (acc, item) => acc + item.qty * item.Product_price,
-                  0
-                )}
+                {orderItems
+                  .reduce((acc, item) => acc + item.qty * item.Product_price, 0)
+                  .toLocaleString()}
               </h6>
             </div>
           </div>

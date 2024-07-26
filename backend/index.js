@@ -56,7 +56,7 @@ app.use((req, res, next) => {
     const token = auth.slice(7); //去掉"Bearer "
     try {
       req.my_jwt = jwt.verify(token, process.env.JWT_KEY);
-    } catch (ex) { }
+    } catch (ex) {}
   }
 
   next();
@@ -72,8 +72,6 @@ app.use("/gyms", gymRouter);
 app.use("/payment", paymentRouter);
 app.use("/shipment", shipmentRouter);
 app.use("/updateProfile", updateProfileRouter);
-app.use("/product-Payment", productPayment);
-
 app.use("/product-Payment", productPayment);
 
 //google login

@@ -59,7 +59,7 @@ export default function Checkout3Order() {
           setOrderDetail(data.orderDetail || [])
           console.log(orderDetail[0])
         })
-      // console.log(router.query.order_id)
+      console.log(router.query.order_id)
     }
   }, [router.isReady, router.query.order_id])
 
@@ -72,7 +72,15 @@ export default function Checkout3Order() {
     return total
   }
 
-  // console.log(orderDetail)
+  //時間insert在DB的 productorders Table裡
+  // 獲取第一張圖片
+  // 確認 orderDetail 是否有數據
+  // if (orderDetail.length === 0 || !orderDetail[0].Product_photo) {
+  //   return <div>Loading...</div>
+  // }
+
+  // 獲取第一張圖片
+  // const firstPhoto = orderDetail[0].Product_photo.split(',')[0].trim()
 
   return (
     <>
@@ -81,53 +89,84 @@ export default function Checkout3Order() {
           style={{
             marginTop: '20px',
             color: '#1A394A',
-            fontSize: '30px',
+            fontSize: '25px',
           }}
         >
           訂單明細
         </p>
-        <p style={{ fontSize: '25px' }}>
-          訂單編號:{orderDetail[0].orderDetail_number}
-        </p>
-        <p style={{ fontSize: '25px' }}>
-          訂購人:{orderDetail[0].ProductOrders_recipient_name}
-        </p>
-        <div className={styles.place}>
-          <span style={{ fontSize: '25px' }}>商品:</span>
-          <span style={{ fontSize: '25px' }}>單個價錢:</span>
+        <div
+          className="d-flex"
+          style={{ display: 'flex', justifyContent: 'space-between' }}
+        >
+          <p style={{ fontSize: '20px' }}>
+            訂購人:{orderDetail[0].ProductOrders_recipient_name}
+          </p>
+          <p style={{ fontSize: '20px' }}>
+            下訂日期: {orderDetail[0].orderDetail_time}
+          </p>
         </div>
-        {orderDetail.map((v, i) => (
-          <div key={i} className={styles.place}>
-            <span>
-              {v.Product_name}x{v.OrdersDetail_product_quantity}
+        <div
+          className="col-12 col-md-12"
+          style={{
+            fontSize: '20px',
+            borderTop: '1px solid #1A394A',
+            borderBottom: '1px solid #1A394A',
+          }}
+        >
+          訂單編號:{orderDetail[0].orderDetail_number}
+        </div>
+        <div>
+          <table className="table" style={{ backgroundColor: '#FFF7E9 ' }}>
+            <thead>
+              <tr>
+                <th scope="col" style={{ backgroundColor: '#FFF7E9 ' }}>
+                  {/* # */}
+                </th>
+                <th scope="col" style={{ backgroundColor: '#FFF7E9 ' }}>
+                  商品
+                </th>
+                <th scope="col" style={{ backgroundColor: '#FFF7E9 ' }}>
+                  價格
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {orderDetail.map((v, i) => (
+                <tr key={i}>
+                  <th scope="row" style={{ backgroundColor: '#FFF7E9 ' }}>
+                    {i + 1}
+                  </th>
+                  <td style={{ backgroundColor: '#FFF7E9 ' }}>
+                    {v.Product_name} x {v.OrdersDetail_product_quantity}
+                  </td>
+                  <td style={{ backgroundColor: '#FFF7E9 ' }}>
+                    {v.OrdersDetail_unit_price_at_time}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <div className="col-12 col-md-12">
+          <div className={`d-flex justify-content-between ${styles.subtotal}`}>
+            <span style={{ fontSize: '20px' }}>總數量:</span>
+            <span style={{ fontSize: '20px' }}>{calcTotalQty()}</span>
+            <span style={{ fontSize: '20px' }}>總金額:</span>
+            <span style={{ fontSize: '20px' }}>
+              NT$
+              {orderDetail.reduce(
+                (acc, item) =>
+                  acc +
+                  item.OrdersDetail_product_quantity *
+                    item.OrdersDetail_unit_price_at_time,
+                0
+              )}
             </span>
-            <span>{v.OrdersDetail_unit_price_at_time}</span>
           </div>
-        ))}
-        <div className={styles.subtotal}>
-          <span style={{ fontSize: '25px' }}>總數量:</span>
-          <span style={{ fontSize: '25px' }}>{calcTotalQty()}</span>
-          <span style={{ fontSize: '25px' }}>總金額:</span>
-          <span style={{ fontSize: '25px' }}>
-            NT$
-            {orderDetail.reduce(
-              (acc, item) =>
-                acc +
-                item.OrdersDetail_product_quantity *
-                  item.OrdersDetail_unit_price_at_time,
-              0
-              //orderDetail 是包含訂單項目的數組。
-              // reduce 方法對數組中的每個元素執行提供的回調函數（這裡是 (acc, item) => acc + item.qty），將每次回調函數的返回值累積到一個累加器（acc）。
-              // acc 是累加器，初始值為 0（即 reduce 方法的第二個參數 0）。
-              // item 是數組中的當前元素。
-              // acc + item.qty 將當前元素的 qty（商品數量）加到累加器中。
-              // 這樣，最終 reduce 方法返回累加器的值，即所有商品的總數量。
-            )}
-          </span>
         </div>
       </div>
-      <div className="col-12 col-md-6 mt-5 h6 text-center">
-        選擇付款方式
+      <div className={`col-12 col-md-6 mt-5 h6 text-center ${styles.zzz}`}>
+        <p className={styles.aa}>選擇付款方式</p>
         <div>
           <select
             id=""
@@ -140,7 +179,6 @@ export default function Checkout3Order() {
               borderRadius: '50px',
               marginTop: '30px',
               marginBottom: '20px',
-              marginLeft: '30px',
             }}
           >
             <option className="text-center">請選擇</option>

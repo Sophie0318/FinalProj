@@ -1,5 +1,5 @@
 .box1 {
-  height: 540px;
+  /* height: 540px; */
   background-color: #fff7e9;
   /* border-radius: 50px; */
   font-size: 18px;
@@ -8,6 +8,7 @@
   flex-direction: column;
   justify-content: space-between; */
   position: relative;
+  border-radius: 20px;
  
 }
 .content {
@@ -24,12 +25,12 @@
 .subtotal{
   display: flex;
   justify-content: space-between;
-  position: absolute;
+  /* position: relative; */
   bottom: 0;
   left: 0;
   right: 0;
   padding: 10px;
-  background-color: #D8D2CB;
+  /* background-color: #D8D2CB; */
   
 
 }
@@ -82,11 +83,16 @@
 .btn {
   background-color: #1a394a;
   border-radius: 50px;
-  font-size: 18px;
-  width: 265px;
-  height: 65px;
+  font-size: 25px;
+  /* width: 265px;
+  height: 65px; */
+  width: 30%;
   color: white;
   margin-top: 80px;
+}
+.btn:hover{
+  background-color: #FFF7E9;
+  color: #1a394a;
 }
 
 
@@ -94,6 +100,16 @@
 @media screen and (max-width: 390px) {
   .box1 {
   height: 25vh;  
+  }
+  .aa{
+    margin-top: 150px;
+  }
+  .customSelect{
+    margin-left: 0px
+  }
+  .btn{
+    margin-top: 50px;
+
   }
   
 }

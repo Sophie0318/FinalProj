@@ -44,11 +44,13 @@
 }
 .Revise{
   margin-top: 50px;
+  
 }
 
 .customTable {
   background-color: #FFF7E9; /* 整個表格的背景色 */
   color: white; /* 表格文字顏色 */
+
 }
 
 .customTable th,
@@ -86,9 +88,15 @@ gap: 74px;
   color: #1a394a;
   font-size: 24px;
 
+  
+
 }
 .contbtn{
   border: 2px solid black;
   background-color: #1a394a;
   text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
 }
