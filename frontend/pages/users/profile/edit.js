@@ -271,19 +271,44 @@ export default function Edit() {
       console.log('後端返回的數據:', updatedData)
 
       if (updatedData.message === '個人資料更新成功') {
-        // 使用本地更新的數據來更新 auth context
-        if (typeof setAuth === 'function') {
-          setAuth({
-            ...auth,
-            name: name,
-            nick_name: nickName,
-            mobile: mobile,
-            address: address,
-            city: selectedCity,
-            district: selectedDistrict,
-            password: password || auth.password,
-          })
+        console.log('更新前的 auth:', auth)
+        // 更新的auth 叫 updateAuth
+        const updatedAuth = {
+          ...auth,
+          name: name,
+          nick_name: nickName,
+          mobile: mobile,
+          address: address,
+          city: selectedCity,
+          district: selectedDistrict,
+          password: password || auth.password,
         }
+        console.log('更新後的 auth:', updatedAuth)
+        // 使用本地更新的數據來更新 auth context
+        // if (typeof setAuth === 'function') {
+        //   setAuth({
+        //     ...auth,
+        //     name: name,
+        //     nick_name: nickName,
+        //     mobile: mobile,
+        //     address: address,
+        //     city: selectedCity,
+        //     district: selectedDistrict,
+        //     password: password || auth.password,
+        //   })
+        // }
+
+        //拿updateAuth來更新auth context
+        if (typeof setAuth === 'function') {
+          setAuth(updatedAuth)
+        }
+        // 更新 localStorage
+        localStorage.setItem('suan-auth', JSON.stringify(updatedAuth))
+        console.log(
+          'localStorage 更新後:',
+          JSON.parse(localStorage.getItem('suan-auth'))
+        )
+
         setAlertMessage('更新成功')
         setUserMessage('個人資料已成功更新')
         setIsModalOpen(true)
