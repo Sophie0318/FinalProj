@@ -1,13 +1,17 @@
 import React, { useState, useEffect } from 'react'
 import { Offcanvas, Button, Form } from 'react-bootstrap'
 import styles from './g-component.module.css'
-import { IoCloseCircle } from "react-icons/io5";
+import { IoCloseCircle } from 'react-icons/io5'
 
-
-const ResponsiveCheckboxFilter = ({ options, onChange, selectedFeatures, clearAllCheckboxes }) => {
+const ResponsiveCheckboxFilter = ({
+  options,
+  onChange,
+  selectedFeatures,
+  clearAllCheckboxes,
+}) => {
   const [show, setShow] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
-  const [selectedOptions, setSelectedOptions] = useState()
+  const [selectedOptions, setSelectedOptions] = useState([])
 
   useEffect(() => {
     const checkIsMobile = () => {
@@ -92,7 +96,12 @@ const ResponsiveCheckboxFilter = ({ options, onChange, selectedFeatures, clearAl
             <div className="d-flex gap-3 align-items-center ">
               {renderCheckboxes()}
               {selectedFeatures.length > 0 && (
-                <button className={styles.clearBtn} onClick={clearAllCheckboxes}><IoCloseCircle /></button>
+                <button
+                  className={styles.clearBtn}
+                  onClick={clearAllCheckboxes}
+                >
+                  <IoCloseCircle />
+                </button>
               )}
             </div>
           </div>
