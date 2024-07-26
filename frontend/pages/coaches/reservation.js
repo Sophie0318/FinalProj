@@ -15,6 +15,7 @@ export default function Reservation() {
     timeSlot: '',
   })
   const [selectedCoach, setSelectedCoach] = useState(null)
+  const [errors, setErrors] = useState({})
   const [showModal, setShowModal] = useState(false)
   const router = useRouter()
   const { auth } = useAuth()
@@ -107,6 +108,8 @@ export default function Reservation() {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    // 如果表單驗證失敗，直接返回
+    if (!validateForm()) return
     try {
       // 根據選擇的時間段獲取正確的日期時間字符串
       const timeSlotMap = {
@@ -287,6 +290,7 @@ export default function Reservation() {
           onClose={handleCloseModal}
           formData={formData}
           selectedCoach={selectedCoach}
+          isLoggedIn={!!auth.token} //確認是否已登入
         />
       )}
     </>

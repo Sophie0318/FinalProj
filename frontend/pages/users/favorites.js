@@ -208,18 +208,6 @@ export default function Favorites() {
               ))}
             </div>
           )}
-
-          <div className={styles.pagination}>
-            <div
-              style={{
-                width: '450px',
-                height: '50px',
-                backgroundColor: '#BBB',
-              }}
-            >
-              pagination
-            </div>
-          </div>
         </div>
       </LayoutUser>
     </>
