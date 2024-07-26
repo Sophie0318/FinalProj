@@ -1,9 +1,10 @@
-import React, { useEffect, useReducer, useState } from 'react'
+import React, { useEffect, useReducer, useState, useRef } from 'react'
 import Layout3 from '@/components/layout/layout3'
 import styles from './gym_id.module.css'
 import { IoCall, IoHeart } from 'react-icons/io5'
 import Badges from '@/components/gyms/badges'
 import { useRouter } from 'next/router'
+import GymSwiper from '@/components/gyms/gym-swiper'
 
 // const FakegymsData = [
 //   {
@@ -43,6 +44,8 @@ export default function GymDetail({ gymId }) {
   const router = useRouter()
   const [gym, setGym] = useState(null)
   const { gym_id } = router.query
+  const [thumbsSwiper, setThumbsSwiper] = useState(null)
+  const [error, setError] = useState(null)
 
   // fetch 資料函式
   const fetchGymData = async (gymId) => {
@@ -56,28 +59,29 @@ export default function GymDetail({ gymId }) {
         return data.processedRow[0]
       } else {
         console.error('API request was not successful:', data)
-        setError('無法獲取健身房數據');
+        setError('無法獲取健身房數據')
         return null
       }
     } catch (error) {
       console.error('Error fetching gym data:', error)
-      setError('載入數據時發生錯誤');
+      setError('載入數據時發生錯誤')
       return null
     }
   }
 
   useEffect(() => {
     if (router.isReady && gym_id) {
-      fetchGymData(gym_id).then((gymData) => {
-        if (gymData) {
-          setGym(gymData)
-          console.log(gymData)
-        }
-      })
-      .catch((error) => {
-        console.error('Error fetching gym data:', error)
-        setError('載入數據時發生錯誤');
-      })
+      fetchGymData(gym_id)
+        .then((gymData) => {
+          if (gymData) {
+            setGym(gymData)
+            console.log(gymData)
+          }
+        })
+        .catch((error) => {
+          console.error('Error fetching gym data:', error)
+          setError('載入數據時發生錯誤')
+        })
     }
   }, [gym_id, router.isReady])
 
@@ -94,23 +98,7 @@ export default function GymDetail({ gymId }) {
         <div className={`container ${styles.container}`}>
           <div className="row">
             <div className={`col-md-6 ${styles.imgContainerPC}`}>
-              {/* 預設第一張 或 點選下方縮圖切換照片*/}
-              <img
-                src={`/${gym.image_list[0]}`}
-                alt="場館內部"
-                className={styles.coverImg}
-              />
-
-              <div className={styles.imgGroup}>
-                {gym.image_list.map((image, i) => (
-                  <img
-                    key={i}
-                    src={`/${image}`}
-                    alt="場館內部"
-                    className={styles.otherImg}
-                  />
-                ))}
-              </div>
+              <GymSwiper gym={gym} />
             </div>
             <div className="col-md-6 ps-md-5">
               <div title="title-box" className={styles.px8}>
@@ -165,7 +153,9 @@ export default function GymDetail({ gymId }) {
                     <h5 className={styles.h5}>收費方式｜</h5>
                     <ul className="p-font">
                       {gym.gym_price.map((price, i) => (
-                        <li key={i}>{price.type}: NT${price.amount}</li>
+                        <li key={i}>
+                          {price.type}: NT${price.amount}
+                        </li>
                       ))}
                     </ul>
                   </div>

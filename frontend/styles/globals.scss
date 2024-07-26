@@ -339,13 +339,16 @@ p,
 
 // Google Maps InfoWindow 樣式
 .gm-style {
-  
+  .gm-style-iw-chr {
+    display: none;
+  }
+
   .gm-style-iw {
-     font-weight: 400; 
-     font-size: 15px; 
+    font-weight: 400;
+    font-size: 15px;
     overflow: hidden;
-}
-  
+  }
+
   .gm-style-iw-c {
     padding: 0px !important;
     margin: 0 !important;
@@ -388,4 +391,23 @@ p,
   }
 }
 
+// DatePicker 覆蓋樣式
+.react-datepicker-wrapper {
+  margin: auto;
+  width: 100%;
+}
 
+.react-datepicker__input-container input {
+  height: 40px;
+  width: 100%;
+  max-width: 460px;
+
+  // max-width: 480px;
+  // min-width: 380px;
+  border: 2px solid var(--dark-gray, #464441);
+  border-radius: 50px;
+  padding: 0 20px;
+  // margin-top: 24px;
+  background-color: var(--color-old-lace);
+  align-items: center;
+}

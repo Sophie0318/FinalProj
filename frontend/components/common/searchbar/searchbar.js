@@ -75,7 +75,7 @@ const SearchBar = forwardRef(function SearchBar(
         onChange={(e) => setSearchTerm(e.target.value)}
         onCompositionStart={handleCompositionStart}
         onCompositionEnd={handleCompositionEnd}
-        onKeyDown={handleKeyDown}
+        // onKeyDown={handleKeyDown}
         className={styles.search_input}
         style={{
           height: size,

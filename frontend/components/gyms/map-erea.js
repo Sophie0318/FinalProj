@@ -19,13 +19,9 @@ export default function MapErea({ gymsData, searchTerm }) {
     lng: 121.52343310812854,
   })
   const [selectedMarker, setSelectedMarker] = useState('')
-
-  // useEffect(() => {
-  //   handleSearch()
-  // }, [searchTerm])
   const handleMapClick = () => {
-    setSelectedMarker(null);
-  };
+    setSelectedMarker(null)
+  }
   const handleSearch = () => {
     if (isLoaded) {
       const geocoder = new window.google.maps.Geocoder()
@@ -33,6 +29,7 @@ export default function MapErea({ gymsData, searchTerm }) {
         if (status === 'OK') {
           const { lat, lng } = results[0].geometry.location
           setCenter({ lat: lat(), lng: lng() })
+          // calculateDistances({ lat: lat(), lng: lng() })
           if (map) {
             map.panTo({ lat: lat(), lng: lng() })
           }
@@ -77,8 +74,58 @@ export default function MapErea({ gymsData, searchTerm }) {
       })),
     }
   }
-
+  const [sortedGyms, setSortedGyms] = useState([])
   const [geoJsonData, setGeoJsonData] = useState(null)
+
+  const calculateDistances = useCallback(
+    (oringin) => {
+      const service = new window.google.maps.DistanceMatrixService()
+      const gyms = geoJsonData.features
+
+      const batchSize = 15
+      const batches = []
+      for (let i = 0; i < gyms.length; i += batchSize) {
+        batches.push(gyms.slice(i, i + batchSize))
+      }
+
+      const promises = batches.map((batch) => {
+        new Promise((resolve) => {
+          service.getDistanceMatrix(
+            {
+              origins: [origin],
+              destinations: batch.map((gym) => ({
+                lat: gym.geometry.coordinates[1],
+                lng: gym.geometry.coordinates[0],
+              })),
+              travelMode: 'WALKING',
+            },
+            (response, status) => {
+              if (status === 'OK') {
+                resolve(response.rows[0].elements)
+              } else {
+                console.error(`Error was: ${status}`)
+                resolve([])
+              }
+            }
+          )
+        })
+      })
+
+      Promise.all(promises).then((results) => {
+        const flatResults = results.flat()
+        const sortedGyms = gyms
+          .map((gym, index) => ({
+            ...gym,
+            distance: flatResults[index].distance.value,
+            duration: flatResults[index].duration.text,
+          }))
+          .sort((a, b) => a.distance - b.distance)
+
+        setSortedGyms(sortedGyms)
+      })
+    },
+    [geoJsonData]
+  )
 
   useEffect(() => {
     if (gymsData) {
@@ -117,7 +164,7 @@ export default function MapErea({ gymsData, searchTerm }) {
   return isLoaded ? (
     <GoogleMap
       mapContainerStyle={mapStyles}
-      zoom={13}
+      zoom={14}
       center={center}
       onClick={handleMapClick}
       onLoad={(map) => setMap(map)}
@@ -146,7 +193,6 @@ export default function MapErea({ gymsData, searchTerm }) {
             lng: feature.geometry.coordinates[0],
           }}
           onClick={() => setSelectedMarker(feature)}
-          
           title={feature.properties.gym_name}
           options={{
             icon: {

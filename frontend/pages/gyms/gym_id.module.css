@@ -38,7 +38,7 @@
   align-items: center;
   padding-right: 16px;
   gap: 13px;
-
+  width: 100%
 }
 
 .otherImg {
@@ -121,7 +121,7 @@
 @media (width >=768px) {
   .container {
     width: 960px;
-    
+
   }
 
   .titleBox {
