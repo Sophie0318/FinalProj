@@ -143,10 +143,9 @@ export default function ProductOrder() {
               </h6>
               <h6 style={{ paddingTop: '10px' }}>
                 總金額: NT$
-                {orderItems.reduce(
-                  (acc, item) => acc + item.qty * item.Product_price,
-                  0
-                )}
+                {orderItems
+                  .reduce((acc, item) => acc + item.qty * item.Product_price, 0)
+                  .toLocaleString()}
               </h6>
             </div>
           </div>

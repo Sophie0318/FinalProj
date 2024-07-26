@@ -208,7 +208,9 @@ export default function ShoppingCart() {
               }}
             >
               <p style={{ fontSize: '25px', color: '#1a394a' }}>小計</p>
-              <p style={{ fontSize: '25px', color: '#1a394a' }}>NT${total}</p>
+              <p style={{ fontSize: '25px', color: '#1a394a' }}>
+                NT${total.toLocaleString()}
+              </p>
             </div>
             <div
               style={{

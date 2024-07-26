@@ -83,11 +83,16 @@
 .btn {
   background-color: #1a394a;
   border-radius: 50px;
-  font-size: 18px;
-  width: 265px;
-  height: 65px;
+  font-size: 25px;
+  /* width: 265px;
+  height: 65px; */
+  width: 30%;
   color: white;
   margin-top: 80px;
+}
+.btn:hover{
+  background-color: #FFF7E9;
+  color: #1a394a;
 }
 
 

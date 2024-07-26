@@ -44,11 +44,13 @@
 }
 .Revise{
   margin-top: 50px;
+  
 }
 
 .customTable {
   background-color: #FFF7E9; /* 整個表格的背景色 */
   color: white; /* 表格文字顏色 */
+
 }
 
 .customTable th,
