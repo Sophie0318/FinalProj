@@ -50,6 +50,7 @@ router.post('/', async function (req, res, next) {
             success: true,
             data: {
                 id: userData.member_id,
+                google_uid: userData.google_uid,//資料庫中用戶的google_uid
                 email: userData.member_email,
                 name: userData.member_name,
                 nick_name: userData.nick_name || '',

@@ -62,7 +62,10 @@ export default function Checkout2Input() {
   const memberData = (e) => {
     if (e.target.checked) {
       if (!auth.token) {
-        router.push('/users/sign_in')
+        router.push({
+          pathname: '/users/sign_in',
+          query: { returnUrl: router.asPath },
+        })
       } else {
         setMyform((prevData) => ({
           ...prevData,

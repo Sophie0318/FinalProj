@@ -17,6 +17,18 @@ export default function ForgetPassword() {
   const [alertMessage, setAlertMessage] = useState('')
   const [userMessage, setUserMessage] = useState('')
 
+  const [passwordErrorMessage, setPasswordErrorMessage] = useState('')
+  const [confirmPasswordErrorMessage, setConfirmPasswordErrorMessage] =
+    useState('')
+
+  useEffect(() => {
+    if (confirmPassword !== '' && confirmPassword !== newPassword) {
+      setConfirmPasswordErrorMessage('兩次輸入的密碼不一致')
+    } else {
+      setConfirmPasswordErrorMessage('')
+    }
+  }, [newPassword, confirmPassword])
+
   useEffect(() => {
     if (token) {
       fetch(`http://localhost:3001/users/verify_reset_token?token=${token}`)
@@ -96,6 +108,11 @@ export default function ForgetPassword() {
                 <MyPasswordInput
                   password={newPassword}
                   setPassword={setNewPassword}
+                  id="password"
+                  name="password"
+                  placeholder="請輸入您新的密碼"
+                  errorMessage={passwordErrorMessage}
+                  setErrorMessage={setPasswordErrorMessage}
                 />
               </div>
               <div className={styles.form_group_flex}>
@@ -105,6 +122,11 @@ export default function ForgetPassword() {
                 <MyPasswordInput
                   password={confirmPassword}
                   setPassword={setConfirmPassword}
+                  id="confirmPassword"
+                  name="confirmPassword"
+                  placeholder="請再次輸入您的密碼"
+                  errorMessage={confirmPasswordErrorMessage}
+                  setErrorMessage={setConfirmPasswordErrorMessage}
                 />
               </div>
             </div>
