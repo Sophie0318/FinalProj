@@ -336,7 +336,7 @@ export default function Navbar({
                   </Link>
                 </li>
                 <li>
-                  <Link className={`h3-font`} href="/product-test">
+                  <Link className={`h3-font`} href="/product">
                     <IoBagCheck />
                     <div className={styles.navbarSPLink}>找商品</div>
                   </Link>
