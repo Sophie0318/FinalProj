@@ -151,6 +151,7 @@ export default function GymReservation() {
           name: auth.name || '',
           phone: auth.mobile || '', // 使用 mobile 或 phone，取決於您在後端返回的字段名
           email: auth.email || '',
+          gym_id: gymData.id,
         }))
       }
     } else {
