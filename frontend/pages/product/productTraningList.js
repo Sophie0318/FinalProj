@@ -85,7 +85,7 @@ export default function ProductList() {
   }, [nameLike, page, perpage])
   console.log('sasas')
   return (
-    <Layout3 pageName="products">
+    <Layout3 title="居家訓練" pageName="products">
       <main className={styles.mainWithMargin}>
         <div className={styles.container}>
           <div className="row">

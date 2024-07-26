@@ -10,6 +10,7 @@ export default function IndexCarousel({
   cardMaxWidth = '270px',
   showBtn = true,
   separator = true,
+  btnText = '找課程',
 }) {
   return (
     <>
@@ -42,7 +43,7 @@ export default function IndexCarousel({
             hrefURL="/lessons"
             maxWidth="312px"
           >
-            找課程
+            {btnText}
           </Btn>
         </div>
         <div

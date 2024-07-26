@@ -1,48 +1,121 @@
-import React from 'react'
-import Btn from '../buttons_test'
-import { CommentStrip, SubComment } from './comment-strip'
+import { useState, useEffect } from 'react'
+import { useRouter } from 'next/router'
+import CommentInput from './comment-input'
+import CommentStrip from './comment-strip'
+import ToggleComment from './toggle-comment'
+import Reply from './reply'
+import useGetComment from '@/hooks/article-comment/useGetComment'
+import useToggleDisplay from '@/hooks/article-comment/useToggleDisplay'
+import useToggleInput from '@/hooks/article-comment/useToggleInput'
 import styles from './comment.module.css'
 
 export default function Comment() {
+  const router = useRouter()
+  const [info, setInfo] = useState({ success: false, totalGroup: 0 })
+  const [main, setMain] = useState([])
+  const [group, setGroup] = useState(1)
+  const [remain, setRemain] = useState(0)
+  const [replySect, setReplySect] = useState({})
+  const [hiddenSubs, setHiddenSubs] = useState(0)
+
+  // fetch main comments hook
+  const { getMain } = useGetComment()
+
+  const actionOnToggle = () => {
+    const nextGroup = group + 1
+    setGroup(nextGroup)
+    getMain(router, nextGroup, remain).then((res) => {
+      setMain([...main, ...res.data])
+      setInfo(res.info)
+      setRemain(res.nextRemain)
+    })
+  }
+
+  const toggleComment = useToggleDisplay(
+    group,
+    setGroup,
+    main,
+    setMain,
+    setRemain,
+    info.totalGroup,
+    info.totalRows,
+    info.perGroup,
+    actionOnToggle
+  )
+
+  const { toggleReplySect } = useToggleInput(
+    replySect,
+    setReplySect,
+    hiddenSubs,
+    setHiddenSubs
+  )
+
+  useEffect(() => {
+    if (router.isReady) {
+      getMain(router, group)
+        .then((res) => {
+          setMain(res.data)
+          setInfo(res.info)
+          setRemain(res.nextRemain)
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    }
+  }, [router])
+
   return (
     <>
       <div className={styles.commentContainer}>
-        <form name="mainComment" className={styles.mainComment}>
-          <div className={styles.userCommentTitle}>
-            <div className={styles.userAvatar}>
-              <img src="/test_avatar.png" />
-            </div>
-            <div className={styles.userCommentInfo}>
-              <div className={styles.userName}>林美玲</div>
-            </div>
-          </div>
-          <div className={styles.userComment}>
-            <textarea defaultValue="輸入文字來留下你的看法..."></textarea>
-          </div>
-          <div className={styles.userCommentBtn}>
-            <div className={styles.wordCount}>剩餘字數(50/50)</div>
-            <div className={styles.submitBtn}>
-              <Btn
-                size="sm"
-                bgColor="midnightgreen"
-                maxWidth="94px"
-                width="100%"
-              >
-                送出
-              </Btn>
-            </div>
-          </div>
-        </form>
+        <div className={styles.mainComment}>
+          <CommentInput
+            showInput={true}
+            main={info.totalRows}
+            article_id={router.query.article_id || 0}
+          />
+        </div>
         <div className={styles.commentArea}>
-          <div className={styles.togglePrevComment}>
-            <button>...查看先前5則留言</button>
+          {main.length > 0 ? (
+            main.map((v, i) => {
+              return (
+                <div className={styles.commentBox} key={i} id={v.main}>
+                  <CommentStrip
+                    data={v}
+                    replySect={replySect}
+                    setReplySect={setReplySect}
+                    handleToggle={toggleReplySect}
+                    hiddenSubs={hiddenSubs}
+                    setHiddenSubs={setHiddenSubs}
+                  />
+                  <Reply
+                    article_id={v.article_id_fk}
+                    main={v.main}
+                    show={replySect}
+                  />
+                </div>
+              )
+            })
+          ) : (
+            <>
+              <div className={styles.noComment}>
+                <h5>這篇文章還沒有人留言喔~</h5>
+                <h5>動動手指讓這裡活絡起來吧~</h5>
+              </div>
+            </>
+          )}
+          <div
+            style={{
+              display: `${info.totalGroup === 1 ? 'none' : 'flex'}`,
+            }}
+          >
+            <ToggleComment
+              onClick={toggleComment}
+              group={group}
+              totalGroup={info.totalGroup}
+              perGroup={info.perGroup}
+              remain={remain}
+            />
           </div>
-          <CommentStrip />
-          <div className={styles.replyComment}>
-            <CommentStrip />
-          </div>
-          <CommentStrip />
-          <CommentStrip />
         </div>
       </div>
     </>

@@ -1,20 +1,76 @@
-import React from 'react'
+import { useEffect, useState } from 'react'
+import { API_SERVER } from '@/configs/api-path'
+import { IoChatbubble } from 'react-icons/io5'
 import { IoEllipsisHorizontal } from 'react-icons/io5'
-import { TbThumbUpFilled } from 'react-icons/tb'
 import styles from './comment-strip.module.css'
 
-export function CommentStrip() {
+export default function CommentStrip({
+  data = {
+    article_id_fk: 0,
+    member_id_fk: 0,
+    nick_name: '',
+    avatar: 'default_avatar.jpg',
+    comment_id: 0,
+    create_at: '',
+    update_at: '',
+    comment_content: '',
+    main: 0,
+    sub: 0,
+    sub_count: 0,
+  },
+  reply = false,
+  handleToggle = () => {},
+  hiddenSubs = 0,
+  setHiddenSubs = () => {},
+  // handleReplyToggle = () => {},
+}) {
+  // const [hiddenSubs, setHiddenSubs] = useState(0)
+  // const main = data.main
+
+  // const toggleReplySect = (e) => {
+  //   if (e.currentTarget.id === 'reply') {
+  //     const nextReplySect = { ...replySect, [main]: 'reply' }
+  //     setReplySect(nextReplySect)
+  //     // set hidden sub count to display
+  //     if (hiddenSubs < 3) {
+  //       setHiddenSubs(0)
+  //     } else {
+  //       const nextHiddenSubs = hiddenSubs - 3
+  //       setHiddenSubs(nextHiddenSubs)
+  //     }
+  //   } else if (e.currentTarget.id === 'replyInput') {
+  //     const nextReplySect = { ...replySect, [main]: 'replyInput' }
+  //     setReplySect(nextReplySect)
+  //   }
+  //   if (replySect[main] && e.currentTarget.id === replySect[main]) {
+  //     // if click the same toggle again, hide it
+  //     const nextReplySect = { ...replySect }
+  //     delete nextReplySect[main]
+  //     setReplySect(nextReplySect)
+  //     if (e.currentTarget.id === 'reply') {
+  //       // if hide replies, update hiddenSubs to set replyBtn
+  //       setHiddenSubs(data.sub_count)
+  //     }
+  //   }
+  // }
+
+  useEffect(() => {
+    setHiddenSubs(data.sub_count)
+  }, [data])
   return (
     <>
-      <div className={styles.commentStrip}>
+      <div
+        id={`tag${data.comment_id}`}
+        className={`${styles.commentStrip} ${reply ? styles.reply : ''}`}
+      >
         <div className={styles.userCommentTitle}>
           <div className={styles.userInfo}>
             <div className={styles.userAvatar}>
-              <img src="/test_avatar.png" />
+              <img src={`${API_SERVER}/users/${data.avatar}`} />
             </div>
             <div className={styles.userCommentInfo}>
-              <div className={styles.userName}>林美玲</div>
-              <div className={styles.userCommentTime}>幾分鐘前</div>
+              <div className={styles.userName}>{data.nick_name}</div>
+              <div className={styles.userCommentTime}>{data.update_at}</div>
             </div>
           </div>
           <div className={styles.reportBtnRow}>
@@ -23,102 +79,36 @@ export function CommentStrip() {
             </button>
           </div>
         </div>
-        <div className={styles.commentContent}>
-          對健身文章評論進行深入研究，在現今時代已經無法避免了。健身文章評論對我來說，已經成為了我生活的一部分。
-        </div>
+        <div className={styles.commentContent}>{data.comment_content}</div>
         <div className={styles.commentBtn}>
-          <div className={styles.likeBtn}>
-            <button>
-              <TbThumbUpFilled className={styles.likeBtnIcon} />
-              <span>105</span>
+          <div className={styles.replyBtn}>
+            <button
+              id="replyInput"
+              onClick={(e) => {
+                handleToggle(e, data)
+              }}
+            >
+              <IoChatbubble className={styles.replyBtnIcon} />
+              <span>回覆</span>
             </button>
           </div>
-          <div className={styles.replyBtn}>
-            <button>回覆(3)</button>
+          <div
+            className={styles.replyBtn}
+            style={{ display: `${data.sub_count ? 'flex' : 'none'}` }}
+          >
+            <button
+              id="reply"
+              onClick={(e) => {
+                handleToggle(e, data)
+              }}
+            >
+              {hiddenSubs < data.sub_count ? (
+                <span>隱藏回覆</span>
+              ) : (
+                <span>查看{hiddenSubs}則回覆</span>
+              )}
+            </button>
           </div>
-        </div>
-      </div>
-    </>
-  )
-}
-
-export function SubComment() {
-  return (
-    <>
-      <div className={styles.subComment}>
-        <div className={styles.subCommentStrips}>
-          <div className={styles.commentStrip}>
-            <div className={styles.userCommentTitle}>
-              <div className={styles.userInfo}>
-                <div className={styles.userAvatar}>
-                  <img src="/test_avatar.png" />
-                </div>
-                <div className={styles.userCommentInfo}>
-                  <div className={styles.userName}>林美玲</div>
-                  <div className={styles.userCommentTime}>幾分鐘前</div>
-                </div>
-              </div>
-              <div className={styles.reportBtn}>
-                <button>
-                  <IoEllipsisHorizontal />
-                </button>
-              </div>
-            </div>
-            <div className={styles.commentContent}>
-              對健身文章評論進行深入研究，在現今時代已經無法避免了。健身文章評論對我來說，已經成為了我生活的一部分。
-            </div>
-            <div className={styles.commentBtn}>
-              <div className={styles.likeBtn}>
-                <button>
-                  <TbThumbUpFilled />
-                  <span>105</span>
-                </button>
-              </div>
-              <div className={styles.replyBtn}>
-                <button>回覆</button>
-              </div>
-            </div>
-          </div>
-          <div className={styles.commentStrip}>
-            <div className={styles.userCommentTitle}>
-              <div className={styles.userInfo}>
-                <div className={styles.userAvatar}>
-                  <img src="/test_avatar.png" />
-                </div>
-                <div className={styles.userCommentInfo}>
-                  <div className={styles.userName}>林美玲</div>
-                  <div className={styles.userCommentTime}>幾分鐘前</div>
-                </div>
-              </div>
-              <div className={styles.reportBtn}>
-                <button>
-                  <IoEllipsisHorizontal />
-                </button>
-              </div>
-            </div>
-            <div className={styles.commentContent}>
-              對健身文章評論進行深入研究，在現今時代已經無法避免了。健身文章評論對我來說，已經成為了我生活的一部分。
-            </div>
-            <div className={styles.commentBtn}>
-              <div className={styles.likeBtn}>
-                <button>
-                  <TbThumbUpFilled />
-                  <span>105</span>
-                </button>
-              </div>
-              <div className={styles.replyBtn}>
-                <button>回覆</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className={styles.toggleMore}>
-        <div>
-          <button>查看其他3則回覆</button>
-        </div>
-        <div>
-          <button>隱藏回覆</button>
         </div>
       </div>
     </>

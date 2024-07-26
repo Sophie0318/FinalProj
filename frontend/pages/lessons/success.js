@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import styles from '@/styles/lessonCheckout-modal.module.css'
 import { useRouter } from 'next/router'
-import Layout3 from '@/components/layout/layout3'
+import Layout4 from '@/components/layout/layout4'
 import axios from 'axios'
 import { useAuth } from '@/context/auth-context'
 
@@ -57,7 +57,7 @@ export default function Success() {
 
   return (
     <div>
-      <Layout3>
+      <Layout4 title="課程付款成功" pageName="lessons">
         <div className={styles.modalOverlay}>
           <div className={styles.modal}>
             <div className={styles.success}>付款成功！</div>
@@ -69,10 +69,16 @@ export default function Success() {
                   <div className={styles.name}>{orderNumber}</div>
                 </div>
               </div> */}
+              {/* 修改版 */}
               <div className={styles.infoRow}>
-                <div className={styles.label}>{lesson.lesson_name}</div>
+                <div className={styles.label}>
+                  課程名稱 <br />
+                  所在場館 <br />
+                  課程日期
+                </div>
                 <div className={styles.details}>
                   <div className={styles.lessonInfo}>
+                    {lesson.lesson_name} <br />
                     {lesson.gym_name} <br />
                     {lesson.lesson_date}
                   </div>
@@ -93,7 +99,7 @@ export default function Success() {
             </div>
           </div>
         </div>
-      </Layout3>
+      </Layout4>
     </div>
   )
 }

@@ -2,6 +2,7 @@
 import { useState, useEffect, useRef } from 'react'
 import Head from 'next/head'
 import Link from 'next/link'
+import axios from 'axios'
 
 // 樣式 or 元件類
 import Layout1 from '@/components/layout/layout1'
@@ -9,36 +10,29 @@ import Btn from '@/components/articles/buttons_test'
 import JoinMember from '@/components/joinMember'
 import IndexCarousel from '@/components/swiperCarousel/indexCarousel'
 import useRenderCards from '@/hooks/cards/cards'
-import styles from '@/styles/home.module.css'
-
-// 測試用data
-import ArticleData from '@/data/FakeArticles.json'
-// import LessonData from '@/data/FavLessons.json'
 import LessonCard from '@/components/lessons/lessonCard'
 import CoachCard from '@/components/coaches/coachCard'
-// import CoachData from '@/data/FavCoaches.json'
+import styles from '@/styles/home.module.css'
 
-import axios from 'axios'
-import { useAuth } from '@/context/auth-context'
-import { useRouter } from 'next/router'
 // TODO: carousel 的 separater 的右邊緣要對其 joinMember card
 // TODO: 之後來優化 keyVisualPC 的結構
 
 export default function Home() {
-  const [articleData, setArticleData] = useState([])
+  const [hotArticles, setHotArticles] = useState([])
   const [hotLesson, setHotLesson] = useState([])
   const [hotCoach, setHotCoach] = useState([])
-  const [favoriteCoach, setFavoriteCoach] = useState([])
-  const { auth } = useAuth()
-  const router = useRouter()
   const renderArticleCard = useRenderCards('articles')
-  // const renderCoachCard = useRenderCards('coaches')
-  // const renderLessonCard = useRenderCards('lessons')
   const [hasScrolled, setHasScrolled] = useState(false)
   const [hideHero, setHideHero] = useState(false)
   const [slideOne, setSlideOne] = useState('0')
   const [slideTwo, setSlideTwo] = useState('0')
   const pageWrapRef = useRef(null)
+
+  const [heroImageVisible, setHeroImageVisible] = useState(false)
+
+  // useEffect(() => {
+  //   setHeroImageVisible(true)
+  // }, [])
 
   const renderLessonCard = (lesson) => {
     return (
@@ -67,7 +61,20 @@ export default function Home() {
   }
 
   useEffect(() => {
-    setArticleData(ArticleData)
+    const fetchHotArticles = async () => {
+      try {
+        const response = await axios.get(
+          'http://localhost:3001/articles/api/listData?keyword=挑戰'
+        )
+        if (response.data.success) {
+          setHotArticles(response.data.rows)
+        }
+      } catch (error) {
+        console.error('Error fetching hot lessons:', error)
+      }
+    }
+    fetchHotArticles()
+
     const fetchHotLessons = async () => {
       try {
         const response = await axios.get(
@@ -125,11 +132,18 @@ export default function Home() {
 
     window.addEventListener('scroll', handleScroll)
 
+    setHeroImageVisible(true)
+
+    const timer = setTimeout(() => {
+      setHeroImageVisible(true)
+    }, 100) // 延遲100毫秒後顯示圖片
+
     return () => {
       if (pageWrapRef.current) {
         observer.unobserve(pageWrapRef.current)
       }
       window.removeEventListener('scroll', handleScroll)
+      clearTimeout(timer)
     }
   }, [])
 
@@ -154,17 +168,26 @@ export default function Home() {
                   <div className={`${styles.heroText} col-md-8 col-10`}>
                     <img
                       src="/index-img/heroBig.png"
-                      className={styles.heroImgBig}
+                      className={`${styles.heroImgBig} ${styles['fade-in']} ${
+                        heroImageVisible ? styles['visible'] : ''
+                      }`}
                     />
                     <img
                       src="/index-img/heroMid.png"
-                      className={styles.heroImgMid}
+                      className={`${styles.heroImgMid} ${styles['fade-in']} ${
+                        heroImageVisible ? styles['visible'] : ''
+                      }`}
                     />
                   </div>
                   <div
                     className={`${styles.heroImage} col-12 d-flex justify-content-end`}
                   >
-                    <img src="/index-img/hero-img.svg" />
+                    <img
+                      src="/index-img/hero-img.svg"
+                      className={`${styles.heroImgBig} ${
+                        heroImageVisible ? styles['slide-in-right'] : ''
+                      }`}
+                    />
                   </div>
                 </div>
               </div>
@@ -361,6 +384,7 @@ export default function Home() {
                 title="熱門課程"
                 data={hotLesson}
                 renderItem={renderLessonCard}
+                btnText="找課程"
               />
             </section>
 
@@ -369,15 +393,17 @@ export default function Home() {
                 title="熱門教練"
                 data={hotCoach}
                 renderItem={renderCoachCard}
+                btnText="找教練"
               />
             </section>
 
             <section className={styles.popular}>
               <IndexCarousel
                 title="熱門文章"
-                data={ArticleData}
+                data={hotArticles}
                 renderItem={renderArticleCard}
                 cardMaxWidth="350px"
+                btnText="找文章"
               />
             </section>
 

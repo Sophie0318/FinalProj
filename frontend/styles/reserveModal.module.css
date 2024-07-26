@@ -171,22 +171,28 @@
     padding: 12px 10px;
   }
 
-  .label {
-    padding-left: 10px;
-    /* 减少左边距 */
-    margin-right: 30px;
-    /* 添加右边距 */
-    font-size: 20px;
-    /* 稍微减小字体大小 */
-    letter-spacing: 1px;
-    /* 减少字间距 */
-    width: auto;
-    /* 让宽度自适应内容 */
-    font-family: 'Gensen', sans-serif;
-    font-size: 20x;
-    font-weight: 700;
-    letter-spacing: 2px;
-  }
+.name{
+  font-family: 'Gensen', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 3px;
+}
+
+.success{
+  font-family: 'Gensen', sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: 2.4px;
+}
+
+.label {
+  padding-left: 10px;
+  margin-right: 10px;
+  font-size: 18px;
+  letter-spacing: 1px;
+  width:36%;
+  flex-shrink: 0;
+}
 
   .coachInfo {
     font-family: 'Gensen', sans-serif;
@@ -212,5 +218,11 @@
     /* 在手机上增加按钮宽度 */
     margin-top: 15px;
     /* 调整上边距 */
+  }
+
+  .contact{
+    display: flex;
+    flex-direction: column;
+    gap:3px
   }
 }

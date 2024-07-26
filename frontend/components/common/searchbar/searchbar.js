@@ -1,14 +1,19 @@
 import React, {
-  useCallback,
-  useRef,
-  useState,
-  useForwardRef,
+  // useCallback,
+  // useRef,
+  // useState,
+  // useForwardRef,
   forwardRef,
 } from 'react'
 import { IoSearch } from 'react-icons/io5'
 import styles from './searchbar.module.css'
 
-const SearchBar = forwardRef(function SearchBar(props, searchBarRef) {
+const SearchBar = forwardRef(function SearchBar(
+  props,
+  searchBarRef
+  // handleKeyDown,
+  // paddingLeft = '9px'
+) {
   const {
     placeholder = '請輸入地址搜尋...',
     maxWidth = '600px',
@@ -19,14 +24,8 @@ const SearchBar = forwardRef(function SearchBar(props, searchBarRef) {
     handleClick,
     onCompositionChange = () => {},
     paddingLeft = '9px',
+    // handleKeyDown = () => {},
   } = props
-
-  // const handleKeyDown = (e) => {
-  //   if (e.key === 'Enter') {
-  //     handleSearch()
-  //     scrollY = 0
-  //   }
-  // }
 
   // const handleScroll = () => {
   //   if (searchBarRef.current) {

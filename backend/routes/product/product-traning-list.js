@@ -1,5 +1,6 @@
 import express from "express";
 import db from "../../utils/connect-mysql.js";
+import moment from "moment-timezone";
 
 const router = express.Router();
 
@@ -242,6 +243,7 @@ router.get("/orderdetail", async (req, res) => {
     p.Product_id,
     p.Product_name,
     p.Product_photo
+    
 FROM 
     ProductOrders po
 JOIN 
@@ -252,6 +254,12 @@ JOIN
   try {
     const [rows] = await db.query(sql);
     console.log(rows);
+    rows.forEach((row) => {
+      row.orderDetail_time = moment(row.orderDetail_time)
+        .tz("Asia/Taipei")
+        .format("YYYY-MM-DD HH:mm:ss");
+    });
+
     res.json({
       orderDetail: rows, // 傳回前端
     });

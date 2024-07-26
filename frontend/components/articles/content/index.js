@@ -42,9 +42,20 @@ const MarkdownContent = ({ content }) => {
       rehypePlugins={[rehypeRaw]}
       components={{
         // Add an additional layer of sanitization for links
-        a: ({ node, ...props }) => (
-          <a {...props} href={DOMPurify.sanitize(props.href)} />
-        ),
+        a: ({ node, children, ...props }) => {
+          if (React.Children.count(children) === 0) {
+            return (
+              <a {...props} href={DOMPurify.sanitize(props.href)}>
+                {props.href}
+              </a>
+            )
+          }
+          return (
+            <a {...props} href={DOMPurify.sanitize(props.href)}>
+              {children}
+            </a>
+          )
+        },
       }}
     >
       {sanitizedContent}

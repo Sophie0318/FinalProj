@@ -18,7 +18,7 @@ export default function PageTitle({
     lessons: { main: '多元的健身課程', second: 'Find a Lesson You Like!' },
     products: { main: '豐富的健身商城', second: 'Find a product  you need !' },
     articles: { main: '全面的知識補給', second: 'Find a piece of knowledge !' },
-    users: { main: '會員中心', second: 'User Profile' },
+    myProfile: { main: '會員中心', second: 'User Profile' },
   }
 
   // 決定 prop 的機制

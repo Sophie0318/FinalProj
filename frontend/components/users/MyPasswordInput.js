@@ -12,6 +12,7 @@ const MyPasswordInput = ({
   errorMessage,
   setErrorMessage,
   type = 'password',
+  disabled, //如果是第三方登入的會員就不需要編輯密碼
 }) => {
   const [showPassword, setShowPassword] = useState(false)
   const [timer, setTimer] = useState(null)
@@ -77,13 +78,19 @@ const MyPasswordInput = ({
         onBlur={handleBlur}
         placeholder={placeholder}
         onFocus={() => setIsFocused(true)}
+        disabled={disabled} //如果是第三方登入的會員就不需要編輯密碼
       />
-      <div
-        className={`${styles.myicon} ${errorMessage ? styles.myiconError : ''}`}
+      <button
+        type="button"
+        className={`${styles.myicon} ${styles.buttonReset} ${
+          errorMessage ? styles.myiconError : ''
+        }`}
         onClick={errorMessage ? null : togglePasswordVisibility}
+        disabled={!!errorMessage} // 使用 disabled 屬性來控制按鈕的啟用狀態
       >
         {renderIcon()}
-      </div>
+      </button>
+
       {errorMessage && (
         <div className={styles.error_message}>
           <p className={styles.tomatoP}>{errorMessage}</p>

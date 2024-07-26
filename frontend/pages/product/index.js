@@ -6,7 +6,12 @@ import styles from './index.module.css'
 
 export default function ProductTest() {
   return (
-    <Layout3 pageName="products" title="" height="179px" section="flatSection">
+    <Layout3
+      title="商品類別"
+      pageName="products"
+      height="179px"
+      section="flatSection"
+    >
       <main>
         <IndexPhoto />
         <div className={styles.ss}>

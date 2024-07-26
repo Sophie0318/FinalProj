@@ -361,7 +361,7 @@ router.post("/add/coachReserve", async (req, res) => {
         .status(400)
         .json({ success: false, message: "無效的日期時間格式" });
     }
-
+    reserveTime.setHours(reserveTime.getHours() + 8);
     // 格式化為 MySQL datetime 格式
     const formattedReserveTime = reserveTime
       .toISOString()

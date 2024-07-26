@@ -27,7 +27,13 @@
   height: 30px;
   width: 30px;
   color: var(--color-old-lace);
+  transition: color 0.5s ease-in-out;
 }
+
+.clicked > svg {
+  color: var(--color-tomato); /* 最终的颜色 */
+}
+
 
 .fontSizeImg {
   width: 40px;
@@ -144,6 +150,10 @@
     color: var(--color-midnight-green);
   }
 
+  .clicked > svg {
+    color: var(--color-tomato); /* 最终的颜色 */
+  }
+
   .sidebarBtn {
     display: flex;
     justify-content: center;
@@ -151,5 +161,9 @@
     height: 100%;
     background-color: transparent;
     border-radius: 0;
+  }
+
+  .sidebarBtn:hover::after {
+    display: none;
   }
 }

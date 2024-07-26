@@ -1,42 +1,35 @@
-import { useState } from 'react'
-import useContentSearch from '@/hooks/article-search/useContentSearch'
+import { useState, useEffect } from 'react'
+import { useRouter } from 'next/router'
+import { useAuth } from '@/context/auth-context'
+import useArticleFav from '@/hooks/article-fav/useArticleFav'
 
 import {
   IoHeart,
-  IoSearch,
   IoChatbubbleEllipses,
   IoShareSocialSharp,
 } from 'react-icons/io5'
-import SidebarSearch from './sidebar-search'
 import styles from './article-sidebar.module.css'
 
 export default function ArticleSidebar({
   showSidebar = true,
-  pageLoaded = false,
+  // pageLoaded = false,
   fontSize = 0,
   setFontSize = () => {},
   commentRef,
-  content = '',
-  setContent = () => {},
+  member_id = 0,
+  article_id = undefined,
+  // auth = {},
 }) {
-  const [showSearchbar, setShowSearchbar] = useState(false)
-  const [keyword, setKeyword] = useState('')
-  const contentSearch = useContentSearch(
-    (content = { content }),
-    (setContent = { setContent })
+  const { auth } = useAuth()
+  const router = useRouter()
+  const [shouldRender, setShouldRender] = useState(false)
+  const [isClicked, setIsClicked] = useState(member_id === auth.id)
+  const { toggleArticleFav } = useArticleFav(
+    auth,
+    article_id,
+    isClicked,
+    setIsClicked
   )
-  const handleShowSearch = (e) => {
-    // console.log(e)
-    if (e.type === 'click') {
-      setShowSearchbar(!showSearchbar)
-    }
-    if (showSearchbar && e.key === 'Escape') {
-      setShowSearchbar(false)
-    }
-    if (!showSearchbar && e.key === 'Enter') {
-      setShowSearchbar(true)
-    }
-  }
 
   const handleFontSize = () => {
     if (fontSize === 2) {
@@ -60,7 +53,14 @@ export default function ArticleSidebar({
     }
   }
 
-  if (pageLoaded === false) return null
+  useEffect(() => {
+    if (router.isReady) {
+      setIsClicked(member_id === auth.id)
+      setShouldRender(true)
+    }
+  }, [router.isReady, member_id])
+
+  if (shouldRender === false) return null
   return (
     <>
       <div className={styles.sidebarPC}>
@@ -75,7 +75,10 @@ export default function ArticleSidebar({
             src="/articles-img/font-size.svg"
           />
         </button>
-        <button className={styles.sidebarBtn}>
+        <button
+          className={`${styles.sidebarBtn} ${isClicked ? styles.clicked : ''}`}
+          onClick={toggleArticleFav}
+        >
           <IoHeart />
         </button>
         <button
@@ -94,27 +97,6 @@ export default function ArticleSidebar({
         >
           <IoShareSocialSharp />
         </button>
-        {/* <div
-          className={`${styles.sidebarSearch} ${
-            showSearchbar ? styles.showSearch : styles.hideSearch
-          }`}
-          onClick={handleShowSearch}
-          onKeyDown={handleShowSearch}
-          role="button"
-          tabIndex={0}
-        >
-          <SidebarSearch
-            showSearchbar={showSearchbar}
-            value={`${keyword}`}
-            onChange={(e) => {
-              setKeyword(e.target.value)
-            }}
-            onClick={(e) => {
-              e.stopPropagation()
-            }}
-            onKeyDown={contentSearch}
-          />
-        </div> */}
       </div>
 
       <div
@@ -132,7 +114,12 @@ export default function ArticleSidebar({
           >
             <img src="/articles-img/font-size-dark.svg" />
           </button>
-          <button className={styles.sidebarBtn}>
+          <button
+            className={`${styles.sidebarBtn} ${
+              isClicked ? styles.clicked : ''
+            }`}
+            onClick={toggleArticleFav}
+          >
             <IoHeart />
           </button>
           <button
@@ -151,9 +138,6 @@ export default function ArticleSidebar({
           >
             <IoShareSocialSharp />
           </button>
-          {/* <button className={styles.sidebarBtn}>
-            <IoSearch />
-          </button> */}
         </div>
       </div>
     </>

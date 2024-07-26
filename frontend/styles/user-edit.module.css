@@ -83,6 +83,7 @@
   align-items: center;
   flex-direction: row;
 }
+/* 把icon定位在input裡 */
 .input_container {
   width: 240px;
   position: relative;
@@ -90,9 +91,15 @@
 .myicon {
   position: absolute;
   right: 5px;
-  bottom: 8px;
-  display: none;
+  top: 50%;
+  transform: translateY(-50%);
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  color: var(--color-midnight-green);/* 睜眼閉眼及勾勾時的icon顏色 */
 }
 .edit_btn {
   display: flex;
@@ -110,22 +117,30 @@
   background-color: var(--color-dark-gray);
   color: var(--color-white);
 }
-.erro_message {
+.error_message {
   color: var(--color-tomato);
-  display: none;
+  /* display: none; */
   position: absolute;
+  bottom: -20px;
   left: 0;
   width: 100%;
 }
-/* 睜眼閉眼及勾勾時的icon顏色 */
-.myicon i {
-  color: var(--color-midnight-green);
-  font-size: 24px;
+.tomatoP{
+  font-family:'huninn',sans-serif;
+  font-size: 14px;
+  line-height: 160%;
+    letter-spacing: 1px;
+    margin-bottom: 0;
 }
+
 /* 錯誤時的驚嘆號顏色 */
-.myicon i.fa-circle-exclamation {
+.myiconError {
   color: var(--color-tomato);
-  font-size: 24px;
+}
+/* 第三方登入的會員不用填寫密碼 */
+.disabled {
+  background-color: var(--color-gray-50);
+  cursor: not-allowed;
 }
 @media screen and (max-width: 1080px) {
   .edit_btn {

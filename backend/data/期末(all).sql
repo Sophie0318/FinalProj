@@ -528,7 +528,7 @@ CREATE TABLE Members (
     member_password VARCHAR(70) NULL,-- 用第三方登入的人沒有密碼
     gender VARCHAR(10),
     nick_name VARCHAR(10),
-    avatar VARCHAR(200) NOT NULL DEFAULT 'default_avatar.jpg',-- 可以不放大頭貼，若不放會顯示一個預設圖示
+    avatar VARCHAR(200) NOT NULL DEFAULT 'default_avatar.png',-- 可以不放大頭貼，若不放會顯示一個預設圖示
     mobile VARCHAR(50) NULL,     -- 要驗證時需指定用戶輸入的格式避免0900-000-000
     city_id INT,
     district_id INT,
@@ -560,6 +560,116 @@ INSERT INTO Members (
     4,  -- city_id 對應基隆市的 code_id
     7,  -- district_id 對應暖暖區的 code_id
     '源遠路260巷36弄23號8樓'
+),
+(
+    'Hucky',
+    'hucky34@gmail.com',
+    '$2b$10$dm6J4ukAYXe3NIiTWI970OtW4B8rgYBbaHDzdltXTlTuAxymKirK2',
+    'female',
+    'hucky',
+    '0988888888',
+    4,  -- city_id 對應基隆市的 code_id
+    7,  -- district_id 對應暖暖區的 code_id
+    '源遠路260巷36弄23號2樓'
+),
+(
+    '林美玲',
+    'meiling123@gmail.com',
+    '$2b$10$dm6J4ukAYXe3NIiTWI970OtW4B8rgYBbaHDzdltXTlTuAxymKirK2',
+    'female',
+    '林美玲',
+    '0988888889',
+    4,  -- city_id 對應基隆市的 code_id
+    7,  -- district_id 對應暖暖區的 code_id
+    '源遠路260巷36弄23號3樓'
+),
+(
+    '王曉明',
+    'xiaoming123@gmail.com',
+    '$2b$10$dm6J4ukAYXe3NIiTWI970OtW4B8rgYBbaHDzdltXTlTuAxymKirK2',
+    'male',
+    '王曉明',
+    '0988888887',
+    4,  -- city_id 對應基隆市的 code_id
+    7,  -- district_id 對應暖暖區的 code_id
+    '源遠路260巷36弄23號4樓'
+),
+(
+    '張曉芳',
+    'xiaofang123@gmail.com',
+    '$2b$10$dm6J4ukAYXe3NIiTWI970OtW4B8rgYBbaHDzdltXTlTuAxymKirK2',
+    'female',
+    '張曉芳',
+    '0988888886',
+    4,  -- city_id 對應基隆市的 code_id
+    7,  -- district_id 對應暖暖區的 code_id
+    '源遠路260巷36弄23號5樓'
+),
+(
+    '朴正名',
+    'zhongming123@gmail.com',
+    '$2b$10$dm6J4ukAYXe3NIiTWI970OtW4B8rgYBbaHDzdltXTlTuAxymKirK2',
+    'male',
+    '朴正名',
+    '0988888885',
+    4,  -- city_id 對應基隆市的 code_id
+    7,  -- district_id 對應暖暖區的 code_id
+    '源遠路260巷36弄23號6樓'
+),
+(
+    '潘正男',
+    'zhengming123@gmail.com',
+    '$2b$10$dm6J4ukAYXe3NIiTWI970OtW4B8rgYBbaHDzdltXTlTuAxymKirK2',
+    'male',
+    '潘正男',
+    '0988888884',
+    4,  -- city_id 對應基隆市的 code_id
+    7,  -- district_id 對應暖暖區的 code_id
+    '源遠路260巷36弄23號7樓'
+),
+(
+    '潘蘋果',
+    'apple123@gmail.com',
+    '$2b$10$dm6J4ukAYXe3NIiTWI970OtW4B8rgYBbaHDzdltXTlTuAxymKirK2',
+    'female',
+    'Apple',
+    '0988888883',
+    4,  -- city_id 對應基隆市的 code_id
+    7,  -- district_id 對應暖暖區的 code_id
+    '源遠路260巷36弄23號8樓'
+),
+(
+    '林藍莓',
+    'blueberry123@gmail.com',
+    '$2b$10$dm6J4ukAYXe3NIiTWI970OtW4B8rgYBbaHDzdltXTlTuAxymKirK2',
+    'female',
+    '美美',
+    '0988888882',
+    4,  -- city_id 對應基隆市的 code_id
+    7,  -- district_id 對應暖暖區的 code_id
+    '源遠路260巷36弄22號8樓'
+),
+(
+    '林草莓',
+    'strawberry123@gmail.com',
+    '$2b$10$dm6J4ukAYXe3NIiTWI970OtW4B8rgYBbaHDzdltXTlTuAxymKirK2',
+    'female',
+    '草莓',
+    '0988888882',
+    4,  -- city_id 對應基隆市的 code_id
+    7,  -- district_id 對應暖暖區的 code_id
+    '源遠路260巷36弄22號8樓'
+),
+(
+    '林棗',
+    'plum123@gmail.com',
+    '$2b$10$dm6J4ukAYXe3NIiTWI970OtW4B8rgYBbaHDzdltXTlTuAxymKirK2',
+    'male',
+    '棗子',
+    '0988888882',
+    4,  -- city_id 對應基隆市的 code_id
+    7,  -- district_id 對應暖暖區的 code_id
+    '源遠路260巷36弄22號8樓'
 );
 
 
@@ -747,7 +857,8 @@ create table FavArticles(
 favarticle_id int primary key auto_increment,
 member_id_fk int,
 article_id_fk int, -- range 1~120
-create_at timestamp not null default NOW()
+create_at timestamp not null default NOW(),
+unique (member_id_fk, article_id_fk)
 );
 
 create table Comments(
@@ -785,7 +896,87 @@ offensiveword_id int primary key auto_increment,
 offensiveword_name varchar(50),
 code_id_fk int -- offensive type link to commontype: code_type_id 12 code_id 1~4
 );
-use midTermDB;
+
+DELIMITER //
+CREATE TRIGGER before_insert_comments
+BEFORE INSERT ON Comments
+FOR EACH ROW
+BEGIN
+    DECLARE article_exists INT;
+    DECLARE main_exists INT;
+    DECLARE sub_exists INT;
+    DECLARE max_main INT;
+    DECLARE max_sub INT;
+
+    -- Check if article_id_fk exists in the Comments table
+    SELECT COUNT(*) INTO article_exists
+    FROM Comments
+    WHERE article_id_fk = NEW.article_id_fk;
+
+    IF article_exists > 0 THEN
+        -- Article exists, check if the inserted main exists
+        IF NEW.main IS NOT NULL THEN
+            SELECT COUNT(*) INTO main_exists
+            FROM Comments
+            WHERE article_id_fk = NEW.article_id_fk AND main = NEW.main;
+
+            IF main_exists > 0 THEN
+                -- Main exists, CHANGE CONDITION TO CHECK FOR SUB EXISTS, NO THEN ERROR
+                SELECT COUNT(*) INTO sub_exists
+                FROM Comments
+                WHERE article_id_fk = NEW.article_id_fk AND main = NEW.main AND sub = NEW.sub;
+
+                IF sub_exists > 0 THEN
+                    -- Sub value error
+					SIGNAL SQLSTATE '45000'
+					SET MESSAGE_TEXT = 'sub value error: duplicate sub';
+				ELSE 
+                    SELECT COALESCE(MAX(sub), 0) INTO max_sub
+                    FROM Comments
+                    WHERE article_id_fk = NEW.article_id_fk AND main = NEW.main;
+                
+                    IF NEW.sub != max_sub + 1 THEN
+					-- Main value error
+					SIGNAL SQLSTATE '45000'
+					SET MESSAGE_TEXT = 'sub value error: not max_sub + 1';
+                    END IF;
+                END IF;
+            ELSE
+				-- Article found but no main, check if main value = max_main > 1
+                SELECT COALESCE(MAX(main), 0) INTO max_main
+                FROM Comments
+                WHERE article_id_fk = NEW.article_id_fk;
+                
+                IF NEW.main != max_main + 1 THEN
+					-- Main value error
+					SIGNAL SQLSTATE '45000'
+					SET MESSAGE_TEXT = 'main value error: not max_main + 1';
+				END IF;
+            END IF;
+        ELSE
+            -- Main not provided, raise an error
+            SIGNAL SQLSTATE '45000'
+            SET MESSAGE_TEXT = 'Error: Main value must be provided for existing articles';
+        END IF;
+    ELSE
+        -- Article doesn't exist in ArticleComments, this is a new entry
+        SET NEW.main = 1;
+        SET NEW.sub = 0;
+    END IF;
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE TRIGGER ValidateReportComments
+BEFORE INSERT ON ReportedComments
+FOR EACH ROW
+BEGIN
+	IF NEW.reportedcomment_note IS NULL AND NEW.code_id_fk IS NULL THEN
+		SIGNAL SQLSTATE '45000'
+		SET MESSAGE_TEXT = 'either note or commontype_id_fk must be provided';
+    END IF;
+END //
+DELIMITER ;
 
 INSERT INTO Authors (author_is_coach) VALUES
 (1),(2),(3),(4),(5);
@@ -1666,8 +1857,8 @@ VALUES
 
 INSERT INTO Comments(article_id_fk, member_id_fk, main, sub, comment_content)
 VALUES
-(1, 2, 1, 1, "是不是!!!"),
-(1, 3, 1, 2, "+1"),
+(1, 1, 1, 1, "是不是!!!"),
+(1, 1, 1, 2, "+1"),
 (2, 2, 1, 1, "是不是!!!"),
 (2, 3, 1, 2, "+1"),
 (3, 2, 1, 1, "是不是!!!"),
@@ -1749,7 +1940,21 @@ CREATE TABLE Gyms (
     update_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
-
+-- 建立Gym_Reservations 表格 
+CREATE TABLE GymReservations (
+	reservation_id INT AUTO_INCREMENT PRIMARY KEY,
+    reserve_name VARCHAR(100) NOT NULL,
+    reserve_phone VARCHAR(13) NOT NULL,
+    reserve_email VARCHAR(100) NOT NULL,
+    reserve_time TIMESTAMP NOT NULL,
+    gym_id INT NOT NULL,
+    member_id INT,
+    is_member BOOLEAN NOT NULL DEFAULT FALSE,
+    create_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    update_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    employee_id INT,
+    CONSTRAINT check_phone CHECK (reserve_phone REGEXP '^[0-9]{10,13}$')
+);
 
 
 -- 建立 Features 表格 （即CommonType 將之分開比較好使用）
@@ -1910,6 +2115,7 @@ select * from GymImages;
 SET foreign_key_checks = 1;
 
 -- 教練照片表
+    -- 教練照片表
 CREATE TABLE CoachImgs (
     coachImgs_id INT PRIMARY KEY AUTO_INCREMENT,
     coach_img VARCHAR(200)
@@ -1930,7 +2136,13 @@ INSERT INTO CoachImgs (coach_img) VALUES
 ('coach11.jpg'),
 ('coach12.jpg'),
 ('coach13.jpg'),
-('coach14.jpg');
+('coach14.jpg'),
+('coach15.jpg'),
+('coach16.jpg'),
+('coach17.jpg'),
+('coach18.jpg'),
+('coach19.jpg'),
+('coach20.jpg');
 
 
 -- 教練表
@@ -1975,12 +2187,12 @@ VALUES
 ('周嘉豪', '0978123467', 1, '我們的專業教練周嘉豪專精於伸展訓練和心肺運動，特別針對銀髮族設計課程。嘉豪教練擁有多年經驗，致力於幫助長者提升體能和增強柔韌性。他溫柔細心，善於調整訓練計劃，確保每位長者都能在安全的環境中運動。加入我們，與嘉豪教練一起，享受健康活力的生活！', 2000, '2024-07-12', 12, 3),
 ('劉怡婷', '0978123468', 2, '我們的專業教練劉怡婷專精於有氧訓練和增肌運動，特別針對銀髮族設計課程。怡婷教練擁有多年經驗，致力於幫助長者提升體能和增強肌肉力量。她溫柔細心，善於調整訓練計劃，確保每位長者都能在安全的環境中運動。加入我們，與怡婷教練一起，享受健康活力的生活！', 2000, '2024-07-13', 13, 1),
 ('蔡忠信', '0978123469', 1, '我們的專業教練蔡忠信專精於心肺功能訓練和柔軟度運動，特別針對銀髮族設計課程。忠信教練擁有多年經驗，致力於幫助長者提升體能和增強柔韌性。他溫柔細心，善於調整訓練計劃，確保每位長者都能在安全的環境中運動。加入我們，與忠信教練一起，享受健康活力的生活！', 2000, '2024-07-14', 14, 2),
-('楊志明', '0978123470', 1, '我們的專業教練楊志明專精於增肌訓練和徒手運動，特別針對銀髮族設計課程。志明教練擁有多年經驗，致力於幫助長者提升體能和增強肌肉力量。他溫柔細心，善於調整訓練計劃，確保每位長者都能在安全的環境中運動。加入我們，與志明教練一起，享受健康活力的生活！', 2000, '2024-07-15', 1, 3),
-('鄭小紅', '0978123471', 2, '我們的專業教練鄭小紅專精於心肺功能訓練和健美運動，特別針對銀髮族設計課程。小紅教練擁有多年經驗，致力於幫助長者提升體能和增強肌肉力量。她溫柔細心，善於調整訓練計劃，確保每位長者都能在安全的環境中運動。加入我們，與小紅教練一起，享受健康活力的生活！', 2000, '2024-07-16', 2, 1),
-('曾志豪', '0978123472', 1, '我們的專業教練曾志豪專精於有氧訓練和肌耐力運動，特別針對銀髮族設計課程。志豪教練擁有多年經驗，致力於幫助長者提升體能和增強肌肉力量。他溫柔細心，善於調整訓練計劃，確保每位長者都能在安全的環境中運動。加入我們，與志豪教練一起，享受健康活力的生活！', 2000, '2024-07-17', 3, 2),
-('謝怡君', '0978123473', 2, '我們的專業教練謝怡君專精於心肺功能訓練和有氧運動，特別針對銀髮族設計課程。怡君教練擁有多年經驗，致力於幫助長者提升體能和增強柔韌性。她溫柔細心，善於調整訓練計劃，確保每位長者都能在安全的環境中運動。加入我們，與怡君教練一起，享受健康活力的生活！', 2000, '2024-07-18', 4, 3),
-('馮嘉豪', '0978123474', 1, '我們的專業教練馮嘉豪專精於伸展訓練和肌耐力運動，特別針對銀髮族設計課程。嘉豪教練擁有多年經驗，致力於幫助長者提升體能和增強肌肉力量。他溫柔細心，善於調整訓練計劃，確保每位長者都能在安全的環境中運動。加入我們，與嘉豪教練一起，享受健康活力的生活！', 2000, '2024-07-19', 5, 1),
-('陳秀英', '0978123475', 2, '我們的專業教練陳秀英專精於有氧訓練和增肌運動，特別針對銀髮族設計課程。秀英教練擁有多年經驗，致力於幫助長者提升體能和增強肌肉力量。她溫柔細心，善於調整訓練計劃，確保每位長者都能在安全的環境中運動。加入我們，與秀英教練一起，享受健康活力的生活！', 2000, '2024-07-20', 6, 2);
+('楊志明', '0978123470', 1, '我們的專業教練楊志明專精於增肌訓練和徒手運動，特別針對銀髮族設計課程。志明教練擁有多年經驗，致力於幫助長者提升體能和增強肌肉力量。他溫柔細心，善於調整訓練計劃，確保每位長者都能在安全的環境中運動。加入我們，與志明教練一起，享受健康活力的生活！', 2000, '2024-07-15', 15, 3),
+('鄭小紅', '0978123471', 2, '我們的專業教練鄭小紅專精於心肺功能訓練和健美運動，特別針對銀髮族設計課程。小紅教練擁有多年經驗，致力於幫助長者提升體能和增強肌肉力量。她溫柔細心，善於調整訓練計劃，確保每位長者都能在安全的環境中運動。加入我們，與小紅教練一起，享受健康活力的生活！', 2000, '2024-07-16', 16, 1),
+('曾志豪', '0978123472', 1, '我們的專業教練曾志豪專精於有氧訓練和肌耐力運動，特別針對銀髮族設計課程。志豪教練擁有多年經驗，致力於幫助長者提升體能和增強肌肉力量。他溫柔細心，善於調整訓練計劃，確保每位長者都能在安全的環境中運動。加入我們，與志豪教練一起，享受健康活力的生活！', 2000, '2024-07-17', 17, 2),
+('謝怡君', '0978123473', 2, '我們的專業教練謝怡君專精於心肺功能訓練和有氧運動，特別針對銀髮族設計課程。怡君教練擁有多年經驗，致力於幫助長者提升體能和增強柔韌性。她溫柔細心，善於調整訓練計劃，確保每位長者都能在安全的環境中運動。加入我們，與怡君教練一起，享受健康活力的生活！', 2000, '2024-07-18', 18, 3),
+('馮嘉豪', '0978123474', 1, '我們的專業教練馮嘉豪專精於伸展訓練和肌耐力運動，特別針對銀髮族設計課程。嘉豪教練擁有多年經驗，致力於幫助長者提升體能和增強肌肉力量。他溫柔細心，善於調整訓練計劃，確保每位長者都能在安全的環境中運動。加入我們，與嘉豪教練一起，享受健康活力的生活！', 2000, '2024-07-19', 19, 1),
+('陳秀英', '0978123475', 2, '我們的專業教練陳秀英專精於有氧訓練和增肌運動，特別針對銀髮族設計課程。秀英教練擁有多年經驗，致力於幫助長者提升體能和增強肌肉力量。她溫柔細心，善於調整訓練計劃，確保每位長者都能在安全的環境中運動。加入我們，與秀英教練一起，享受健康活力的生活！', 2000, '2024-07-20', 20, 2);
 
 -- 插入教練技能資料
 INSERT INTO CoachSkills (coach_id, commontype_id) VALUES
@@ -2005,7 +2217,61 @@ INSERT INTO CoachSkills (coach_id, commontype_id) VALUES
 (19, 41), (19, 94),
 (20, 43), (20, 44);
 
-   -- 课程照片表
+select * from coaches;
+
+-- SELECT 
+--     c.coach_id,
+--     c.coach_name,
+--     c.coach_phone,
+--     c.coach_gender,
+--     c.coach_info,
+--     c.coach_price,
+--     c.create_date,
+--     c.update_at,
+--     GROUP_CONCAT(DISTINCT ct.code_desc ORDER BY ct.code_desc SEPARATOR '、') AS skills,
+--     ci.coach_img,
+--     g.gym_name AS gym
+-- FROM 
+--     Coaches c
+-- JOIN 
+--     CoachSkills cs ON c.coach_id = cs.coach_id
+-- JOIN 
+--     CommonType ct ON cs.commontype_id = ct.commontype_id
+-- JOIN 
+--     CoachImgs ci ON c.coachImgs_id = ci.coachImgs_id
+-- JOIN 
+--     Gyms g ON c.gym_id = g.gym_id
+-- GROUP BY 
+--     c.coach_id, g.gym_name, ci.coach_img;
+    
+--     SELECT 
+--     c.coach_id,
+--     c.coach_name,
+--     c.coach_phone,
+--     c.coach_gender,
+--     c.coach_info,
+--     c.coach_price,
+--     c.create_date,
+--     c.update_at,
+--     GROUP_CONCAT(DISTINCT ct.code_desc ORDER BY ct.code_desc SEPARATOR '、') AS skills,
+--     ci.coach_img,
+--     g.gym_name AS gym
+-- FROM 
+--     Coaches c
+-- JOIN 
+--     CoachSkills cs ON c.coach_id = cs.coach_id
+-- JOIN 
+--     CommonType ct ON cs.commontype_id = ct.commontype_id
+-- JOIN 
+--     CoachImgs ci ON c.coachImgs_id = ci.coachImgs_id
+-- JOIN 
+--     Gyms g ON c.gym_id = g.gym_id
+-- WHERE 
+--         c.coach_id = ?
+-- GROUP BY 
+--     c.coach_id, g.gym_name, ci.coach_img;
+    
+    -- 课程照片表
 CREATE TABLE LessonImgs(
     LessonImgs_id INT PRIMARY KEY AUTO_INCREMENT,
     lesson_img VARCHAR(200)
@@ -2061,10 +2327,10 @@ CREATE TABLE LessonCategories (
 INSERT INTO Lessons (lesson_name, lesson_state, lesson_price, lesson_desc, lesson_date, LessonImgs_id, coach_id, gym_id)
 VALUES
 ('輕鬆瑜伽', 1, 500, '歡迎加入我們的輕鬆瑜伽課！這是一個專為銀髮族設計的課程，旨在提升您的柔韌性和平衡感。我們的專業教練將根據您的需求和能力，為您量身打造合適的動作，讓您在舒適的環境中獲得最佳的健身效果。', '2024-07-15 10:00:00', 1, 1, 1),
-('晨間活力', 1, 600, '加入我們的晨間活力課程吧！這是一個專為銀髮族設計的課程，旨在提升您的柔韌性和肌耐力。我們的專業教練會根據您的需求，為您量身打造適合的動作，讓您在輕鬆愉快的氛圍中提升體能。', '2024-07-16 10:00:00', 2, 2, 2),
-('和諧瑜伽', 1, 700, '歡迎參加和諧瑜伽課程！這是一個專為銀髮族設計的課程，旨在提升您的柔韌性和心肺功能。我們的專業教練將根據您的需求和能力，為您量身定制適合的瑜伽動作，讓您在和諧的環境中提升健康。', '2024-07-17 10:00:00', 3, 3, 3),
+('瑜珈I', 1, 600, '加入我們的晨間活力課程吧！這是一個專為銀髮族設計的課程，旨在提升您的柔韌性和肌耐力。我們的專業教練會根據您的需求，為您量身打造適合的動作，讓您在輕鬆愉快的氛圍中提升體能。', '2024-07-16 10:00:00', 2, 2, 2),
+('瑜伽II', 1, 700, '歡迎參加和諧瑜伽課程！這是一個專為銀髮族設計的課程，旨在提升您的柔韌性和心肺功能。我們的專業教練將根據您的需求和能力，為您量身定制適合的瑜伽動作，讓您在和諧的環境中提升健康。', '2024-07-17 10:00:00', 3, 3, 3),
 ('輕鬆有氧', 1, 800, '參加我們的輕鬆有氧課程吧！這是一個專為銀髮族設計的課程，旨在提升您的心肺功能和增肌效果。我們的專業教練會根據您的需求，為您定制合適的有氧運動計劃，讓您在輕鬆的環境中達到健康目標。', '2024-07-18 10:00:00', 4, 4, 1),
-('力量訓練', 1, 900, '加入力量訓練課程，提升您的體能！這是一個專為銀髮族設計的課程，旨在提升您的增肌和肌耐力。我們的專業教練將根據您的需求，為您定制適合的增肌計劃，讓您在舒適的環境中鍛煉身體。', '2024-07-19 10:00:00', 5, 5, 2),
+('大健走', 1, 900, '加入力量訓練課程，提升您的體能！這是一個專為銀髮族設計的課程，旨在提升您的增肌和肌耐力。我們的專業教練將根據您的需求，為您定制適合的增肌計劃，讓您在舒適的環境中鍛煉身體。', '2024-07-19 10:00:00', 5, 5, 2),
 ('靜心徒手', 1, 1000, '參加靜心徒手課程，提升您的身心健康！這是一個專為銀髮族設計的課程，旨在提升您的柔韌性和徒手訓練效果。我們的專業教練將根據您的需求，為您定制合適的徒手訓練計劃，讓您在靜心的環境中鍛煉身體。', '2024-07-20 10:00:00', 6, 6, 3),
 ('平衡有氧', 1, 1100, '歡迎參加平衡有氧課程！這是一個專為銀髮族設計的課程，旨在提升您的心肺功能和柔韌性。我們的專業教練將根據您的需求，為您定制適合的有氧運動計劃，讓您在平衡的環境中提升健康。', '2024-07-21 10:00:00', 7, 7, 1),
 ('動感健美', 1, 1200, '加入動感健美課程，塑造完美身材！這是一個專為銀髮族設計的課程，旨在提升您的健美和增肌效果。我們的專業教練將根據您的需求，為您定制合適的健美計劃，讓您在動感的環境中鍛煉身體。', '2024-07-22 10:00:00', 8, 8, 2),
@@ -2095,6 +2361,8 @@ INSERT INTO LessonCategories (lesson_id, commontype_id) VALUES
 (14, 41), (14, 95),
 (15, 41), (15, 42),
 (16, 44), (16, 95);
+
+select lesson_name,  FORMAT(lesson_price, 0) AS formatted_lesson_price from Lessons;
 
 CREATE TABLE FavCoach (
     fcoach_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -2136,6 +2404,59 @@ CREATE TABLE coachReserve (
   created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (coach_id) REFERENCES Coaches(coach_id)
 );
+
+INSERT INTO coachreserve(`coachReserve_id`, `reserve_name`, `reserve_phone`, `reserve_email`, `reserve_time`, `coach_id`, `created_at`) VALUES
+('1','劉冠廷','0911222333','dongdong123456@gmail','2024-12-11 19:30','10','2024-07-23 11:11:52'),
+('2','劉冠廷','0911222333','dongdong123456@gmail','2024-12-03 10:00','15','2024-07-23 11:11:52'),
+('3','劉冠廷','0911222333','dongdong123456@gmail','2024-11-03 10:00','15','2024-07-23 11:11:52'),
+('4','劉冠廷','0911222333','dongdong123456@gmail','2024-10-02 10:00','14','2024-07-23 11:11:52'),
+('5','劉冠廷','0911222333','dongdong123456@gmail','2024-10-17 15:00','14','2024-07-23 11:11:52'),
+('6','劉冠廷','0911222333','dongdong123456@gmail','2024-09-01 10:00','13','2024-07-23 11:11:52'),
+('7','劉冠廷','0911222333','dongdong123456@gmail','2024-09-30 19:00','12','2024-07-23 11:11:52'),
+('8','劉冠廷','0911222333','dongdong123456@gmail','2024-08-13 11:00','11','2024-07-23 11:11:52'),
+('9','劉冠廷','0911222333','dongdong123456@gmail','2024-08-27 13:00','10','2024-07-23 11:11:52'),
+('10','劉冠廷','0911222333','dongdong123456@gmail','2024-07-03 09:00','9','2024-07-23 11:11:52'),
+('11','劉冠廷','0911222333','dongdong123456@gmail','2024-06-18 10:30','8','2024-07-23 11:11:52'),
+('12','劉冠廷','0911222333','dongdong123456@gmail','2024-06-20 10:00','14','2024-07-23 11:11:52'),
+('13','劉冠廷','0911222333','dongdong123456@gmail','2024-05-02 09:00','1','2024-07-23 11:11:52'),
+('14','劉冠廷','0911222333','dongdong123456@gmail','2024-05-03 09:30','15','2024-07-23 11:11:52'),
+('15','劉冠廷','0911222333','dongdong123456@gmail','2024-05-04 10:00','15','2024-07-23 11:11:52'),
+('16','劉冠廷','0911222333','dongdong123456@gmail','2024-05-05 10:30','15','2024-07-23 11:11:52'),
+('17','劉冠廷','0911222333','dongdong123456@gmail','2024-04-06 09:00','7','2024-07-23 11:11:52'),
+('18','劉冠廷','0911222333','dongdong123456@gmail','2024-04-10 10:00','6','2024-07-23 11:11:52'),
+('19','劉冠廷','0911222333','dongdong123456@gmail','2024-03-03 09:30','5','2024-07-23 11:11:52'),
+('20','劉冠廷','0911222333','dongdong123456@gmail','2024-02-11 13:30','4','2024-07-23 11:11:52'),
+('21','劉冠廷','0911222333','dongdong123456@gmail','2024-02-21 10:00','3','2024-07-23 11:11:52'),
+('22','劉冠廷','0911222333','dongdong123456@gmail','2024-01-03 18:00','2','2024-07-23 11:11:52'),
+('23','劉冠廷','0911222333','dongdong123456@gmail','2024-01-20 10:00','1','2024-07-23 11:11:52')
+
+-- SELECT 
+--         l.lesson_id,
+--         l.lesson_name,
+--         l.lesson_state,
+--         l.lesson_price,
+--         l.lesson_desc,
+--         l.lesson_date,
+--         GROUP_CONCAT(DISTINCT ct.code_desc ORDER BY ct.code_desc SEPARATOR '/') AS categories,
+--         li.lesson_img,
+--         c.coach_name,
+--         g.gym_name
+--     FROM 
+--         Lessons l
+--     JOIN 
+--         LessonCategories lc ON l.lesson_id = lc.lesson_id
+--     JOIN 
+--         CommonType ct ON lc.commontype_id = ct.commontype_id
+--     JOIN 
+--         LessonImgs li ON l.LessonImgs_id = li.LessonImgs_id
+--     JOIN 
+--         Coaches c ON l.coach_id = c.coach_id
+--     JOIN 
+--         Gyms g ON l.gym_id = g.gym_id
+--     WHERE 
+--         l.lesson_id = ?
+--     GROUP BY 
+--         l.lesson_id
 
 
 

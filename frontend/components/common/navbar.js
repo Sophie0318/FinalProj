@@ -13,7 +13,6 @@ import {
 import { PiMapPinFill, PiLightbulbFilamentFill } from 'react-icons/pi'
 import { FaArrowRight, FaPersonRunning } from 'react-icons/fa6'
 import styles from './layout.module.css'
-import { IoAddSharp, IoRemove, IoCloseSharp } from 'react-icons/io5'
 import { useRouter } from 'next/router'
 import { useCallback } from 'react'
 import { useAuth } from '../../context/auth-context'
@@ -27,7 +26,6 @@ import { useCart } from '@/hooks/product/use-cart'
 export default function Navbar({
   hideLogo = false,
   position = 'relative',
-  // zIndex = '0',
   width = '100%',
 }) {
   const { auth, logout } = useAuth()
@@ -90,7 +88,6 @@ export default function Navbar({
         className={`${styles.navbarPC}`}
         style={{
           position: `${position}`,
-          // zIndex: `${zIndex}`,
           width: `${width}`,
         }}
       >
@@ -338,7 +335,7 @@ export default function Navbar({
                   </Link>
                 </li>
                 <li>
-                  <Link className={`h3-font`} href="/product-test">
+                  <Link className={`h3-font`} href="/product">
                     <IoBagCheck />
                     <div className={styles.navbarSPLink}>找商品</div>
                   </Link>

@@ -12,6 +12,9 @@ export default function ForgetPassword() {
   const [alertMessage, setAlertMessage] = useState('')
   const [userMessage, setUserMessage] = useState('')
 
+  const [emailError, setEmailError] = useState('')
+  const [showSuccessIcon, setShowSuccessIcon] = useState(false)
+
   const lastRequestTime = useRef(0) //上次發送驗證信的時間
   const MIN_INTERVAL = 180000 //現在設定3分鐘內不得重複發送驗證信
 
@@ -70,7 +73,15 @@ export default function ForgetPassword() {
             onSubmit={handleSubmit}
             noValidate
           >
-            <MyEmailInput email={email} setEmail={setEmail} />
+            <MyEmailInput
+              email={email}
+              setEmail={setEmail}
+              errorMessage={emailError}
+              setErrorMessage={setEmailError}
+              setShowSuccessIcon={setShowSuccessIcon}
+              showSuccessIcon={false}
+              checkEmailExists={false} //登入頁中不需要檢查 email 是否已存在
+            />
             <MyBtn buttonText="送出" />
           </form>
         </div>

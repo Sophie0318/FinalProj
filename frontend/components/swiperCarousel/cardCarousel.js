@@ -4,9 +4,6 @@ import { register } from 'swiper/element/bundle'
 import { FaArrowLeftLong, FaArrowRightLong } from 'react-icons/fa6'
 import styles from './card-carousel.module.css'
 
-// initial data list
-const initlist = Array(12).fill(1)
-
 export default function CardCarousel({
   arrow = true,
   data = [],
@@ -52,14 +49,6 @@ export default function CardCarousel({
       },
     }
   }
-
-  // 抓 database 除錯訊息
-  // if ((data.length === 0) | (data === null) | (data === undefined)) {
-  //   const output = { datalength: data.length, datacontent: data }
-  //   console.log('輪播 data 沒抓到', output)
-  // }
-
-  // console.log(data)
   useEffect(() => {
     register()
 

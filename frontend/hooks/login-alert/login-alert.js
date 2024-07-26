@@ -3,7 +3,7 @@ import Swal from 'sweetalert2'
 import 'animate.css'
 import styles from './login-alert.module.css'
 
-export default function LoginAlert() {
+export default function LoginAlert(titleText = '要登入才能收藏喔~') {
   const LoginAlert = Swal.mixin({
     showClass: {
       popup: `
@@ -25,7 +25,7 @@ export default function LoginAlert() {
       confirmButton: `${styles.confirmButton} ${styles.midnightgreen}`,
       cancelButton: `${styles.cancelButton} ${styles.gray50}`,
     },
-    titleText: '要登入才能收藏喔~',
+    titleText: `${titleText}`,
     icon: 'info',
     iconColor: 'var(--color-yellow)',
     heightAuto: false,

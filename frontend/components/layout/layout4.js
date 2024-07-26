@@ -55,17 +55,17 @@ export default function Layout4({
       <Head>
         <title>{title ? title : ''}</title>
       </Head>
-
       <div className={`d-flex flex-column`}>
         <div
           style={{
             height: '340px',
             display: 'flex',
             flexDirection: 'column',
+            position: 'relative',
           }}
         >
+          <Navbar position="relative" top="0" left="0" right="0" zIndex="100" />
           <div style={{ width: '100%', position: 'fixed', zIndex: '-1' }}>
-            <Navbar position="fixed" zIndex="-2" />
             <PageTitle
               pageName={pageName}
               height={height}

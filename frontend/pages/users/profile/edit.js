@@ -6,6 +6,8 @@ import { useRouter } from 'next/router'
 import UserModal from '../../../components/users/UserModal'
 import UserConfirm from '@/components/users/userConfirm'
 import MyPasswordInput from '@/components/users/MyPasswordInput'
+import { z } from 'zod'
+import MyTextInput from '@/components/users/MyTextInput'
 
 export default function Edit() {
   const router = useRouter()
@@ -34,6 +36,47 @@ export default function Edit() {
   const [confirmMessage, setConfirmMessage] = useState('')
   const [userConfirmMessage, setUserConfirmMessage] = useState('')
 
+  const [nameError, setNameError] = useState('')
+  const [nickNameError, setNickNameError] = useState('')
+  const [mobileError, setMobileError] = useState('')
+  const [addressError, setAddressError] = useState('')
+
+  // Zod schemas
+  const nameSchema = z
+    .string()
+    .min(1, '姓名不能為空白')
+    .min(2, '姓名至少要有2個字')
+    .max(10, '姓名不能超過10個字')
+    .trim()
+  const nickNameSchema = z.string().max(10, '暱稱不能超過10個字')
+  const mobileSchema = z.string().regex(/^09\d{8}$/, '手機號碼格式不正確')
+  const addressSchema = z.string().refine(
+    (value) => {
+      const cityName = city.find((c) => c.code_id === selectedCity)?.code_desc
+      const districtName = districts.find(
+        (d) => d.code_id === selectedDistrict
+      )?.code_desc
+
+      // 檢查是否選擇了縣市和行政區
+      const isLocationSelected = selectedCity !== 0 && selectedDistrict !== 0
+
+      // 如果選擇了位置，地址不能為空，且不能包含已選擇的縣市或行政區
+      if (isLocationSelected) {
+        return (
+          value.trim() !== '' &&
+          !value.includes(cityName) &&
+          !value.includes(districtName)
+        )
+      }
+
+      // 如果沒有選擇位置，則出現錯誤訊息
+      return false
+    },
+    {
+      message: '地址格式不正確',
+    }
+  )
+
   console.log('auth.id:', auth.id)
 
   // 當auth被更新時保存原先的資料
@@ -55,6 +98,10 @@ export default function Edit() {
     setSelectedCity(auth.city || 0)
     setSelectedDistrict(auth.district || 0)
   }, [auth])
+
+  //判斷是不是使用第三方登入進來的會員
+  const isGoogleUser = Boolean(auth.google_uid)
+  console.log('isGoogleUser:', isGoogleUser)
 
   useEffect(() => {
     // Fetch city data
@@ -98,7 +145,43 @@ export default function Edit() {
     const newCityId = parseInt(e.target.value)
     setSelectedCity(newCityId)
     setSelectedDistrict(0)
+    setAddress('')
+
+    if (newCityId === 0) {
+      setAddressError('請選擇縣市')
+    } else {
+      setAddressError('') // 清空錯誤訊息，等待用戶重新選擇行政區
+    }
   }
+
+  const handleDistrictChange = (e) => {
+    const newDistrictId = parseInt(e.target.value)
+    setSelectedDistrict(newDistrictId)
+    setAddress('')
+
+    if (newDistrictId === 0) {
+      setAddressError('請選擇行政區')
+    } else {
+      setAddressError('請輸入詳細地址')
+    }
+  }
+
+  useEffect(() => {
+    // 只有當用戶開始填寫表單（選擇了縣市或行政區，或輸入了地址）時，才顯示錯誤訊息
+    if (selectedCity !== 0 || selectedDistrict !== 0 || address.trim() !== '') {
+      if (selectedCity === 0) {
+        setAddressError('請選擇縣市')
+      } else if (selectedDistrict === 0) {
+        setAddressError('請選擇行政區')
+      } else if (address.trim() === '') {
+        setAddressError('請輸入詳細地址')
+      } else {
+        setAddressError('')
+      }
+    } else {
+      setAddressError('') // 如果用戶沒有開始填寫，保持錯誤訊息為空
+    }
+  }, [selectedCity, selectedDistrict, address])
 
   // 檢查是否有資料更新
   const isDataChanged = () => {
@@ -188,19 +271,44 @@ export default function Edit() {
       console.log('後端返回的數據:', updatedData)
 
       if (updatedData.message === '個人資料更新成功') {
-        // 使用本地更新的數據來更新 auth context
-        if (typeof setAuth === 'function') {
-          setAuth({
-            ...auth,
-            name: name,
-            nick_name: nickName,
-            mobile: mobile,
-            address: address,
-            city: selectedCity,
-            district: selectedDistrict,
-            password: password || auth.password,
-          })
+        console.log('更新前的 auth:', auth)
+        // 更新的auth 叫 updateAuth
+        const updatedAuth = {
+          ...auth,
+          name: name,
+          nick_name: nickName,
+          mobile: mobile,
+          address: address,
+          city: selectedCity,
+          district: selectedDistrict,
+          password: password || auth.password,
         }
+        console.log('更新後的 auth:', updatedAuth)
+        // 使用本地更新的數據來更新 auth context
+        // if (typeof setAuth === 'function') {
+        //   setAuth({
+        //     ...auth,
+        //     name: name,
+        //     nick_name: nickName,
+        //     mobile: mobile,
+        //     address: address,
+        //     city: selectedCity,
+        //     district: selectedDistrict,
+        //     password: password || auth.password,
+        //   })
+        // }
+
+        //拿updateAuth來更新auth context
+        if (typeof setAuth === 'function') {
+          setAuth(updatedAuth)
+        }
+        // 更新 localStorage
+        localStorage.setItem('suan-auth', JSON.stringify(updatedAuth))
+        console.log(
+          'localStorage 更新後:',
+          JSON.parse(localStorage.getItem('suan-auth'))
+        )
+
         setAlertMessage('更新成功')
         setUserMessage('個人資料已成功更新')
         setIsModalOpen(true)
@@ -274,42 +382,37 @@ export default function Edit() {
               {/* Personal Information */}
               <div className={styles.information}>
                 <h5>個人資料</h5>
-                <div className={styles.form_group}>
-                  <label htmlFor="name">
-                    <p>姓名:</p>
-                  </label>
-                  <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                  />
-                </div>
-                <div className={styles.form_group}>
-                  <label htmlFor="nickname">
-                    <p>暱稱:</p>
-                  </label>
-                  <input
-                    type="text"
-                    id="nickname"
-                    name="nickname"
-                    value={nickName}
-                    onChange={(e) => setNickName(e.target.value)}
-                  />
-                </div>
-                <div className={styles.form_group}>
-                  <label htmlFor="mobile">
-                    <p>手機:</p>
-                  </label>
-                  <input
-                    type="text"
-                    id="mobile"
-                    name="mobile"
-                    value={mobile}
-                    onChange={(e) => setMobile(e.target.value)}
-                  />
-                </div>
+                <MyTextInput
+                  id="name"
+                  name="name"
+                  label="姓名:"
+                  value={name}
+                  onChange={setName}
+                  schema={nameSchema}
+                  errorMessage={nameError}
+                  setErrorMessage={setNameError}
+                />
+                <MyTextInput
+                  id="nickname"
+                  name="nickname"
+                  label="暱稱:"
+                  value={nickName}
+                  onChange={setNickName}
+                  schema={nickNameSchema}
+                  errorMessage={nickNameError}
+                  setErrorMessage={setNickNameError}
+                />
+                <MyTextInput
+                  id="mobile"
+                  name="mobile"
+                  label="手機:"
+                  placeholder="格式為0912345678"
+                  value={mobile}
+                  onChange={setMobile}
+                  schema={mobileSchema}
+                  errorMessage={mobileError}
+                  setErrorMessage={setMobileError}
+                />
               </div>
 
               {/* Address */}
@@ -341,9 +444,7 @@ export default function Edit() {
                     id="district"
                     name="district"
                     value={selectedDistrict}
-                    onChange={(e) =>
-                      setSelectedDistrict(parseInt(e.target.value))
-                    }
+                    onChange={handleDistrictChange}
                   >
                     <option value="0">--請選擇--</option>
                     {districts.map((d) => (
@@ -353,19 +454,27 @@ export default function Edit() {
                     ))}
                   </select>
                 </div>
-                <div className={styles.form_group}>
-                  <label htmlFor="address">
-                    <p>地址:</p>
-                  </label>
-                  <input
-                    type="text"
-                    id="address"
-                    name="address"
-                    style={{ width: '300px' }}
-                    value={address}
-                    onChange={(e) => setAddress(e.target.value)}
-                  />
-                </div>
+                <MyTextInput
+                  id="address"
+                  name="address"
+                  label="地址:"
+                  value={address}
+                  onChange={(value) => {
+                    setAddress(value)
+                    // 當用戶開始輸入地址時，檢查是否已選擇縣市和行政區
+                    if (selectedCity === 0 || selectedDistrict === 0) {
+                      setAddressError('請先選擇縣市和行政區')
+                    } else if (value.trim() === '') {
+                      setAddressError('地址不能為空白')
+                    } else {
+                      setAddressError('')
+                    }
+                  }}
+                  schema={addressSchema}
+                  errorMessage={addressError}
+                  setErrorMessage={setAddressError}
+                  style={{ width: '300px' }}
+                />
               </div>
 
               {/* Change Password */}
@@ -384,6 +493,7 @@ export default function Edit() {
                       placeholder="請輸入新密碼"
                       errorMessage={errorMessage}
                       setErrorMessage={setErrorMessage}
+                      disabled={isGoogleUser} //如果是第三方登入的會員就不能改密碼
                     />
                   </div>
                   <div
@@ -401,6 +511,7 @@ export default function Edit() {
                       placeholder="請再次輸入新密碼"
                       errorMessage={confirmPasswordErrorMessage}
                       setErrorMessage={setConfirmPasswordErrorMessage}
+                      disabled={isGoogleUser} //如果是第三方登入的會員就不能改密碼
                     />
                   </div>
                 </div>
