@@ -52,7 +52,7 @@ import axios from 'axios'
 //   // ... 其他會員資料
 // }
 
-export default function GymReservation({}) {
+export default function GymReservation() {
   const formRef = useRef(null)
   const initializeDate = () => {
     const date = new Date() // 當前時間
@@ -92,7 +92,6 @@ export default function GymReservation({}) {
     email: '',
     reservationTime: '',
     gymId: gymData.id,
-    memberId: auth.memberId,
     memberId: auth.memberId,
   })
 

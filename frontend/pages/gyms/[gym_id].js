@@ -45,6 +45,7 @@ export default function GymDetail({ gymId }) {
   const [gym, setGym] = useState(null)
   const { gym_id } = router.query
   const [thumbsSwiper, setThumbsSwiper] = useState(null)
+  const [error, setError] = useState(null)
 
   // fetch 資料函式
   const fetchGymData = async (gymId) => {
