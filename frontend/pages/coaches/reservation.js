@@ -83,10 +83,10 @@ export default function Reservation() {
     try {
       // 根據選擇的時間段獲取正確的日期時間字符串
       const timeSlotMap = {
-        1: '2024-12-31T12:00:00+08:00',
-        2: '2024-12-31T13:00:00+08:00',
-        3: '2024-12-31T14:00:00+08:00',
-        4: '2024-12-31T15:00:00+08:00',
+        1: '2024-08-12T13:00:00+08:00',
+        2: '2024-08-12T14:00:00+08:00',
+        3: '2024-08-19T13:00:00+08:00',
+        4: '2024-08-31T14:00:00+08:00',
       }
       const reserveTime = timeSlotMap[formData.timeSlot] || formData.timeSlot
 
@@ -217,10 +217,10 @@ export default function Reservation() {
                   onChange={handleInputChange}
                 >
                   <option value="">請選擇時段</option>
-                  <option value="1">2024/12/31 12:00</option>
-                  <option value="2">2024/12/31 13:00</option>
-                  <option value="3">2024/12/31 14:00</option>
-                  <option value="4">2024/12/31 15:00</option>
+                  <option value="1">2024/08/12 13:00</option>
+                  <option value="2">2024/08/12 14:00</option>
+                  <option value="3">2024/08/19 13:00</option>
+                  <option value="4">2024/08/19 14:00</option>
                 </select>
                 {errors.timeSlot && (
                   <div className={styles.errorMsg}>{errors.timeSlot}</div>
