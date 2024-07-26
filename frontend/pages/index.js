@@ -133,11 +133,16 @@ export default function Home() {
 
     setHeroImageVisible(true)
 
+    const timer = setTimeout(() => {
+      setHeroImageVisible(true)
+    }, 100) // 延遲100毫秒後顯示圖片
+
     return () => {
       if (pageWrapRef.current) {
         observer.unobserve(pageWrapRef.current)
       }
       window.removeEventListener('scroll', handleScroll)
+      clearTimeout(timer)
     }
   }, [])
 
@@ -162,14 +167,14 @@ export default function Home() {
                   <div className={`${styles.heroText} col-md-8 col-10`}>
                     <img
                       src="/index-img/heroBig.png"
-                      className={`${styles.heroImgBig} ${
-                        heroImageVisible ? styles['fade-in'] : ''
+                      className={`${styles.heroImgBig} ${styles['fade-in']} ${
+                        heroImageVisible ? styles['visible'] : ''
                       }`}
                     />
                     <img
                       src="/index-img/heroMid.png"
-                      className={`${styles.heroImgMid} ${
-                        heroImageVisible ? styles['fade-in'] : ''
+                      className={`${styles.heroImgMid} ${styles['fade-in']} ${
+                        heroImageVisible ? styles['visible'] : ''
                       }`}
                     />
                   </div>
