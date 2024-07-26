@@ -36,7 +36,6 @@ export default function useToggleInput(
   const toggleReplyInput = (e, data) => {
     if (e.currentTarget.id === 'replyInput') {
       const nextReplySect = { ...replySect, [data.sub]: 'replyInput' }
-      console.log(nextReplySect)
       setReplySect(nextReplySect)
     }
 

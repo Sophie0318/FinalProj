@@ -84,6 +84,8 @@ export default function Comment() {
                     replySect={replySect}
                     setReplySect={setReplySect}
                     handleToggle={toggleReplySect}
+                    hiddenSubs={hiddenSubs}
+                    setHiddenSubs={setHiddenSubs}
                   />
                   <Reply
                     article_id={v.article_id_fk}

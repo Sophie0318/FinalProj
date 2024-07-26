@@ -83,7 +83,9 @@ export default function ArticlePage() {
     <>
       <Layout3
         title={
-          content ? `找知識 - ${content.article_title}` : '找知識 - 文章頁面'
+          JSON.stringify(content) !== '{}'
+            ? `找知識 - ${content.article_title}`
+            : '找知識 - 文章頁面'
         }
         pageName="articles"
       >

@@ -66,7 +66,8 @@ export default function Reply({ main = 1, article_id = 0, show }) {
                   <ReplyInput
                     showInput={replyInput[v.sub]}
                     main={v.main}
-                    sub={v.sub}
+                    sub={info.totalRows}
+                    tag={v.sub}
                   />
                 </div>
               )

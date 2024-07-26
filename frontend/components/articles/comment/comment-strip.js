@@ -19,11 +19,12 @@ export default function CommentStrip({
     sub_count: 0,
   },
   reply = false,
-  replySect = {},
-  setReplySect = () => {},
   handleToggle = () => {},
+  hiddenSubs = 0,
+  setHiddenSubs = () => {},
+  // handleReplyToggle = () => {},
 }) {
-  const [hiddenSubs, setHiddenSubs] = useState(0)
+  // const [hiddenSubs, setHiddenSubs] = useState(0)
   // const main = data.main
 
   // const toggleReplySect = (e) => {
@@ -59,7 +60,7 @@ export default function CommentStrip({
   return (
     <>
       <div
-        id={data.comment_id}
+        id={`tag${data.comment_id}`}
         className={`${styles.commentStrip} ${reply ? styles.reply : ''}`}
       >
         <div className={styles.userCommentTitle}>
