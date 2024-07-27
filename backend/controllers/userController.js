@@ -207,6 +207,33 @@ const userController = {
             res.status(500).json({ success: false, message: '資料庫錯誤' });
         }
     },
+    //處理會員個人資料頁的場館預約
+    myReservations: async (req, res) => {
+        const userId = req.params.userId;
+        try {
+            const sql = `
+      SELECT 
+          gi.image_filename,
+          gr.reserve_time,
+          g.gym_name
+      FROM 
+          GymReservations gr
+      JOIN 
+          Gyms g ON gr.gym_id = g.gym_id
+      JOIN 
+          GymImages gi ON g.gym_id = gi.gym_id
+      WHERE 
+          gr.member_id = ?
+      ORDER BY 
+          gr.reserve_time;
+    `;
+            const [rows] = await db.query(sql, [userId]);
+            res.json({ success: true, reservations: rows });
+        } catch (error) {
+            console.error("取得會員場館預約時發生錯誤:", error);
+            res.status(500).json({ success: false, message: "資料庫錯誤" });
+        }
+    },
 
 
 };

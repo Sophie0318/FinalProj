@@ -404,6 +404,9 @@ router.get("/bookings/:userId", async (req, res) => {
   }
 });
 
+//會員場館預約
+router.get("/myReservations/:userId", userController.myReservations)
+
 //會員訂單頁
 router.get("/myOrders/:userId", userController.myOrders);
 

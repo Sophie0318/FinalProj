@@ -7,7 +7,7 @@ import axios from 'axios'
 import { useAuth } from '@/context/auth-context'
 
 // 測試用資料，連到資料庫後要刪掉
-import lessons from '@/data/FavLessons.json'
+// import lessons from '@/data/FavLessons.json'
 import options from '@/data/FakeOptions.json'
 
 export default function LessonsOrders() {
@@ -68,18 +68,6 @@ export default function LessonsOrders() {
           </div>
           <div className={styles.lessons_orders_search}>
             {lessonOrders.map((lesson) => renderCard(lesson))}
-          </div>
-
-          <div className={styles.pagination}>
-            <div
-              style={{
-                width: '450px',
-                height: '50px',
-                backgroundColor: '#BBB',
-              }}
-            >
-              pagination
-            </div>
           </div>
         </div>
       </LayoutUser>
