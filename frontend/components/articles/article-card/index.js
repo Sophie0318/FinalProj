@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
 import { useAuth } from '@/context/auth-context'
@@ -14,6 +14,7 @@ const ArticleCard = ({
   idURL = '',
   member_id = '',
 }) => {
+  const router = useRouter()
   const { auth } = useAuth()
   const [isClicked, setIsClicked] = useState(member_id === auth.id)
   const { toggleArticleFav } = useArticleFav(
@@ -22,6 +23,10 @@ const ArticleCard = ({
     isClicked,
     setIsClicked
   )
+
+  useEffect(() => {
+    setIsClicked(member_id === auth.id)
+  }, [router])
 
   return (
     <Link href={`/articles/${idURL}`} className={styles.articleCard}>
