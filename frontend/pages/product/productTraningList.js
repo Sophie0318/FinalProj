@@ -22,6 +22,7 @@ export default function ProductList() {
   const [page, setPage] = useState(1) // 目前第幾頁
   const [perpage, setPerpage] = useState(10) // 每頁幾筆資料
   const [nameLike, setNameLike] = useState('') // 搜尋關鍵字
+  const [search, setSearch] = useState(false)
 
   // const addData = (product) => {
   //   const newData = { ...product, qty: 1 }
@@ -47,43 +48,53 @@ export default function ProductList() {
     const pathname = router.pathname
     const pathParts = pathname.split('/')
     const query = pathParts[pathParts.length - 1].split('?')[0]
-    console.log(query, 'query')
+    // console.log(query, 'query')
     //URLSearchParams這是一個 Web API，用於處理 URL 的查詢字符串。它提供了一種簡單的方式來創建、修改和解析 URL 參數。
 
-    const queryParams = new URLSearchParams(
-      {
+    let queryParams = ''
+    console.log(search)
+    if (search) {
+      queryParams = new URLSearchParams({
+        category: query,
+        page: 1,
+        keyword: nameLike,
+        // type: protect, //只有Protect才有這個參數 ，後端let subCategory = req.query.type || ""; //健身護具的分類， type: protect 後端:前端
+      })
+      setSearch(false)
+    } else {
+      queryParams = new URLSearchParams({
         category: query,
         page: page,
-        keyword: nameLike, //後端:前端
-        // type: test,
-      }
-
-      // const existingParams = new URLSearchParams(router.query)
-      // const page = existingParams.get('page') || '1'
-      // const queryParams = new URLSearchParams({
-      //   category: query,
-      //   page: page,
-      // }
-    )
-    console.log(`query params: ${queryParams.toString()}`)
+        keyword: nameLike,
+        // type: protect, //只有Protect才有這個參數 ，後端let subCategory = req.query.type || ""; //健身護具的分類， type: protect 後端:前端
+      })
+    }
+    // console.log(`query params: ${queryParams.toString()}`)
 
     // const query = new URLSearchParams({ id: productId })
-    console.log(router)
+    // console.log(router)
     const url = `http://localhost:3001/product/api?${queryParams.toString()}`
 
     fetch(url)
       .then((r) => r.json())
       .then((myData) => {
-        console.log(`page result: ${myData}`)
-        setData(myData)
+        if (myData.success) {
+          if (myData.redirect) {
+            router.push(myData.redirect, undefined, {
+              scroll: false,
+            })
+            setPage(1)
+          } else {
+            setData(myData)
+          }
+        }
       })
+      .catch((e) => console.log(e))
   }
-
   //用useEffect去抓(fetch)後端的資料
   useEffect(() => {
     updateProductData()
   }, [nameLike, page, perpage])
-  console.log('sasas')
   return (
     <Layout4 title="居家訓練" pageName="products">
       <main className={styles.mainWithMargin}>
