@@ -23,6 +23,9 @@ export default function ProductOrder() {
     }
   }, [])
   const MySwal = withReactContent(Swal)
+  useEffect(() => {
+    document.body.style.overflowY = 'visible'
+  }, [])
   return (
     <>
       <Navbar />
@@ -56,7 +59,8 @@ export default function ProductOrder() {
                     <img
                       src={`/product-img/${item.Product_photo}`}
                       alt=""
-                      className="w-75"
+                      className="w-75 "
+                      style={{ height: '200px' }}
                     />
                   </td>
                   <td style={{ width: '10%' }}>{item.Product_name}</td>

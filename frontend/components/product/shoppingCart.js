@@ -68,7 +68,7 @@ export default function ShoppingCart() {
             className={styles.cart}
             data-bs-toggle="offcanvas"
             data-bs-target="#offcanvasRight"
-            aria-controls="offcanvasRight"
+            aria-controls="offcanvasWithBothOptions"
           />
           <div
             className="offcanvas offcanvas-end"
@@ -221,7 +221,12 @@ export default function ShoppingCart() {
                 marginBottom: '50px',
               }}
             >
-              <Link href="/product/product-order" legacyBehavior passHref>
+              <Link
+                href="/product/product-order"
+                legacyBehavior
+                passHref
+                className={buttonStyles.btn}
+              >
                 <a className={buttonStyles.btn}>
                   <span>前往付款</span>
                   <svg width="13px" height="10px" viewBox="0 0 13 10">
