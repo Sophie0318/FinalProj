@@ -5,6 +5,8 @@ import { IoCall, IoHeart } from 'react-icons/io5'
 import Badges from '@/components/gyms/badges'
 import { useRouter } from 'next/router'
 import GymSwiper from '@/components/gyms/gym-swiper'
+import FavHeart from '@/components/gyms/favHeart'
+import { useAuth } from '@/context/auth-context'
 
 export default function GymDetail({ gymId }) {
   const router = useRouter()
@@ -13,6 +15,69 @@ export default function GymDetail({ gymId }) {
   const { gym_id } = router.query
   const [thumbsSwiper, setThumbsSwiper] = useState(null)
   const [error, setError] = useState(null)
+
+//收藏功能
+const [isClicked, setIsClicked] = useState(false)
+
+  const { auth } = useAuth()
+
+  const checkFavStatus = async () => {
+    if (!auth || !gym_id) return
+    try {
+      const response = await fetch(
+        `http://localhost:3001/gyms/check-fav/${auth.id}/${gym_id}`
+      )
+
+      if (!response.ok) {
+        throw new Error('檢查收藏狀態失敗了')
+      }
+      const contentType = response.headers.get('Content-Type')
+      if (!contentType || !contentType.includes('application/json')) {
+        throw new Error('Oh no!檢查收藏狀態失敗了，沒有正確的回應JSON格式')
+      }
+      const { isFavorite } = await response.json()
+      setIsClicked(isFavorite)
+      return
+    } catch (error) {
+      console.error('檢查收藏狀態失敗:', error)
+    }
+  }
+
+  const toggleFavorite = async () => {
+    try {
+      const method = isClicked ? 'DELETE' : 'POST'
+      const response = await fetch(
+        `http://localhost:3001/gyms/api/favorites/${auth.id}/${gym_id}`,
+        {
+          method: method,
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            userId: auth.id,
+            gymId: gym_id,
+          }),
+        }
+      )
+      if (response.ok) {
+        setIsClicked(!isClicked)
+      }
+      console.log(auth.id, gym_id)
+      console.log('切換收藏狀態成功:', response)
+    } catch (error) {
+      console.error('切換收藏狀態失敗:', error)
+    }
+  }
+
+  useEffect(() => {
+    console.log(gym_id)
+    console.log(auth)
+    if (auth) {
+      checkFavStatus()
+    }
+  }, [gym_id, auth])
+
+
 
   // fetch 資料函式
   const fetchGymData = async (gymId) => {
@@ -98,8 +163,9 @@ export default function GymDetail({ gymId }) {
                   <Badges />
                 </div>
                 <div className={styles.btn}>
-                  <button className={`${styles.btnLike}`}>
-                    <span className={`${styles.icon} `}>
+                  <button className={`${styles.btnLike}`}
+                  onClick={toggleFavorite}>
+                    <span className={`${styles.icon} ${styles.heart} ${isClicked ? styles.clicked : ''}`}>
                       <IoHeart />
                     </span>
                     <span>收藏</span>
