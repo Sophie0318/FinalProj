@@ -3,6 +3,8 @@ import styles from './gymCard.module.css'
 import Link from 'next/link'
 import { IoCall } from 'react-icons/io5'
 import Image from 'next/image'
+import Skeleton from 'react-loading-skeleton'
+import 'react-loading-skeleton/dist/skeleton.css'
 
 const GymCard = ({ data }) => {
   const [isWideScreen, setIsWideScreen] = useState(false)
@@ -64,7 +66,11 @@ const GymCard = ({ data }) => {
             </div>
           </div>
         </div>
-        <Link href="/gyms/[gym_id]/gym-reservation" as={`/gyms/${data.gym_id}/gym-reservation`} className={styles.bookButton}>
+        <Link
+          href="/gyms/[gym_id]/gym-reservation"
+          as={`/gyms/${data.gym_id}/gym-reservation`}
+          className={styles.bookButton}
+        >
           <IoCall />
           預約
         </Link>
@@ -73,12 +79,14 @@ const GymCard = ({ data }) => {
   )
 }
 
-const ResultCards = ({ gyms,selectedFeatures }) => {
+const ResultCards = ({ gyms, selectedFeatures }) => {
   const filteredGyms = gyms.filter((gym) => {
     if (selectedFeatures.length === 0) {
       return true
     }
-    return selectedFeatures.some((feature) => gym.feature_list.includes(feature))
+    return selectedFeatures.some((feature) =>
+      gym.feature_list.includes(feature)
+    )
   })
   const [isScrolled, setIsScrolled] = useState(false)
   const containerRef = useRef(null)
@@ -108,7 +116,10 @@ const ResultCards = ({ gyms,selectedFeatures }) => {
       {Array.isArray(filteredGyms) && filteredGyms.length > 0 ? (
         filteredGyms.map((gym, i) => <GymCard key={i} data={gym} />)
       ) : (
-        <p>沒有接收到gyms資料，檢查是不是陣列</p>
+        <div>
+          <Skeleton count={5} />
+          
+        </div>
       )}
     </div>
   )

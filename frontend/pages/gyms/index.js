@@ -123,7 +123,6 @@ export default function Gyms() {
                 title="switch"
                 className="d-none d-md-flex align-items-center ps-3"
               >
-                <p className={styles.switchText}>顯示/隱藏友善的場館</p>
                 <Switch isOn={boo} handleToggle={handleToggleChange} />
               </div>
             </div>
