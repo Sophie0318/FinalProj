@@ -54,6 +54,7 @@ export default function LessonsOrders() {
             <OrderRow
               key={order.orderDetail_number}
               orderDetail_number={order.orderDetail_number}
+              orderDate={order.orderDate}
               items={order.items}
               totalQuantity={order.totalQuantity}
               totalPrice={order.totalPrice}

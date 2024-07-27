@@ -151,6 +151,7 @@ const userController = {
             const [orders] = await db.query(`SELECT 
                 po.Productorders_orders_id,
                 po.ProductOrders_m_id_fk,
+                po.ProductOrders_orders_date,
                 po.ProductOrders_recipient_name,
                 od.OrdersDetail_id,
                 od.OrdersDetail_product_quantity,
@@ -174,8 +175,13 @@ const userController = {
             // 將訂單按 orderDetail_number 分組
             const groupedOrders = orders.reduce((acc, order) => {
                 if (!acc[order.orderDetail_number]) {
+                    // 把資料庫中ProductOrders_orders_date只取出年月日
+                    const orderDate = new Date(order.ProductOrders_orders_date);
+                    const myOrderDate = `${orderDate.getFullYear()}-${String(orderDate.getMonth() + 1).padStart(2, '0')}-${String(orderDate.getDate()).padStart(2, '0')}`;
+
                     acc[order.orderDetail_number] = {
                         orderDetail_number: order.orderDetail_number,
+                        orderDate: myOrderDate, // 被取出的只有年月日的下單時間
                         items: [],
                         totalQuantity: 0,
                         totalPrice: 0

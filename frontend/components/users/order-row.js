@@ -3,6 +3,7 @@ import styles from './order-row.module.css'
 
 export default function OrderRow({
   orderDetail_number = '',
+  orderDate = '',
   items = [],
   totalQuantity = '',
   totalPrice = '',
@@ -22,6 +23,7 @@ export default function OrderRow({
       <div className={`${styles.order} ${isExpanded ? styles.expanded : ''}`}>
         <div className={styles.ordernumber}>
           <p>訂單編號: {orderDetail_number}</p>
+          <p>下單日期:{orderDate}</p>
         </div>
         <div className={styles.first_item}>
           <img
