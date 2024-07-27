@@ -2,7 +2,7 @@ import React from 'react'
 import Link from 'next/link'
 import styles from './branchCard.module.css'
 
-export default function BranchCard({ branch = 'myLessons', hrefURL = '/' }) {
+export default function BranchCard({ branch = 'myLessons', href = '/' }) {
   const titleMap = {
     myLessons: '我的課程',
     myOrders: '歷史訂單',
@@ -26,7 +26,7 @@ export default function BranchCard({ branch = 'myLessons', hrefURL = '/' }) {
   }
 
   const widthMap = {
-    myLessons: '70px',
+    myLessons: '123px',
     myOrders: '123px',
     myReserves: '123px',
     myFavs: '123px',
@@ -39,10 +39,10 @@ export default function BranchCard({ branch = 'myLessons', hrefURL = '/' }) {
   // 判斷要用哪個 title 跟 icon
   const titleResult = titleMap[branch] || '我的課程'
   const iconResult = iconMap[branch] || 'elderpeople.svg'
-  const widthResult = widthMap[branch] || '70px'
+  const widthResult = widthMap[branch] || '123px'
 
   return (
-    <>
+    <Link href={href} passHref>
       <div className={`${styles.card} card`}>
         <div className={styles.card_body2}>
           <h6 className={styles.h6_font}>{`[${titleResult}]`}</h6>
@@ -53,6 +53,6 @@ export default function BranchCard({ branch = 'myLessons', hrefURL = '/' }) {
           />
         </div>
       </div>
-    </>
+    </Link>
   )
 }
