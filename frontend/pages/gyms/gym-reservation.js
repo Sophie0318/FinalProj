@@ -117,9 +117,12 @@ export default function GymReservation() {
     try {
       const response = await fetch(url)
       const data = await response.json()
-      // console.log('gymId', gymId)
+      //測試
+      console.log('gymId', gymId)
+
       if (data && data.processedRow && data.processedRow.length > 0) {
-        // console.log(data.processedRow[0])
+        //測試
+        console.log('Processed data:', data.processedRow[0])
         setGymData({
           id: data.processedRow[0].gym_id,
           name: data.processedRow[0].gym_name,
@@ -128,6 +131,11 @@ export default function GymReservation() {
           businessHours: data.processedRow[0].business_hours,
           features: data.processedRow[0].feature_list,
         })
+        //測試
+        setFormData((prevData) => ({
+          ...prevData,
+          gym_id: data.processedRow[0].gym_id,
+        }))
       } else {
         console.error('API request was not successful:', data)
         setErrors('無法獲取健身房數據')
@@ -207,6 +215,13 @@ export default function GymReservation() {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+
+    //測試
+    const dataToSubmit = {
+      ...formData,
+      gym_id: gymData.id,
+    }
+
     //全面驗證
     const newErrors = {}
     let isValid = true
@@ -229,16 +244,30 @@ export default function GymReservation() {
       return
     }
 
+    // 測試 gym_id 是否存在
+    if (formData.gym_id === 0 || formData.gym_id === undefined) {
+      console.log('無效的 gym_id')
+      return
+    }
+
     try {
       // console.log(isValid)
+
+      // 測試formData
+      console.log('表單提交', formData)
 
       //表單提交邏輯
       console.log(gymData)
       console.log('表單提交', formData)
 
+      // const response = await axios.post(
+      //   'http://localhost:3001/gyms/add/reservation',
+      //   formData
+      // )
+      //測試
       const response = await axios.post(
         'http://localhost:3001/gyms/add/reservation',
-        formData
+        dataToSubmit
       )
       setShowModal(true)
       if (response.success) {
@@ -255,13 +284,22 @@ export default function GymReservation() {
     setShowModal(false)
   }
 
+  // useEffect(() => {
+  //   if (router.isReady) {
+  //     const { Id } = router.query
+  //     // console.log(Id)
+
+  //     fetchGymData(Id)
+  //     // console.log(gymData)
+  //   }
+  // }, [router.isReady])
+
+  //測試版
   useEffect(() => {
     if (router.isReady) {
       const { Id } = router.query
-      // console.log(Id)
-
       fetchGymData(Id)
-      // console.log(gymData)
+      setFormData((prevData) => ({ ...prevData, gym_id: Id }))
     }
   }, [router.isReady])
   return (
