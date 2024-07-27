@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import MyProductList from '@/components/product/product-list'
 import styles from '@/styles/product-list.module.css'
 import Index from '@/components/joinMember'
-import Layout3 from '@/components/layout/layout3'
+import Layout4 from '@/components/layout/layout4'
 // import Pagination from '@/components/product/Pagination/Pagination'
 import BS5Pagination from '@/components/product/Pagination/bs5-pagination'
 import CardList from '@/components/product/card-list/card-list'
@@ -78,7 +78,7 @@ export default function ProductList() {
     updateProductData()
   }, [router, page, perpage])
   return (
-    <Layout3 pageName="products" title="健身護具">
+    <Layout4 pageName="products" title="健身護具">
       <main className={styles.mainWithMargin}>
         <div className={styles.container}>
           <div className="row">
@@ -130,6 +130,6 @@ export default function ProductList() {
         </div>
         <Index />
       </main>
-    </Layout3>
+    </Layout4>
   )
 }

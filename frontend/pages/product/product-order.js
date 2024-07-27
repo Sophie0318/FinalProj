@@ -12,15 +12,16 @@ import Navbar from '@/components/common/navbar'
 export default function ProductOrder() {
   const router = useRouter()
   const [orderItems, setOrderItems] = useState([])
+
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const savedItems = localStorage.getItem('shoppingCart')
       if (savedItems) {
         setOrderItems(JSON.parse(savedItems))
       }
+      console.log(savedItems)
     }
   }, [])
-  console.log(orderItems)
   const MySwal = withReactContent(Swal)
   return (
     <>

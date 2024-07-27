@@ -48,6 +48,7 @@ export default function Checkout2Input() {
         ...myForm, //form表單
         orderDetail, //商品明細
         orderDetail_number: num, //訂單的編號
+        ProductOrders_m_id_fk: auth.id,
       }),
     })
     //處理伺服器的回應
