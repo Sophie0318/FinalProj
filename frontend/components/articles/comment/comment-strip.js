@@ -22,45 +22,10 @@ export default function CommentStrip({
   handleToggle = () => { },
   hiddenSubs = 0,
   setHiddenSubs = () => { },
-  // handleReplyToggle = () => {},
 }) {
   const [isClicked, setIsClicked] = useState(false)
 
-  // const [hiddenSubs, setHiddenSubs] = useState(0)
-  // const main = data.main
-
-  // const toggleReplySect = (e) => {
-  //   if (e.currentTarget.id === 'reply') {
-  //     const nextReplySect = { ...replySect, [main]: 'reply' }
-  //     setReplySect(nextReplySect)
-  //     // set hidden sub count to display
-  //     if (hiddenSubs < 3) {
-  //       setHiddenSubs(0)
-  //     } else {
-  //       const nextHiddenSubs = hiddenSubs - 3
-  //       setHiddenSubs(nextHiddenSubs)
-  //     }
-  //   } else if (e.currentTarget.id === 'replyInput') {
-  //     const nextReplySect = { ...replySect, [main]: 'replyInput' }
-  //     setReplySect(nextReplySect)
-  //   }
-  //   if (replySect[main] && e.currentTarget.id === replySect[main]) {
-  //     // if click the same toggle again, hide it
-  //     const nextReplySect = { ...replySect }
-  //     delete nextReplySect[main]
-  //     setReplySect(nextReplySect)
-  //     if (e.currentTarget.id === 'reply') {
-  //       // if hide replies, update hiddenSubs to set replyBtn
-  //       setHiddenSubs(data.sub_count)
-  //     }
-  //   }
-  // }
-
-  useEffect(() => {
-    // setHiddenSubs(data.sub_count)
-    console.log(data.sub_count, data.main)
-    console.log('hiddensub', hiddenSubs)
-  }, [data, hiddenSubs])
+  // useEffect(() => { }, [data, hiddenSubs])
   return (
     <>
       <div
@@ -84,7 +49,13 @@ export default function CommentStrip({
           </div>
         </div>
         <div className={styles.commentContent}>{data.comment_content}</div>
-        <div className={styles.commentBtn}>
+        <div
+          className={styles.commentBtn}
+          style={{
+            display: `${reply ? 'none' : 'flex'}`,
+            marginBottom: `${reply ? '-10px' : '0px'}`,
+          }}
+        >
           <div className={styles.replyBtn}>
             <button
               id="replyInput"

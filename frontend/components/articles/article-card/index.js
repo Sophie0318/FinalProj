@@ -24,33 +24,30 @@ const ArticleCard = ({
   )
 
   return (
-    <div className={styles.articleCard}>
-      <Link href={`/articles/${idURL}`}>
-        <div className={styles.cardMainInfo}>
-          <div className={styles.cardImgContainer}>
-            <img
-              src={`/articles-img/${imgSrc}`}
-              alt="描述圖片內容"
-              className={styles.cardImg}
-            />
-            <button className={`${styles.heart}`} onClick={toggleArticleFav}>
-              <IoHeart
-                className={`${styles.heartIcon} ${
-                  isClicked ? styles.clicked : ''
+    <Link href={`/articles/${idURL}`} className={styles.articleCard}>
+      <div className={styles.cardMainInfo}>
+        <div className={styles.cardImgContainer}>
+          <img
+            src={`/articles-img/${imgSrc}`}
+            alt="描述圖片內容"
+            className={styles.cardImg}
+          />
+          <button className={`${styles.heart}`} onClick={toggleArticleFav}>
+            <IoHeart
+              className={`${styles.heartIcon} ${isClicked ? styles.clicked : ''
                 }`}
-              />
-            </button>
-          </div>
-          <div className={styles.cardInfo1}>
-            <div className={styles.cardTitle}>{title}</div>
-          </div>
+            />
+          </button>
         </div>
-        <div className={styles.cardInfo2}>
-          <div>{category}</div>
-          <div>{update_at}</div>
+        <div className={styles.cardInfo1}>
+          <div className={styles.cardTitle}>{title}</div>
         </div>
-      </Link>
-    </div>
+      </div>
+      <div className={styles.cardInfo2}>
+        <div>{category}</div>
+        <div>{update_at}</div>
+      </div>
+    </Link>
   )
 }
 
