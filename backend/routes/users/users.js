@@ -264,6 +264,40 @@ router.post("/add-favorite", async (req, res) => {
 });
 
 // 獲取用戶的收藏教練
+router.get("/favorites-gym/:userId", async (req, res) => {
+  const { userId } = req.params;
+  try {
+    const sql = `
+SELECT 
+    gyms.*, 
+    GROUP_CONCAT(DISTINCT  features.feature_id) AS feature_id,
+    GROUP_CONCAT(DISTINCT  features.feature_name) AS feature_list,
+    GROUP_CONCAT( gym_images.image_filename) AS image_list,
+    member_id_fk
+FROM 
+    Gyms gyms
+LEFT JOIN 
+    GymFeatures gym_features ON gyms.gym_id = gym_features.gym_id
+LEFT JOIN 
+    Features features ON gym_features.feature_id = features.feature_id
+LEFT JOIN 
+    GymImages gym_images ON gyms.gym_id = gym_images.gym_id
+JOIN FavGyms ON gym_id_fk = gyms.gym_id
+WHERE member_id_fk = ?
+GROUP BY 
+    gyms.gym_id, member_id_fk;
+            `;
+    const [favorites] = await db.query(sql, [userId]);
+    res.json({ success: true, favorites });
+  } catch (error) {
+    console.error("獲取場館收藏時發生錯誤:", error);
+    res
+      .status(500)
+      .json({ success: false, message: "伺服器錯誤", error: error.message });
+  }
+});
+
+// 獲取用戶的收藏教練
 router.get("/favorites/:userId", async (req, res) => {
   const { userId } = req.params;
   try {
@@ -414,14 +448,10 @@ router.get("/verify_reset_token", userController.verifyResetToken);
 //重設密碼的路由
 router.post("/changePassword", userController.changePassword);
 
-
 // router.get('/gym-reservation', async (req, res) => {
 //   try{
 //     const sql =`SELECT * FROM GymReservations`
 //   }
 // })
-
-
-
 
 export default router;

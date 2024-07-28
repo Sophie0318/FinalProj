@@ -4,6 +4,7 @@ import { IoHeart } from 'react-icons/io5'
 import { useAuth } from '@/context/auth-context'
 import LoginAlert from '@/hooks/login-alert/login-alert'
 import { useRouter } from 'next/router'
+import Link from 'next/link'
 
 const GymCardSpot = ({ data }) => {
   const [isClicked, setIsClicked] = useState(false)
@@ -70,11 +71,12 @@ const GymCardSpot = ({ data }) => {
     if (auth) {
       checkFavStatus()
     }
-  }, [data.id, auth])
+  }, [data?.id || data?.gym_id, auth])
 
   return (
     <div className={styles.card}>
       <div className={styles.imageContainer}>
+        
         {data.images.length > 0 && (
           <img
             src={`/${data.images[0]}`}

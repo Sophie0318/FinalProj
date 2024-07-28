@@ -5,6 +5,7 @@ import BranchCard from '@/components/users/branchCard'
 import CoachCard from '@/components/coaches/coachCard'
 import LessonCard from '@/components/lessons/lessonCard'
 import styles from '@/styles/user-profile.module.css'
+import GymCardSpot from '@/components/gyms/gymCard-spot'
 
 // 測試用資料，連到資料庫後要刪掉
 // import coaches from '@/data/FavCoaches.json'
@@ -18,6 +19,7 @@ export default function Favorites() {
   const { auth } = useAuth()
   const [coachFavorites, setCoachFavorites] = useState([])
   const [lessonFavorites, setLessonFavorites] = useState([])
+  const [gymFavorites, setGymFavorites] = useState([])
   const [activeTab, setActiveTab] = useState(null) // 新增狀態來控制當前顯示的內容
   // 決定要用哪一個分支的卡片, 參數 branch=分支名稱, data=Array.map的v
 
@@ -25,8 +27,49 @@ export default function Favorites() {
     if (auth.token) {
       fetchFavorites()
       fetchLessonFavorites()
+      fetchGymFavorites()
     }
   }, [auth.token])
+
+  const fetchGymFavorites = async () => {
+    try {
+      const response = await axios.get(
+        `http://localhost:3001/users/favorites-gym/${auth.id}`,
+        {
+          headers: { Authorization: `Bearer ${auth.token}` },
+        }
+      )
+      if (response.data.success) {
+        setGymFavorites(response.data.favorites)
+      }
+    } catch (error) {
+      console.error('Error fetching favorites:', error)
+    }
+  }
+
+  //轉換gymData格式的函示
+  const transformGymData = (gymData) => {
+    return {
+      id: gymData.gym_id,
+      name: gymData.gym_name,
+      subtitle: gymData.gym_subtitle,
+      address: gymData.gym_address,
+      phone: gymData.gym_phone,
+      businessHours: gymData.business_hours,
+      info: gymData.gym_info,
+      price: gymData.gym_price,
+      equipment: gymData.gym_equipment,
+      isElderly: gymData.is_elderly,
+      latitude: gymData.latitude,
+      longitude: gymData.longitude,
+      createAt: gymData.create_at,
+      updateAt: gymData.update_at,
+      featureId: gymData.feature_id,
+      features: gymData.feature_list ? gymData.feature_list.split(',') : [],
+      images: gymData.image_list ? gymData.image_list.split(',') : [],
+      memberId: gymData.member_id_fk,
+    }
+  }
 
   const fetchFavorites = async () => {
     try {
@@ -206,6 +249,21 @@ export default function Favorites() {
                   </Link>
                 </div>
               ))}
+            </div>
+          )}
+
+          {activeTab === 'gyms' && (
+            <div className={styles.fav_search}>
+              {gymFavorites.map((gym) => {
+                const formatData = transformGymData(gym)
+                return (
+                  <div className="resultGrid" key={gym.gym_id}>
+                    <Link href={`/gyms/${gym.gym_id}`}>
+                      <GymCardSpot key={gym.gym_id} data={formatData} />
+                    </Link>
+                  </div>
+                )
+              })}
             </div>
           )}
         </div>
