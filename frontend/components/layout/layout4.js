@@ -40,7 +40,7 @@ export default function Layout4({
       } else return
 
       const userScroll = window.scrollY
-      const slideParam = -0.38
+      const slideParam = -0.6
       setSlide(Math.ceil(slideParam * userScroll))
     }
     window.addEventListener('scroll', handleScroll)
