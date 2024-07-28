@@ -5,7 +5,18 @@ import styles from './login-alert.module.css'
 
 export default function LoginAlert(titleText = '要登入才能收藏喔~') {
   const LoginAlert = Swal.mixin({
-    animation: false,
+    showClass: {
+      popup: `
+      animate__animated
+      animate__fadeInDown
+    `,
+    },
+    hideClass: {
+      popup: `
+      animate__animated
+      animate__fadeOutUp
+    `,
+    },
     customClass: {
       popup: `${styles.popup}`,
       title: `${styles.title}`,
