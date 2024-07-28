@@ -2436,7 +2436,17 @@ INSERT INTO coachreserve(`coachReserve_id`, `reserve_name`, `reserve_phone`, `re
 ('20','劉冠廷','0911222333','dongdong123456@gmail','2024-02-11 13:30','4','2024-07-23 11:11:52'),
 ('21','劉冠廷','0911222333','dongdong123456@gmail','2024-02-21 10:00','3','2024-07-23 11:11:52'),
 ('22','劉冠廷','0911222333','dongdong123456@gmail','2024-01-03 18:00','2','2024-07-23 11:11:52'),
-('23','劉冠廷','0911222333','dongdong123456@gmail','2024-01-20 10:00','1','2024-07-23 11:11:52')
+('23','劉冠廷','0911222333','dongdong123456@gmail','2024-01-20 10:00','1','2024-07-23 11:11:52');
+
+CREATE TABLE FavGyms (
+    favgym_id INT NOT NULL AUTO_INCREMENT,
+    member_id_fk INT NULL,
+    gym_id_fk INT NULL,
+    create_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (favgym_id),
+    FOREIGN KEY (member_id_fk) REFERENCES Members(member_id) ON DELETE SET NULL,
+    FOREIGN KEY (gym_id_fk) REFERENCES Gyms(gym_id) ON DELETE SET NULL
+);
 
 -- SELECT 
 --         l.lesson_id,
@@ -2465,6 +2475,3 @@ INSERT INTO coachreserve(`coachReserve_id`, `reserve_name`, `reserve_phone`, `re
 --         l.lesson_id = ?
 --     GROUP BY 
 --         l.lesson_id
-
-
-
