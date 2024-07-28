@@ -284,19 +284,6 @@ export default function Edit() {
           password: password || auth.password,
         }
         console.log('更新後的 auth:', updatedAuth)
-        // 使用本地更新的數據來更新 auth context
-        // if (typeof setAuth === 'function') {
-        //   setAuth({
-        //     ...auth,
-        //     name: name,
-        //     nick_name: nickName,
-        //     mobile: mobile,
-        //     address: address,
-        //     city: selectedCity,
-        //     district: selectedDistrict,
-        //     password: password || auth.password,
-        //   })
-        // }
 
         //拿updateAuth來更新auth context
         if (typeof setAuth === 'function') {
@@ -309,14 +296,25 @@ export default function Edit() {
           JSON.parse(localStorage.getItem('suan-auth'))
         )
 
-        setAlertMessage('更新成功')
-        setUserMessage('個人資料已成功更新')
-        setIsModalOpen(true)
-        setTimeout(() => {
-          setIsModalOpen(false)
-        }, 1000)
-        // 回到頂部
-        window.scrollTo(0, 0)
+        if (updatedData.isPasswordChange) {
+          setAlertMessage('密碼已更新')
+          setUserMessage('請重新登入')
+          setIsModalOpen(true)
+          setTimeout(() => {
+            setIsModalOpen(false)
+            logout() // 確保你有定義這個函數
+            router.push('/users/sign_in') // 確保你有導入 router
+          }, 2000)
+        } else {
+          setAlertMessage('更新成功')
+          setUserMessage('個人資料已成功更新')
+          setIsModalOpen(true)
+          setTimeout(() => {
+            setIsModalOpen(false)
+          }, 1000)
+          // 回到頂部
+          window.scrollTo(0, 0)
+        }
       } else {
         throw new Error('更新失敗')
       }
