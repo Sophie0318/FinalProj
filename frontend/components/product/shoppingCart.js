@@ -7,6 +7,7 @@ import { useCart } from '@/hooks/product/use-cart'
 import withReactContent from 'sweetalert2-react-content'
 import Swal from 'sweetalert2'
 import Link from 'next/link'
+import 'animate.css'
 
 export default function ShoppingCart() {
   const { item, increaseItem, decreaseItem, removeItem, shoppingList, total } =
@@ -29,6 +30,12 @@ export default function ShoppingCart() {
       cancelButtonColor: '#d33',
       cancelButtonText: '取消',
       confirmButtonText: '確定刪除!',
+      showClass: {
+        popup: 'animate__animated animate__fadeInDown',
+      },
+      hideClass: {
+        popup: 'animate__animated animate__fadeOutUp',
+      },
       willOpen: () => {
         const swalPopup = document.querySelector('.swal2-popup')
         if (swalPopup) {
