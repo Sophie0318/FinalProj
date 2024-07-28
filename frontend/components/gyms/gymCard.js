@@ -3,8 +3,8 @@ import styles from './gymCard.module.css'
 import Link from 'next/link'
 import { IoCall } from 'react-icons/io5'
 import Image from 'next/image'
-import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
+import Skeleton from 'react-loading-skeleton'
 
 const GymCard = ({ data }) => {
   const [isWideScreen, setIsWideScreen] = useState(false)
@@ -118,7 +118,6 @@ const ResultCards = ({ gyms, selectedFeatures }) => {
       ) : (
         <div>
           <Skeleton count={5} />
-          
         </div>
       )}
     </div>

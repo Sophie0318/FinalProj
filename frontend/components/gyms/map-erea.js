@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import GymCardSpot from './gymCard-spot'
 import styles from './map-erea.module.css'
+import 'react-loading-skeleton/dist/skeleton.css'
 import Skeleton from 'react-loading-skeleton'
 import {
   Autocomplete,
