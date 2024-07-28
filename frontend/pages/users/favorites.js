@@ -4,6 +4,7 @@ import BranchCard from '@/components/users/branchCard'
 // 待 import 進文章&場館卡片
 import CoachCard from '@/components/coaches/coachCard'
 import LessonCard from '@/components/lessons/lessonCard'
+import ArticleCard from '@/components/articles/article-card'
 import styles from '@/styles/user-profile.module.css'
 
 // 測試用資料，連到資料庫後要刪掉
@@ -18,6 +19,7 @@ export default function Favorites() {
   const { auth } = useAuth()
   const [coachFavorites, setCoachFavorites] = useState([])
   const [lessonFavorites, setLessonFavorites] = useState([])
+  const [articlesFavorites, setArticlesFavorites] = useState([])
   const [activeTab, setActiveTab] = useState(null) // 新增狀態來控制當前顯示的內容
   // 決定要用哪一個分支的卡片, 參數 branch=分支名稱, data=Array.map的v
 
@@ -25,6 +27,7 @@ export default function Favorites() {
     if (auth.token) {
       fetchFavorites()
       fetchLessonFavorites()
+      fetchArticlesFavorites()
     }
   }, [auth.token])
 
@@ -88,40 +91,34 @@ export default function Favorites() {
       console.error('移除收藏時發生錯誤:', error)
     }
   }
-  const renderCard = (branch, data) => {
-    switch (branch) {
-      case 'lessons':
-        return (
-          <LessonCard
-            title={data.title}
-            price={data.price}
-            gym={data.gym}
-            category={data.category}
-            imgSrc={data.imgSrc}
-          />
-        )
-      case 'coaches':
-        return (
-          <CoachCard
-            name={data.name}
-            skill={data.skills}
-            imgSrc={data.imgSrc}
-          />
-        )
-      default:
-        return (
-          <div
-            style={{
-              width: '150px',
-              height: '250px',
-              backgroundColor: '#bbb',
-              borderRadius: '50px',
-            }}
-          >
-            placeholder, 資料或 branch 有錯
-          </div>
-        )
+
+  const fetchArticlesFavorites = async () => {
+    try {
+      const res = await axios.get(
+        `http://localhost:3001/users/favorites-articles/${auth.id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${auth.token}`,
+          },
+        }
+      )
+
+      if (res.data.success) {
+        setArticlesFavorites(res.data.rows)
+      } else {
+        console.log(res)
+      }
+    } catch (error) {
+      console.log(error)
     }
+  }
+
+  const handleRemoveArticleFavorite = async (e, article_id) => {
+    setArticlesFavorites(
+      articlesFavorites.filter((article) => {
+        return article.article_id !== article_id
+      })
+    )
   }
 
   // 新增處理 BranchCard 點擊的函數
@@ -204,6 +201,26 @@ export default function Favorites() {
                       imgSrc={`/${lesson.lesson_img}`}
                     />
                   </Link>
+                </div>
+              ))}
+            </div>
+          )}
+
+          {activeTab === 'articles' && (
+            <div className={styles.fav_search}>
+              {articlesFavorites.map((article) => (
+                <div className="resultGrid" key={article.article_id}>
+                  <ArticleCard
+                    title={article.article_title}
+                    update_at={article.update_at}
+                    category={article.code_desc}
+                    imgSrc={article.article_cover}
+                    idURL={article.article_id}
+                    member_id={article.member_id_fk}
+                    onClick={(e) => {
+                      handleRemoveArticleFavorite(e, article.article_id)
+                    }}
+                  />
                 </div>
               ))}
             </div>

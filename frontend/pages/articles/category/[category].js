@@ -27,7 +27,7 @@ export default function ArticleType() {
 
   const onPageChange = (e) => {
     const pageNum = e.selected + 1
-    router.replace({ query: { ...router.query, page: pageNum } }, undefined, {
+    router.push({ query: { ...router.query, page: pageNum } }, undefined, {
       scroll: false,
     })
   }

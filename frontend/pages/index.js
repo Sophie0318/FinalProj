@@ -179,7 +179,7 @@ export default function Home() {
                 <img src="/logo.png" />
               </Link>
             </div>
-            <div className={`${styles.hero}`}>
+            <div className={`${styles.hero}`} style={{ overflow: 'hidden' }}>
               <div className={`${styles.heroContainer} container-fluid p-0`}>
                 <div className="row g-0 position-relative">
                   <div className={`${styles.heroText} col-md-8 col-10`}>
@@ -200,6 +200,11 @@ export default function Home() {
                     <img
                       src="/index-img/hero-img.svg"
                       className={`${styles.heroImgBig} ${heroImageVisible ? styles['slide-in-right'] : ''
+                        }`}
+                    />
+                    <img
+                      src="/index-img/hero-img.svg"
+                      className={`${styles.heroImgMid} ${heroImageVisible ? styles['slide-in-right'] : ''
                         }`}
                     />
                   </div>

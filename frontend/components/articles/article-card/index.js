@@ -13,6 +13,7 @@ const ArticleCard = ({
   imgSrc = '/defaultImg.png',
   idURL = '',
   member_id = '',
+  onClick = () => { },
 }) => {
   const router = useRouter()
   const { auth } = useAuth()
@@ -26,10 +27,14 @@ const ArticleCard = ({
 
   useEffect(() => {
     setIsClicked(member_id === auth.id)
-  }, [router])
+  }, [router, auth.id])
 
   return (
-    <Link href={`/articles/${idURL}`} className={styles.articleCard}>
+    <Link
+      href={`/articles/${idURL}`}
+      className={styles.articleCard}
+      style={{ padding: '0px' }}
+    >
       <div className={styles.cardMainInfo}>
         <div className={styles.cardImgContainer}>
           <img
@@ -37,7 +42,15 @@ const ArticleCard = ({
             alt="描述圖片內容"
             className={styles.cardImg}
           />
-          <button className={`${styles.heart}`} onClick={toggleArticleFav}>
+          <button
+            className={`${styles.heart}`}
+            onClick={(e) => {
+              e.preventDefault()
+              e.stopPropagation()
+              toggleArticleFav(e)
+              onClick(e)
+            }}
+          >
             <IoHeart
               className={`${styles.heartIcon} ${isClicked ? styles.clicked : ''
                 }`}
