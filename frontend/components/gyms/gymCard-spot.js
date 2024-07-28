@@ -2,15 +2,16 @@ import React, { useEffect, useState } from 'react'
 import styles from './gymCard-spot.module.css'
 import { IoHeart } from 'react-icons/io5'
 import { useAuth } from '@/context/auth-context'
+import LoginAlert from '@/hooks/login-alert/login-alert'
+import { useRouter } from 'next/router'
 
 const GymCardSpot = ({ data }) => {
   const [isClicked, setIsClicked] = useState(false)
-
+  const loginAlert = LoginAlert('登入後才能收藏唷～')
   const { auth } = useAuth()
-
+  const router = useRouter()
   const checkFavStatus = async () => {
-    
-    if (!auth || !data.id ) return
+    if (!auth || !data.id) return
     try {
       const response = await fetch(
         `http://localhost:3001/gyms/check-fav/${auth.id}/${data.id}`
@@ -32,28 +33,34 @@ const GymCardSpot = ({ data }) => {
   }
 
   const toggleFavorite = async () => {
-    try {
-      const method = isClicked ? 'DELETE' : 'POST'
-      const response = await fetch(
-        `http://localhost:3001/gyms/api/favorites/${auth.id}/${data.id}`,
-        {
-          method: method,
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            userId: auth.id,
-            gymId: data.id,
-          }),
+    if (!auth.id) {
+      loginAlert.fire().then((result) => {
+        result.isConfirmed ? router.push('/users/sign_in') : ''
+      })
+    } else {
+      try {
+        const method = isClicked ? 'DELETE' : 'POST'
+        const response = await fetch(
+          `http://localhost:3001/gyms/api/favorites/${auth.id}/${data.id}`,
+          {
+            method: method,
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              userId: auth.id,
+              gymId: data.id,
+            }),
+          }
+        )
+        if (response.ok) {
+          setIsClicked(!isClicked)
         }
-      )
-      if (response.ok) {
-        setIsClicked(!isClicked)
+        console.log(auth.id, data.id)
+        console.log('切換收藏狀態成功:', response)
+      } catch (error) {
+        console.error('切換收藏狀態失敗:', error)
       }
-      console.log(auth.id, data.id)
-      console.log('切換收藏狀態成功:', response)
-    } catch (error) {
-      console.error('切換收藏狀態失敗:', error)
     }
   }
 

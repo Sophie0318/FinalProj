@@ -7,6 +7,7 @@ import MapErea from '@/components/gyms/map-erea'
 import GymFilters from './gymfilter'
 import ResultCards from '@/components/gyms/gymCard'
 import { useRouter } from 'next/router'
+import Layout4 from '@/components/layout/layout4'
 
 export default function Gyms() {
   const router = useRouter()
@@ -102,7 +103,7 @@ export default function Gyms() {
   }, [router.isReady, searchTerm, selectedFeatures, isComposing, boo])
 
   return (
-    <Layout3 title="尋找場館" pageName="gyms">
+    <Layout4 title="尋找場館" pageName="gyms">
       <div className={styles.indexContainer}>
         <div className={styles.zIndex}>
           <div className={styles.container}>
@@ -140,6 +141,6 @@ export default function Gyms() {
           <ResultCards gyms={gymsData} selectedFeatures={selectedFeatures} />
         </div>
       </div>
-    </Layout3>
+    </Layout4>
   )
 }
