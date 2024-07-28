@@ -63,9 +63,6 @@ export default function LessonsOrders() {
           <div className={styles.user_title}>
             <h4>我的課程</h4>
           </div>
-          <div className={styles.user_select}>
-            <Select options={options} />
-          </div>
           <div className={styles.lessons_orders_search}>
             {lessonOrders.map((lesson) => renderCard(lesson))}
           </div>

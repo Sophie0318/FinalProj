@@ -3,8 +3,8 @@ import styles from './gymCard.module.css'
 import Link from 'next/link'
 import { IoCall } from 'react-icons/io5'
 import Image from 'next/image'
-import 'react-loading-skeleton/dist/skeleton.css'
 import Skeleton from 'react-loading-skeleton'
+import 'react-loading-skeleton/dist/skeleton.css'
 
 const GymCard = ({ data }) => {
   const [isWideScreen, setIsWideScreen] = useState(false)
@@ -23,14 +23,16 @@ const GymCard = ({ data }) => {
     <div className={styles.card}>
       <div className={styles.imageContainer}>
         {isWideScreen ? (
-          <Image
-            src={data.image_list[0]}
-            alt="場館照片"
-            width={120}
-            height={120}
-            className={styles.image}
-            loading="lazy"
-          />
+          <Link href="/gyms/[gym_id]" as={`/gyms/${data.gym_id}`}>
+            <Image
+              src={data.image_list[0]}
+              alt="場館照片"
+              width={120}
+              height={120}
+              className={styles.image}
+              loading="lazy"
+            />
+          </Link>
         ) : (
           data.image_list.map((src, i) => {
             return (
