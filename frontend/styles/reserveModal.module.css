@@ -23,6 +23,8 @@
   border-radius: 40px;
   gap: 15px;
   padding: 12px 10px;
+  animation: bounce; /* referring directly to the animation's @keyframe declaration */
+  animation-duration: 2s; /* don't forget to set a duration! */
 }
 
 .success {
@@ -171,28 +173,28 @@
     padding: 12px 10px;
   }
 
-.name{
-  font-family: 'Gensen', sans-serif;
-  font-size: 18px;
-  font-weight: 700;
-  letter-spacing: 3px;
-}
+  .name {
+    font-family: 'Gensen', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 3px;
+  }
 
-.success{
-  font-family: 'Gensen', sans-serif;
-  font-size: 24px;
-  font-weight: 700;
-  letter-spacing: 2.4px;
-}
+  .success {
+    font-family: 'Gensen', sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: 2.4px;
+  }
 
-.label {
-  padding-left: 10px;
-  margin-right: 10px;
-  font-size: 18px;
-  letter-spacing: 1px;
-  width:36%;
-  flex-shrink: 0;
-}
+  .label {
+    padding-left: 10px;
+    margin-right: 10px;
+    font-size: 18px;
+    letter-spacing: 1px;
+    width: 36%;
+    flex-shrink: 0;
+  }
 
   .coachInfo {
     font-family: 'Gensen', sans-serif;
@@ -220,9 +222,9 @@
     /* 调整上边距 */
   }
 
-  .contact{
+  .contact {
     display: flex;
     flex-direction: column;
-    gap:3px
+    gap: 3px;
   }
 }
