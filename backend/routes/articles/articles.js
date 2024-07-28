@@ -451,7 +451,6 @@ router.delete('/api/removefavarticle', async (req, res) => {
   const q_sql = `WHERE member_id_fk = ? AND article_id_fk = ?`
   const sql = `DELETE FROM FavArticles ${q_sql};`;
 
-  console.log(req.body)
   if (!req.my_jwt) {
     output.error = 'must login to delete favorite'
     return res.status(400).json(output)
@@ -468,7 +467,6 @@ router.delete('/api/removefavarticle', async (req, res) => {
 
   try {
     const [result] = await db.query(sql, [member_id, article_id])
-    console.log(result)
     output.success = !!result.affectedRows
     return res.json(output)
   } catch (error) {
