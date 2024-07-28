@@ -42,7 +42,7 @@ export default function Reply({ main = 1, article_id = 0, show }) {
 
   useEffect(() => {
     if (show[main] && show[main] === 'reply') {
-      getSub(article_id, group, main).then((res) => {
+      getSub(article_id, 1, main).then((res) => {
         setSub(res.data)
         setInfo(res.info)
         setRemain(res.nextRemain)
@@ -62,13 +62,13 @@ export default function Reply({ main = 1, article_id = 0, show }) {
                     data={v}
                     reply={true}
                     handleToggle={toggleReplyInput}
+                    id={`tag${main}_${sub.sub}`}
                   />
-                  <ReplyInput
+                  {/* <ReplyInput
                     showInput={replyInput[v.sub]}
                     main={v.main}
                     sub={info.totalRows}
-                    tag={v.sub}
-                  />
+                  /> */}
                 </div>
               )
             })}

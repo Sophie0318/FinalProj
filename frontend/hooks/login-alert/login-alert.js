@@ -20,20 +20,15 @@ export default function LoginAlert(titleText = '要登入才能收藏喔~') {
     customClass: {
       popup: `${styles.popup}`,
       title: `${styles.title}`,
-      icon: `${styles.icon}`,
       closeButton: `${styles.closeButton}`,
       confirmButton: `${styles.confirmButton} ${styles.midnightgreen}`,
-      cancelButton: `${styles.cancelButton} ${styles.gray50}`,
+      cancelButton: `${styles.cancelButton} ${styles.outline}`,
     },
     titleText: `${titleText}`,
-    icon: 'info',
-    iconColor: 'var(--color-yellow)',
     heightAuto: false,
     confirmButtonText: '登入',
     showCancelButton: true,
     cancelButtonText: '回到頁面',
-    showCloseButton: true,
-    closeButtonHtml: "<img src='/ioclose.svg'/>",
   })
 
   return LoginAlert

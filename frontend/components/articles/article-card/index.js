@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
 import { useAuth } from '@/context/auth-context'
@@ -13,7 +13,9 @@ const ArticleCard = ({
   imgSrc = '/defaultImg.png',
   idURL = '',
   member_id = '',
+  onClick = () => { },
 }) => {
+  const router = useRouter()
   const { auth } = useAuth()
   const [isClicked, setIsClicked] = useState(member_id === auth.id)
   const { toggleArticleFav } = useArticleFav(
@@ -23,34 +25,47 @@ const ArticleCard = ({
     setIsClicked
   )
 
+  useEffect(() => {
+    setIsClicked(member_id === auth.id)
+  }, [router, auth.id])
+
   return (
-    <div className={styles.articleCard}>
-      <Link href={`/articles/${idURL}`}>
-        <div className={styles.cardMainInfo}>
-          <div className={styles.cardImgContainer}>
-            <img
-              src={`/articles-img/${imgSrc}`}
-              alt="描述圖片內容"
-              className={styles.cardImg}
-            />
-            <button className={`${styles.heart}`} onClick={toggleArticleFav}>
-              <IoHeart
-                className={`${styles.heartIcon} ${
-                  isClicked ? styles.clicked : ''
+    <Link
+      href={`/articles/${idURL}`}
+      className={styles.articleCard}
+      style={{ padding: '0px' }}
+    >
+      <div className={styles.cardMainInfo}>
+        <div className={styles.cardImgContainer}>
+          <img
+            src={`/articles-img/${imgSrc}`}
+            alt="描述圖片內容"
+            className={styles.cardImg}
+          />
+          <button
+            className={`${styles.heart}`}
+            onClick={(e) => {
+              e.preventDefault()
+              e.stopPropagation()
+              toggleArticleFav(e)
+              onClick(e)
+            }}
+          >
+            <IoHeart
+              className={`${styles.heartIcon} ${isClicked ? styles.clicked : ''
                 }`}
-              />
-            </button>
-          </div>
-          <div className={styles.cardInfo1}>
-            <div className={styles.cardTitle}>{title}</div>
-          </div>
+            />
+          </button>
         </div>
-        <div className={styles.cardInfo2}>
-          <div>{category}</div>
-          <div>{update_at}</div>
+        <div className={styles.cardInfo1}>
+          <div className={styles.cardTitle}>{title}</div>
         </div>
-      </Link>
-    </div>
+      </div>
+      <div className={styles.cardInfo2}>
+        <div>{category}</div>
+        <div>{update_at}</div>
+      </div>
+    </Link>
   )
 }
 

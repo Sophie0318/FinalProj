@@ -38,8 +38,6 @@ export default function useArticleFav(auth, idURL, isClicked, setIsClicked) {
   }
 
   const toggleArticleFav = (e) => {
-    e.preventDefault()
-    e.stopPropagation()
     if (!auth.id) {
       loginalert.fire().then((result) => {
         result.isConfirmed ? router.push('/users/sign_in') : ''

@@ -4,7 +4,7 @@ import useArticleSearch from '@/hooks/article-search/useArticleSearch'
 import { ArticlesListData } from '@/configs/articles'
 
 import useRenderCards from '@/hooks/cards/cards'
-import Layout3 from '@/components/layout/layout3'
+import Layout4 from '@/components/layout/layout4'
 import SidebarSearch from '@/components/articles/article-sidebar/sidebar-search'
 import SearchSection from '@/components/articles/search-section'
 import BS5Pagination from '@/components/product/Pagination/bs5-pagination'
@@ -83,7 +83,7 @@ export default function ArticleType() {
 
   return (
     <>
-      <Layout3 title={pageCategory} pageName="articles" section="whiteSection">
+      <Layout4 title={pageCategory} pageName="articles" section="whiteSection">
         <section className={styles.padding80}>
           <div className="container-fluid p-0 overflow-visible">
             <div className="row px-0 mx-0">
@@ -129,7 +129,7 @@ export default function ArticleType() {
         <section className={styles.searchbarSP}>
           <SearchSection />
         </section>
-      </Layout3>
+      </Layout4>
     </>
   )
 }

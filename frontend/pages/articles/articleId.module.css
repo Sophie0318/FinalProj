@@ -51,7 +51,7 @@
 .articleDesc {
   background-color: var(--color-old-lace);
   border-radius: 40px;
-  padding: 20px 30px;
+  padding: 20px 30px 10px 30px;
   margin-bottom: 30px;
 }
 
@@ -96,14 +96,14 @@
 }
 
 .articleContent ol,
-.articleContent ul{
+.articleContent ul {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
   width: 100%;
   padding-left: 40px;
-} 
+}
 .articleContent ol li {
   list-style-type: decimal;
   font-size: 18px;
@@ -164,7 +164,6 @@
 
 .authorImg {
   position: relative;
-
 }
 
 .authorImg img {
@@ -181,7 +180,7 @@
   display: none;
 }
 
-.commentSect{
+.commentSect {
   padding-top: 64px;
 }
 
@@ -272,7 +271,8 @@
   font-family: 'Gensen', sans-serif;
   font-size: 58px;
   font-weight: 700;
-}.fontSize1 h2 {
+}
+.fontSize1 h2 {
   font-family: 'Gensen', sans-serif;
   font-size: 69px;
   font-weight: 700;
@@ -389,7 +389,8 @@
   font-size: 22px;
   letter-spacing: 1px;
   line-height: 160%;
-}.fontSize2 li::marker {
+}
+.fontSize2 li::marker {
   list-style-type: disc;
   font-size: 26px;
   letter-spacing: 1px;
@@ -445,7 +446,7 @@
     border-radius: 25px;
   }
 
-  .articleImg img{
+  .articleImg img {
     border-radius: 25px 25px 0 25px;
   }
 
@@ -465,7 +466,7 @@
 
 @media (max-width: 576px) {
   .cta {
-    padding:55px 24px;
+    padding: 55px 24px;
   }
 
   .ctaCard {

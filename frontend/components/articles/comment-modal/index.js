@@ -1,5 +1,5 @@
 import React from 'react'
-import { Router, useRouter } from 'next/router'
+import { useRouter } from 'next/router'
 import Btn from '../buttons_test'
 import styles from './comment-modal.module.css'
 
@@ -26,17 +26,17 @@ function CommentModal({ onClose }) {
           想要再看其他文章嗎? 點擊下面的按鈕看更多文章或查看其他留言
         </div>
         <div className={styles.btns}>
-          <Btn size="md" bgColor="outline" onClick={onClose}>
-            回到留言
-          </Btn>
           <Btn
             size="md"
-            bgColor="midnightgreen"
+            bgColor="outline"
             onClick={() => {
               router.push('/articles')
             }}
           >
             其他文章
+          </Btn>
+          <Btn size="md" bgColor="midnightgreen" onClick={onClose}>
+            回到留言
           </Btn>
         </div>
       </div>
