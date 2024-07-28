@@ -2,7 +2,7 @@ import React from 'react'
 import Link from 'next/link'
 import styles from './branchCard.module.css'
 
-export default function BranchCard({ branch = 'myLessons', href = '/' }) {
+export default function BranchCard({ branch = 'myLessons', href }) {
   const titleMap = {
     myLessons: '我的課程',
     myOrders: '歷史訂單',
@@ -41,8 +41,23 @@ export default function BranchCard({ branch = 'myLessons', href = '/' }) {
   const iconResult = iconMap[branch] || 'elderpeople.svg'
   const widthResult = widthMap[branch] || '123px'
 
-  return (
-    <Link href={href} passHref>
+  if (href !== undefined) {
+    return (
+      <Link href={href} passHref>
+        <div className={`${styles.card} card`}>
+          <div className={styles.card_body2}>
+            <h6 className={styles.h6_font}>{`[${titleResult}]`}</h6>
+            <img
+              style={{ width: `${widthResult}` }}
+              src={`/users-img/${iconResult}`}
+              alt={`${titleResult.slice(1, -1)}圖片`}
+            />
+          </div>
+        </div>
+      </Link>
+    )
+  } else {
+    return (
       <div className={`${styles.card} card`}>
         <div className={styles.card_body2}>
           <h6 className={styles.h6_font}>{`[${titleResult}]`}</h6>
@@ -53,6 +68,6 @@ export default function BranchCard({ branch = 'myLessons', href = '/' }) {
           />
         </div>
       </div>
-    </Link>
-  )
+    )
+  }
 }
