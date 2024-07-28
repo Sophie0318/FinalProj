@@ -454,4 +454,14 @@ router.get("/verify_reset_token", userController.verifyResetToken);
 //重設密碼的路由
 router.post("/changePassword", userController.changePassword);
 
+
+// router.get('/gym-reservation', async (req, res) => {
+//   try{
+//     const sql =`SELECT * FROM GymReservations`
+//   }
+// })
+
+
+
+
 export default router;

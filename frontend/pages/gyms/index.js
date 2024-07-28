@@ -7,13 +7,14 @@ import MapErea from '@/components/gyms/map-erea'
 import GymFilters from './gymfilter'
 import ResultCards from '@/components/gyms/gymCard'
 import { useRouter } from 'next/router'
+import Layout4 from '@/components/layout/layout4'
 
 export default function Gyms() {
   const router = useRouter()
   const [gymsData, setGymsData] = useState([])
   const [selectedFeatures, setSelectedFeatures] = useState([])
   const [searchTerm, setSearchTerm] = useState('')
-  const [boo, setBoo] = useState(true) //switch 的外觀state
+  const [boo, setBoo] = useState(true) //switch 的state
   const [isComposing, setIsComposing] = useState(false)
 
   const searchBarRef = useRef(null)
@@ -31,14 +32,17 @@ export default function Gyms() {
   }
   //用fetch請後端搜尋資料的函式
   const fetchGymsData = () => {
-    const qq = new URLSearchParams(router.query)
+    //const qq = new URLSearchParams(router.query)
     // console.log(qq)
-    const url = `http://localhost:3001/gyms/api?keyword=${searchTerm}&features=${selectedFeatures}`
+    const url = `http://localhost:3001/gyms/api?keyword=${searchTerm}&features=${selectedFeatures}&friendly=${boo}`
     if (router.isReady) {
       fetch(url)
         .then((response) => response.json())
         .then((data) => {
           setGymsData(data.processedRows)
+        })
+        .catch((error) => {
+          console.error('Error 獲取 gymsData:', error)
         })
     }
   }
@@ -59,25 +63,15 @@ export default function Gyms() {
     setSelectedFeatures([])
   }
 
-  //更新URL
-  // const query = searchTerm ? { gym_name: searchTerm } : {}
-  // router.push(
-  //   {
-  //     pathname: '/gyms',
-  //     query,
-  //   },
-  //   undefined,
-  //   { shallow: true }
-  // )
-
   const handleSearch = (e) => {
-    // if(!isComposing){
-
     router.push({
       pathname: router.pathname,
       query: { ...router.query, gym_name: searchTerm },
     })
-    // }
+  }
+
+  const handleToggleChange = () => {
+    setBoo((prev) => !prev)
   }
 
   // 從URL取得搜尋關鍵字
@@ -91,6 +85,7 @@ export default function Gyms() {
       const newQuery = {
         ...router.query,
         features: selectedFeatures,
+        friendly: boo,
       }
       const cleanQuery = Object.fromEntries(
         Object.entries(newQuery).filter(([_, value]) => value !== '')
@@ -98,17 +93,17 @@ export default function Gyms() {
 
       router.push(
         {
-          pathname: router.path,
+          pathname: router.pathname,
           query: cleanQuery,
         },
         undefined,
         { scroll: false }
       )
     }
-  }, [router.isReady, searchTerm, selectedFeatures, isComposing])
+  }, [router.isReady, searchTerm, selectedFeatures, isComposing, boo])
 
   return (
-    <Layout3 title="尋找場館" pageName="gyms">
+    <Layout4 title="尋找場館" pageName="gyms">
       <div className={styles.indexContainer}>
         <div className={styles.zIndex}>
           <div className={styles.container}>
@@ -129,7 +124,7 @@ export default function Gyms() {
                 title="switch"
                 className="d-none d-md-flex align-items-center ps-3"
               >
-                <Switch isOn={boo} handleToggle={() => setBoo(!boo)} />
+                <Switch isOn={boo} handleToggle={handleToggleChange} />
               </div>
             </div>
           </div>
@@ -146,6 +141,6 @@ export default function Gyms() {
           <ResultCards gyms={gymsData} selectedFeatures={selectedFeatures} />
         </div>
       </div>
-    </Layout3>
+    </Layout4>
   )
 }

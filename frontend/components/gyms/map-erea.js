@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import GymCardSpot from './gymCard-spot'
 import styles from './map-erea.module.css'
+import Skeleton from 'react-loading-skeleton'
 import {
   Autocomplete,
   GoogleMap,
@@ -54,7 +55,7 @@ export default function MapErea({ gymsData, searchTerm }) {
       features: gymsData.map((gym) => ({
         type: 'Feature',
         properties: {
-          gym_id: gym.gym_id,
+          id: gym.gym_id,
           name: gym.gym_name,
           subtitle: gym.gym_subtitle,
           address: gym.gym_address,
@@ -187,7 +188,7 @@ export default function MapErea({ gymsData, searchTerm }) {
       />
       {geoJsonData.features.map((feature) => (
         <Marker
-          key={feature.properties.gym_id}
+          key={feature.properties.id}
           position={{
             lat: feature.geometry.coordinates[1],
             lng: feature.geometry.coordinates[0],
@@ -223,7 +224,7 @@ export default function MapErea({ gymsData, searchTerm }) {
     </GoogleMap>
   ) : (
     <>
-      <h6>Loading...</h6>
+      <Skeleton count={1} width={'100%'} height={'100%'} />
     </>
   )
 }
