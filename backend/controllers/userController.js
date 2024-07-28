@@ -143,7 +143,104 @@ const userController = {
             console.error('Error checking email:', error);
             res.status(500).json({ error: 'Internal server error' });
         }
-    }
+    },
+    //處理會員個人資料頁的訂單
+    myOrders: async (req, res) => {
+        const { userId } = req.params;
+        try {
+            const [orders] = await db.query(`SELECT 
+                po.Productorders_orders_id,
+                po.ProductOrders_m_id_fk,
+                po.ProductOrders_orders_date,
+                po.ProductOrders_recipient_name,
+                od.OrdersDetail_id,
+                od.OrdersDetail_product_quantity,
+                od.OrdersDetail_unit_price_at_time,
+                po.orderDetail_number,
+                p.Product_id,
+                p.Product_name,
+                p.Product_photo
+            FROM 
+                ProductOrders po
+            JOIN 
+                OrdersDetail od ON po.Productorders_orders_id = od.OrdersDetail_order_id_fk
+            JOIN 
+                Products p ON od.OrdersDetail_product_id_fk = p.Product_id 
+            WHERE 
+                po.ProductOrders_m_id_fk = ?
+            ORDER BY 
+                po.Productorders_orders_id DESC`,
+                [userId]);
+
+            // 將訂單按 orderDetail_number 分組
+            const groupedOrders = orders.reduce((acc, order) => {
+                if (!acc[order.orderDetail_number]) {
+                    // 把資料庫中ProductOrders_orders_date只取出年月日
+                    const orderDate = new Date(order.ProductOrders_orders_date);
+                    const myOrderDate = `${orderDate.getFullYear()}-${String(orderDate.getMonth() + 1).padStart(2, '0')}-${String(orderDate.getDate()).padStart(2, '0')}`;
+
+                    acc[order.orderDetail_number] = {
+                        orderDetail_number: order.orderDetail_number,
+                        orderDate: myOrderDate, // 被取出的只有年月日的下單時間
+                        items: [],
+                        totalQuantity: 0,
+                        totalPrice: 0
+                    };
+                }
+
+                // 只保留第一張商品圖片
+                const firstPhoto = order.Product_photo.split(',')[0];
+
+                acc[order.orderDetail_number].items.push({
+                    id: order.OrdersDetail_id,
+                    imgSrc: firstPhoto,
+                    name: order.Product_name,
+                    quantity: order.OrdersDetail_product_quantity,
+                    price: order.OrdersDetail_unit_price_at_time
+                });
+
+                acc[order.orderDetail_number].totalQuantity += order.OrdersDetail_product_quantity;
+                acc[order.orderDetail_number].totalPrice += order.OrdersDetail_product_quantity * order.OrdersDetail_unit_price_at_time;
+
+                return acc;
+            }, {});
+
+            const processedOrders = Object.values(groupedOrders);
+
+            res.json({ success: true, orders: processedOrders });
+        } catch (error) {
+            console.error('獲取會員訂單時發生錯誤:', error);
+            res.status(500).json({ success: false, message: '資料庫錯誤' });
+        }
+    },
+    //處理會員個人資料頁的場館預約
+    myReservations: async (req, res) => {
+        const userId = req.params.userId;
+        try {
+            const sql = `
+      SELECT 
+          gi.image_filename,
+          gr.reserve_time,
+          g.gym_name
+      FROM 
+          GymReservations gr
+      JOIN 
+          Gyms g ON gr.gym_id = g.gym_id
+      JOIN 
+          GymImages gi ON g.gym_id = gi.gym_id
+      WHERE 
+          gr.member_id = ?
+      ORDER BY 
+          gr.reserve_time;
+    `;
+            const [rows] = await db.query(sql, [userId]);
+            res.json({ success: true, reservations: rows });
+        } catch (error) {
+            console.error("取得會員場館預約時發生錯誤:", error);
+            res.status(500).json({ success: false, message: "資料庫錯誤" });
+        }
+    },
+
 
 };
 

@@ -1,62 +1,67 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import LayoutUser from '@/components/layout/user-layout3'
-import Select from '@/components/common/select/select'
 import OrderRow from '@/components/users/order-row'
 import styles from '@/styles/user-orders.module.css'
 
-// 測試用資料，連到資料庫後要刪掉
-import orders from '@/data/FakeOrders.json'
-import options from '@/data/FakeOptions.json'
-
 export default function LessonsOrders() {
-  // 產出卡片的函式, 參數 data=Array.map的v
-  const renderRow = (data) => {
-    return (
-      <OrderRow
-        order_id={data.order_id}
-        first_item_name={data.first_item.name}
-        first_item_quantity={data.first_item.quantity}
-        first_item_price={data.first_item.price}
-        first_item_imgSrc={data.first_item.imgSrc}
-        other_items={data.other_items}
-        totalQuantity={data.totalQuantity}
-        totalPrice={data.totalPrice}
-      />
-    )
-  }
-  return (
-    <>
-      <LayoutUser title="myLessons">
-        <div className={styles.userinfo_orders}>
-          <div className={styles.user_title}>
-            <h4>我的訂單</h4>
-          </div>
-          <div className={styles.user_select}>
-            <Select options={options} />
-          </div>
-          <div>
-            {orders.map((v, i) => {
-              return (
-                <div className="resultGrid" key={v.order_id}>
-                  {renderRow(v)}
-                </div>
-              )
-            })}
-          </div>
+  const [orders, setOrders] = useState([])
+  const [isLoading, setIsLoading] = useState(true)
 
-          <div className={styles.pagination}>
-            <div
-              style={{
-                width: '450px',
-                height: '50px',
-                backgroundColor: '#BBB',
-              }}
-            >
-              pagination
-            </div>
-          </div>
+  useEffect(() => {
+    const fetchOrders = async () => {
+      try {
+        const authData = JSON.parse(localStorage.getItem('suan-auth') || '{}')
+        const userId = authData.id
+
+        if (!userId) {
+          throw new Error('User ID not found')
+        }
+
+        const response = await fetch(
+          `http://localhost:3001/users/myOrders/${userId}`
+        )
+        if (!response.ok) {
+          throw new Error('Network response was not ok')
+        }
+        const data = await response.json()
+        if (data.success) {
+          setOrders(data.orders)
+        } else {
+          console.error('Failed to fetch orders:', data.message)
+        }
+      } catch (error) {
+        console.error('Error fetching orders:', error)
+      } finally {
+        setIsLoading(false)
+      }
+    }
+
+    fetchOrders()
+  }, [])
+
+  if (isLoading) {
+    return <div>Loading...</div>
+  }
+
+  return (
+    <LayoutUser title="myLessons">
+      <div className={styles.userinfo_orders}>
+        <div className={styles.user_title}>
+          <h4>我的訂單</h4>
         </div>
-      </LayoutUser>
-    </>
+        <div>
+          {orders.map((order) => (
+            <OrderRow
+              key={order.orderDetail_number}
+              orderDetail_number={order.orderDetail_number}
+              orderDate={order.orderDate}
+              items={order.items}
+              totalQuantity={order.totalQuantity}
+              totalPrice={order.totalPrice}
+            />
+          ))}
+        </div>
+      </div>
+    </LayoutUser>
   )
 }

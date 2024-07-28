@@ -93,7 +93,7 @@ export default function SignIn() {
               console.log(returnUrl)
               router.push('/')
             }
-          }, 1000)
+          }, 3000)
         } else {
           setAlertMessage('登入失敗')
           setUserMessage('請檢查您的電子郵件和密碼')
@@ -160,9 +160,12 @@ export default function SignIn() {
             <span className={styles.p}>我忘記密碼了</span>
           </Link>
         </div>
-        <a className={styles.a} href="sign_up">
-          <p className={styles.p}>還不是會員?那快點加入我們開始運動吧</p>
-        </a>
+
+        <Link className={styles.a} href="sign_up">
+          <FaAngleRight />
+          <span className={styles.p}>還不是會員?那快點加入我們開始運動吧</span>
+        </Link>
+
         <div className={styles.warp2}>
           <div className={styles.third_party_login}>
             <a className={styles.a} href="#" onClick={handleGoogleLogin}>

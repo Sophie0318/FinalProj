@@ -12,7 +12,7 @@ export default function LessonsOrders() {
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState(null)
   const { auth } = useAuth()
-  const [selectedMonth, setSelectedMonth] = useState(null)
+  const [selectedMonth, setSelectedMonth] = useState(8)
   const [selectedDate, setSelectedDate] = useState(null)
   const [availableDates, setAvailableDates] = useState([])
 
@@ -99,6 +99,7 @@ export default function LessonsOrders() {
               className={`${styles.num} ${
                 selectedMonth === month ? styles.active : ''
               }`}
+              s
               onClick={() => setSelectedMonth(month)}
               onKeyDown={(e) => {
                 if (e.key === 'Enter' || e.key === ' ') {
