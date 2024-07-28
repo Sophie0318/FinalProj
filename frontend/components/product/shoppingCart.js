@@ -23,7 +23,7 @@ export default function ShoppingCart() {
     MySwal.fire({
       title: '你確定要刪除嗎?',
       text: '不再考慮一下?',
-      icon: 'warning',
+      // icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#1A394A',
       cancelButtonColor: '#d33',
@@ -32,9 +32,28 @@ export default function ShoppingCart() {
       willOpen: () => {
         const swalPopup = document.querySelector('.swal2-popup')
         if (swalPopup) {
-          swalPopup.style.backgroundColor = '#FFF7E9'
+          swalPopup.style.backgroundColor = ' var(--color-white);'
           swalPopup.style.color = '#1a394a'
           swalPopup.style.borderRadius = '50px'
+        }
+
+        const confirmButton = document.querySelector('.swal2-confirm')
+        if (confirmButton) {
+          confirmButton.style.borderRadius = '100px' // 修改确认按钮圆角
+          confirmButton.style.color = '#1A394A'
+          confirmButton.style.backgroundColor = 'var(--color-white)'
+          confirmButton.style.border = '3px solid #1A394A'
+          confirmButton.style.fontSize = '18px'
+          confirmButton.style.fontWeight = '700'
+        }
+
+        const cancelButton = document.querySelector('.swal2-cancel')
+        if (cancelButton) {
+          cancelButton.style.borderRadius = '100px' // 修改取消按钮圆角
+          cancelButton.style.color = 'whute'
+          cancelButton.style.backgroundColor = '#1A394A'
+          cancelButton.style.fontSize = '18px'
+          cancelButton.style.fontWeight = '700'
         }
       },
     }).then((result) => {
@@ -42,12 +61,21 @@ export default function ShoppingCart() {
         MySwal.fire({
           title: '已刪除!',
           text: itemName + '已被刪除',
-          icon: 'success',
+          // icon: 'success',
           willOpen: () => {
             const swalPopup = document.querySelector('.swal2-popup')
             if (swalPopup) {
-              swalPopup.style.backgroundColor = '#FFF7E9'
+              swalPopup.style.backgroundColor = ' var(--color-white);'
               swalPopup.style.color = '#1a394a'
+              swalPopup.style.borderRadius = '30px'
+            }
+            const okButton = document.querySelector('.swal2-confirm')
+            if (okButton) {
+              okButton.style.borderRadius = '100px' // 修改确认按钮圆角
+              okButton.style.color = '#white'
+              okButton.style.backgroundColor = '#1a394a'
+              okButton.style.fontSize = '18px'
+              okButton.style.fontWeight = '700'
             }
           },
         })
@@ -106,7 +134,11 @@ export default function ShoppingCart() {
                       <img
                         src={`/product-img/${v.Product_photo}`}
                         alt=""
-                        style={{ width: '35%', borderRadius: '25px' }}
+                        style={{
+                          width: '150px',
+                          height: '150px',
+                          borderRadius: '25px',
+                        }}
                       />
                       <ul>
                         <li
@@ -217,7 +249,7 @@ export default function ShoppingCart() {
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
-                marginTop: '50px',
+                // marginTop: '50px',
                 marginBottom: '50px',
               }}
             >
@@ -228,7 +260,9 @@ export default function ShoppingCart() {
                 className={buttonStyles.btn}
               >
                 <a className={buttonStyles.btn}>
-                  <span>前往付款</span>
+                  <span style={{ bottom: '3px', fontSize: '23px' }}>
+                    前往付款
+                  </span>
                   <svg width="13px" height="10px" viewBox="0 0 13 10">
                     <path d="M1,5 L11,5"></path>
                     <polyline points="8 1 12 5 8 9"></polyline>
