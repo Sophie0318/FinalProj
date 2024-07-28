@@ -209,7 +209,11 @@ export default function Favorites() {
           {activeTab === 'articles' && (
             <div className={styles.fav_search}>
               {articlesFavorites.map((article) => (
-                <div className="resultGrid" key={article.article_id}>
+                <div
+                  className="resultGrid"
+                  key={article.article_id}
+                  style={{ paddingTop: '24px', paddingBottom: '24px' }}
+                >
                   <ArticleCard
                     title={article.article_title}
                     update_at={article.update_at}
