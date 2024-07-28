@@ -4,6 +4,7 @@ import BranchCard from '@/components/users/branchCard'
 // 待 import 進文章&場館卡片
 import CoachCard from '@/components/coaches/coachCard'
 import LessonCard from '@/components/lessons/lessonCard'
+import ArticleCard from '@/components/articles/article-card'
 import styles from '@/styles/user-profile.module.css'
 import GymCardSpot from '@/components/gyms/gymCard-spot'
 
@@ -21,6 +22,7 @@ export default function Favorites() {
   const [lessonFavorites, setLessonFavorites] = useState([])
   const [gymFavorites, setGymFavorites] = useState([])
   const [activeTab, setActiveTab] = useState(null) // 新增狀態來控制當前顯示的內容
+  const [articlesFavorites, setArticlesFavorites] = useState([])
   // 決定要用哪一個分支的卡片, 參數 branch=分支名稱, data=Array.map的v
 
   useEffect(() => {
@@ -28,6 +30,7 @@ export default function Favorites() {
       fetchFavorites()
       fetchLessonFavorites()
       fetchGymFavorites()
+      fetchArticlesFavorites()
     }
   }, [auth.token])
 
@@ -131,6 +134,7 @@ export default function Favorites() {
       console.error('移除收藏時發生錯誤:', error)
     }
   }
+
   const renderCard = (branch, data) => {
     switch (branch) {
       case 'lessons':
@@ -170,6 +174,35 @@ export default function Favorites() {
   // 新增處理 BranchCard 點擊的函數
   const handleBranchClick = (branch) => {
     setActiveTab(branch)
+  }
+
+  const fetchArticlesFavorites = async () => {
+    try {
+      const res = await axios.get(
+        `http://localhost:3001/users/favorites-articles/${auth.id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${auth.token}`,
+          },
+        }
+      )
+
+      if (res.data.success) {
+        setArticlesFavorites(res.data.rows)
+      } else {
+        console.log(res)
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const handleRemoveArticleFavorite = async (e, article_id) => {
+    setArticlesFavorites(
+      articlesFavorites.filter((article) => {
+        return article.article_id !== article_id
+      })
+    )
   }
 
   return (
@@ -270,6 +303,26 @@ export default function Favorites() {
               })}
             </div>
           )}
+
+          {articlesFavorites.map((article) => (
+            <div
+              className="resultGrid"
+              key={article.article_id}
+              style={{ paddingTop: '24px', paddingBottom: '24px' }}
+            >
+              <ArticleCard
+                title={article.article_title}
+                update_at={article.update_at}
+                category={article.code_desc}
+                imgSrc={article.article_cover}
+                idURL={article.article_id}
+                member_id={article.member_id_fk}
+                onClick={(e) => {
+                  handleRemoveArticleFavorite(e, article.article_id)
+                }}
+              />
+            </div>
+          ))}
         </div>
       </LayoutUser>
     </>

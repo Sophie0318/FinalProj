@@ -4,6 +4,7 @@ import db from "../../utils/connect-mysql.js";
 import userController from "../../controllers/userController.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import moment from "moment-timezone";
 
 // 會員註冊 把會員在簽端填的資料寫入database
 router.post("/add", async (req, res) => {
@@ -340,6 +341,39 @@ router.get("/favorites/:userId", async (req, res) => {
       .json({ success: false, message: "伺服器錯誤", error: error.message });
   }
 });
+
+// 獲取用戶的收藏文章
+router.get("/favorites-articles/:userId", async (req,res)=>{
+  const output = {
+    success: false,
+    message: '',
+    rows: [],
+  }
+  const { userId } = req.params;
+
+  if (!req.my_jwt || !parseInt(userId)) {
+    output.message = 'not logged in or invalid input'
+    res.status(400).json(output)
+  }
+
+  try {
+    const sql = `SELECT article_id, article_title, update_at, code_desc, article_cover, member_id_fk FROM FavArticles JOIN Articles ON article_id_fk = article_id JOIN CommonType ON code_type = 9 AND code_id = code_id_fk WHERE member_id_fk = ?;`;
+
+    [output.rows] = await db.query(sql, [userId])
+    if (output.rows) {
+      for(let i of output.rows) {
+        const m = moment(i.update_at);
+        const update_at = m.isValid() ? m.format('YYYY-MM-DD') : '';
+        i.updateat = update_at;
+      }
+      output.success = true;
+      res.status(200).json(output);
+    }
+  } catch (error) {
+    output.message = 'database fetch fail'
+    res.status(500).json(output)
+  }
+})
 
 // 刪除教練收藏
 router.delete("/remove-favorite", async (req, res) => {
