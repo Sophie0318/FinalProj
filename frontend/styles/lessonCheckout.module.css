@@ -18,6 +18,7 @@
   max-width: 600px; /* 設置最大寬度，以防止過寬 */
   padding: 0 20px; /* 添加一些內邊距 */
   margin: 0 auto; /* 讓容器在水平居中 */
+  margin-top: 30px;
 }
 
 .title {
