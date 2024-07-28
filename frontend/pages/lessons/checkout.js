@@ -3,6 +3,7 @@ import styles from '@/styles/lessonCheckout.module.css'
 import { useRouter } from 'next/router'
 import axios from 'axios'
 import Loader from '@/components/loader'
+import Layout4 from '@/components/layout/layout4'
 
 export default function Checkout() {
   const [lesson, setLesson] = useState(null)
@@ -87,32 +88,33 @@ export default function Checkout() {
 
   return (
     <>
-      <div className={styles.contain}>
-        <div className={styles.title}>1、檢視您的訂單</div>
-        <div className={styles.check}>
-          <div className={styles.imgContain}>
-            <img src={`/${lesson.lesson_img}`} />
+      <Layout4 title="課程訂單" pageName="lessons">
+        <div className={styles.contain}>
+          <div className={styles.title}>1、檢視您的訂單</div>
+          <div className={styles.check}>
+            <div className={styles.imgContain}>
+              <img src={`/${lesson.lesson_img}`} />
+            </div>
+            <div className={styles.infos}>
+              <div className={styles.infoN}>{lesson.lesson_name}</div>
+              <div className={styles.infoT}>時間：{lesson.lesson_date}</div>
+              <div className={styles.infoT}>地點：{lesson.gym_name}</div>
+            </div>
           </div>
-          <div className={styles.infos}>
-            <div className={styles.infoN}>{lesson.lesson_name}</div>
-            <div className={styles.infoT}>時間：{lesson.lesson_date}</div>
-            <div className={styles.infoT}>地點：{lesson.gym_name}</div>
+          <div className={styles.total}>
+            <div className={styles.sum}>結帳金額</div>
+            <div className={styles.num}>NT.{lesson.lesson_price}</div>
+          </div>
+          <div className={styles.btns}>
+            <button className={styles.btnBack} onClick={handleReturnToLessons}>
+              回到課程頁
+            </button>
+            <button className={styles.btnFin} onClick={handlePayment}>
+              確認結帳
+            </button>
           </div>
         </div>
-        <div className={styles.total}>
-          <div className={styles.sum}>結帳金額</div>
-          <div className={styles.num}>NT.{lesson.lesson_price}</div>
-        </div>
-        <div className={styles.btns}>
-          <button className={styles.btnBack} onClick={handleReturnToLessons}>
-            回到課程頁
-          </button>
-          <button className={styles.btnFin} onClick={handlePayment}>
-            確認結帳
-          </button>
-        </div>
-      </div>
-
+      </Layout4>
       {/* <div className={styles.pcontainer}>
         <div className={styles.title}>2、選擇付款方式</div>
         <div className={styles.card}>

@@ -1,8 +1,15 @@
 import React from 'react'
 import styles from '@/styles/reserveModal.module.css'
 import { useRouter } from 'next/router'
+import 'animate.css'
 
-function ReserveModal({ onClose, formData, selectedCoach, isLoggedIn }) {
+function ReserveModal({
+  onClose,
+  formData,
+  selectedCoach,
+  isLoggedIn,
+  className,
+}) {
   const router = useRouter()
 
   const handleReturnToCoaches = () => {
@@ -20,7 +27,12 @@ function ReserveModal({ onClose, formData, selectedCoach, isLoggedIn }) {
 
   return (
     <div className={styles.modalOverlay}>
-      <div className={styles.modal}>
+      <div
+        className={`${styles.modal}`}
+        style={{
+          animation: 'fadeInDown 1s ease-out',
+        }}
+      >
         <div className={styles.success}>預約成功！</div>
         <div className={styles.reserveInfo}>
           <div className={styles.infoRow}>
@@ -46,13 +58,13 @@ function ReserveModal({ onClose, formData, selectedCoach, isLoggedIn }) {
             <div className={styles.reserveTime}>
               <div>
                 {formData.timeSlot === '1'
-                  ? '2024/12/31 12:00'
+                  ? '2024/08/12 13:00'
                   : formData.timeSlot === '2'
-                  ? '2024/12/31 13:00'
+                  ? '2024/08/12 14:00'
                   : formData.timeSlot === '3'
-                  ? '2024/12/31 14:00'
+                  ? '2024/08/19 13:00'
                   : formData.timeSlot === '4'
-                  ? '2024/12/31 15:00'
+                  ? '2024/08/31 14:00'
                   : formData.timeSlot}
               </div>
             </div>
