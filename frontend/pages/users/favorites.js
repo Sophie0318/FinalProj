@@ -259,7 +259,11 @@ export default function Favorites() {
                 return (
                   <div className="resultGrid" key={gym.gym_id}>
                     <Link href={`/gyms/${gym.gym_id}`}>
-                      <GymCardSpot key={gym.gym_id} data={formatData} />
+                      <GymCardSpot
+                        key={gym.gym_id}
+                        data={formatData}
+                        variant="B"
+                      />
                     </Link>
                   </div>
                 )

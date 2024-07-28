@@ -217,7 +217,7 @@ export default function MapErea({ gymsData, searchTerm }) {
           }}
         >
           <div className={styles.infoWindow}>
-            <GymCardSpot data={selectedMarker.properties} />
+            <GymCardSpot data={selectedMarker.properties} variant="A"/>
           </div>
         </InfoWindow>
       )}

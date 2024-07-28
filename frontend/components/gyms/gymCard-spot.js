@@ -6,7 +6,26 @@ import LoginAlert from '@/hooks/login-alert/login-alert'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
 
-const GymCardSpot = ({ data }) => {
+const GymCardSpot = ({ data, variant = 'A' }) => {
+  const variantStyles = {
+    A: 'w-100',
+    B: 'w-97 transition-all duration-300 hover-scale',
+  }
+
+  const customCSS = `
+.w-97 {
+  width: 97.5%;
+}
+.transition-all {
+  transition: all 0.3s ease-in-out;
+}
+.hover-scale:hover {
+  transform: scale(1.1);
+}
+`
+  const style = document.createElement('style')
+  style.textContent = customCSS
+  document.head.appendChild(style)
   const [isClicked, setIsClicked] = useState(false)
   const loginAlert = LoginAlert('登入後才能收藏唷～')
   const { auth } = useAuth()
@@ -74,9 +93,8 @@ const GymCardSpot = ({ data }) => {
   }, [data?.id || data?.gym_id, auth])
 
   return (
-    <div className={styles.card}>
+    <div className={`${styles.card} ${variantStyles[variant]}`}>
       <div className={styles.imageContainer}>
-        
         {data.images.length > 0 && (
           <img
             src={`/${data.images[0]}`}
