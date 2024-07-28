@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import MyProductList from '@/components/product/product-list'
 import styles from '@/styles/product-list.module.css'
 import Index from '@/components/joinMember'
-import Layout3 from '@/components/layout/layout3'
+import Layout4 from '@/components/layout/layout4'
 // import Pagination from '@/components/product/Pagination/Pagination'
 import BS5Pagination from '@/components/product/Pagination/bs5-pagination'
 import CardList from '@/components/product/card-list/card-list'
@@ -21,6 +21,7 @@ export default function ProductList() {
   const [page, setPage] = useState(1) // 目前第幾頁
   const [perpage, setPerpage] = useState(10) // 每頁幾筆資料
   const [nameLike, setNameLike] = useState('') // 搜尋關鍵字
+  const [search, setSearch] = useState(false)
 
   /*
   useEffect(() => {
@@ -40,36 +41,48 @@ export default function ProductList() {
     const pathname = router.pathname
     const pathParts = pathname.split('/')
     const query = pathParts[pathParts.length - 1].split('?')[0]
-    console.log(query, 'query')
+    // console.log(query, 'query')
     //URLSearchParams這是一個 Web API，用於處理 URL 的查詢字符串。它提供了一種簡單的方式來創建、修改和解析 URL 參數。
 
-    const queryParams = new URLSearchParams(
-      {
+    let queryParams = ''
+    console.log(search)
+    if (search) {
+      queryParams = new URLSearchParams({
+        category: query,
+        page: 1,
+        keyword: nameLike,
+        // type: protect, //只有Protect才有這個參數 ，後端let subCategory = req.query.type || ""; //健身護具的分類， type: protect 後端:前端
+      })
+      setSearch(false)
+    } else {
+      queryParams = new URLSearchParams({
         category: query,
         page: page,
         keyword: nameLike,
-        // type: test,
-      }
-
-      // const existingParams = new URLSearchParams(router.query)
-      // const page = existingParams.get('page') || '1'
-      // const queryParams = new URLSearchParams({
-      //   category: query,
-      //   page: page,
-      // }
-    )
-    console.log(`query params: ${queryParams.toString()}`)
+        // type: protect, //只有Protect才有這個參數 ，後端let subCategory = req.query.type || ""; //健身護具的分類， type: protect 後端:前端
+      })
+    }
+    // console.log(`query params: ${queryParams.toString()}`)
 
     // const query = new URLSearchParams({ id: productId })
-    console.log(router)
+    // console.log(router)
     const url = `http://localhost:3001/product/api?${queryParams.toString()}`
 
     fetch(url)
       .then((r) => r.json())
       .then((myData) => {
-        console.log(`page result: ${myData}`)
-        setData(myData)
+        if (myData.success) {
+          if (myData.redirect) {
+            router.push(myData.redirect, undefined, {
+              scroll: false,
+            })
+            setPage(1)
+          } else {
+            setData(myData)
+          }
+        }
       })
+      .catch((e) => console.log(e))
   }
 
   //用useEffect去抓(fetch)後端的資料
@@ -77,7 +90,7 @@ export default function ProductList() {
     updateProductData()
   }, [router, page, perpage])
   return (
-    <Layout3 pageName="products" title="健身服飾">
+    <Layout4 pageName="products" title="健身服飾">
       <main className={styles.mainWithMargin}>
         <div className={styles.container}>
           <div className="row">
@@ -129,6 +142,6 @@ export default function ProductList() {
         </div>
         <Index />
       </main>
-    </Layout3>
+    </Layout4>
   )
 }

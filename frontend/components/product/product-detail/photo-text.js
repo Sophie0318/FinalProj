@@ -6,7 +6,10 @@ export default function PhotoText({ photodata = [], desc }) {
   console.log(photodata)
   return (
     <>
-      <div className="container" style={{ backgroundColor: '#FFF7E9' }}>
+      <div
+        className="container"
+        style={{ backgroundColor: '#FFF7E9', borderRadius: '30px' }}
+      >
         <h2 className="col-12 text-center my-5">產品特性</h2>
         {photodata.length > 0 &&
           photodata.map((v, i) => (

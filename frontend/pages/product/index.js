@@ -1,12 +1,12 @@
 import React from 'react'
-import Layout3 from '@/components/layout/layout3'
+import Layout4 from '@/components/layout/layout4'
 import Index from '@/components/joinMember'
 import IndexPhoto from '@/components/product/index-photo'
 import styles from './index.module.css'
 
 export default function ProductTest() {
   return (
-    <Layout3
+    <Layout4
       title="商品類別"
       pageName="products"
       height="179px"
@@ -18,6 +18,6 @@ export default function ProductTest() {
           <Index />
         </div>
       </main>
-    </Layout3>
+    </Layout4>
   )
 }

@@ -5,47 +5,79 @@ import { IoCall, IoHeart } from 'react-icons/io5'
 import Badges from '@/components/gyms/badges'
 import { useRouter } from 'next/router'
 import GymSwiper from '@/components/gyms/gym-swiper'
+import FavHeart from '@/components/gyms/favHeart'
+import { useAuth } from '@/context/auth-context'
 
-// const FakegymsData = [
-//   {
-//     gym_id: 1,
-//     name: '原力覺醒健身房',
-//     subtitle: '友善的設備，專業的教練',
-//     address: '台北市中正區杭州南路二段308號',
-//     businessHours: '上午9:00 - 下午11:00',
-//     features: ['重量訓練', '有氧運動', '瑜伽課程'],
-//     distance: 500,
-//     images: [
-//       '/gym1.jpg',
-//       '/gym1.jpg',
-//       '/gym1.jpg',
-//       '/gym1.jpg',
-//       '/gym1.jpg',
-//       '/gym1.jpg',
-//     ],
-//     phoneNumber: '02-1234-5678',
-//     information:
-//       '力量源練身館座落於北投市中心，是一間專業健身、體能訓練所在於其中一個的活化空間場館。我們科技力光合有機研發耳機系統，令大家在選擇的時候品質無需擔心。更新科技化新式健身器材設施讓您操作時更為輕鬆......',
-//     price: [
-//       '月卡會員: NT$ 1,900/月',
-//       '季卡會員: NT$ 4,000/月 (每月約1,333)',
-//       '半年卡會員: NT$ 6,000/月 (每月約1,167)',
-//       '單次體驗: NT$ 300/次',
-//     ],
-//     equipment: [
-//       '有氧運動區：配備多部跑步機、橢圓機、單車等',
-//       '團體課教室：舉辦各種團體有氧課程',
-//       '個人訓練區：可進行一對一的個人訓練',
-//       '更衣室和淋浴設施：提供舒適的更衣和盥洗空間',
-//     ],
-//   },
-// ]
 export default function GymDetail({ gymId }) {
   const router = useRouter()
+  // const { auth } = useAuth()
   const [gym, setGym] = useState(null)
   const { gym_id } = router.query
   const [thumbsSwiper, setThumbsSwiper] = useState(null)
   const [error, setError] = useState(null)
+
+//收藏功能
+const [isClicked, setIsClicked] = useState(false)
+
+  const { auth } = useAuth()
+
+  const checkFavStatus = async () => {
+    if (!auth || !gym_id) return
+    try {
+      const response = await fetch(
+        `http://localhost:3001/gyms/check-fav/${auth.id}/${gym_id}`
+      )
+
+      if (!response.ok) {
+        throw new Error('檢查收藏狀態失敗了')
+      }
+      const contentType = response.headers.get('Content-Type')
+      if (!contentType || !contentType.includes('application/json')) {
+        throw new Error('Oh no!檢查收藏狀態失敗了，沒有正確的回應JSON格式')
+      }
+      const { isFavorite } = await response.json()
+      setIsClicked(isFavorite)
+      return
+    } catch (error) {
+      console.error('檢查收藏狀態失敗:', error)
+    }
+  }
+
+  const toggleFavorite = async () => {
+    try {
+      const method = isClicked ? 'DELETE' : 'POST'
+      const response = await fetch(
+        `http://localhost:3001/gyms/api/favorites/${auth.id}/${gym_id}`,
+        {
+          method: method,
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            userId: auth.id,
+            gymId: gym_id,
+          }),
+        }
+      )
+      if (response.ok) {
+        setIsClicked(!isClicked)
+      }
+      console.log(auth.id, gym_id)
+      console.log('切換收藏狀態成功:', response)
+    } catch (error) {
+      console.error('切換收藏狀態失敗:', error)
+    }
+  }
+
+  useEffect(() => {
+    console.log(gym_id)
+    console.log(auth)
+    if (auth) {
+      checkFavStatus()
+    }
+  }, [gym_id, auth])
+
+
 
   // fetch 資料函式
   const fetchGymData = async (gymId) => {
@@ -75,7 +107,7 @@ export default function GymDetail({ gymId }) {
         .then((gymData) => {
           if (gymData) {
             setGym(gymData)
-            console.log(gymData)
+            //console.log(gymData)
           }
         })
         .catch((error) => {
@@ -131,8 +163,9 @@ export default function GymDetail({ gymId }) {
                   <Badges />
                 </div>
                 <div className={styles.btn}>
-                  <button className={`${styles.btnLike}`}>
-                    <span className={`${styles.icon} `}>
+                  <button className={`${styles.btnLike}`}
+                  onClick={toggleFavorite}>
+                    <span className={`${styles.icon} ${styles.heart} ${isClicked ? styles.clicked : ''}`}>
                       <IoHeart />
                     </span>
                     <span>收藏</span>

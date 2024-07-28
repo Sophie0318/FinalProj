@@ -9,7 +9,7 @@
 
 .fade-in {
   opacity: 0;
-  transition: opacity 1.8s cubic-bezier(0.390, 0.575, 0.565, 1.000);
+  transition: opacity 1.8s cubic-bezier(0.39, 0.575, 0.565, 1);
 }
 
 .fade-in.visible {
@@ -39,12 +39,11 @@
 }
 
 .slide-in-right {
-animation: slide-in-right 1.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
-
+  animation: slide-in-right 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
 }
 
 .slide-in-left {
-  animation: slide-in-left 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+  animation: slide-in-left 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
 }
 
 /* 按鈕樣式 */
@@ -112,9 +111,7 @@ animation: slide-in-right 1.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
   width: calc(100% + 80px);
   background-color: var(--color-old-lace);
   border-radius: 50px 0 0 50px;
-
 }
-
 
 /* 整體頁面樣式 */
 .hero {
@@ -150,7 +147,7 @@ animation: slide-in-right 1.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
 }
 .heroImgBig {
   opacity: 0;
-  transition: opacity 1.8s cubic-bezier(0.390, 0.575, 0.565, 1.000);
+  transition: opacity 1.8s cubic-bezier(0.39, 0.575, 0.565, 1);
 }
 .heroImgMid {
   display: none;
@@ -271,7 +268,7 @@ animation: slide-in-right 1.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
 }
 
 .joinMemberMargin {
-  margin-top: 110px
+  margin-top: 110px;
 }
 
 /* 為了解決困擾卡片在 1178px 會出現跑版的斷點 */
@@ -292,11 +289,22 @@ animation: slide-in-right 1.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
 /* hero & cta1 section RWD 微調 */
 @media (max-width: 992px) {
   .heroText {
-    z-index: 1;
+    z-index: -1;
   }
 
   .heroImage img {
     width: 70vw;
+  }
+
+  .logoPC {
+    display: block;
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  .logoPC img {
+    width: 138px;
   }
 }
 
@@ -310,19 +318,6 @@ animation: slide-in-right 1.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
   }
   .heroImgMid {
     display: block;
-  }
-}
-
-@media (max-width: 992px) {
-  .logoPC {
-    display: block;
-    position: absolute;
-    top: 10px;
-    left: 50%;
-    transform: translateX(-50%);
-  }
-  .logoPC img {
-    width: 138px;
   }
 }
 
@@ -351,7 +346,7 @@ animation: slide-in-right 1.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
     display: flex;
     justify-content: flex-end;
   }
-  
+
   .ctaMobile {
     display: block;
     margin-bottom: 50px;
@@ -406,7 +401,6 @@ animation: slide-in-right 1.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
     padding: 40px 24px 42px 24px;
     margin: 0;
   }
-
 }
 
 @media (max-width: 697px) {
@@ -436,7 +430,7 @@ animation: slide-in-right 1.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
     transform: translateX(-50%);
   }
 
-  .logoSP img{
+  .logoSP img {
     width: 138px;
   }
   .heroImageContainer {
@@ -461,7 +455,6 @@ animation: slide-in-right 1.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
     width: 100%;
     margin: 0;
     padding: 0;
-    
   }
 
   /* TODO: solve text stroke issue */
@@ -501,5 +494,4 @@ animation: slide-in-right 1.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
   .pageWrap {
     margin-top: 50px;
   }
-
 }

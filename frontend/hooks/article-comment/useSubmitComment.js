@@ -6,11 +6,11 @@ import LoginAlert from '../login-alert/login-alert'
 export default function useSubmitComment(
   auth = {},
   comment = '',
-  setError = () => {},
-  setErrorText = () => {},
+  setError = () => { },
+  setErrorText = () => { },
   sub = undefined,
   main = 0,
-  setShowModal = () => {}
+  setShowModal = () => { }
 ) {
   const router = useRouter()
   const loginalert = LoginAlert('登入後才能留言喔~')
@@ -29,8 +29,6 @@ export default function useSubmitComment(
         } else {
           let insertMain = 0
           let insertSub = 0
-
-          console.log(sub)
           if (sub === undefined) {
             insertMain = main + 1
           } else if (sub >= 0) {

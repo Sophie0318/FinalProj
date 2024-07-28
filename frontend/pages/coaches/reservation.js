@@ -6,6 +6,7 @@ import ReserveModal from '@/components/coaches/reserve-modal'
 import { useRouter } from 'next/router'
 import axios from 'axios'
 import { useAuth } from '@/context/auth-context'
+import 'animate.css'
 
 export default function Reservation() {
   const [formData, setFormData] = useState({

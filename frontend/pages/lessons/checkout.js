@@ -112,69 +112,6 @@ export default function Checkout() {
           </button>
         </div>
       </div>
-
-      {/* <div className={styles.pcontainer}>
-        <div className={styles.title}>2、選擇付款方式</div>
-        <div className={styles.card}>
-          <span className={styles.cardIcon}>
-            <IoCard />
-          </span>
-          信用卡/金融卡
-        </div>
-        <div className={styles.flexRow}>
-          <div className={styles.inline}>必填</div>
-          <p className={styles.label}>卡號</p>
-        </div>
-        <input
-          type="email"
-          id="email"
-          name="email"
-          required
-          className={styles.input}
-        />
-        <div className={styles.flexRow}>
-          <div className={styles.inline}>必填</div>
-          <p className={styles.label}>有效日期</p>
-        </div>
-        <input
-          type="email"
-          id="email"
-          name="email"
-          required
-          className={styles.input}
-        />
-        <div className={styles.flexRow}>
-          <div className={styles.inline}>必填</div>
-          <p className={styles.label}>驗證碼</p>
-        </div>
-        <input
-          type="email"
-          id="email"
-          name="email"
-          required
-          className={styles.input}
-        />
-        <div className={styles.btns}>
-          <button className={styles.btnBack} onClick={handleFailModal}>
-            回到上一頁
-          </button>
-          <button className={styles.btnFin} onClick={handlePayment}>
-            完成付款
-          </button>
-        </div>
-      </div> */}
-      {/* {showSuccessModal && (
-        <SuccessModal
-          orderNumber="6VF2NC"
-          lessonName={lesson.lesson_name}
-          lessonTime={lesson.lesson_date}
-          lessonPlace={lesson.gym_name}
-          totalAmount={lesson.lesson_price}
-          onClose={handleCloseModal}
-        />
-      )}
-
-      {showFailModal && <FailureModal onClose={handleCloseFailModal} />} */}
     </>
   )
 }

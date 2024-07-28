@@ -4,7 +4,7 @@ import useArticleSearch from '@/hooks/article-search/useArticleSearch'
 import { useAuth } from '@/context/auth-context'
 import { ArticlesListData } from '@/configs/articles'
 
-import Layout3 from '@/components/layout/layout3'
+import Layout4 from '@/components/layout/layout4'
 import useRenderCards from '@/hooks/cards/cards'
 import SidebarSearch from '@/components/articles/article-sidebar/sidebar-search'
 import SearchSection from '@/components/articles/search-section'
@@ -70,7 +70,7 @@ export default function ArticleType() {
   }, [router])
   return (
     <>
-      <Layout3 title="搜尋文章" pageName="articles">
+      <Layout4 title="搜尋文章" pageName="articles">
         <section className={styles.padding80}>
           <div className="container-fluid p-0">
             <div className="row px-0 mx-0">
@@ -123,7 +123,7 @@ export default function ArticleType() {
         <section className={styles.searchbarSP}>
           <SearchSection />
         </section>
-      </Layout3>
+      </Layout4>
     </>
   )
 }

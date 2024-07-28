@@ -4,7 +4,9 @@ import BranchCard from '@/components/users/branchCard'
 // 待 import 進文章&場館卡片
 import CoachCard from '@/components/coaches/coachCard'
 import LessonCard from '@/components/lessons/lessonCard'
+import ArticleCard from '@/components/articles/article-card'
 import styles from '@/styles/user-profile.module.css'
+import GymCardSpot from '@/components/gyms/gymCard-spot'
 
 // 測試用資料，連到資料庫後要刪掉
 // import coaches from '@/data/FavCoaches.json'
@@ -18,15 +20,59 @@ export default function Favorites() {
   const { auth } = useAuth()
   const [coachFavorites, setCoachFavorites] = useState([])
   const [lessonFavorites, setLessonFavorites] = useState([])
+  const [gymFavorites, setGymFavorites] = useState([])
   const [activeTab, setActiveTab] = useState(null) // 新增狀態來控制當前顯示的內容
+  const [articlesFavorites, setArticlesFavorites] = useState([])
   // 決定要用哪一個分支的卡片, 參數 branch=分支名稱, data=Array.map的v
 
   useEffect(() => {
     if (auth.token) {
       fetchFavorites()
       fetchLessonFavorites()
+      fetchGymFavorites()
+      fetchArticlesFavorites()
     }
   }, [auth.token])
+
+  const fetchGymFavorites = async () => {
+    try {
+      const response = await axios.get(
+        `http://localhost:3001/users/favorites-gym/${auth.id}`,
+        {
+          headers: { Authorization: `Bearer ${auth.token}` },
+        }
+      )
+      if (response.data.success) {
+        setGymFavorites(response.data.favorites)
+      }
+    } catch (error) {
+      console.error('Error fetching favorites:', error)
+    }
+  }
+
+  //轉換gymData格式的函示
+  const transformGymData = (gymData) => {
+    return {
+      id: gymData.gym_id,
+      name: gymData.gym_name,
+      subtitle: gymData.gym_subtitle,
+      address: gymData.gym_address,
+      phone: gymData.gym_phone,
+      businessHours: gymData.business_hours,
+      info: gymData.gym_info,
+      price: gymData.gym_price,
+      equipment: gymData.gym_equipment,
+      isElderly: gymData.is_elderly,
+      latitude: gymData.latitude,
+      longitude: gymData.longitude,
+      createAt: gymData.create_at,
+      updateAt: gymData.update_at,
+      featureId: gymData.feature_id,
+      features: gymData.feature_list ? gymData.feature_list.split(',') : [],
+      images: gymData.image_list ? gymData.image_list.split(',') : [],
+      memberId: gymData.member_id_fk,
+    }
+  }
 
   const fetchFavorites = async () => {
     try {
@@ -88,6 +134,7 @@ export default function Favorites() {
       console.error('移除收藏時發生錯誤:', error)
     }
   }
+
   const renderCard = (branch, data) => {
     switch (branch) {
       case 'lessons':
@@ -127,6 +174,35 @@ export default function Favorites() {
   // 新增處理 BranchCard 點擊的函數
   const handleBranchClick = (branch) => {
     setActiveTab(branch)
+  }
+
+  const fetchArticlesFavorites = async () => {
+    try {
+      const res = await axios.get(
+        `http://localhost:3001/users/favorites-articles/${auth.id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${auth.token}`,
+          },
+        }
+      )
+
+      if (res.data.success) {
+        setArticlesFavorites(res.data.rows)
+      } else {
+        console.log(res)
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const handleRemoveArticleFavorite = async (e, article_id) => {
+    setArticlesFavorites(
+      articlesFavorites.filter((article) => {
+        return article.article_id !== article_id
+      })
+    )
   }
 
   return (
@@ -208,6 +284,45 @@ export default function Favorites() {
               ))}
             </div>
           )}
+
+          {activeTab === 'gyms' && (
+            <div className={styles.fav_search}>
+              {gymFavorites.map((gym) => {
+                const formatData = transformGymData(gym)
+                return (
+                  <div className="resultGrid" key={gym.gym_id}>
+                    <Link href={`/gyms/${gym.gym_id}`}>
+                      <GymCardSpot
+                        key={gym.gym_id}
+                        data={formatData}
+                        variant="B"
+                      />
+                    </Link>
+                  </div>
+                )
+              })}
+            </div>
+          )}
+
+          {articlesFavorites.map((article) => (
+            <div
+              className="resultGrid"
+              key={article.article_id}
+              style={{ paddingTop: '24px', paddingBottom: '24px' }}
+            >
+              <ArticleCard
+                title={article.article_title}
+                update_at={article.update_at}
+                category={article.code_desc}
+                imgSrc={article.article_cover}
+                idURL={article.article_id}
+                member_id={article.member_id_fk}
+                onClick={(e) => {
+                  handleRemoveArticleFavorite(e, article.article_id)
+                }}
+              />
+            </div>
+          ))}
         </div>
       </LayoutUser>
     </>

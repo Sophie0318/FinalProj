@@ -12,6 +12,7 @@ import 'react-datepicker/dist/react-datepicker.css'
 import { setHours, setMinutes } from 'date-fns'
 import DatePicker from 'react-datepicker'
 import axios from 'axios'
+
 // 假資料
 // const gymData = {
 //   id: 1,
@@ -159,6 +160,7 @@ export default function GymReservation() {
           name: auth.name || '',
           phone: auth.mobile || '', // 使用 mobile 或 phone，取決於您在後端返回的字段名
           email: auth.email || '',
+          gym_id: gymData.id,
         }))
       }
     } else {

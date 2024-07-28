@@ -9,19 +9,24 @@ import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 import { useRouter } from 'next/router'
 import Navbar from '@/components/common/navbar'
+import 'animate.css'
 export default function ProductOrder() {
   const router = useRouter()
   const [orderItems, setOrderItems] = useState([])
+
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const savedItems = localStorage.getItem('shoppingCart')
       if (savedItems) {
         setOrderItems(JSON.parse(savedItems))
       }
+      // console.log(savedItems)
     }
   }, [])
-  console.log(orderItems)
   const MySwal = withReactContent(Swal)
+  useEffect(() => {
+    document.body.style.overflowY = 'visible'
+  }, [])
   return (
     <>
       <Navbar />
@@ -42,9 +47,7 @@ export default function ProductOrder() {
                 <th scope="col">商品特色</th>
                 <th scope="col">數量</th>
                 <th scope="col">價格</th>
-                <th scope="col">
-                  {/* <IoClose style={{ fontSize: '40px' }} />{' '} */}
-                </th>
+                <th scope="col"></th>
               </tr>
             </thead>
             <tbody style={{ fontSize: '20px' }}>
@@ -55,7 +58,8 @@ export default function ProductOrder() {
                     <img
                       src={`/product-img/${item.Product_photo}`}
                       alt=""
-                      className="w-75"
+                      className="w-75 "
+                      style={{ height: '200px' }}
                     />
                   </td>
                   <td style={{ width: '10%' }}>{item.Product_name}</td>
@@ -165,6 +169,19 @@ export default function ProductOrder() {
                 MySwal.fire({
                   title: '您的訂單已成立囉!',
                   confirmButtonText: '確定',
+                  willOpen: () => {
+                    const swalPopup = document.querySelector('.swal2-popup')
+                    if (swalPopup) {
+                      swalPopup.style.borderRadius = '30px'
+                    }
+                    const confirmButton =
+                      document.querySelector('.swal2-confirm')
+                    if (confirmButton) {
+                      confirmButton.style.backgroundColor = '#1A394A'
+                      confirmButton.style.color = 'white'
+                      confirmButton.style.borderRadius = '30px'
+                    }
+                  },
                 }).then((result) => {
                   if (result.isConfirmed) {
                     router.push('/product/product-checkout1')

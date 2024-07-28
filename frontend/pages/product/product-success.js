@@ -1,6 +1,6 @@
 import React from 'react'
 import styles from '@/styles/product-success.module.css'
-import Layout3 from '@/components/layout/layout3'
+import Layout4 from '@/components/layout/layout4'
 import { useEffect } from 'react'
 import Link from 'next/link'
 
@@ -11,7 +11,7 @@ export default function ProductSuccess() {
   }, [])
   return (
     <div>
-      <Layout3 title="付款">
+      <Layout4 title="付款">
         <div className={styles.modalOverlay}>
           <div className={styles.modal}>
             <div className={styles.success}>付款成功！</div>
@@ -34,7 +34,7 @@ export default function ProductSuccess() {
             </div>
           </div>
         </div>
-      </Layout3>
+      </Layout4>
     </div>
   )
 }

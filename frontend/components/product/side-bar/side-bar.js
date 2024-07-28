@@ -6,7 +6,7 @@ export default function SideBar({ proTect, setProTect, updateProductData }) {
     setProTect(e.target.value) //因為 setProTect會比updateProductData()來得慢，不如在
     updateProductData(e.target.value)
   }
-  console.log('setProTect:', setProTect)
+  // console.log('setProTect:', setProTect)
 
   return (
     <>

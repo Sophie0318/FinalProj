@@ -11,32 +11,8 @@
   letter-spacing: 6px;
 }
 
-.icon {
-  margin-top: 0;
-}
-
-.closeButton {
-  height: fit-content;
-  width: fit-content;
-  padding-right: 25px;
-}
-
-.closeButton img {
-  height: 40px;
-  width: 40px;
-  opacity: 1;
-}
-
-.closeButton:hover img {
-  opacity: 0.5;
-}
-
-.icon {
-  color: var(--color-black);
-  background-color: --color-black;
-}
-
-.confirmButton, .cancelButton{
+.confirmButton,
+.cancelButton {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -68,16 +44,17 @@
   color: var(--color-white);
   border: 0;
 }
-.gray50 {
-  background-color: var(--color-gray-50);
-  color: var(--color-white);
-  border: 0;
+
+.outline {
+  background-color: var(--color-white);
+  color: var(--color-midnight-green);
+  border: 3px solid var(--color-midnight-green);
 }
-.gray50:hover,
-.gray50:active,
-.gray50:active:focus,
-.gray50:focus {
-  background-color: #9d9b96;
-  color: var(--color-white);
-  border: 0;
+.outline:hover,
+.outline:active,
+.outline:active:focus,
+.outline:focus {
+  background-color: var(--color-white);
+  color: var(--color-midnight-green);
+  border: 3px solid var(--color-midnight-green);
 }

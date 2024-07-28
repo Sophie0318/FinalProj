@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { ArticlesIndex } from '@/configs/articles'
 
-import Layout3 from '@/components/layout/layout3'
+import Layout4 from '@/components/layout/layout4'
 import SearchSection from '@/components/articles/search-section'
 import IndexCarousel from '@/components/swiperCarousel/indexCarousel'
 import useRenderCards from '@/hooks/cards/cards'
@@ -54,7 +54,7 @@ export default function Articles() {
 
   return (
     <>
-      <Layout3
+      <Layout4
         title="文章列表"
         pageName="articles"
         height="179px"
@@ -111,7 +111,7 @@ export default function Articles() {
         </section>
 
         <SearchSection />
-      </Layout3>
+      </Layout4>
     </>
   )
 }

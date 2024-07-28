@@ -4,6 +4,15 @@
   visibility: hidden;
 }
 
+.switchText {
+  cursor: pointer;
+  font-size: 16px;
+  margin: 0 0 9px 0;
+  align-self: end;
+  padding-right: 9px;
+  color: var(--color-midnight-blue, #1a394a);
+}
+
 .switchLabel {
   display: flex;
   align-items: center;

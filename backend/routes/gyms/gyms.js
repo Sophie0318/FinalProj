@@ -29,9 +29,12 @@ const getFullGymData = async (req) => {
   //關鍵字的參數
   let keyword = req.query.keyword || "";
   let feature = req.query.features || "";
+  let friendly = req.query.friendly || "";
+
   let q_sql = " WHERE 1 "; //就算qs什麼都沒也會是1 = true
   //篩選類別
   const params = [];
+
   if (feature) {
     const featuresArray = req.query.features
       .split(",")
@@ -46,8 +49,13 @@ const getFullGymData = async (req) => {
   if (keyword) {
     // const keyword_ = db.escape(`%${keyword}%`);
     // q_sql += ` AND (gym_name LIKE ${keyword_} OR gym_address LIKE ${keyword_}) `;
-    q_sql += ` AND (gym_name LIKE ? OR gym_address LIKE ?) `;
+    q_sql += ` AND (gym_name LIKE ? OR gym_address LIKE ? ) `;
     params.push(`%${keyword}%`, `%${keyword}%`);
+  }
+
+  if (friendly === true || friendly === "true") {
+    q_sql += `AND is_elderly = ?`;
+    params.push(friendly);
   }
 
   const sql = `SELECT gyms.*, GROUP_CONCAT(DISTINCT features.feature_name) AS feature_list, GROUP_CONCAT( gym_images.image_filename) AS image_list FROM Gyms gyms LEFT JOIN GymFeatures AS gym_features ON gyms.gym_id = gym_features.gym_id JOIN Features AS features ON gym_features.feature_id = features.feature_id LEFT JOIN GymImages gym_images ON gyms.gym_id = gym_images.gym_id ${q_sql} GROUP BY gyms.gym_id;`;
@@ -184,8 +192,10 @@ router.post("/add/reservation", async (req, res) => {
 
     const { name, phone, email, reservationTime, gym_id, memberId } = req.body;
 
-    if(!name || !phone || !email || !reservationTime || !gym_id ) {
-      return res.status(400).json({ success: false, message: "Missing required fields" });
+    if (!name || !phone || !email || !reservationTime || !gym_id) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Missing required fields" });
     }
 
     const timeStamp = moment(reservationTime).format("YYYY-MM-DD HH:mm:ss");
@@ -208,4 +218,57 @@ router.post("/add/reservation", async (req, res) => {
       .json({ success: false, message: "Error adding reservation" });
   }
 });
+
+//檢查場館的收藏狀態
+router.get("/check-fav/:userId/:gymId", async (req, res) => {
+  const { userId, gymId } = req.params;
+  try {
+    const sql = `SELECT * FROM FavGyms WHERE member_id_fk = ? AND gym_id_fk = ?;`;
+    const [result] = await db.query(sql, [userId, gymId]);
+    const isFavorite = result.length > 0;
+    res.json({ success: true, isFavorite });
+  } catch (error) {
+    console.error("Error 檢查 Gymfavorite 狀態:", error);
+  }
+});
+
+//加入收藏
+router.post("/api/favorites/:userId/:gymId", async (req, res) => {
+  const { userId, gymId } = req.params;
+
+  // const checkSql = `SELECT COUNT(*) as count FROM FavGyms WHERE member_id_fk = ? AND gym_id_fk = ?;`;
+  // const [checkResult] = await db.query(checkSql, [userId, gymId]);
+  // const count = checkResult[0].count;
+  // if (count > 0) {
+  //   return res.json({ success: true, message: "Already in favorites" });
+  // }
+  try {
+    const sql = `INSERT INTO FavGyms (member_id_fk,gym_id_fk) VALUES (?, ?);`;
+    const [result] = await db.query(sql, [userId, gymId]);
+    res.json({ success: true, result });
+    console.log("Favorite added successfully");
+    return;
+  } catch (error) {
+    console.error("Error adding Gymfavorite:", error);
+    res
+      .status(500)
+      .json({ success: false, message: "Error adding Gym favorite" });
+  }
+});
+
+//取消收藏
+router.delete("/api/favorites/:userId/:gymId", async (req, res) => {
+  try {
+    const { userId, gymId } = req.params;
+    const sql = `DELETE FROM FavGyms WHERE member_id_fk = ? AND gym_id_fk = ? ;`;
+    const [result] = await db.query(sql, [userId, gymId]);
+    res.json({ success: true, result });
+  } catch (error) {
+    console.error("Error adding Gymfavorite:", error);
+    res
+      .status(500)
+      .json({ success: false, message: "Error adding Gym favorite" });
+  }
+});
+
 export default router;

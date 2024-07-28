@@ -3,6 +3,7 @@ import { useState, useEffect, useRef } from 'react'
 import Head from 'next/head'
 import Link from 'next/link'
 import axios from 'axios'
+import { useAuth } from '@/context/auth-context'
 
 // 樣式 or 元件類
 import Layout1 from '@/components/layout/layout1'
@@ -18,6 +19,7 @@ import styles from '@/styles/home.module.css'
 // TODO: 之後來優化 keyVisualPC 的結構
 
 export default function Home() {
+  const { auth } = useAuth()
   const [hotArticles, setHotArticles] = useState([])
   const [hotLesson, setHotLesson] = useState([])
   const [hotCoach, setHotCoach] = useState([])
@@ -63,11 +65,26 @@ export default function Home() {
   useEffect(() => {
     const fetchHotArticles = async () => {
       try {
-        const response = await axios.get(
-          'http://localhost:3001/articles/api/listData?keyword=挑戰'
-        )
+        let response = ''
+        if (auth.token) {
+          response = await axios.get(
+            'http://localhost:3001/articles/api/listData?keyword=挑戰',
+            {
+              headers: {
+                Authorization: `Bearer ${auth.token}`,
+                'Content-Type': 'application/json',
+              },
+            }
+          )
+        } else {
+          response = await axios.get(
+            'http://localhost:3001/articles/api/listData?keyword=挑戰'
+          )
+        }
         if (response.data.success) {
           setHotArticles(response.data.rows)
+        } else {
+          console.log('database fetch error')
         }
       } catch (error) {
         console.error('Error fetching hot lessons:', error)
@@ -145,7 +162,7 @@ export default function Home() {
       window.removeEventListener('scroll', handleScroll)
       clearTimeout(timer)
     }
-  }, [])
+  }, [auth.id])
 
   return (
     <>
@@ -162,21 +179,19 @@ export default function Home() {
                 <img src="/logo.png" />
               </Link>
             </div>
-            <div className={`${styles.hero}`}>
+            <div className={`${styles.hero}`} style={{ overflow: 'hidden' }}>
               <div className={`${styles.heroContainer} container-fluid p-0`}>
                 <div className="row g-0 position-relative">
                   <div className={`${styles.heroText} col-md-8 col-10`}>
                     <img
                       src="/index-img/heroBig.png"
-                      className={`${styles.heroImgBig} ${styles['fade-in']} ${
-                        heroImageVisible ? styles['visible'] : ''
-                      }`}
+                      className={`${styles.heroImgBig} ${styles['fade-in']} ${heroImageVisible ? styles['visible'] : ''
+                        }`}
                     />
                     <img
                       src="/index-img/heroMid.png"
-                      className={`${styles.heroImgMid} ${styles['fade-in']} ${
-                        heroImageVisible ? styles['visible'] : ''
-                      }`}
+                      className={`${styles.heroImgMid} ${styles['fade-in']} ${heroImageVisible ? styles['visible'] : ''
+                        }`}
                     />
                   </div>
                   <div
@@ -184,9 +199,13 @@ export default function Home() {
                   >
                     <img
                       src="/index-img/hero-img.svg"
-                      className={`${styles.heroImgBig} ${
-                        heroImageVisible ? styles['slide-in-right'] : ''
-                      }`}
+                      className={`${styles.heroImgBig} ${heroImageVisible ? styles['slide-in-right'] : ''
+                        }`}
+                    />
+                    <img
+                      src="/index-img/hero-img.svg"
+                      className={`${styles.heroImgMid} ${heroImageVisible ? styles['slide-in-right'] : ''
+                        }`}
                     />
                   </div>
                 </div>
@@ -223,9 +242,8 @@ export default function Home() {
 
           <section className={`${styles.keyVisualSP}`}>
             <div
-              className={`${styles.heroImageContainer} ${
-                hideHero ? styles.hideHero : ''
-              }`}
+              className={`${styles.heroImageContainer} ${hideHero ? styles.hideHero : ''
+                }`}
             >
               <div className={styles.logoSP}>
                 <Link href="/">

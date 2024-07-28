@@ -451,17 +451,17 @@ router.delete('/api/removefavarticle', async (req, res) => {
   const q_sql = `WHERE member_id_fk = ? AND article_id_fk = ?`
   const sql = `DELETE FROM FavArticles ${q_sql};`;
 
+  if (!req.my_jwt) {
+    output.error = 'must login to delete favorite'
+    return res.status(400).json(output)
+  }
+
   if (isNaN(member_id) || member_id <= 0) {
     output.error = 'invalid member_id';
     return res.status(400).json(output)
   }
   if (isNaN(article_id) || article_id <= 0) {
     output.error = 'invalid article_id';
-    return res.status(400).json(output)
-  }
-
-  if (!req.my_jwt) {
-    output.error = 'must login to delete favorite'
     return res.status(400).json(output)
   }
 

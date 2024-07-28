@@ -3,7 +3,7 @@ import styles from './switch.module.css'
 
 export default function Switch({ isOn, handleToggle }) {
   return (
-    <>
+    <><label htmlFor="switchOld" className={styles.switchText}>僅顯示友善場館</label>
       <div>
         <input
           checked={isOn}
