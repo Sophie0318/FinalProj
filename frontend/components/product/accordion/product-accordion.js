@@ -6,6 +6,7 @@ import { useRouter } from 'next/router'
 
 export default function ProductAccordion() {
   const router = useRouter()
+
   return (
     <>
       <div className={`accordion  ${styles.qqq}`} id="accordionExample ">

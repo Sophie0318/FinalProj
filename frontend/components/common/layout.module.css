@@ -86,7 +86,7 @@
   max-width: 186px;
   gap: 15px;
   /* gap:30px; */
-    /* align-items: flex-end; */
+  /* align-items: flex-end; */
 }
 
 .icons .member {
@@ -237,10 +237,9 @@
   position: relative;
   display: inline-block;
 }
-.move{
-  transition: transform 0.5s ease-out
+.move {
+  transition: transform 0.9s ease-out;
 }
 .move:hover {
   transform: scale(1.1, 1.1);
-
 }

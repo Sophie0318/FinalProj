@@ -32,7 +32,12 @@ export default function IndexPhoto() {
   }, [])
 
   return (
-    <div className="container-fluid">
+    <div
+      className="container-fluid"
+      style={{
+        marginTop: '-50px',
+      }}
+    >
       <div className="row">
         {[
           {
