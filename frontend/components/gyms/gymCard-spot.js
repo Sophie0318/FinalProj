@@ -61,7 +61,9 @@ const GymCardSpot = ({ data, variant = 'A' }) => {
   const toggleFavorite = async () => {
     if (!auth.id) {
       loginAlert.fire().then((result) => {
-        result.isConfirmed ? router.push('/users/sign_in') : ''
+        if (result.isConfirmed) {
+          router.push('/users/sign_in')
+        }
       })
     } else {
       try {

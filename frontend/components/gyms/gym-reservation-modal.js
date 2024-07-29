@@ -26,20 +26,22 @@ export default function GymReservationModal({
   //   .replace('AM', '上午')
   //   .replace('PM', '下午')
 
+  const formatTime = (reservationTime) => {
+    const time = moment(reservationTime)
+    const formattedTime = time.format('hh:mm A')
+    const period = time.hour() < 12 ? '上午' : '下午'
+    const timeWithoutPeriod = formattedTime
+      .replace('AM', '')
+      .replace('PM', '')
+      .trim()
 
-    const formatTime = (reservationTime) => {
-      const time = moment(reservationTime);
-      const formattedTime = time.format('hh:mm A');
-      const period = time.hour() < 12 ? '上午' : '下午';
-      const timeWithoutPeriod = formattedTime.replace('AM', '').replace('PM', '').trim();
-      
-      return `${period} ${timeWithoutPeriod}`;
-    };
-    
-    // 假設 formData.reservationTime 是一個有效的時間格式
-    const formattedTime = formatTime(formData.reservationTime);
-    
-    console.log(formattedTime); // 例如：上午 09:30 或 下午 05:45
+    return `${period} ${timeWithoutPeriod}`
+  }
+
+  // 假設 formData.reservationTime 是一個有效的時間格式
+  const formattedTime = formatTime(formData.reservationTime)
+
+  console.log(formattedTime) // 例如：上午 09:30 或 下午 05:45
   return (
     <div className={styles.modalOverlay}>
       <div className={styles.modal}>

@@ -24,10 +24,7 @@ export default function GymDatePicker({
   //   )
   // )
   return (
-    <div
-      className={styles.container}
-      style={{ margin: '21px 240px 110px 240px', width: '100%' }}
-    >
+    <div className={styles.container} style={{ width: '100%' }}>
       <p className={styles.label}>預約時間</p>
       <DatePicker
         selected={startDate}

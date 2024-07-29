@@ -13,7 +13,7 @@ const ArticleCard = ({
   imgSrc = '/defaultImg.png',
   idURL = '',
   member_id = '',
-  onClick = () => { },
+  onClick = () => {},
 }) => {
   const router = useRouter()
   const { auth } = useAuth()
@@ -52,8 +52,9 @@ const ArticleCard = ({
             }}
           >
             <IoHeart
-              className={`${styles.heartIcon} ${isClicked ? styles.clicked : ''
-                }`}
+              className={`${styles.heartIcon} ${
+                isClicked ? styles.clicked : ''
+              }`}
             />
           </button>
         </div>

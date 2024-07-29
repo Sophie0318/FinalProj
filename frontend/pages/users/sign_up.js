@@ -71,7 +71,10 @@ export default function SignUp() {
       setAlertMessage('註冊成功')
       setUserMessage('歡迎加入我們，請登入您的帳戶')
       setIsModalOpen(true)
-      router.push('sign_in') // 跳到登入頁面
+      setTimeout(() => {
+        setIsModalOpen(false)
+        router.push('sign_in') // 跳到登入頁面
+      }, 3000)
     } else {
       setAlertMessage('註冊失敗')
       setUserMessage('請檢查您的電子郵件和密碼')

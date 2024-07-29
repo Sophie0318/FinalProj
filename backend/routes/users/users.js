@@ -364,7 +364,7 @@ router.get("/favorites-articles/:userId", async (req,res)=>{
       for(let i of output.rows) {
         const m = moment(i.update_at);
         const update_at = m.isValid() ? m.format('YYYY-MM-DD') : '';
-        i.updateat = update_at;
+        i.update_at = update_at;
       }
       output.success = true;
       res.status(200).json(output);

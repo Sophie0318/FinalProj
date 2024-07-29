@@ -1,7 +1,7 @@
 .container {
   padding: 0 16px;
+  margin: auto;
 }
-
 
 .formTitle {
   display: flex;
@@ -11,25 +11,18 @@
 }
 
 .formTitle h4 {
-  font-family: "Gensen", sans-serif;
+  font-family: 'Gensen', sans-serif;
   font-size: 24px;
   font-weight: 700;
   letter-spacing: 2.4px;
   margin: 0;
 }
 
-
-
 /* 以下從coachreservation複製 */
 .content {
   padding-left: 240px;
   padding-right: 240px;
   border-radius: 50px 50px 0px 0px;
-}
-
-/* 預約表單 */
-.reserveForm {
-  /* color: var(--color-bright-blue); */
 }
 
 .formHead {
@@ -48,18 +41,15 @@
   /* 去除默认的段落边距 */
 }
 
-
-
-
-
 .form {
   display: flex;
-  justify-content: center;
-  align-items: flex-start;
   flex-direction: column;
-  gap: 9px;
+  justify-content: center;
+  /* align-items: flex-start; */
+
+  /* gap: 9px; */
   align-self: stretch;
-  padding: 50px 0 0 80px;
+  /* padding: 50px 0 0 80px; */
 }
 
 .formLabel {
@@ -124,11 +114,12 @@
 }
 
 .inputsContainer {
-  margin: 21px 0 110px 0;
+  margin: 21px auto 110px auto;
   display: flex;
   flex-direction: column;
   gap: 21px;
-
+  width: 100%;
+  max-width: 489px;
 }
 
 .inputsContainerGap0 {
@@ -159,17 +150,13 @@
 
 @media (width >=768px) {
   .container {
-    width: 960px;
+    max-width: 960px;
     margin: auto;
   }
 
-  .inputsContainer {
+  /* .inputsContainer {
     margin: 21px 240px 110px 240px;
-
-
-
-
-  }
+  } */
 
   .content {
     margin-top: -30px;
@@ -190,7 +177,7 @@
   }
 
   .formTitle h4 {
-    font-family: "Gensen", sans-serif;
+    font-family: 'Gensen', sans-serif;
     font-size: 32px;
     font-weight: 700;
     letter-spacing: 3.2px;
