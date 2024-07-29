@@ -309,7 +309,7 @@ export default function GymReservation() {
       <Layout3 title="預約場館" pageName="gyms2">
         <div className={styles.container}>
           <div>
-            <form onSubmit={handleSubmit} ref={formRef}>
+            <form className={styles.form} onSubmit={handleSubmit} ref={formRef}>
               <div className={styles.formTitle}>
                 <h4 className="">預約人資訊｜</h4>
                 <AutofillCheckbox onAutofill={handleAutofill} />

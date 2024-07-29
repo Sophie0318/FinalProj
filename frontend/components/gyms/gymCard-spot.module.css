@@ -92,14 +92,14 @@
 }
 
 .badgeRow {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-start;
-  margin-top: 3px;
-  gap: 8px;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
   overflow: hidden;
+
+  margin-top: 3px;
+
   /* height: fit-content; */
-  align-items: stretch;
 }
 
 .badge {

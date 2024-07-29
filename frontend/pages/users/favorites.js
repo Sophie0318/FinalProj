@@ -304,25 +304,29 @@ export default function Favorites() {
             </div>
           )}
 
-          {articlesFavorites.map((article) => (
-            <div
-              className="resultGrid"
-              key={article.article_id}
-              style={{ paddingTop: '24px', paddingBottom: '24px' }}
-            >
-              <ArticleCard
-                title={article.article_title}
-                update_at={article.update_at}
-                category={article.code_desc}
-                imgSrc={article.article_cover}
-                idURL={article.article_id}
-                member_id={article.member_id_fk}
-                onClick={(e) => {
-                  handleRemoveArticleFavorite(e, article.article_id)
-                }}
-              />
+          {activeTab === 'articles' && (
+            <div className={styles.fav_search}>
+              {articlesFavorites.map((article) => (
+                <div
+                  className="resultGrid"
+                  key={article.article_id}
+                  style={{ paddingTop: '24px', paddingBottom: '24px' }}
+                >
+                  <ArticleCard
+                    title={article.article_title}
+                    update_at={article.update_at}
+                    category={article.code_desc}
+                    imgSrc={article.article_cover}
+                    idURL={article.article_id}
+                    member_id={article.member_id_fk}
+                    onClick={(e) => {
+                      handleRemoveArticleFavorite(e, article.article_id)
+                    }}
+                  />
+                </div>
+              ))}
             </div>
-          ))}
+          )}
         </div>
       </LayoutUser>
     </>
