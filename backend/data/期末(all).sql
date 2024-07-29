@@ -1151,7 +1151,7 @@ SET article_content = '大學時期，林至芃是台大醫學院網球隊一員
 
 「我經常暴露在高風險環境中，擔心搭大眾運輸工具對其他人造成傷害。」因此，家住北投的林至芃，每天都花40分鐘至1小時，從北投騎YouBike到台大醫院上班，到了醫院再換工作服。下班時，他也騎YouBike回家。3個多月後，他就瘦到70幾公斤。
 
-![Image Alt Text](/articles-img/2dmitrii-vaccinium-YEsccJQ8tpk-unsplash.jpg " 沒時間外出騎車，林至芃就邊踩訓練台邊開線上會議。
+![Image Alt Text](/articles-img/paul-green-gOHfFgwyDNM-unsplash.jpg " 沒時間外出騎車，林至芃就邊踩訓練台邊開線上會議。
 ")
 
 台灣許多縣市都設有YouBike，林至芃認為有利於培養騎車習慣。圖為嘉義市蘭潭風景區。
@@ -1205,7 +1205,7 @@ SET article_content = '大學時期，林至芃是台大醫學院網球隊一員
 
 「我經常暴露在高風險環境中，擔心搭大眾運輸工具對其他人造成傷害。」因此，家住北投的林至芃，每天都花40分鐘至1小時，從北投騎YouBike到台大醫院上班，到了醫院再換工作服。下班時，他也騎YouBike回家。3個多月後，他就瘦到70幾公斤。
 
-![Image Alt Text](/articles-img/2dmitrii-vaccinium-YEsccJQ8tpk-unsplash.jpg " 沒時間外出騎車，林至芃就邊踩訓練台邊開線上會議。
+![Image Alt Text](/articles-img/paul-green-gOHfFgwyDNM-unsplash.jpg " 沒時間外出騎車，林至芃就邊踩訓練台邊開線上會議。
 ")
 
 台灣許多縣市都設有YouBike，林至芃認為有利於培養騎車習慣。圖為嘉義市蘭潭風景區。
