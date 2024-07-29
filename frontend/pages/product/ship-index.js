@@ -23,23 +23,12 @@ export default function Index() {
 
   return (
     <>
-      {/* <h1 style={{ color: '#1A394A', fontFamily: 'Gensen', fontSize: '60px' }}>
-        7-11 運送商店選擇
-      </h1> */}
-      {/* <hr /> */}
-      <p>
+      <div className="con-12 con-md-12">
         <button
           onClick={() => {
             openWindow()
           }}
-          style={{
-            backgroundColor: '#FFF7E9',
-            color: '#1A394A',
-            // width: '200px',
-            marginBottom: '10px',
-            width: '10%',
-            borderRadius: '20px',
-          }}
+          className={styles.test}
         >
           選擇門市
         </button>
@@ -49,12 +38,7 @@ export default function Index() {
           type="text"
           value={store711.storename}
           disabled
-          style={{
-            marginBottom: '20px',
-            width: '30%',
-            borderRadius: '20px',
-            paddingLeft: '8px',
-          }}
+          className={styles.test2}
         />
         <br />
         門市地址:{' '}
@@ -62,25 +46,9 @@ export default function Index() {
           type="text"
           value={store711.storeaddress}
           disabled
-          style={{ width: '30%', borderRadius: '20px', paddingLeft: '8px' }}
+          className={styles.test3}
         />
-      </p>
-      {/* <hr />
-      <h3>以下為測試</h3>
-      <p>
-        <button
-          onClick={() => {
-            closeWindow()
-          }}
-        >
-          關閉跳出的7-11選擇視窗(測試用: 一般會自動關閉，除非意外並不需要)
-        </button>
-      </p>
-      <p>
-        得到的物件值如下(註:
-        也可以觀察瀏覽器中的localStorage中有一個鍵(key)為`store711`的值(value)，會同步化被設定一致的。):
-      </p>
-      <p>{JSON.stringify(store711)}</p> */}
+      </div>
     </>
   )
 }
