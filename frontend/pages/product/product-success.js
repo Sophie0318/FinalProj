@@ -27,7 +27,9 @@ export default function ProductSuccess() {
               </div>
             </div>
             <div className={styles.btns}>
-              <button className={styles.btnBack}>檢視訂單</button>
+              <Link href="/users/orders" legacyBehavior>
+                <button className={styles.btnBack}>檢視訂單</button>
+              </Link>
               <Link href="/product" legacyBehavior>
                 <a className={styles.btnFin}>回到商城頁</a>
               </Link>
