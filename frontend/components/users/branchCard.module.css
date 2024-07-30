@@ -7,8 +7,7 @@
 }
 .card {
   border-radius: 40px;
-  /* width: 100%; */
-  width: 210px;
+  width: 300px;
   background-color: var(--color-old-lace);
 }
 .card_body2 {
