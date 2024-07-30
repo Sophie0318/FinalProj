@@ -9,9 +9,13 @@ export default function ProductSuccess() {
     // 清空 localStorage 裡的商品
     localStorage.removeItem('shoppingCart')
   }, [])
+  useEffect(() => {
+    // 清空 localStorage 裡的商品
+    localStorage.removeItem('store711')
+  }, [])
   return (
     <div>
-      <Layout4 title="付款">
+      <Layout4 title="付款" pageName="products">
         <div className={styles.modalOverlay}>
           <div className={styles.modal}>
             <div className={styles.success}>付款成功！</div>

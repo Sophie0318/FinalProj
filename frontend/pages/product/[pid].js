@@ -1,7 +1,7 @@
 // ProductDetail.js
 import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
-import Layout3 from '@/components/layout/layout3'
+import Layout4 from '@/components/layout/layout4'
 import PhotoText from '@/components/product/product-detail/photo-text'
 import ProductCarousel from '@/components/product/carousel/product-carousel'
 import DetailText from '@/components/product/product-detail/detail-text'
@@ -41,7 +41,7 @@ export default function ProductDetail() {
   }, [router.isReady])
 
   return (
-    <Layout3 product={product}>
+    <Layout4 title="商城" pageName="products" product={product}>
       <div className="container mt-4">
         <div className="row">
           <div className="col-12 col-md-6">
@@ -70,6 +70,6 @@ export default function ProductDetail() {
         </div>
       </div>
       <Toaster />
-    </Layout3>
+    </Layout4>
   )
 }
