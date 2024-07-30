@@ -253,7 +253,7 @@ export default function ArticlePage() {
                         size="thin"
                         bgColor="midnightgreen"
                         btnOrLink="link"
-                        hrefURL="/gyms"
+                        hrefURL="/articles"
                         width="100%"
                         maxWidth="100%"
                       >
