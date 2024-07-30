@@ -124,7 +124,10 @@ const GymCardSpot = ({ data, variant = 'A' }) => {
       </div>
       <div className={styles.textBtn}>
         <div className={styles.content}>
-          <h6 className={styles.title}>{data.name}</h6>
+          <Link href={`/gyms/${data.id}`}>
+            <h6 className={styles.title}>{data.name}</h6>
+          </Link>
+
           <div className="cardInfo">
             <p className={styles.smallFont}>{data.address}</p>
             <p className={styles.smallFont}>營業時間 | {data.businessHours}</p>

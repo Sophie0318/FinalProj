@@ -1,4 +1,5 @@
-.commentStrip, .subCommentStrip {
+.commentStrip,
+.subCommentStrip {
   display: flex;
   justify-content: center;
   align-items: space-between;
@@ -6,7 +7,6 @@
   width: 100%;
   height: fit-content;
   color: var(--color-black);
-  /* padding-bottom: 20px; */
 }
 
 .commentStrip button {
@@ -65,18 +65,18 @@
   font-size: 18px;
   line-height: 160%;
   letter-spacing: 1px;
+  overflow-wrap: break-word;
 }
 
 .commentBtn {
   display: flex;
   gap: 20px;
-  /* height: 46px; */
 }
 
-.replyBtn, .replyBtn button {
+.replyBtn,
+.replyBtn button {
   display: flex;
   align-items: center;
-
 }
 .replyBtnIcon {
   height: 24px;
@@ -92,11 +92,3 @@
   line-height: 100%;
   letter-spacing: 3px;
 }
-
-/* .toggleMore {
-  display: flex;
-  font-family: 'Huninn', sans-serif;
-  font-size: 18px;
-  line-height: 160%;
-  letter-spacing: 1px;
-} */
