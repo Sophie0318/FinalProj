@@ -124,7 +124,7 @@ export default function GymDetail({ gymId }) {
   }, [gym_id, router.isReady])
 
   if (!gym) {
-    return <div>沒有找到資料</div>
+    return <div>載入中...</div>
   }
   const handleReservation = () => {
     router.push(`/gyms/gym-reservation?Id=${gym_id}`)

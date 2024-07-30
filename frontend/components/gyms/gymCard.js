@@ -64,7 +64,7 @@ const GymCard = ({ data }) => {
                 </span>
               ))}
 
-              <span className={styles.badge}>500公尺</span>
+              {/* <span className={styles.badge}>500公尺</span> */}
             </div>
           </div>
         </div>

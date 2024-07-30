@@ -58,7 +58,7 @@ const getFullGymData = async (req) => {
     params.push(friendly);
   }
 
-  const sql = `SELECT gyms.*, GROUP_CONCAT(DISTINCT features.feature_name) AS feature_list, GROUP_CONCAT( gym_images.image_filename) AS image_list FROM Gyms gyms LEFT JOIN GymFeatures AS gym_features ON gyms.gym_id = gym_features.gym_id JOIN Features AS features ON gym_features.feature_id = features.feature_id LEFT JOIN GymImages gym_images ON gyms.gym_id = gym_images.gym_id ${q_sql} GROUP BY gyms.gym_id;`;
+  const sql = `SELECT gyms.*, GROUP_CONCAT(DISTINCT features.feature_name) AS feature_list, GROUP_CONCAT( gym_images.image_filename) AS image_list FROM Gyms gyms LEFT JOIN GymFeatures AS gym_features ON gyms.gym_id = gym_features.gym_id JOIN Features AS features ON gym_features.feature_id = features.feature_id LEFT JOIN GymImages gym_images ON gyms.gym_id = gym_images.gym_id ${q_sql} GROUP BY gyms.gym_id order by gyms.gym_id desc;`;
   try {
     // 執行 SQL 查詢
     const [rows] = await db.query(sql, params);

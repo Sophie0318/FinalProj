@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useCallback, useMemo, useState } from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import Image from 'next/image'
 
@@ -15,6 +15,13 @@ import { FreeMode, Navigation, Thumbs } from 'swiper/modules'
 
 export default function GymSwiper({ gym }) {
   const [thumbsSwiper, setThumbsSwiper] = useState(null)
+  const handleThumpsSwiper = useCallback((swiper) => {
+    setThumbsSwiper(swiper)
+  }, [])
+
+  const memorizedImageList = useMemo(() => {
+    return gym.image_list
+  }, [gym.image_list])
 
   return (
     <>
@@ -29,7 +36,7 @@ export default function GymSwiper({ gym }) {
         modules={[FreeMode, Navigation, Thumbs]}
         className={styles.mySwiper2}
       >
-        {gym.image_list.map((image, i) => (
+        {memorizedImageList.map((image, i) => (
           <SwiperSlide key={i}>
             <Image
               src={`/${image}`}
@@ -42,7 +49,7 @@ export default function GymSwiper({ gym }) {
         ))}
       </Swiper>
       <Swiper
-        onSwiper={setThumbsSwiper}
+        onSwiper={handleThumpsSwiper}
         spaceBetween={10}
         slidesPerView={6}
         freeMode={true}
@@ -50,7 +57,7 @@ export default function GymSwiper({ gym }) {
         modules={[FreeMode, Navigation, Thumbs]}
         className={styles.mySwiper}
       >
-        {gym.image_list.map((image, i) => (
+        {memorizedImageList.map((image, i) => (
           <SwiperSlide key={i}>
             <Image
               src={`/${image}`}
