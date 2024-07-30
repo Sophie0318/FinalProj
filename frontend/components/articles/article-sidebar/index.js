@@ -14,9 +14,9 @@ export default function ArticleSidebar({
   showSidebar = true,
   // pageLoaded = false,
   fontSize = 0,
-  setFontSize = () => {},
+  setFontSize = () => { },
   commentRef,
-  member_id = 0,
+  member_id,
   article_id = undefined,
   // auth = {},
 }) {
@@ -115,9 +115,8 @@ export default function ArticleSidebar({
             <img src="/articles-img/font-size-dark.svg" />
           </button>
           <button
-            className={`${styles.sidebarBtn} ${
-              isClicked ? styles.clicked : ''
-            }`}
+            className={`${styles.sidebarBtn} ${isClicked ? styles.clicked : ''
+              }`}
             onClick={toggleArticleFav}
           >
             <IoHeart />
