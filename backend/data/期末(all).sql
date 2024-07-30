@@ -995,131 +995,90 @@ INSERT INTO OffensiveWords(offensiveword_name, code_id_fk) VALUES
 
 
 INSERT INTO Articles (article_title, code_id_fk, article_cover, article_publish_date, author_id_fk, article_desc, article_content, article_file) VALUES
-('如何讓阿公阿嬤變強？銀髮族健身歡樂多！台南健身房故事', 1, 'coverPhoto4.jpg', '2024-01-01 10:00:00', 5, '文章編按1', '文章內容1', 'articleFile1.json'),
-('65歲改變生活，跳舞減重10公斤！教練分享健身祕訣', 1, 'coverPhoto3.jpg', '2024-01-02 10:00:00', 8, '文章編按2', '文章內容2', 'articleFile1.json'),
-('退休後運動逆齡，銀髮族也能重返青春！專家推薦', 1, 'coverPhoto2.jpg', '2024-01-03 10:00:00', 3, '文章編按3', '文章內容3', 'articleFile1.json'),
-('70歲開始慢跑，血糖正常心臟更健康！醫師建議日常運動', 1, 'coverPhoto1.jpg', '2024-01-04 10:00:00', 6, '文章編按4', '文章內容4', 'articleFile1.json'),
-('銀髮族健身房初體驗！歡樂運動，健康加倍的祕密', 1, 'coverPhoto4.jpg', '2024-01-05 10:00:00', 9, '文章編按5', '文章內容5', 'articleFile1.json'),
-('銀髮族愛上瑜伽！從初學者到達人只需三個月', 1, 'coverPhoto2.jpg', '2024-01-06 10:00:00', 7, '文章編按6', '文章內容6', 'articleFile1.json'),
-('銀髮族體能鍛鍊挑戰賽！60歲阿姨的健身成功故事', 1, 'coverPhoto3.jpg', '2024-01-07 10:00:00', 10, '文章編按7', '文章內容7', 'articleFile1.json'),
-('退休生活新選擇：銀髮族健身團體課程有趣又有效', 1, 'coverPhoto1.jpg', '2024-01-08 10:00:00', 4, '文章編按8', '文章內容8', 'articleFile1.json'),
-('從零開始的力量訓練，銀髮族也能變強！專家建議', 1, 'coverPhoto4.jpg', '2024-01-09 10:00:00', 2, '文章編按9', '文章內容9', 'articleFile1.json'),
-('銀髮族的戶外健身樂趣！遠足與登山的健康益處', 1, 'coverPhoto3.jpg', '2024-01-10 10:00:00', 1, '文章編按10', '文章內容10', 'articleFile1.json'),
-('銀髮族健康操，簡單動作也能強身健體！每日10分鐘', 1, 'coverPhoto2.jpg', '2024-01-11 10:00:00', 3, '文章編按11', '文章內容11', 'articleFile1.json'),
-('50歲開始的健身旅程，減肥20公斤的成功祕訣', 1, 'coverPhoto1.jpg', '2024-01-12 10:00:00', 5, '文章編按12', '文章內容12', 'articleFile1.json'),
-('銀髮族的游泳課程，水中運動讓您身心舒暢', 1, 'coverPhoto4.jpg', '2024-01-13 10:00:00', 8, '文章編按13', '文章內容13', 'articleFile1.json'),
-('銀髮族愛上騎車，從短途到長途的健康改變', 1, 'coverPhoto3.jpg', '2024-01-14 10:00:00', 6, '文章編按14', '文章內容14', 'articleFile1.json'),
-('銀髮族運動俱樂部，健康生活的新開始！成員分享', 1, 'coverPhoto2.jpg', '2024-01-15 10:00:00', 10, '文章編按15', '文章內容15', 'articleFile1.json'),
-('銀髮族的平衡訓練，預防跌倒的重要運動', 1, 'coverPhoto1.jpg', '2024-01-16 10:00:00', 7, '文章編按16', '文章內容16', 'articleFile1.json'),
-('銀髮族的健康革命，從每日步行開始的簡單方法', 1, 'coverPhoto4.jpg', '2024-01-17 10:00:00', 1, '文章編按17', '文章內容17', 'articleFile1.json'),
-('運動讓退休生活更豐富！銀髮族的健身新時尚', 1, 'coverPhoto2.jpg', '2024-01-18 10:00:00', 9, '文章編按18', '文章內容18', 'articleFile1.json'),
-('銀髮族的健康新秘訣！日常拉伸運動讓您活力滿滿', 1, 'coverPhoto3.jpg', '2024-01-19 10:00:00', 2, '文章編按19', '文章內容19', 'articleFile1.json'),
-('銀髮族的運動挑戰，從簡單到高強度的健身計畫', 1, 'coverPhoto1.jpg', '2024-01-20 10:00:00', 4, '文章編按20', '文章內容20', 'articleFile1.json'),
-('銀髮族的活力舞蹈課，輕鬆有趣又健康的運動', 1, 'coverPhoto4.jpg', '2024-01-21 10:00:00', 6, '文章編按21', '文章內容21', 'articleFile1.json'),
-('從沙發到馬拉松，銀髮族也能做到！運動計畫分享', 1, 'coverPhoto2.jpg', '2024-01-22 10:00:00', 8, '文章編按22', '文章內容22', 'articleFile1.json'),
-('銀髮族的健康奇蹟，適合所有年齡的居家健身方法', 1, 'coverPhoto3.jpg', '2024-01-23 10:00:00', 10, '文章編按23', '文章內容23', 'articleFile1.json'),
-('銀髮族的晨間運動，活力一天的最佳開始！醫師推薦', 1, 'coverPhoto1.jpg', '2024-01-24 10:00:00', 3, '文章編按24', '文章內容24', 'articleFile1.json');
+('如何讓阿公阿嬤變強？銀髮族健身歡樂多！台南健身房故事', 1, 'coverPhoto1.jpg', '2024-01-01 10:00:00', 5, '文章編按1', '文章內容1', 'articleFile1.json'),
+('65歲改變生活，跳舞減重10公斤！教練分享健身祕訣', 1, 'coverPhoto2.jpg', '2024-01-02 10:00:00', 8, '文章編按2', '文章內容2', 'articleFile1.json'),
+('退休後運動逆齡，銀髮族也能重返青春！專家推薦', 1, 'coverPhoto3.jpg', '2024-01-03 10:00:00', 3, '文章編按3', '文章內容3', 'articleFile1.json'),
+('70歲開始慢跑，血糖正常心臟更健康！醫師建議日常運動', 1, 'coverPhoto4.jpg', '2024-01-04 10:00:00', 6, '文章編按4', '文章內容4', 'articleFile1.json'),
+('銀髮族健身房初體驗！歡樂運動，健康加倍的祕密', 1, 'coverPhoto5.jpg', '2024-01-05 10:00:00', 9, '文章編按5', '文章內容5', 'articleFile1.json'),
+('銀髮族愛上瑜伽！從初學者到達人只需三個月', 1, 'coverPhoto6.jpg', '2024-01-06 10:00:00', 7, '文章編按6', '文章內容6', 'articleFile1.json'),
+('銀髮族體能鍛鍊挑戰賽！60歲阿姨的健身成功故事', 1, 'coverPhoto7.jpg', '2024-01-07 10:00:00', 10, '文章編按7', '文章內容7', 'articleFile1.json'),
+('退休生活新選擇：銀髮族健身團體課程有趣又有效', 1, 'coverPhoto8.jpg', '2024-01-08 10:00:00', 4, '文章編按8', '文章內容8', 'articleFile1.json'),
+('從零開始的力量訓練，銀髮族也能變強！專家建議', 1, 'coverPhoto9.jpg', '2024-01-09 10:00:00', 2, '文章編按9', '文章內容9', 'articleFile1.json'),
+('銀髮族的戶外健身樂趣！遠足與登山的健康益處', 1, 'coverPhoto10.jpg', '2024-01-10 10:00:00', 1, '文章編按10', '文章內容10', 'articleFile1.json'),
+('銀髮族健康操，簡單動作也能強身健體！每日10分鐘', 1, 'coverPhoto11.jpg', '2024-01-11 10:00:00', 3, '文章編按11', '文章內容11', 'articleFile1.json'),
+('50歲開始的健身旅程，減肥20公斤的成功祕訣', 1, 'coverPhoto12.jpg', '2024-01-12 10:00:00', 5, '文章編按12', '文章內容12', 'articleFile1.json'),
+('銀髮族的游泳課程，水中運動讓您身心舒暢', 1, 'coverPhoto13.jpg', '2024-01-13 10:00:00', 8, '文章編按13', '文章內容13', 'articleFile1.json'),
+('銀髮族愛上騎車，從短途到長途的健康改變', 1, 'coverPhoto14.jpg', '2024-01-14 10:00:00', 6, '文章編按14', '文章內容14', 'articleFile1.json');
 
 -- ############### 健康飲食類別 ###############
 INSERT INTO Articles (article_title, code_id_fk, article_cover, article_publish_date, author_id_fk, article_desc, article_content, article_file) VALUES
-('60歲喝湯，體力無窮！簡單養生湯品推薦', 2, 'coverPhoto27.jpg', '2024-01-25 10:00:00', 10, '了解銀髮族醫療健保的相關知識，以及如何選擇合適的保險計劃。', '文章內容25', 'articleFile25.json'),
-('營養專家教你吃對了就不怕老！老年人健康飲食全攻略', 2, 'coverPhoto28.jpg', '2024-01-25 10:00:00', 6, '了解銀髮族醫療健保的相關知識，以及如何選擇合適的保險計劃。', '文章內容25', 'articleFile25.json'),
-('退休不代表飲食鬆懈！老年人如何合理搭配飲食？', 2, 'coverPhoto26.jpg', '2024-01-25 10:00:00', 4, '了解銀髮族醫療健保的相關知識，以及如何選擇合適的保險計劃。', '文章內容25', 'articleFile25.json'),
-('50後學會吃，胃部健康更重要！', 2, 'coverPhoto29.jpg', '2024-01-25 10:00:00', 5, '了解銀髮族醫療健保的相關知識，以及如何選擇合適的保險計劃。', '文章內容25', 'articleFile25.json'),
-('不要拿老年人當「低糖、低鹽、低脂」！如何吃得安全又健康？', 2, 'coverPhoto25.jpg', '2024-01-25 10:00:00', 2, '了解銀髮族醫療健保的相關知識，以及如何選擇合適的保險計劃。', '文章內容25', 'articleFile25.json'),
-('80歲食養女孩變美食家，堅持吃多色水果和蔬菜', 2, 'coverPhoto29.jpg', '2024-01-25 10:00:00', 9, '了解銀髮族醫療健保的相關知識，以及如何選擇合適的保險計劃。', '文章內容25', 'articleFile25.json'),
-('金雞獨立、老年人須有營養，知道吃多多老年人更不怕病', 2, 'coverPhoto26.jpg', '2024-01-25 10:00:00', 1, '了解銀髮族醫療健保的相關知識，以及如何選擇合適的保險計劃。', '文章內容25', 'articleFile25.json'),
-('芋頭多多營養好，50後應該多吃來坐', 2, 'coverPhoto27.jpg', '2024-01-25 10:00:00', 7, '了解銀髮族醫療健保的相關知識，以及如何選擇合適的保險計劃。', '文章內容25', 'articleFile25.json'),
-('菜品多色吃，老年人結合食療更高品質的生活', 2, 'coverPhoto25.jpg', '2024-01-25 10:00:00', 8, '了解銀髮族醫療健保的相關知識，以及如何選擇合適的保險計劃。', '文章內容25', 'articleFile25.json'),
-('50後應該多吃補充，老年人食品更多營養多樣性', 2, 'coverPhoto28.jpg', '2024-01-25 10:00:00', 10, '了解銀髮族醫療健保的相關知識，以及如何選擇合適的保險計劃。', '文章內容25', 'articleFile25.json'),
-('多色時，老年人不怕病！花色新鮮蔬菜和水果飲食', 2, 'coverPhoto29.jpg', '2024-01-25 10:00:00', 6, '了解銀髮族醫療健保的相關知識，以及如何選擇合適的保險計劃。', '文章內容25', 'articleFile25.json'),
-('50年來食療，強化健康！', 2, 'coverPhoto25.jpg', '2024-01-25 10:00:00', 9, '了解銀髮族醫療健保的相關知識，以及如何選擇合適的保險計劃。', '文章內容25', 'articleFile25.json'),
+('60歲喝湯，體力無窮！簡單養生湯品推薦', 2, 'coverPhoto15.jpg', '2024-01-25 10:00:00', 10, '了解銀髮族醫療健保的相關知識，以及如何選擇合適的保險計劃。', '文章內容25', 'articleFile25.json'),
+('營養專家教你吃對了就不怕老！老年人健康飲食全攻略', 2, 'coverPhoto16.jpg', '2024-01-25 10:00:00', 6, '了解銀髮族醫療健保的相關知識，以及如何選擇合適的保險計劃。', '文章內容25', 'articleFile25.json'),
+('退休不代表飲食鬆懈！老年人如何合理搭配飲食？', 2, 'coverPhoto17.jpg', '2024-01-25 10:00:00', 4, '了解銀髮族醫療健保的相關知識，以及如何選擇合適的保險計劃。', '文章內容25', 'articleFile25.json'),
+('50後學會吃，胃部健康更重要！', 2, 'coverPhoto18.jpg', '2024-01-25 10:00:00', 5, '了解銀髮族醫療健保的相關知識，以及如何選擇合適的保險計劃。', '文章內容25', 'articleFile25.json'),
+('不要拿老年人當「低糖、低鹽、低脂」！如何吃得安全又健康？', 2, 'coverPhoto19.jpg', '2024-01-25 10:00:00', 2, '了解銀髮族醫療健保的相關知識，以及如何選擇合適的保險計劃。', '文章內容25', 'articleFile25.json'),
+('80歲食養女孩變美食家，堅持吃多色水果和蔬菜', 2, 'coverPhoto20.jpg', '2024-01-25 10:00:00', 9, '了解銀髮族醫療健保的相關知識，以及如何選擇合適的保險計劃。', '文章內容25', 'articleFile25.json'),
+('金雞獨立、老年人須有營養，知道吃多多老年人更不怕病', 2, 'coverPhoto21.jpg', '2024-01-25 10:00:00', 1, '了解銀髮族醫療健保的相關知識，以及如何選擇合適的保險計劃。', '文章內容25', 'articleFile25.json'),
+('芋頭多多營養好，50後應該多吃來坐', 2, 'coverPhoto22.jpg', '2024-01-25 10:00:00', 7, '了解銀髮族醫療健保的相關知識，以及如何選擇合適的保險計劃。', '文章內容25', 'articleFile25.json'),
+('菜品多色吃，老年人結合食療更高品質的生活', 2, 'coverPhoto23.jpg', '2024-01-25 10:00:00', 8, '了解銀髮族醫療健保的相關知識，以及如何選擇合適的保險計劃。', '文章內容25', 'articleFile25.json'),
+('50後應該多吃補充，老年人食品更多營養多樣性', 2, 'coverPhoto24.jpg', '2024-01-25 10:00:00', 10, '了解銀髮族醫療健保的相關知識，以及如何選擇合適的保險計劃。', '文章內容25', 'articleFile25.json'),
+('多色時，老年人不怕病！花色新鮮蔬菜和水果飲食', 2, 'coverPhoto25.jpg', '2024-01-25 10:00:00', 6, '了解銀髮族醫療健保的相關知識，以及如何選擇合適的保險計劃。', '文章內容25', 'articleFile25.json'),
+('50年來食療，強化健康！', 2, 'coverPhoto26.jpg', '2024-01-25 10:00:00', 9, '了解銀髮族醫療健保的相關知識，以及如何選擇合適的保險計劃。', '文章內容25', 'articleFile25.json'),
 ('老年人吃食對心臟健康，老年人吃食對皮膚好！', 2, 'coverPhoto27.jpg', '2024-01-25 10:00:00', 1, '了解銀髮族醫療健保的相關知識，以及如何選擇合適的保險計劃。', '文章內容25', 'articleFile25.json'),
-('老年人吃食增加，胃酸健康好！', 2, 'coverPhoto26.jpg', '2024-01-25 10:00:00', 5, '了解銀髮族醫療健保的相關知識，以及如何選擇合適的保險計劃。', '文章內容25', 'articleFile25.json'),
-('五穀雜糧多吃健康，老年人多食更好吃', 2, 'coverPhoto28.jpg', '2024-01-25 10:00:00', 3, '了解銀髮族醫療健保的相關知識，以及如何選擇合適的保險計劃。', '文章內容25', 'articleFile25.json'),
-('綠葉蔬菜更多吃好處，多多關注皮膚年輕', 2, 'coverPhoto26.jpg', '2024-01-25 10:00:00', 8, '了解銀髮族醫療健保的相關知識，以及如何選擇合適的保險計劃。', '文章內容25', 'articleFile25.json'),
-('老年人吃齊全，味道更好，好吃有營養', 2, 'coverPhoto29.jpg', '2024-01-25 10:00:00', 4, '了解銀髮族醫療健保的相關知識，以及如何選擇合適的保險計劃。', '文章內容25', 'articleFile25.json'),
-('50歲人多吃蔬菜水果，多內瘦多健康', 2, 'coverPhoto25.jpg', '2024-01-25 10:00:00', 2, '了解銀髮族醫療健保的相關知識，以及如何選擇合適的保險計劃。', '文章內容25', 'articleFile25.json'),
-('飲食多元，老年人更健康', 2, 'coverPhoto27.jpg', '2024-01-25 10:00:00', 7, '了解銀髮族醫療健保的相關知識，以及如何選擇合適的保險計劃。', '文章內容25', 'articleFile25.json'),
-('50歲應多吃健康營養豐富的食品，多內瘦多健康', 2, 'coverPhoto29.jpg', '2024-01-25 10:00:00', 6, '了解銀髮族醫療健保的相關知識，以及如何選擇合適的保險計劃。', '文章內容25', 'articleFile25.json'),
-('健康飲食，老年人健康的秘密武器！多吃顏色鮮艷的食物', 2, 'coverPhoto26.jpg', '2024-01-25 10:00:00', 1, '了解銀髮族醫療健保的相關知識，以及如何選擇合適的保險計劃。', '文章內容25', 'articleFile25.json'),
-('老年人必讀！吃對食物，遠離老年病的小撇步', 2, 'coverPhoto28.jpg', '2024-01-25 10:00:00', 9, '了解銀髮族醫療健保的相關知識，以及如何選擇合適的保險計劃。', '文章內容25', 'articleFile25.json'),
-('營養師推薦！老年人如何選擇有益健康的膳食？', 2, 'coverPhoto27.jpg', '2024-01-25 10:00:00', 8, '了解銀髮族醫療健保的相關知識，以及如何選擇合適的保險計劃。', '文章內容25', 'articleFile25.json'),
-('五顏六色的餐桌，保證老年人健康又美味', 2, 'coverPhoto25.jpg', '2024-01-25 10:00:00', 3, '了解銀髮族醫療健保的相關知識，以及如何選擇合適的保險計劃。', '文章內容25', 'articleFile25.json');
+('老年人吃食增加，胃酸健康好！', 2, 'coverPhoto28.jpg', '2024-01-25 10:00:00', 5, '了解銀髮族醫療健保的相關知識，以及如何選擇合適的保險計劃。', '文章內容25', 'articleFile25.json');
 
 -- ############### 醫療保健 ###############
 INSERT INTO Articles (article_title, code_id_fk, article_cover, article_publish_date, author_id_fk, article_desc, article_content, article_file) VALUES
-('老年人健康管理全攻略！預防常見疾病', 3, 'coverPhoto49.jpg', '2024-02-18 10:00:00', 2, '文章編按', '文章內容49', 'articleFile49.json'),
-('銀髮族日常護理技巧！如何有效預防老年性聽力下降？', 3, 'coverPhoto50.jpg', '2024-02-18 10:00:00', 4, '文章編按', '文章內容49', 'articleFile49.json'),
-('百歲老人養生秘訣！揭密長壽族的日常健康法則', 3, 'coverPhoto51.jpg', '2024-02-18 10:00:00', 1, '文章編按', '文章內容49', 'articleFile49.json'),
-('銀髮族心臟健康大解密！專家分享五招保護心臟的小貼士', 3, 'coverPhoto52.jpg', '2024-02-18 10:00:00', 7, '文章編按', '文章內容49', 'articleFile49.json'),
-('老年人如何防範中風？早期症狀你要知道', 3, 'coverPhoto49.jpg', '2024-02-18 10:00:00', 9, '文章編按', '文章內容49', 'articleFile49.json'),
-('銀髮族護眼攻略！如何預防老年黃斑變性？', 3, 'coverPhoto50.jpg', '2024-02-18 10:00:00', 8, '文章編按', '文章內容49', 'articleFile49.json'),
-('五招提升銀髮族免疫力！讓健康抗菌力大增', 3, 'coverPhoto51.jpg', '2024-02-18 10:00:00', 5, '文章編按', '文章內容49', 'articleFile49.json'),
-('老年人骨質疏鬆防治指南！五個有效方法保骨強健', 3, 'coverPhoto52.jpg', '2024-02-18 10:00:00', 3, '文章編按', '文章內容49', 'articleFile49.json'),
-('揭密老年人的好眠秘訣！如何改善睡眠品質？', 3, 'coverPhoto49.jpg', '2024-02-18 10:00:00', 6, '文章編按', '文章內容49', 'articleFile49.json'),
-('銀髮族關注！心理健康的重要性及應對策略', 3, 'coverPhoto50.jpg', '2024-02-18 10:00:00', 10, '文章編按', '文章內容49', 'articleFile49.json'),
-('老年人常見疾病防治大全！健康小常識', 3, 'coverPhoto51.jpg', '2024-02-18 10:00:00', 2, '文章編按', '文章內容49', 'articleFile49.json'),
-('銀髮族健康飲食秘笈！多彩飲食的美好', 3, 'coverPhoto52.jpg', '2024-02-18 10:00:00', 7, '文章編按', '文章內容49', 'articleFile49.json'),
-('老年人視力保健小常識！預防眼部問題的方法', 3, 'coverPhoto49.jpg', '2024-02-18 10:00:00', 1, '文章編按', '文章內容49', 'articleFile49.json'),
-('銀髮族如何預防骨折？重要的骨骼健康知識', 3, 'coverPhoto50.jpg', '2024-02-18 10:00:00', 4, '文章編按', '文章內容49', 'articleFile49.json'),
-('老年人口腔健康指南！預防牙齒問題小技巧', 3, 'coverPhoto51.jpg', '2024-02-18 10:00:00', 5, '文章編按', '文章內容49', 'articleFile49.json'),
-('銀髮族皮膚保養秘訣大公開！擁有年輕肌膚的秘密', 3, 'coverPhoto52.jpg', '2024-02-18 10:00:00', 8, '文章編按', '文章內容49', 'articleFile49.json'),
-('老年人慢性病防治小貼士！健康管理要點', 3, 'coverPhoto49.jpg', '2024-02-18 10:00:00', 9, '文章編按', '文章內容49', 'articleFile49.json'),
-('銀髮族健康生活法！四季養生小貼士', 3, 'coverPhoto50.jpg', '2024-02-18 10:00:00', 3, '文章編按', '文章內容49', 'articleFile49.json'),
-('老年人心理健康重要性！如何保持精神愉快？', 3, 'coverPhoto51.jpg', '2024-02-18 10:00:00', 6, '文章編按', '文章內容49', 'articleFile49.json'),
-('銀髮族如何預防腦血管疾病？重要健康知識', 3, 'coverPhoto52.jpg', '2024-02-18 10:00:00', 10, '文章編按', '文章內容49', 'articleFile49.json'),
-('老年人運動保健指南！如何科學運動？', 3, 'coverPhoto49.jpg', '2024-02-18 10:00:00', 2, '文章編按', '文章內容49', 'articleFile49.json'),
-('銀髮族健康飲食秘笈！多彩飲食的美好', 3, 'coverPhoto50.jpg', '2024-02-18 10:00:00', 1, '文章編按', '文章內容49', 'articleFile49.json'),
-('老年人如何預防糖尿病？重要的健康管理', 3, 'coverPhoto51.jpg', '2024-02-18 10:00:00', 4, '文章編按', '文章內容49', 'articleFile49.json');
+('老年人健康管理全攻略！預防常見疾病', 3, 'coverPhoto30.jpg', '2024-02-18 10:00:00', 2, '文章編按', '文章內容49', 'articleFile49.json'),
+('銀髮族日常護理技巧！如何有效預防老年性聽力下降？', 3, 'coverPhoto31.jpg', '2024-02-18 10:00:00', 4, '文章編按', '文章內容49', 'articleFile49.json'),
+('百歲老人養生秘訣！揭密長壽族的日常健康法則', 3, 'coverPhoto32.jpg', '2024-02-18 10:00:00', 1, '文章編按', '文章內容49', 'articleFile49.json'),
+('銀髮族心臟健康大解密！專家分享五招保護心臟的小貼士', 3, 'coverPhoto33.jpg', '2024-02-18 10:00:00', 7, '文章編按', '文章內容49', 'articleFile49.json'),
+('老年人如何防範中風？早期症狀你要知道', 3, 'coverPhoto34.jpg', '2024-02-18 10:00:00', 9, '文章編按', '文章內容49', 'articleFile49.json'),
+('銀髮族護眼攻略！如何預防老年黃斑變性？', 3, 'coverPhoto35.jpg', '2024-02-18 10:00:00', 8, '文章編按', '文章內容49', 'articleFile49.json'),
+('五招提升銀髮族免疫力！讓健康抗菌力大增', 3, 'coverPhoto36.jpg', '2024-02-18 10:00:00', 5, '文章編按', '文章內容49', 'articleFile49.json'),
+('老年人骨質疏鬆防治指南！五個有效方法保骨強健', 3, 'coverPhoto37.jpg', '2024-02-18 10:00:00', 3, '文章編按', '文章內容49', 'articleFile49.json'),
+('揭密老年人的好眠秘訣！如何改善睡眠品質？', 3, 'coverPhoto38.jpg', '2024-02-18 10:00:00', 6, '文章編按', '文章內容49', 'articleFile49.json'),
+('銀髮族關注！心理健康的重要性及應對策略', 3, 'coverPhoto39.jpg', '2024-02-18 10:00:00', 10, '文章編按', '文章內容49', 'articleFile49.json'),
+('老年人常見疾病防治大全！健康小常識', 3, 'coverPhoto40.jpg', '2024-02-18 10:00:00', 2, '文章編按', '文章內容49', 'articleFile49.json'),
+('銀髮族健康飲食秘笈！多彩飲食的美好', 3, 'coverPhoto41.jpg', '2024-02-18 10:00:00', 7, '文章編按', '文章內容49', 'articleFile49.json'),
+('老年人視力保健小常識！預防眼部問題的方法', 3, 'coverPhoto42.jpg', '2024-02-18 10:00:00', 1, '文章編按', '文章內容49', 'articleFile49.json'),
+('銀髮族如何預防骨折？重要的骨骼健康知識', 3, 'coverPhoto43.jpg', '2024-02-18 10:00:00', 4, '文章編按', '文章內容49', 'articleFile49.json'),
+('銀髮族皮膚保養秘訣大公開！擁有年輕肌膚的秘密', 3, 'coverPhoto45.jpg', '2024-02-18 10:00:00', 8, '文章編按', '文章內容49', 'articleFile49.json');
 
 -- ############### 心靈健康 ###############
 INSERT INTO Articles (article_title, code_id_fk, article_cover, article_publish_date, author_id_fk, article_desc, article_content, article_file) VALUES
-('銀髮族心靈慰藉！如何在孤獨時找到安慰', 4, 'coverPhoto73.jpg', '2024-03-13 10:00:00', 8, '文章編按', '文章內容73', 'articleFile73.json'),
-('老年人心靈療癒小貼士！如何擺脫憂鬱', 4, 'coverPhoto74.jpg', '2024-03-13 10:00:00', 2, '文章編按', '文章內容73', 'articleFile73.json'),
-('銀髮族如何應對生活中的失落感？專家建議', 4, 'coverPhoto75.jpg', '2024-03-13 10:00:00', 9, '文章編按', '文章內容73', 'articleFile73.json'),
-('老年人心靈健康保健秘訣！如何保持心情平和', 4, 'coverPhoto76.jpg', '2024-03-13 10:00:00', 5, '文章編按', '文章內容73', 'articleFile73.json'),
-('銀髮族如何享受生活中的每一天？心靈指南', 4, 'coverPhoto73.jpg', '2024-03-13 10:00:00', 4, '文章編按', '文章內容73', 'articleFile73.json'),
-('老年人心靈慰籍小技巧！如何擺脫焦慮', 4, 'coverPhoto74.jpg', '2024-03-13 10:00:00', 6, '文章編按', '文章內容73', 'articleFile73.json'),
-('銀髮族如何面對生活中的挑戰？心理專家建議', 4, 'coverPhoto75.jpg', '2024-03-13 10:00:00', 10, '文章編按', '文章內容73', 'articleFile73.json'),
-('老年人心靈健康重要性！如何療癒心靈', 4, 'coverPhoto76.jpg', '2024-03-13 10:00:00', 3, '文章編按', '文章內容73', 'articleFile73.json'),
-('銀髮族如何應對生活中的孤獨？心靈養成指南', 4, 'coverPhoto73.jpg', '2024-03-13 10:00:00', 1, '文章編按', '文章內容73', 'articleFile73.json'),
-('老年人心靈慰籍小貼士！如何保持平靜心境', 4, 'coverPhoto74.jpg', '2024-03-13 10:00:00', 7, '文章編按', '文章內容73', 'articleFile73.json'),
-('銀髮族如何享受晚年生活？心理專家建議', 4, 'coverPhoto75.jpg', '2024-03-13 10:00:00', 5, '文章編按', '文章內容73', 'articleFile73.json'),
-('老年人心靈健康秘訣！如何保持精神飽滿', 4, 'coverPhoto76.jpg', '2024-03-13 10:00:00', 9, '文章編按', '文章內容73', 'articleFile73.json'),
-('銀髮族如何克服生活中的壓力？心靈療癒指南', 4, 'coverPhoto73.jpg', '2024-03-13 10:00:00', 2, '文章編按', '文章內容73', 'articleFile73.json'),
-('老年人心靈慰籍技巧！如何擺脫情緒困擾', 4, 'coverPhoto74.jpg', '2024-03-13 10:00:00', 8, '文章編按', '文章內容73', 'articleFile73.json'),
-('銀髮族如何保持心靈健康？專家給出建議', 4, 'coverPhoto75.jpg', '2024-03-13 10:00:00', 3, '文章編按', '文章內容73', 'articleFile73.json'),
-('老年人心靈健康攻略！如何保持內心平靜', 4, 'coverPhoto76.jpg', '2024-03-13 10:00:00', 6, '文章編按', '文章內容73', 'articleFile73.json'),
-('銀髮族如何面對生活中的孤獨？心靈療癒指南', 4, 'coverPhoto73.jpg', '2024-03-13 10:00:00', 10, '文章編按', '文章內容73', 'articleFile73.json'),
-('老年人心靈慰籍技巧！如何擺脫情緒困擾', 4, 'coverPhoto74.jpg', '2024-03-13 10:00:00', 1, '文章編按', '文章內容73', 'articleFile73.json');
+('銀髮族心靈慰藉！如何在孤獨時找到安慰', 4, 'coverPhoto46.jpg', '2024-03-13 10:00:00', 8, '文章編按', '文章內容73', 'articleFile73.json'),
+('老年人心靈療癒小貼士！如何擺脫憂鬱', 4, 'coverPhoto47.jpg', '2024-03-13 10:00:00', 2, '文章編按', '文章內容73', 'articleFile73.json'),
+('銀髮族如何應對生活中的失落感？專家建議', 4, 'coverPhoto48.jpg', '2024-03-13 10:00:00', 9, '文章編按', '文章內容73', 'articleFile73.json'),
+('老年人心靈健康保健秘訣！如何保持心情平和', 4, 'coverPhoto49.jpg', '2024-03-13 10:00:00', 5, '文章編按', '文章內容73', 'articleFile73.json'),
+('銀髮族如何享受生活中的每一天？心靈指南', 4, 'coverPhoto50.jpg', '2024-03-13 10:00:00', 4, '文章編按', '文章內容73', 'articleFile73.json'),
+('老年人心靈慰籍小技巧！如何擺脫焦慮', 4, 'coverPhoto51.jpg', '2024-03-13 10:00:00', 6, '文章編按', '文章內容73', 'articleFile73.json'),
+('銀髮族如何面對生活中的挑戰？心理專家建議', 4, 'coverPhoto52.jpg', '2024-03-13 10:00:00', 10, '文章編按', '文章內容73', 'articleFile73.json'),
+('老年人心靈健康重要性！如何療癒心靈', 4, 'coverPhoto53.jpg', '2024-03-13 10:00:00', 3, '文章編按', '文章內容73', 'articleFile73.json'),
+('銀髮族如何應對生活中的孤獨？心靈養成指南', 4, 'coverPhoto54.jpg', '2024-03-13 10:00:00', 1, '文章編按', '文章內容73', 'articleFile73.json'),
+('老年人心靈慰籍小貼士！如何保持平靜心境', 4, 'coverPhoto55.jpg', '2024-03-13 10:00:00', 7, '文章編按', '文章內容73', 'articleFile73.json'),
+('銀髮族如何享受晚年生活？心理專家建議', 4, 'coverPhoto56.jpg', '2024-03-13 10:00:00', 5, '文章編按', '文章內容73', 'articleFile73.json'),
+('老年人心靈健康秘訣！如何保持精神飽滿', 4, 'coverPhoto57.jpg', '2024-03-13 10:00:00', 9, '文章編按', '文章內容73', 'articleFile73.json'),
+('銀髮族如何克服生活中的壓力？心靈療癒指南', 4, 'coverPhoto58.jpg', '2024-03-13 10:00:00', 2, '文章編按', '文章內容73', 'articleFile73.json'),
+('老年人心靈慰籍技巧！如何擺脫情緒困擾', 4, 'coverPhoto59.jpg', '2024-03-13 10:00:00', 8, '文章編按', '文章內容73', 'articleFile73.json');
 
 -- 熟齡學習
 INSERT INTO Articles (article_title, code_id_fk, article_cover, article_publish_date, author_id_fk, article_desc, article_content, article_file) VALUES
-('中高齡學習新技能，拓展人生新視野！哪些檢定證照適合銀髮族？', 5, 'coverPhoto97.jpg', '2024-04-06 10:00:00', 6, '文章編按', '文章內容97', 'articleFile97.json'),
-('熟齡學習新科技，開啟智慧生活新篇章！中高齡人士如何踏上數位化趨勢？', 5, 'coverPhoto98.jpg', '2024-04-06 10:00:00', 7, '文章編按', '文章內容97', 'articleFile97.json'),
-('中高齡求職新機會，重新定位人生目標！哪些證照適合銀髮族追求新事業？', 5, 'coverPhoto99.jpg', '2024-04-06 10:00:00', 5, '文章編按', '文章內容97', 'articleFile97.json'),
-('銀髮族學習新技藝，挑戰自我極限！中高齡人士如何開啟新事業？', 5, 'coverPhoto100.jpg', '2024-04-06 10:00:00', 9, '文章編按', '文章內容97', 'articleFile97.json'),
-('熟齡學習新知識，追求生活新方向！中高齡人士如何持續學習？', 5, 'coverPhoto97.jpg', '2024-04-06 10:00:00', 4, '文章編按', '文章內容97', 'articleFile97.json'),
-('中高齡學習新專業，重拾事業熱情！哪些證照適合銀髮族追求專業進修？', 5, 'coverPhoto98.jpg', '2024-04-06 10:00:00', 3, '文章編按', '文章內容97', 'articleFile97.json'),
-('銀髮族學習新技能，開創人生新時代！中高齡人士如何進入新興產業？', 5, 'coverPhoto99.jpg', '2024-04-06 10:00:00', 1, '文章編按', '文章內容97', 'articleFile97.json'),
-('熟齡學習新科技，掌握數位化生活新趨勢！中高齡人士如何追隨科技潮流？', 5, 'coverPhoto100.jpg', '2024-04-06 10:00:00', 8, '文章編按', '文章內容97', 'articleFile97.json'),
-('中高齡求職新機會，尋找人生新出發點！哪些證照適合銀髮族重新進入職場？', 5, 'coverPhoto97.jpg', '2024-04-06 10:00:00', 2, '文章編按', '文章內容97', 'articleFile97.json'),
-('銀髮族學習新技藝，啟動人生新旅程！中高齡人士如何追尋新夢想？', 5, 'coverPhoto98.jpg', '2024-04-06 10:00:00', 10, '文章編按', '文章內容97', 'articleFile97.json'),
-('熟齡學習新專業，挑戰人生新高峰！中高齡人士如何進階事業？', 5, 'coverPhoto99.jpg', '2024-04-06 10:00:00', 7, '文章編按', '文章內容97', 'articleFile97.json'),
-('中高齡學習新知識，開啟人生新視野！熟齡人士如何追求學習進修？', 5, 'coverPhoto100.jpg', '2024-04-06 10:00:00', 6, '文章編按', '文章內容97', 'articleFile97.json'),
-('銀髮族學習新技能，迎接人生新挑戰！中高齡人士如何持續自我進步？', 5, 'coverPhoto97.jpg', '2024-04-06 10:00:00', 9, '文章編按', '文章內容97', 'articleFile97.json'),
-('熟齡學習新科技，領悟數位新時代！中高齡人士如何追尋科技創新？', 5, 'coverPhoto98.jpg', '2024-04-06 10:00:00', 2, '文章編按', '文章內容97', 'articleFile97.json'),
-('中高齡求職新機會，尋找人生新方向！哪些證照適合銀髮族尋求新事業？', 5, 'coverPhoto99.jpg', '2024-04-06 10:00:00', 5, '文章編按', '文章內容97', 'articleFile97.json'),
-('銀髮族學習新技藝，啟動人生新旅程！中高齡人士如何重拾自我信心？', 5, 'coverPhoto100.jpg', '2024-04-06 10:00:00', 1, '文章編按', '文章內容97', 'articleFile97.json'),
-('熟齡學習新科技，領悟數位新時代！中高齡人士如何踏上科技之路？', 5, 'coverPhoto97.jpg', '2024-04-06 10:00:00', 8, '文章編按', '文章內容97', 'articleFile97.json'),
-('中高齡學習新知識，追尋人生新視野！熟齡人士如何持續進修？', 5, 'coverPhoto98.jpg', '2024-04-06 10:00:00', 3, '文章編按', '文章內容97', 'articleFile97.json'),
-('銀髮族學習新技能，打造豐富人生！中高齡人士如何探索新方向？', 5, 'coverPhoto99.jpg', '2024-04-06 10:00:00', 10, '文章編按', '文章內容97', 'articleFile97.json'),
-('熟齡學習新科技，領悟數位新時代！中高齡人士如何踏上科技之路？', 5, 'coverPhoto100.jpg', '2024-04-06 10:00:00', 8, '文章編按', '文章內容97', 'articleFile97.json'),
-('中高齡求職新機會，尋找人生新方向！哪些檢定適合銀髮族重返職場？', 5, 'coverPhoto97.jpg', '2024-04-06 10:00:00', 2, '文章編按', '文章內容97', 'articleFile97.json'),
-('銀髮族學習新技藝，啟動人生新旅程！中高齡人士如何重拾自我信心？', 5, 'coverPhoto98.jpg', '2024-04-06 10:00:00', 1, '文章編按', '文章內容97', 'articleFile97.json'),
-('熟齡學習新科技，領悟數位新時代！中高齡人士如何踏上科技之路？', 5, 'coverPhoto99.jpg', '2024-04-06 10:00:00', 8, '文章編按', '文章內容97', 'articleFile97.json'),
-('中高齡學習新知識，追尋人生新視野！熟齡人士如何持續進修？', 5, 'coverPhoto100.jpg', '2024-04-06 10:00:00', 3, '文章編按', '文章內容97', 'articleFile97.json');
+('中高齡學習新技能，拓展人生新視野！哪些檢定證照適合銀髮族？', 5, 'coverPhoto60.jpg', '2024-04-06 10:00:00', 6, '文章編按', '文章內容97', 'articleFile97.json'),
+('熟齡學習新科技，開啟智慧生活新篇章！中高齡人士如何踏上數位化趨勢？', 5, 'coverPhoto61.jpg', '2024-04-06 10:00:00', 7, '文章編按', '文章內容97', 'articleFile97.json'),
+('中高齡求職新機會，重新定位人生目標！哪些證照適合銀髮族追求新事業？', 5, 'coverPhoto62.jpg', '2024-04-06 10:00:00', 5, '文章編按', '文章內容97', 'articleFile97.json'),
+('銀髮族學習新技藝，挑戰自我極限！中高齡人士如何開啟新事業？', 5, 'coverPhoto63.jpg', '2024-04-06 10:00:00', 9, '文章編按', '文章內容97', 'articleFile97.json'),
+('熟齡學習新知識，追求生活新方向！中高齡人士如何持續學習？', 5, 'coverPhoto64.jpg', '2024-04-06 10:00:00', 4, '文章編按', '文章內容97', 'articleFile97.json'),
+('中高齡學習新專業，重拾事業熱情！哪些證照適合銀髮族追求專業進修？', 5, 'coverPhoto65.jpg', '2024-04-06 10:00:00', 3, '文章編按', '文章內容97', 'articleFile97.json'),
+('銀髮族學習新技能，開創人生新時代！中高齡人士如何進入新興產業？', 5, 'coverPhoto66.jpg', '2024-04-06 10:00:00', 1, '文章編按', '文章內容97', 'articleFile97.json'),
+('熟齡學習新科技，掌握數位化生活新趨勢！中高齡人士如何追隨科技潮流？', 5, 'coverPhoto67.jpg', '2024-04-06 10:00:00', 8, '文章編按', '文章內容97', 'articleFile97.json'),
+('中高齡求職新機會，尋找人生新出發點！哪些證照適合銀髮族重新進入職場？', 5, 'coverPhoto68.jpg', '2024-04-06 10:00:00', 2, '文章編按', '文章內容97', 'articleFile97.json'),
+('銀髮族學習新技藝，啟動人生新旅程！中高齡人士如何追尋新夢想？', 5, 'coverPhoto69.jpg', '2024-04-06 10:00:00', 10, '文章編按', '文章內容97', 'articleFile97.json'),
+('熟齡學習新專業，挑戰人生新高峰！中高齡人士如何進階事業？', 5, 'coverPhoto70.jpg', '2024-04-06 10:00:00', 7, '文章編按', '文章內容97', 'articleFile97.json'),
+('中高齡學習新知識，開啟人生新視野！熟齡人士如何追求學習進修？', 5, 'coverPhoto71.jpg', '2024-04-06 10:00:00', 6, '文章編按', '文章內容97', 'articleFile97.json'),
+('銀髮族學習新技能，迎接人生新挑戰！中高齡人士如何持續自我進步？', 5, 'coverPhoto72.jpg', '2024-04-06 10:00:00', 9, '文章編按', '文章內容97', 'articleFile97.json'),
+('熟齡學習新科技，領悟數位新時代！中高齡人士如何追尋科技創新？', 5, 'coverPhoto73.jpg', '2024-04-06 10:00:00', 2, '文章編按', '文章內容97', 'articleFile97.json'),
+('中高齡求職新機會，尋找人生新方向！哪些證照適合銀髮族尋求新事業？', 5, 'coverPhoto74.jpg', '2024-04-06 10:00:00', 5, '文章編按', '文章內容97', 'articleFile97.json');
 -- category range 1~4
 -- author range 1~10
 
@@ -1901,12 +1860,7 @@ VALUES
 INSERT INTO FavArticles (member_id_fk, article_id_fk)
 VALUES
 (1, 10),(1, 20),(1, 30),(2, 11),(2, 21),(2, 31),(3, 12),(3, 22),
-(3, 32),(4, 13),(4, 23),(4, 33),(5, 14),(5, 24),(5, 34),(6, 15),
-(6, 25),(6, 35),(7, 16),(7, 26),(7, 36),(8, 17),(8, 27),(8, 37),
-(9, 18),(9, 28),(9, 38),(10, 19),(10, 29),(10, 39),(1, 40),(2, 41),
-(3, 42),(4, 43),(5, 44),(6, 45),(7, 46),(8, 47),(9, 48),(10, 49),
-(1, 50),(2, 51),(3, 52),(4, 53),(5, 54),(6, 55),(7, 56),(8, 57),
-(9, 58),(10, 59);
+(3, 32),(4, 13),(4, 23),(4, 33),(5, 14),(5, 24),(5, 34),(6, 15);
 
 INSERT INTO Blacklist(create_at, member_id_fk)
 VALUES
@@ -2117,6 +2071,323 @@ ORDER BY RAND();
 DROP TEMPORARY TABLE temp_gym_images;
 desc GymImages;
 select * from GymImages;
+
+-- Gyms假資料加入（10筆，全部 is_elderly 為 TRUE）
+INSERT INTO Gyms (gym_name, gym_subtitle, gym_address, gym_phone, business_hours, gym_info, gym_price, gym_equipment, is_elderly, latitude, longitude) VALUES
+('銀髮活力中心', '樂齡健身，活出精彩', '台北市大安區敦化南路一段233號', '02-2700-1234', '週一至週五 07:00-20:00, 週六日 09:00-18:00', '專為長者設計的健身環境，提供安全且適合的運動設施。', '單次體驗NT$400, 月費NT$1,800起', '重量訓練,瑜珈伸展,芳療按摩', FALSE, 25.036485, 121.548427),
+
+('樂齡運動館', '健康年華，活力無限', '台北市中山區林森北路247號', '02-2541-9876', '週一至週日 06:30-21:00', '為銀髮族打造的全方位健身體驗，幫助長者保持身心健康。', '單次體驗NT$450, 月費NT$2,000起', '游泳池,團體課程,皮拉提斯', FALSE, 25.054689, 121.525338),
+
+('長青健身中心', '年齡不是界限，健康無極限', '台北市信義區松仁路123號', '02-2723-5678', '週一至週六 08:00-19:00, 週日休息', '專注於銀髮族的健康管理，提供個人化的運動計劃。', '單次體驗NT$500, 月費NT$2,200起', '紅繩核心,私人教練,瑜珈伸展', FALSE, 25.036485, 121.567905),
+
+('銀髮樂活館', '樂齡健身，活出精彩', '台北市大同區迪化街一段21號', '02-2552-3456', '週一至週六 08:00-20:00, 週日休息', '專為長者設計的健身環境，提供安全且適合的運動設施。', '單次體驗NT$400, 月費NT$1,800起', '瑜珈伸展,芳療按摩,皮拉提斯', FALSE, 25.056518, 121.510181),
+
+('耆英運動天地', '活力不止，精彩不斷', '台北市松山區南京東路五段250號', '02-2756-7890', '週一至週日 07:30-21:30', '專為銀髮族設計的多功能運動中心，提供全面的健康服務。', '單次體驗NT$480, 月費NT$2,100起', '重量訓練,游泳池,團體課程', FALSE, 25.051989, 121.560608),
+
+('銀髮健康會館', '年輕從運動開始', '台北市內湖區成功路四段188號', '02-2634-5678', '週一至週五 06:00-22:00, 週六日 08:00-20:00', '為銀髮族提供專業的健康管理和運動指導，打造健康生活。', '單次體驗NT$520, 月費NT$2,300起', '私人教練,紅繩核心,芳療按摩', FALSE, 25.085498, 121.594477),
+
+('樂齡養生中心', '養生健體，樂享人生', '台北市士林區中正路235號', '02-2881-2345', '週一至週日 09:00-21:00', '結合中西方養生理念，為銀髮族提供全面的健康服務。', '單次體驗NT$550, 月費NT$2,400起', '瑜珈伸展,皮拉提斯,芳療按摩', FALSE, 25.093810, 121.526306),
+
+('銀髮動力站', '活力不止，精彩人生', '台北市文山區木柵路一段100號', '02-2936-7890', '週一至週六 07:00-20:00, 週日 09:00-18:00', '專為銀髮族設計的運動空間，提供安全、有趣的健身體驗。', '單次體驗NT$430, 月費NT$1,900起', '重量訓練,團體課程,紅繩核心', FALSE, 24.989340, 121.560178),
+
+('銀髮活力坊', '健康生活，從這裡開始', '台北市北投區石牌路一段200號', '02-2822-3456', '週一至週日 08:00-22:00', '為銀髮族提供全方位的健康管理服務，包括運動指導和營養建議。', '單次體驗NT$490, 月費NT$2,150起', '游泳池,私人教練,瑜珈伸展', FALSE, 25.114500, 121.515295),
+
+('樂齡健體中心', '健康樂齡，活力人生', '台北市萬華區西寧南路70號', '02-2361-5678', '週一至週五 06:30-21:30, 週六日 08:00-20:00', '專為銀髮族打造的運動環境，提供多元化的課程和設施。', '單次體驗NT$470, 月費NT$2,050起', '皮拉提斯,芳療按摩,團體課程', FALSE, 25.045678, 121.507123);
+
+
+-- GymsFeatures假資料加入
+INSERT INTO gymfeatures (gym_id, feature_id) VALUES
+(31, 2), (31, 5), (31, 7),
+(32, 3), (32, 6), (32, 8),
+(33, 1), (33, 4), (33, 7),
+(34, 2), (34, 5), (34, 8),
+(35, 1), (35, 3), (35, 6),
+(36, 2), (36, 4), (36, 7);
+
+-- gym images 假資料追加
+INSERT INTO gymimages (gym_id, image_filename, image_description) 
+VALUES 
+(1, 'gym31.jpg', 'Description for gym31.jpg'),
+(1, 'gym32.jpg', 'Description for gym32.jpg'),
+(1, 'gym33.jpg', 'Description for gym33.jpg'),
+(1, 'gym34.jpg', 'Description for gym34.jpg'),
+(1, 'gym35.jpg', 'Description for gym35.jpg'),
+(1, 'gym36.jpg', 'Description for gym36.jpg'),
+
+(2, 'gym37.jpg', 'Description for gym37.jpg'),
+(2, 'gym38.jpg', 'Description for gym38.jpg'),
+(2, 'gym39.jpg', 'Description for gym39.jpg'),
+(2, 'gym40.jpg', 'Description for gym40.jpg'),
+(2, 'gym41.jpg', 'Description for gym41.jpg'),
+(2, 'gym42.jpg', 'Description for gym42.jpg'),
+
+(3, 'gym43.jpg', 'Description for gym43.jpg'),
+(3, 'gym44.jpg', 'Description for gym44.jpg'),
+(3, 'gym45.jpg', 'Description for gym45.jpg'),
+(3, 'gym46.jpg', 'Description for gym46.jpg'),
+(3, 'gym47.jpg', 'Description for gym47.jpg'),
+(3, 'gym48.jpg', 'Description for gym48.jpg'),
+
+(4, 'gym49.jpg', 'Description for gym49.jpg'),
+(4, 'gym50.jpg', 'Description for gym50.jpg'),
+(4, 'gym51.jpg', 'Description for gym51.jpg'),
+(4, 'gym52.jpg', 'Description for gym52.jpg'),
+(4, 'gym53.jpg', 'Description for gym53.jpg'),
+(4, 'gym54.jpg', 'Description for gym54.jpg'),
+
+(5, 'gym55.jpg', 'Description for gym55.jpg'),
+(5, 'gym56.jpg', 'Description for gym56.jpg'),
+(5, 'gym57.jpg', 'Description for gym57.jpg'),
+(5, 'gym58.jpg', 'Description for gym58.jpg'),
+(5, 'gym59.jpg', 'Description for gym59.jpg'),
+(5, 'gym60.jpg', 'Description for gym60.jpg'),
+
+(6, 'gym61.jpg', 'Description for gym61.jpg'),
+(6, 'gym62.jpg', 'Description for gym62.jpg'),
+(6, 'gym63.jpg', 'Description for gym63.jpg'),
+(6, 'gym64.jpg', 'Description for gym64.jpg'),
+(6, 'gym65.jpg', 'Description for gym65.jpg'),
+(6, 'gym66.jpg', 'Description for gym66.jpg'),
+
+(7, 'gym67.jpg', 'Description for gym67.jpg'),
+(7, 'gym68.jpg', 'Description for gym68.jpg'),
+(7, 'gym69.jpg', 'Description for gym69.jpg'),
+(7, 'gym70.jpg', 'Description for gym70.jpg'),
+(7, 'gym71.jpg', 'Description for gym71.jpg'),
+(7, 'gym72.jpg', 'Description for gym72.jpg'),
+
+(8, 'gym73.jpg', 'Description for gym73.jpg'),
+(8, 'gym74.jpg', 'Description for gym74.jpg'),
+(8, 'gym75.jpg', 'Description for gym75.jpg'),
+(8, 'gym76.jpg', 'Description for gym76.jpg'),
+(8, 'gym77.jpg', 'Description for gym77.jpg'),
+(8, 'gym78.jpg', 'Description for gym78.jpg'),
+
+(9, 'gym79.jpg', 'Description for gym79.jpg'),
+(9, 'gym80.jpg', 'Description for gym80.jpg'),
+(9, 'gym81.jpg', 'Description for gym81.jpg'),
+(9, 'gym82.jpg', 'Description for gym82.jpg'),
+(9, 'gym83.jpg', 'Description for gym83.jpg'),
+(9, 'gym84.jpg', 'Description for gym84.jpg'),
+
+(10, 'gym85.jpg', 'Description for gym85.jpg'),
+(10, 'gym86.jpg', 'Description for gym86.jpg'),
+(10, 'gym87.jpg', 'Description for gym87.jpg'),
+(10, 'gym88.jpg', 'Description for gym88.jpg'),
+(10, 'gym89.jpg', 'Description for gym89.jpg'),
+(10, 'gym90.jpg', 'Description for gym90.jpg'),
+
+(11, 'gym91.jpg', 'Description for gym91.jpg'),
+(11, 'gym92.jpg', 'Description for gym92.jpg'),
+(11, 'gym93.jpg', 'Description for gym93.jpg'),
+(11, 'gym94.jpg', 'Description for gym94.jpg'),
+(11, 'gym95.jpg', 'Description for gym95.jpg'),
+(11, 'gym96.jpg', 'Description for gym96.jpg'),
+
+(12, 'gym97.jpg', 'Description for gym97.jpg'),
+(12, 'gym98.jpg', 'Description for gym98.jpg'),
+(12, 'gym99.jpg', 'Description for gym99.jpg'),
+(12, 'gym100.jpg', 'Description for gym100.jpg'),
+(12, 'gym101.jpg', 'Description for gym101.jpg'),
+(12, 'gym102.jpg', 'Description for gym102.jpg'),
+
+(13, 'gym103.jpg', 'Description for gym103.jpg'),
+(13, 'gym104.jpg', 'Description for gym104.jpg'),
+(13, 'gym105.jpg', 'Description for gym105.jpg'),
+(13, 'gym106.jpg', 'Description for gym106.jpg'),
+(13, 'gym107.jpg', 'Description for gym107.jpg'),
+(13, 'gym108.jpg', 'Description for gym108.jpg'),
+
+(14, 'gym109.jpg', 'Description for gym109.jpg'),
+(14, 'gym110.jpg', 'Description for gym110.jpg'),
+(14, 'gym111.jpg', 'Description for gym111.jpg'),
+(14, 'gym112.jpg', 'Description for gym112.jpg'),
+(14, 'gym113.jpg', 'Description for gym113.jpg'),
+(14, 'gym114.jpg', 'Description for gym114.jpg'),
+
+(15, 'gym115.jpg', 'Description for gym115.jpg'),
+(15, 'gym116.jpg', 'Description for gym116.jpg'),
+(15, 'gym117.jpg', 'Description for gym117.jpg'),
+(15, 'gym118.jpg', 'Description for gym118.jpg'),
+(15, 'gym119.jpg', 'Description for gym119.jpg'),
+(15, 'gym120.jpg', 'Description for gym120.jpg'),
+
+(16, 'gym121.jpg', 'Description for gym121.jpg'),
+(16, 'gym122.jpg', 'Description for gym122.jpg'),
+(16, 'gym123.jpg', 'Description for gym123.jpg'),
+(16, 'gym124.jpg', 'Description for gym124.jpg'),
+(16, 'gym125.jpg', 'Description for gym125.jpg'),
+(16, 'gym126.jpg', 'Description for gym126.jpg'),
+
+(17, 'gym127.jpg', 'Description for gym127.jpg'),
+(17, 'gym128.jpg', 'Description for gym128.jpg'),
+(17, 'gym129.jpg', 'Description for gym129.jpg'),
+(17, 'gym130.jpg', 'Description for gym130.jpg'),
+(17, 'gym131.jpg', 'Description for gym131.jpg'),
+(17, 'gym132.jpg', 'Description for gym132.jpg'),
+
+(18, 'gym133.jpg', 'Description for gym133.jpg'),
+(18, 'gym134.jpg', 'Description for gym134.jpg'),
+(18, 'gym135.jpg', 'Description for gym135.jpg'),
+(18, 'gym136.jpg', 'Description for gym136.jpg'),
+(18, 'gym137.jpg', 'Description for gym137.jpg'),
+(18, 'gym138.jpg', 'Description for gym138.jpg'),
+
+(19, 'gym139.jpg', 'Description for gym139.jpg'),
+(19, 'gym140.jpg', 'Description for gym140.jpg'),
+(19, 'gym31.jpg', 'Description for gym31.jpg'),
+(19, 'gym32.jpg', 'Description for gym32.jpg'),
+(19, 'gym33.jpg', 'Description for gym33.jpg'),
+(19, 'gym34.jpg', 'Description for gym34.jpg'),
+
+(20, 'gym35.jpg', 'Description for gym35.jpg'),
+(20, 'gym36.jpg', 'Description for gym36.jpg'),
+(20, 'gym37.jpg', 'Description for gym37.jpg'),
+(20, 'gym38.jpg', 'Description for gym38.jpg'),
+(20, 'gym39.jpg', 'Description for gym39.jpg'),
+(20, 'gym40.jpg', 'Description for gym40.jpg'),
+
+(21, 'gym41.jpg', 'Description for gym41.jpg'),
+(21, 'gym42.jpg', 'Description for gym42.jpg'),
+(21, 'gym43.jpg', 'Description for gym43.jpg'),
+(21, 'gym44.jpg', 'Description for gym44.jpg'),
+(21, 'gym45.jpg', 'Description for gym45.jpg'),
+(21, 'gym46.jpg', 'Description for gym46.jpg'),
+
+(22, 'gym47.jpg', 'Description for gym47.jpg'),
+(22, 'gym48.jpg', 'Description for gym48.jpg'),
+(22, 'gym49.jpg', 'Description for gym49.jpg'),
+(22, 'gym50.jpg', 'Description for gym50.jpg'),
+(22, 'gym51.jpg', 'Description for gym51.jpg'),
+(22, 'gym52.jpg', 'Description for gym52.jpg'),
+
+(23, 'gym53.jpg', 'Description for gym53.jpg'),
+(23, 'gym54.jpg', 'Description for gym54.jpg'),
+(23, 'gym55.jpg', 'Description for gym55.jpg'),
+(23, 'gym56.jpg', 'Description for gym56.jpg'),
+(23, 'gym57.jpg', 'Description for gym57.jpg'),
+(23, 'gym58.jpg', 'Description for gym58.jpg'),
+
+(24, 'gym59.jpg', 'Description for gym59.jpg'),
+(24, 'gym60.jpg', 'Description for gym60.jpg'),
+(24, 'gym61.jpg', 'Description for gym61.jpg'),
+(24, 'gym62.jpg', 'Description for gym62.jpg'),
+(24, 'gym63.jpg', 'Description for gym63.jpg'),
+(24, 'gym64.jpg', 'Description for gym64.jpg'),
+
+(25, 'gym65.jpg', 'Description for gym65.jpg'),
+(25, 'gym66.jpg', 'Description for gym66.jpg'),
+(25, 'gym67.jpg', 'Description for gym67.jpg'),
+(25, 'gym68.jpg', 'Description for gym68.jpg'),
+(25, 'gym69.jpg', 'Description for gym69.jpg'),
+(25, 'gym70.jpg', 'Description for gym70.jpg'),
+
+(26, 'gym71.jpg', 'Description for gym71.jpg'),
+(26, 'gym72.jpg', 'Description for gym72.jpg'),
+(26, 'gym73.jpg', 'Description for gym73.jpg'),
+(26, 'gym74.jpg', 'Description for gym74.jpg'),
+(26, 'gym75.jpg', 'Description for gym75.jpg'),
+(26, 'gym76.jpg', 'Description for gym76.jpg'),
+
+(27, 'gym77.jpg', 'Description for gym77.jpg'),
+(27, 'gym78.jpg', 'Description for gym78.jpg'),
+(27, 'gym79.jpg', 'Description for gym79.jpg'),
+(27, 'gym80.jpg', 'Description for gym80.jpg'),
+(27, 'gym81.jpg', 'Description for gym81.jpg'),
+(27, 'gym82.jpg', 'Description for gym82.jpg'),
+
+(28, 'gym83.jpg', 'Description for gym83.jpg'),
+(28, 'gym84.jpg', 'Description for gym84.jpg'),
+(28, 'gym85.jpg', 'Description for gym85.jpg'),
+(28, 'gym86.jpg', 'Description for gym86.jpg'),
+(28, 'gym87.jpg', 'Description for gym87.jpg'),
+(28, 'gym88.jpg', 'Description for gym88.jpg'),
+
+(29, 'gym89.jpg', 'Description for gym89.jpg'),
+(29, 'gym90.jpg', 'Description for gym90.jpg'),
+(29, 'gym91.jpg', 'Description for gym91.jpg'),
+(29, 'gym92.jpg', 'Description for gym92.jpg'),
+(29, 'gym93.jpg', 'Description for gym93.jpg'),
+(29, 'gym94.jpg', 'Description for gym94.jpg'),
+
+(30, 'gym95.jpg', 'Description for gym95.jpg'),
+(30, 'gym96.jpg', 'Description for gym96.jpg'),
+(30, 'gym97.jpg', 'Description for gym97.jpg'),
+(30, 'gym98.jpg', 'Description for gym98.jpg'),
+(30, 'gym99.jpg', 'Description for gym99.jpg'),
+(30, 'gym100.jpg', 'Description for gym100.jpg');
+
+INSERT INTO gymimages (gym_id, image_filename, image_description) 
+VALUES 
+(27, 'gym31.jpg', 'Description for gym31.jpg'),
+(27, 'gym32.jpg', 'Description for gym32.jpg'),
+(27, 'gym33.jpg', 'Description for gym33.jpg'),
+(27, 'gym34.jpg', 'Description for gym34.jpg'),
+(27, 'gym35.jpg', 'Description for gym35.jpg'),
+(27, 'gym36.jpg', 'Description for gym36.jpg'),
+
+(28, 'gym37.jpg', 'Description for gym37.jpg'),
+(28, 'gym38.jpg', 'Description for gym38.jpg'),
+(28, 'gym39.jpg', 'Description for gym39.jpg'),
+(28, 'gym40.jpg', 'Description for gym40.jpg'),
+(28, 'gym41.jpg', 'Description for gym41.jpg'),
+(28, 'gym42.jpg', 'Description for gym42.jpg'),
+
+(29, 'gym43.jpg', 'Description for gym43.jpg'),
+(29, 'gym44.jpg', 'Description for gym44.jpg'),
+(29, 'gym45.jpg', 'Description for gym45.jpg'),
+(29, 'gym46.jpg', 'Description for gym46.jpg'),
+(29, 'gym47.jpg', 'Description for gym47.jpg'),
+(29, 'gym48.jpg', 'Description for gym48.jpg'),
+
+(30, 'gym49.jpg', 'Description for gym49.jpg'),
+(30, 'gym50.jpg', 'Description for gym50.jpg'),
+(30, 'gym51.jpg', 'Description for gym51.jpg'),
+(30, 'gym52.jpg', 'Description for gym52.jpg'),
+(30, 'gym53.jpg', 'Description for gym53.jpg'),
+(30, 'gym54.jpg', 'Description for gym54.jpg'),
+
+(31, 'gym55.jpg', 'Description for gym55.jpg'),
+(31, 'gym56.jpg', 'Description for gym56.jpg'),
+(31, 'gym57.jpg', 'Description for gym57.jpg'),
+(31, 'gym58.jpg', 'Description for gym58.jpg'),
+(31, 'gym59.jpg', 'Description for gym59.jpg'),
+(31, 'gym60.jpg', 'Description for gym60.jpg'),
+
+(32, 'gym61.jpg', 'Description for gym61.jpg'),
+(32, 'gym62.jpg', 'Description for gym62.jpg'),
+(32, 'gym63.jpg', 'Description for gym63.jpg'),
+(32, 'gym64.jpg', 'Description for gym64.jpg'),
+(32, 'gym65.jpg', 'Description for gym65.jpg'),
+(32, 'gym66.jpg', 'Description for gym66.jpg'),
+
+(33, 'gym67.jpg', 'Description for gym67.jpg'),
+(33, 'gym68.jpg', 'Description for gym68.jpg'),
+(33, 'gym69.jpg', 'Description for gym69.jpg'),
+(33, 'gym70.jpg', 'Description for gym70.jpg'),
+(33, 'gym71.jpg', 'Description for gym71.jpg'),
+(33, 'gym72.jpg', 'Description for gym72.jpg'),
+
+(34, 'gym73.jpg', 'Description for gym73.jpg'),
+(34, 'gym74.jpg', 'Description for gym74.jpg'),
+(34, 'gym75.jpg', 'Description for gym75.jpg'),
+(34, 'gym76.jpg', 'Description for gym76.jpg'),
+(34, 'gym77.jpg', 'Description for gym77.jpg'),
+(34, 'gym78.jpg', 'Description for gym78.jpg'),
+
+(35, 'gym79.jpg', 'Description for gym79.jpg'),
+(35, 'gym80.jpg', 'Description for gym80.jpg'),
+(35, 'gym81.jpg', 'Description for gym81.jpg'),
+(35, 'gym82.jpg', 'Description for gym82.jpg'),
+(35, 'gym83.jpg', 'Description for gym83.jpg'),
+(35, 'gym84.jpg', 'Description for gym84.jpg'),
+
+(36, 'gym85.jpg', 'Description for gym85.jpg'),
+(36, 'gym86.jpg', 'Description for gym86.jpg'),
+(36, 'gym87.jpg', 'Description for gym87.jpg'),
+(36, 'gym88.jpg', 'Description for gym88.jpg'),
+(36, 'gym89.jpg', 'Description for gym89.jpg'),
+(36, 'gym90.jpg', 'Description for gym90.jpg');
 
 
 -- 重新啟用外鍵約束
