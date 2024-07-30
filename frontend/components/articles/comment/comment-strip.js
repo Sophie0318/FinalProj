@@ -20,12 +20,11 @@ export default function CommentStrip({
   },
   reply = false,
   handleToggle = () => { },
-  hiddenSubs = 0,
-  setHiddenSubs = () => { },
+  isClicked = false,
+  setIsClicked = () => { },
 }) {
-  const [isClicked, setIsClicked] = useState(false)
+  // const [isClicked, setIsClicked] = useState(false)
 
-  // useEffect(() => { }, [data, hiddenSubs])
   return (
     <>
       <div

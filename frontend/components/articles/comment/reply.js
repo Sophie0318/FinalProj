@@ -8,7 +8,14 @@ import ReplyInput from './reply-input'
 import ToggleComment from './toggle-comment'
 import styles from './reply.module.css'
 
-export default function Reply({ main = 1, article_id = 0, show }) {
+export default function Reply({
+  main = 1,
+  article_id = 0,
+  show,
+  setShow,
+  isClicked,
+  setIsClicked,
+}) {
   const { getSub } = useGetComment()
   const [info, setInfo] = useState({ success: false, totalGroup: 1 })
   const [sub, setSub] = useState([])
@@ -63,6 +70,8 @@ export default function Reply({ main = 1, article_id = 0, show }) {
                     reply={true}
                     handleToggle={toggleReplyInput}
                     id={`tag${main}_${sub.sub}`}
+                    isClicked={isClicked}
+                    setIsClicked={setIsClicked}
                   />
                   {/* <ReplyInput
                     showInput={replyInput[v.sub]}
@@ -91,6 +100,11 @@ export default function Reply({ main = 1, article_id = 0, show }) {
             main={main}
             sub={info.totalRows ? info.totalRows : 0}
             showInput={true}
+            subArr={sub}
+            setSubArr={setSub}
+            setShow={setShow}
+            isClicked={isClicked}
+            setIsClicked={setIsClicked}
           />
         </div>
       </>

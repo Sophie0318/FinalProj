@@ -10,7 +10,9 @@ export default function useSubmitComment(
   setErrorText = () => { },
   sub = undefined,
   main = 0,
-  setShowModal = () => { }
+  setShowModal = () => { },
+  subArr = [],
+  setSubArr = () => { }
 ) {
   const router = useRouter()
   const loginalert = LoginAlert('登入後才能留言喔~')
@@ -57,6 +59,21 @@ export default function useSubmitComment(
             .then((res) => {
               if (res.data.success) {
                 setShowModal(true)
+                if (sub === undefined) {
+                  // insertMain = main + 1
+                } else if (sub >= 0) {
+                  setSubArr([
+                    ...subArr,
+                    {
+                      article_id: router.query.article_id,
+                      main: insertMain,
+                      sub: insertSub,
+                      member_id_fk: auth.id,
+                      comment_content: comment,
+                      update_at: '1分鐘前',
+                    },
+                  ])
+                }
               }
             })
             .catch((error) => {
