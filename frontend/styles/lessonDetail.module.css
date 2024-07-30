@@ -24,8 +24,8 @@
 }
 
 .img {
-  width: 100%;
-  height: auto;
+  width: 90%;
+  height: 40%;
   border-radius: 40px;
 }
 
@@ -71,14 +71,14 @@
 
 .descTitle {
   font-family: 'Gensen', sans-serif;
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 700;
   letter-spacing: 3px;
   color: var(--color-midnight-green);
 }
 
 .lessonDesc {
-  font-size: 18px;
+  font-size: 20px;
   letter-spacing: 1px;
   line-height: 160%;
   color: var(--color-midnight-green);
