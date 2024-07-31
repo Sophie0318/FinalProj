@@ -71,8 +71,11 @@ export default function Comment() {
         <div className={styles.mainComment}>
           <CommentInput
             showInput={true}
-            main={info.totalRows}
+            main={main.length + remain}
+            // main={info.totalRows}
             article_id={router.query.article_id || 0}
+            mainArr={main}
+            setMainArr={setMain}
           />
         </div>
         <div className={styles.commentArea}>

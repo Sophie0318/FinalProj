@@ -6,11 +6,15 @@ import LoginAlert from '../login-alert/login-alert'
 export default function useSubmitComment(
   auth = {},
   comment = '',
-  setError = () => { },
-  setErrorText = () => { },
+  setError = () => {},
+  setErrorText = () => {},
   sub = undefined,
   main = 0,
-  setShowModal = () => { }
+  setShowModal = () => {},
+  subArr = [],
+  setSubArr = () => {},
+  mainArr = [],
+  setMainArr = () => {}
 ) {
   const router = useRouter()
   const loginalert = LoginAlert('登入後才能留言喔~')
@@ -57,6 +61,33 @@ export default function useSubmitComment(
             .then((res) => {
               if (res.data.success) {
                 setShowModal(true)
+                if (sub === undefined) {
+                  setMainArr([
+                    {
+                      article_id: router.query.article_id,
+                      main: insertMain,
+                      sub: insertSub,
+                      member_id: auth.id,
+                      avatar: auth.avatar,
+                      comment_content: comment,
+                      update_at: '1分鐘前',
+                    },
+                    ...mainArr,
+                  ])
+                } else if (sub >= 0) {
+                  setSubArr([
+                    {
+                      article_id: router.query.article_id,
+                      main: insertMain,
+                      sub: insertSub,
+                      member_id: auth.id,
+                      avatar: auth.avatar,
+                      comment_content: comment,
+                      update_at: '1分鐘前',
+                    },
+                    ...subArr,
+                  ])
+                }
               }
             })
             .catch((error) => {
