@@ -15,9 +15,11 @@ export default function CommentInput({
   sub = undefined,
   subArr = [],
   setSubArr = () => { },
-  setShow,
+  setShow = () => { },
   isClicked,
-  setIsClicked,
+  setIsClicked = () => { },
+  mainArr = [],
+  setMainArr = () => { },
 }) {
   const router = useRouter()
   const { auth } = useAuth()
@@ -36,7 +38,9 @@ export default function CommentInput({
     main,
     setShowModal,
     subArr,
-    setSubArr
+    setSubArr,
+    mainArr,
+    setMainArr
   )
 
   const loginalert = LoginAlert('登入後才能留言喔~')

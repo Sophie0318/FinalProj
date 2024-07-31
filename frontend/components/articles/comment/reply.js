@@ -15,6 +15,8 @@ export default function Reply({
   setShow,
   isClicked,
   setIsClicked,
+  hiddenSubs,
+  setHiddenSubs,
 }) {
   const { getSub } = useGetComment()
   const [info, setInfo] = useState({ success: false, totalGroup: 1 })
@@ -105,6 +107,8 @@ export default function Reply({
             setShow={setShow}
             isClicked={isClicked}
             setIsClicked={setIsClicked}
+            hiddenSubs={hiddenSubs}
+            setHiddenSubs={setHiddenSubs}
           />
         </div>
       </>
