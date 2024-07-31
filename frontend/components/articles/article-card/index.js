@@ -13,7 +13,8 @@ const ArticleCard = ({
   imgSrc = '/defaultImg.png',
   idURL = '',
   member_id = '',
-  onClick = () => { },
+  onClick = () => {},
+  maxWidth = '100%',
 }) => {
   const router = useRouter()
   const { auth } = useAuth()
@@ -33,7 +34,7 @@ const ArticleCard = ({
     <Link
       href={`/articles/${idURL}`}
       className={styles.articleCard}
-      style={{ padding: '0px' }}
+      style={{ padding: '0px', maxWidth: `${maxWidth}` }}
     >
       <div className={styles.cardMainInfo}>
         <div className={styles.cardImgContainer}>
@@ -52,8 +53,9 @@ const ArticleCard = ({
             }}
           >
             <IoHeart
-              className={`${styles.heartIcon} ${isClicked ? styles.clicked : ''
-                }`}
+              className={`${styles.heartIcon} ${
+                isClicked ? styles.clicked : ''
+              }`}
             />
           </button>
         </div>

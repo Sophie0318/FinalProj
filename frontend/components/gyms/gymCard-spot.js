@@ -12,26 +12,26 @@ const GymCardSpot = ({ data, variant = 'A' }) => {
     B: 'w-97 transition-all duration-300 hover-scale',
   }
 
+  const customCSS = `
+.w-97 {
+  width: 97.5%;
+}
+.transition-all {
+  transition: all 0.3s ease-in-out;
+}
+.hover-scale:hover {
+  transform: scale(1.1);
+}
+`
   useEffect(() => {
-    const customCSS = `
-      .w-97 {
-        width: 97.5%;
-      }
-      .transition-all {
-        transition: all 0.3s ease-in-out;
-      }
-      .hover-scale:hover {
-        transform: scale(1.1);
-      }
-    `
-    const style = document.createElement('style')
-    style.textContent = customCSS
-    document.head.appendChild(style)
-
-    return () => {
-      document.head.removeChild(style)
+    // 檢查 window 是否存在
+    if (typeof window !== 'undefined') {
+      const style = document.createElement('style')
+      style.textContent = customCSS
+      document.head.appendChild(style)
     }
   }, [])
+
   const [isClicked, setIsClicked] = useState(false)
   const loginAlert = LoginAlert('登入後才能收藏唷～')
   const { auth } = useAuth()
@@ -122,7 +122,9 @@ const GymCardSpot = ({ data, variant = 'A' }) => {
       </div>
       <div className={styles.textBtn}>
         <div className={styles.content}>
-          <h6 className={styles.title}>{data.name}</h6>
+          <Link href={`/gyms/${data.id}`}>
+            <h6 className={styles.title}>{data.name}</h6>
+          </Link>
           <div className="cardInfo">
             <p className={styles.smallFont}>{data.address}</p>
             <p className={styles.smallFont}>營業時間 | {data.businessHours}</p>

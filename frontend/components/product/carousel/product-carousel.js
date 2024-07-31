@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react'
+import React, { use, useEffect } from 'react'
 import styles from './product-carousel.module.css' // 假設我們創建了一個CSS模塊文件
 
 export default function ProductCarousel({ photodata = [] }) {
-  // 這裡會用 photodata = []，給他預設值，是因為下面要做map，
+  //這裡會用  photodata = []，給他預設值，是因為下面要做map，
   return (
     <div className={styles.carouselContainer}>
       <div

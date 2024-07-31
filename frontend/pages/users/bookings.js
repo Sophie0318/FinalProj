@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useCallback } from 'react'
 import LayoutUser from '@/components/layout/user-layout3'
-import Select from '@/components/common/select/select'
 import styles from '@/styles/user-bookings.module.css'
 import axios from 'axios'
 import { useAuth } from '@/context/auth-context'

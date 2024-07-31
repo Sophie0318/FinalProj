@@ -17,7 +17,7 @@ export default function ReserveCard({ reservation }) {
         <div className={styles.card_background}>
           <img
             className={styles.card_img}
-            src={`/${reservation.image_filename}`}
+            src={`/${reservation.gymimg}`}
             alt=""
           />
         </div>

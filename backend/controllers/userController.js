@@ -218,22 +218,29 @@ const userController = {
         const userId = req.params.userId;
         try {
             const sql = `
-      SELECT 
-          gi.image_filename,
+      SELECT
+          group_concat(gi.image_filename) as gymimg,
           gr.reserve_time,
           g.gym_name
-      FROM 
+      FROM
           GymReservations gr
-      JOIN 
+      JOIN
           Gyms g ON gr.gym_id = g.gym_id
-      JOIN 
+      JOIN
           GymImages gi ON g.gym_id = gi.gym_id
-      WHERE 
+      WHERE
           gr.member_id = ?
-      ORDER BY 
-          gr.reserve_time;
-    `;
+	GROUP BY gr.reserve_time, g.gym_name
+      ORDER BY
+          gr.reserve_time`;
+
             const [rows] = await db.query(sql, [userId]);
+            for (let i of rows ){
+                let fistgym =i.gymimg.split(',')[0];
+                i.gymimg=fistgym;
+                console.log(fistgym);
+            }
+            // console.log(sql)
             res.json({ success: true, reservations: rows });
         } catch (error) {
             console.error("取得會員場館預約時發生錯誤:", error);

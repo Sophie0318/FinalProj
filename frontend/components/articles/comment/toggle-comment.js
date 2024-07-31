@@ -2,7 +2,7 @@ import React from 'react'
 import styles from './toggle-comment.module.css'
 
 export default function ToggleComment({
-  onClick = () => {},
+  onClick = () => { },
   group = 0,
   totalGroup = 0,
   perGroup = 0,
@@ -18,7 +18,7 @@ export default function ToggleComment({
             display: `${group < totalGroup ? 'flex' : 'none'}`,
           }}
         >
-          <span>...查看其他{remain > perGroup ? perGroup : remain}則留言</span>
+          <span>...查看{remain > perGroup ? perGroup : remain}則留言</span>
         </button>
         <button
           id="showLess"
@@ -27,7 +27,7 @@ export default function ToggleComment({
             display: `${group >= 2 ? 'flex' : 'none'}`,
           }}
         >
-          <span>隱藏部分留言</span>
+          <span>隱藏留言</span>
         </button>
       </div>
     </>

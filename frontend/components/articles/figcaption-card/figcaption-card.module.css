@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   max-height: 600px;
-  height: auto;
+  height: 100%;
   width: 100%;
   padding: 0;
   margin-bottom: 45px;
@@ -25,4 +25,15 @@
   font-size: 18px;
   font-weight: 700;
   letter-spacing: 3px;
+}
+
+@media (max-width: 767.2px) {
+  .articleImg {
+    max-height: 300px;
+    border-radius: 25px;
+  }
+
+  .articleImg img {
+    border-radius: 25px 25px 0 25px;
+  }
 }

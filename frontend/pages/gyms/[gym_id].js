@@ -16,8 +16,8 @@ export default function GymDetail({ gymId }) {
   const [thumbsSwiper, setThumbsSwiper] = useState(null)
   const [error, setError] = useState(null)
 
-//收藏功能
-const [isClicked, setIsClicked] = useState(false)
+  //收藏功能
+  const [isClicked, setIsClicked] = useState(false)
 
   const { auth } = useAuth()
 
@@ -76,8 +76,6 @@ const [isClicked, setIsClicked] = useState(false)
       checkFavStatus()
     }
   }, [gym_id, auth])
-
-
 
   // fetch 資料函式
   const fetchGymData = async (gymId) => {
@@ -163,9 +161,15 @@ const [isClicked, setIsClicked] = useState(false)
                   <Badges />
                 </div>
                 <div className={styles.btn}>
-                  <button className={`${styles.btnLike}`}
-                  onClick={toggleFavorite}>
-                    <span className={`${styles.icon} ${styles.heart} ${isClicked ? styles.clicked : ''}`}>
+                  <button
+                    className={`${styles.btnLike}`}
+                    onClick={toggleFavorite}
+                  >
+                    <span
+                      className={`${styles.icon} ${styles.heart} ${
+                        isClicked ? styles.clicked : ''
+                      }`}
+                    >
                       <IoHeart />
                     </span>
                     <span>收藏</span>

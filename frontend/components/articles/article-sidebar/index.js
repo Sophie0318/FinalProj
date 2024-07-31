@@ -16,7 +16,7 @@ export default function ArticleSidebar({
   fontSize = 0,
   setFontSize = () => {},
   commentRef,
-  member_id = 0,
+  member_id,
   article_id = undefined,
   // auth = {},
 }) {
