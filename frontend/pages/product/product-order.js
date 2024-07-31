@@ -166,27 +166,7 @@ export default function ProductOrder() {
             <button
               className={styles.btn}
               onClick={() => {
-                MySwal.fire({
-                  title: '您的訂單已成立囉!',
-                  confirmButtonText: '確定',
-                  willOpen: () => {
-                    const swalPopup = document.querySelector('.swal2-popup')
-                    if (swalPopup) {
-                      swalPopup.style.borderRadius = '30px'
-                    }
-                    const confirmButton =
-                      document.querySelector('.swal2-confirm')
-                    if (confirmButton) {
-                      confirmButton.style.backgroundColor = '#1A394A'
-                      confirmButton.style.color = 'white'
-                      confirmButton.style.borderRadius = '30px'
-                    }
-                  },
-                }).then((result) => {
-                  if (result.isConfirmed) {
-                    router.push('/product/product-checkout1')
-                  }
-                })
+                router.push('/product/product-checkout1')
               }}
             >
               確認

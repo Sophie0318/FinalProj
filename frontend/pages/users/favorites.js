@@ -322,6 +322,7 @@ export default function Favorites() {
                     onClick={(e) => {
                       handleRemoveArticleFavorite(e, article.article_id)
                     }}
+                    maxWidth="280px"
                   />
                 </div>
               ))}

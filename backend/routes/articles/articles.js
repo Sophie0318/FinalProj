@@ -237,9 +237,14 @@ const getComment = async (req) => {
         const duration = moment.duration(currentDateTime.diff(m));
         let update_label = m > m_create ? '編輯' : ''
 
-        if (duration.asMonths() > 12) {
-          const update_at_ = Math.floor(duration.asYears())
-          i.update_at = `${update_at_}年前${update_label}`
+        if (duration.asMinutes() < 60) {
+          const update_at_ = Math.ceil(duration.asMinutes())
+          i.update_at = `${update_at_}分鐘前${update_label}`
+          continue;
+        }
+        if (duration.asHours() < 60) {
+          const update_at_ = Math.floor(duration.asHours())
+          i.update_at = `${update_at_}小時前${update_label}`
           continue;
         }
         if (duration.asMonths() < 12) {
@@ -253,14 +258,9 @@ const getComment = async (req) => {
             continue;
           }
         }
-        if (duration.asHours() < 60) {
-          const update_at_ = Math.floor(duration.asHours())
-          i.update_at = `${update_at_}小時前${update_label}`
-          continue;
-        }
-        if (duration.asMinutes() < 60) {
-          const update_at_ = Math.ceil(duration.asMinutes())
-          i.update_at = `${update_at_}分鐘前${update_label}`
+        if (duration.asMonths() > 12) {
+          const update_at_ = Math.floor(duration.asYears())
+          i.update_at = `${update_at_}年前${update_label}`
           continue;
         }
       }
@@ -507,6 +507,11 @@ router.get('/api/comment', async (req, res) => {
 
 router.post('/api/comment', async(req,res)=>{
   const output = { success: false };
+  if (!req.my_jwt) {
+    output.error = 'must login to leave comment'
+    return res.status(400).json(output)
+  }
+
   const { article_id, main, sub, member_id, comment_content } = req.body;
   const sql = `INSERT INTO Comments (comment_content, article_id_fk, member_id_fk, main, sub) VALUES (?, ?, ?, ?, ?);`;
 
@@ -521,11 +526,6 @@ router.post('/api/comment', async(req,res)=>{
   if (isNaN(main) || isNaN(sub) || main <= 0 || sub < 0) {
     output.error = 'invalid main or sub';
     return res.status(400).json(output);
-  }
-
-  if (!req.my_jwt) {
-    output.error = 'must login to leave comment'
-    return res.status(400).json(output)
   }
 
   try {

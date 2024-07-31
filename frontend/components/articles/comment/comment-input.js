@@ -13,6 +13,13 @@ export default function CommentInput({
   // article_id = 0,
   main = 0,
   sub = undefined,
+  subArr = [],
+  setSubArr = () => { },
+  setShow = () => { },
+  isClicked,
+  setIsClicked = () => { },
+  mainArr = [],
+  setMainArr = () => { },
 }) {
   const router = useRouter()
   const { auth } = useAuth()
@@ -29,14 +36,20 @@ export default function CommentInput({
     setErrorText,
     sub,
     main,
-    setShowModal
+    setShowModal,
+    subArr,
+    setSubArr,
+    mainArr,
+    setMainArr
   )
 
   const loginalert = LoginAlert('登入後才能留言喔~')
 
   const handleModalClose = () => {
     setShowModal(false)
-    router.reload()
+    setShow({})
+    setIsClicked(false)
+    // router.reload()
   }
 
   const textAreaChange = (e) => {

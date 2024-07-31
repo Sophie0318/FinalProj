@@ -92,20 +92,21 @@
 }
 
 .badgeRow {
-  display: -webkit-box;
-  -webkit-line-clamp: 1;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
   margin-top: 3px;
-
+  gap: 8px;
+  overflow: hidden;
   /* height: fit-content; */
+  align-items: stretch;
 }
 
 .badge {
   background-color: var(--color-light-gray);
   padding: 5px 8px;
   /* margin-right: 8px; */
+
   border-radius: 50px;
   text-align: center;
   color: black;

@@ -17,6 +17,7 @@ export default function Comment() {
   const [remain, setRemain] = useState(0)
   const [replySect, setReplySect] = useState({})
   const [hiddenSubs, setHiddenSubs] = useState([])
+  const [isClicked, setIsClicked] = useState(false)
 
   // fetch main comments hook
   const { getMain } = useGetComment()
@@ -70,8 +71,11 @@ export default function Comment() {
         <div className={styles.mainComment}>
           <CommentInput
             showInput={true}
-            main={info.totalRows}
+            main={main.length + remain}
+            // main={info.totalRows}
             article_id={router.query.article_id || 0}
+            mainArr={main}
+            setMainArr={setMain}
           />
         </div>
         <div className={styles.commentArea}>
@@ -86,11 +90,16 @@ export default function Comment() {
                     handleToggle={toggleReplySect}
                     hiddenSubs={hiddenSubs}
                     setHiddenSubs={setHiddenSubs}
+                    isClicked={isClicked}
+                    setIsClicked={setIsClicked}
                   />
                   <Reply
                     article_id={v.article_id_fk}
                     main={v.main}
                     show={replySect}
+                    setShow={setReplySect}
+                    isClicked={isClicked}
+                    setIsClicked={setIsClicked}
                   />
                 </div>
               )
