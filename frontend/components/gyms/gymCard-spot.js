@@ -23,9 +23,15 @@ const GymCardSpot = ({ data, variant = 'A' }) => {
   transform: scale(1.1);
 }
 `
-  const style = document.createElement('style')
-  style.textContent = customCSS
-  document.head.appendChild(style)
+  useEffect(() => {
+    // 檢查 window 是否存在
+    if (typeof window !== 'undefined') {
+      const style = document.createElement('style')
+      style.textContent = customCSS
+      document.head.appendChild(style)
+    }
+  }, [])
+
   const [isClicked, setIsClicked] = useState(false)
   const loginAlert = LoginAlert('登入後才能收藏唷～')
   const { auth } = useAuth()

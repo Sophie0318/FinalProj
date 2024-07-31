@@ -97,7 +97,7 @@ const getOneGymData = async (req, res) => {
     gyms.*, 
     GROUP_CONCAT(DISTINCT  features.feature_id) AS feature_id,
     GROUP_CONCAT(DISTINCT  features.feature_name) AS feature_list,
-    GROUP_CONCAT( gym_images.image_filename) AS image_list
+    GROUP_CONCAT(DISTINCT gym_images.image_filename) AS image_list
 FROM 
     Gyms gyms
 LEFT JOIN 
