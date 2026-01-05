@@ -23,14 +23,16 @@ const GymCard = ({ data }) => {
     <div className={styles.card}>
       <div className={styles.imageContainer}>
         {isWideScreen ? (
-          <Image
-            src={data.image_list[0]}
-            alt="場館照片"
-            width={120}
-            height={120}
-            className={styles.image}
-            loading="lazy"
-          />
+          <Link href="/gyms/[gym_id]" as={`/gyms/${data.gym_id}`}>
+            <Image
+              src={data.image_list[0]}
+              alt="場館照片"
+              width={120}
+              height={120}
+              className={styles.image}
+              loading="lazy"
+            />
+          </Link>
         ) : (
           data.image_list.map((src, i) => {
             return (
@@ -62,7 +64,7 @@ const GymCard = ({ data }) => {
                 </span>
               ))}
 
-              <span className={styles.badge}>500公尺</span>
+              {/* <span className={styles.badge}>500公尺</span> */}
             </div>
           </div>
         </div>
@@ -118,7 +120,6 @@ const ResultCards = ({ gyms, selectedFeatures }) => {
       ) : (
         <div>
           <Skeleton count={5} />
-          
         </div>
       )}
     </div>

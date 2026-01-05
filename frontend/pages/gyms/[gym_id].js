@@ -7,6 +7,8 @@ import { useRouter } from 'next/router'
 import GymSwiper from '@/components/gyms/gym-swiper'
 import FavHeart from '@/components/gyms/favHeart'
 import { useAuth } from '@/context/auth-context'
+import Layout4 from '@/components/layout/layout4'
+import LoginAlert from '@/hooks/login-alert/login-alert'
 
 export default function GymDetail({ gymId }) {
   const router = useRouter()
@@ -16,9 +18,9 @@ export default function GymDetail({ gymId }) {
   const [thumbsSwiper, setThumbsSwiper] = useState(null)
   const [error, setError] = useState(null)
 
-//收藏功能
-const [isClicked, setIsClicked] = useState(false)
-
+  //收藏功能
+  const [isClicked, setIsClicked] = useState(false)
+  const loginAlert = LoginAlert('登入後才能收藏唷～')
   const { auth } = useAuth()
 
   const checkFavStatus = async () => {
@@ -44,28 +46,34 @@ const [isClicked, setIsClicked] = useState(false)
   }
 
   const toggleFavorite = async () => {
-    try {
-      const method = isClicked ? 'DELETE' : 'POST'
-      const response = await fetch(
-        `http://localhost:3001/gyms/api/favorites/${auth.id}/${gym_id}`,
-        {
-          method: method,
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            userId: auth.id,
-            gymId: gym_id,
-          }),
+    if (!auth.id) {
+      loginAlert.fire().then((result) => {
+        result.isConfirmed ? router.push('/users/sign_in') : ''
+      })
+    } else {
+      try {
+        const method = isClicked ? 'DELETE' : 'POST'
+        const response = await fetch(
+          `http://localhost:3001/gyms/api/favorites/${auth.id}/${gym_id}`,
+          {
+            method: method,
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              userId: auth.id,
+              gymId: gym_id,
+            }),
+          }
+        )
+        if (response.ok) {
+          setIsClicked(!isClicked)
         }
-      )
-      if (response.ok) {
-        setIsClicked(!isClicked)
+        console.log(auth.id, gym_id)
+        console.log('切換收藏狀態成功:', response)
+      } catch (error) {
+        console.error('切換收藏狀態失敗:', error)
       }
-      console.log(auth.id, gym_id)
-      console.log('切換收藏狀態成功:', response)
-    } catch (error) {
-      console.error('切換收藏狀態失敗:', error)
     }
   }
 
@@ -76,8 +84,6 @@ const [isClicked, setIsClicked] = useState(false)
       checkFavStatus()
     }
   }, [gym_id, auth])
-
-
 
   // fetch 資料函式
   const fetchGymData = async (gymId) => {
@@ -118,7 +124,7 @@ const [isClicked, setIsClicked] = useState(false)
   }, [gym_id, router.isReady])
 
   if (!gym) {
-    return <div>沒有找到資料</div>
+    return <div>載入中...</div>
   }
   const handleReservation = () => {
     router.push(`/gyms/gym-reservation?Id=${gym_id}`)
@@ -126,7 +132,7 @@ const [isClicked, setIsClicked] = useState(false)
 
   return (
     <div>
-      <Layout3 title="場館細節" pageName="gyms">
+      <Layout4 title="場館細節" pageName="gyms">
         <div className={`container ${styles.container}`}>
           <div className="row">
             <div className={`col-md-6 ${styles.imgContainerPC}`}>
@@ -163,9 +169,15 @@ const [isClicked, setIsClicked] = useState(false)
                   <Badges />
                 </div>
                 <div className={styles.btn}>
-                  <button className={`${styles.btnLike}`}
-                  onClick={toggleFavorite}>
-                    <span className={`${styles.icon} ${styles.heart} ${isClicked ? styles.clicked : ''}`}>
+                  <button
+                    className={`${styles.btnLike}`}
+                    onClick={toggleFavorite}
+                  >
+                    <span
+                      className={`${styles.icon} ${styles.heart} ${
+                        isClicked ? styles.clicked : ''
+                      }`}
+                    >
                       <IoHeart />
                     </span>
                     <span>收藏</span>
@@ -205,7 +217,7 @@ const [isClicked, setIsClicked] = useState(false)
             </div>{' '}
           </div>
         </div>
-      </Layout3>
+      </Layout4>
     </div>
   )
 }

@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react'
 import GymCardSpot from './gymCard-spot'
 import styles from './map-erea.module.css'
 import Skeleton from 'react-loading-skeleton'
+import 'react-loading-skeleton/dist/skeleton.css'
 import {
   Autocomplete,
   GoogleMap,
@@ -165,7 +166,7 @@ export default function MapErea({ gymsData, searchTerm }) {
   return isLoaded ? (
     <GoogleMap
       mapContainerStyle={mapStyles}
-      zoom={14}
+      zoom={13}
       center={center}
       onClick={handleMapClick}
       onLoad={(map) => setMap(map)}
@@ -216,7 +217,7 @@ export default function MapErea({ gymsData, searchTerm }) {
           }}
         >
           <div className={styles.infoWindow}>
-            <GymCardSpot data={selectedMarker.properties} />
+            <GymCardSpot data={selectedMarker.properties} variant="A"/>
           </div>
         </InfoWindow>
       )}
